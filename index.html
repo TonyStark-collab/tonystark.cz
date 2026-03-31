@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TonyStark.cz — osobní web a aplikace</title>
+  <meta name="description" content="Osobní web Tonyho a rozcestník budoucích webových aplikací.">
+  <meta name="theme-color" content="#0b1020">
+  <style>
+    :root{
+      --bg:#0b1020;--panel:#121a30;--panel2:#192440;--text:#ebf1ff;--muted:#b6c2e4;--line:#2a355a;--accent:#68a0ff;--accent2:#8c7bff;--ok:#7dd3a8;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#0a0f1d,#101830 55%,#0e1628);color:var(--text);line-height:1.6}
+    a{color:inherit;text-decoration:none} .container{width:min(1120px,92vw);margin:auto}
+    .header{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(11,16,32,.72);border-bottom:1px solid rgba(255,255,255,.08);z-index:20}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;box-shadow:0 10px 28px rgba(83,118,255,.28)}
+    .navlinks{display:flex;gap:18px;flex-wrap:wrap}.navlinks a{color:var(--muted)} .navlinks a:hover{color:#fff}
+    .hero{padding:72px 0 36px}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}.panel{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.26)}
+    .eyebrow{display:inline-flex;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);color:#d7e1ff;background:rgba(255,255,255,.03);font-size:.92rem}
+    h1{font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.05;margin:16px 0 16px} h2{font-size:clamp(1.5rem,3vw,2.2rem);margin:0 0 10px} h3{margin:0 0 8px;font-size:1.1rem}
+    p{margin:0 0 16px;color:var(--muted)} .lead{font-size:1.08rem;max-width:65ch}
+    .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}.btn{padding:14px 18px;border-radius:14px;font-weight:700;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:white}.btn.secondary{background:rgba(255,255,255,.03)}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.stat{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)} .stat strong{display:block;font-size:1.35rem}
+    .section{padding:34px 0}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:22px;border-radius:24px;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid rgba(255,255,255,.06)}
+    ul{margin:0;padding-left:18px;color:var(--muted)} li+li{margin-top:8px}
+    .footer{padding:30px 0 50px;color:var(--muted)} .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.08);padding-top:18px}
+    @media (max-width:850px){.hero-grid,.grid3{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.stats{grid-template-columns:1fr}.panel,.card{border-radius:22px;padding:20px}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="/">
+        <span class="logo">T</span>
+        <span>TonyStark.cz</span>
+      </a>
+      <nav class="navlinks" aria-label="Hlavní navigace">
+        <a href="#omne">O mně</a>
+        <a href="#aplikace">Aplikace</a>
+        <a href="#smer">Směr webu</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="panel">
+          <div class="eyebrow">Osobní web • projekty • budoucí aplikace</div>
+          <h1>Místo, kde bude všechno moje pohromadě.</h1>
+          <p class="lead">
+            Tohle je základ osobního webu, který může růst spolu s tebou. Hlavní stránka slouží jako přehled,
+            sekce aplikací pak jako rozcestník pro nástroje, které budeme postupně tvořit.
+          </p>
+          <div class="cta">
+            <a class="btn primary" href="/aplikace/">Otevřít aplikace</a>
+            <a class="btn secondary" href="#omne">Přejít níž</a>
+          </div>
+        </div>
+        <aside class="panel">
+          <div class="stats">
+            <div class="stat"><strong>1 web</strong><span>Základ pro osobní prezentaci</span></div>
+            <div class="stat"><strong>N appek</strong><span>Každá může mít vlastní URL</span></div>
+            <div class="stat"><strong>0 chaosu</strong><span>Jasná struktura od začátku</span></div>
+            <div class="stat"><strong>Mobil + PC</strong><span>Vhodné pro běžné použití</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="omne">
+      <div class="container grid3">
+        <article class="card">
+          <h2>O mně</h2>
+          <p>Tady později doplníš vlastní představení. Třeba kdo jsi, co tě baví, co děláš a proč tenhle web vznikl.</p>
+          <ul>
+            <li>osobní představení</li>
+            <li>zájmy a směr webu</li>
+            <li>kontakt nebo odkazy</li>
+          </ul>
+        </article>
+        <article class="card" id="aplikace">
+          <h2>Aplikace</h2>
+          <p>Na tomhle webu budou postupně přibývat vlastní projekty a nástroje, které spolu vytvoříme.</p>
+          <ul>
+            <li>jednoduché webové appky</li>
+            <li>interaktivní pomůcky</li>
+            <li>menší utility a experimenty</li>
+          </ul>
+        </article>
+        <article class="card" id="smer">
+          <h2>Směr webu</h2>
+          <p>Teď je to čistý základ. Později z toho může být osobní rozcestník, katalog appek i plnohodnotný web s dalšími sekcemi.</p>
+          <ul>
+            <li>blog nebo novinky</li>
+            <li>samostatné záložky pro budoucí servis</li>
+            <li>samostatné projekty na subadresách</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container foot">
+      <div>© <span id="year"></span> TonyStark.cz</div>
+      <div><a href="/aplikace/">Sekce aplikací</a></div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
