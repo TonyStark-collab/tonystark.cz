@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Průvodce ChatGPT | TonyStark.cz</title>
+  <meta name="description" content="Praktický průvodce ChatGPT: zadání, vlastní pokyny, paměť, dočasný chat, projekty, hledání, modely, tarify a FAQ." />
+  <style>
+    :root{
+      --bg1:#0f1116;
+      --bg2:#141821;
+      --bg3:#0b0d12;
+      --text:#fbfdff;
+      --text-soft:#eef2f6;
+      --muted:#aab3c2;
+      --line:rgba(255,255,255,.10);
+      --line-soft:rgba(255,255,255,.06);
+      --accent:#f0c58a;
+      --accent-2:#d6a0a8;
+      --accent-3:#8fb6c9;
+      --max:1260px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(900px 520px at -8% 12%, rgba(240,197,138,.10), transparent 55%),
+        radial-gradient(760px 480px at 108% 18%, rgba(214,160,168,.09), transparent 52%),
+        radial-gradient(700px 400px at 72% 105%, rgba(143,182,201,.06), transparent 48%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 100%);
+      min-height:100vh;
+    }
+
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    body::before{
+      background:
+        linear-gradient(90deg, transparent 0, transparent 12%, rgba(255,255,255,.028) 12.1%, transparent 12.2%),
+        linear-gradient(90deg, transparent 0, transparent 34%, rgba(255,255,255,.022) 34.1%, transparent 34.2%),
+        linear-gradient(0deg, transparent 0, transparent 20%, rgba(255,255,255,.02) 20.1%, transparent 20.2%);
+      opacity:.6;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.45) 70%, transparent);
+      -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.45) 70%, transparent);
+    }
+
+    body::after{
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255,255,255,.06) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 84% 22%, rgba(255,255,255,.05) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 72% 64%, rgba(255,255,255,.04) 0 1.8px, transparent 3px);
+      opacity:.55;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter:blur(14px);
+      background:rgba(10,12,16,.72);
+      border-bottom:1px solid var(--line-soft);
+    }
+
+    .topbar-inner{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-mark{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#111318;
+      font-weight:800;
+      box-shadow:0 10px 26px rgba(240,197,138,.18);
+    }
+
+    .brand-title{font-size:1rem; font-weight:700}
+    .brand-sub{font-size:.78rem; color:var(--muted); margin-top:2px}
+    .brand-text{display:flex; flex-direction:column}
+
+    nav{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      padding:10px 13px;
+      border-radius:999px;
+      color:var(--text-soft);
+      border:1px solid transparent;
+      transition:.2s ease;
+      font-size:.95rem;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:rgba(255,255,255,.045);
+      border-color:rgba(255,255,255,.07);
+    }
+
+    .hero{
+      padding:46px 0 22px;
+      border-bottom:1px solid var(--line-soft);
+      margin-bottom:26px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 300px;
+      gap:34px;
+      align-items:end;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin:0 0 12px;
+      color:#e8d6bf;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:0 0 16px;
+      font-size:clamp(1.9rem, 3.4vw, 2.9rem);
+      line-height:1.10;
+      letter-spacing:-.03em;
+      font-weight:780;
+      max-width:14ch;
+      text-wrap:balance;
+    }
+
+    .lead{
+      margin:0;
+      color:var(--text-soft);
+      font-size:1.08rem;
+      line-height:1.86;
+      max-width:860px;
+      text-wrap:pretty;
+    }
+
+    .hero-side{
+      padding-left:18px;
+      border-left:1px solid var(--line);
+    }
+
+    .hero-side p{
+      margin:0 0 10px;
+      color:var(--text-soft);
+      line-height:1.8;
+      font-size:.98rem;
+    }
+
+    .hero-side p:last-child{margin-bottom:0}
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:0 0 26px;
+    }
+
+    .toc a{
+      padding:9px 0;
+      margin-right:18px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      color:var(--text-soft);
+      font-size:.94rem;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 300px;
+      gap:42px;
+      padding:4px 0 58px;
+    }
+
+    .content{
+      min-width:0;
+      max-width:860px;
+    }
+
+    section.guide{
+      padding:0 0 38px;
+      margin:0 0 38px;
+      border-bottom:1px solid var(--line-soft);
+    }
+
+    section.guide:last-of-type{
+      border-bottom:0;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+
+    section.guide h2{
+      margin:0 0 16px;
+      font-size:1.58rem;
+      letter-spacing:-.02em;
+      line-height:1.18;
+    }
+
+    section.guide p{
+      margin:0 0 15px;
+      color:var(--text-soft);
+      line-height:1.9;
+      font-size:1.05rem;
+      text-wrap:pretty;
+    }
+
+    section.guide ul{
+      margin:0 0 15px 0;
+      padding-left:20px;
+      color:var(--text-soft);
+      line-height:1.88;
+      font-size:1.04rem;
+    }
+
+    section.guide li + li{margin-top:7px}
+
+    .subhead{
+      display:block;
+      margin:20px 0 9px;
+      color:#ffffff;
+      font-size:.95rem;
+      font-weight:700;
+      letter-spacing:.01em;
+    }
+
+    .example{
+      margin:18px 0 0;
+      padding:0 0 0 16px;
+      border-left:2px solid rgba(240,197,138,.26);
+    }
+
+    .example strong{
+      display:block;
+      margin:0 0 8px;
+      color:#ffffff;
+      font-size:.95rem;
+    }
+
+    .example code{
+      display:block;
+      white-space:pre-wrap;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      color:#fffdfc;
+      line-height:1.8;
+      font-size:.95rem;
+    }
+
+    .plan-table{
+      width:100%;
+      border-collapse:collapse;
+      margin:18px 0 8px;
+      font-size:.98rem;
+    }
+
+    .plan-table th,
+    .plan-table td{
+      padding:12px 10px;
+      text-align:left;
+      vertical-align:top;
+      border-bottom:1px solid var(--line-soft);
+      color:var(--text-soft);
+      line-height:1.6;
+    }
+
+    .plan-table th{
+      color:#ffffff;
+      font-weight:700;
+      font-size:.9rem;
+      letter-spacing:.02em;
+    }
+
+    .plan-table td strong{
+      color:#ffffff;
+    }
+
+    .sidebar{
+      align-self:start;
+      position:sticky;
+      top:92px;
+      padding-top:4px;
+    }
+
+    .sidebar-block{
+      margin:0 0 28px;
+      padding-bottom:22px;
+      border-bottom:1px solid var(--line-soft);
+    }
+
+    .sidebar-block:last-child{
+      margin-bottom:0;
+      padding-bottom:0;
+      border-bottom:0;
+    }
+
+    .sidebar-block h3{
+      margin:0 0 10px;
+      font-size:1rem;
+      line-height:1.3;
+    }
+
+    .sidebar-block p,
+    .sidebar-block li{
+      color:var(--text-soft);
+      line-height:1.76;
+      font-size:.97rem;
+    }
+
+    .sidebar-block ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .note{
+      display:block;
+      margin-top:10px;
+      color:#f9e8d0;
+      font-size:.92rem;
+      line-height:1.66;
+    }
+
+    .small{
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.72;
+    }
+
+    footer{
+      padding:22px 0 42px;
+      color:#9aa4b8;
+      font-size:.88rem;
+    }
+
+    @media(max-width:1040px){
+      .topbar-inner{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:14px 0;
+      }
+
+      .hero-grid,
+      .layout{
+        grid-template-columns:1fr;
+        gap:22px;
+      }
+
+      .hero-side{
+        padding-left:0;
+        border-left:0;
+        border-top:1px solid var(--line);
+        padding-top:16px;
+      }
+
+      .sidebar{
+        position:static;
+      }
+    }
+
+    @media(max-width:760px){
+      h1{max-width:16ch}
+      .lead{font-size:1.02rem}
+      nav{gap:4px}
+      nav a{padding:8px 10px; font-size:.9rem}
+      .toc{justify-content:flex-start}
+      .toc a{margin-right:10px; padding:8px 0}
+      section.guide h2{font-size:1.34rem}
+      section.guide p,
+      section.guide ul{font-size:1rem}
+      .plan-table{font-size:.94rem}
+      .plan-table th,.plan-table td{padding:10px 8px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">T</span>
+        <span class="brand-text">
+          <span class="brand-title">TonyStark.cz</span>
+          <span class="brand-sub">osobní web a projekty</span>
+        </span>
+      </a>
+
+      <nav aria-label="Hlavní navigace">
+        <a href="/">O mně</a>
+        <a class="active" href="/aplikace/">Aplikace</a>
+        <a href="/projekty/">Projekty</a>
+        <a href="/smer-webu/">Směr webu</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Praktický průvodce</p>
+          <h1>ChatGPT přehledně a prakticky</h1>
+          <p class="lead">
+            Tahle stránka je psaná pro běžného uživatele, který chce ChatGPT používat lépe a vědět,
+            kde co najde, co má smysl nastavovat a jak psát zadání tak, aby odpovědi byly přesnější,
+            užitečnější a konzistentnější.
+          </p>
+        </div>
+
+        <aside class="hero-side">
+          <p><strong>Co tu najdeš:</strong> práci se zadáním, vlastní pokyny, paměť, dočasný chat, projekty, hledání na webu, tarify, modely, limity i stručné FAQ.</p>
+          <p><strong>Pro koho to je:</strong> pro začátečníky i pro lidi, kteří ChatGPT používají často, ale chtějí z něj dostat víc.</p>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="Obsah průvodce">
+      <a href="#zacatek">Začátek</a>
+      <a href="#prompty">Jak psát zadání</a>
+      <a href="#pokyny">Vlastní pokyny</a>
+      <a href="#memory">Paměť</a>
+      <a href="#temporary">Dočasný chat</a>
+      <a href="#projects">Projekty</a>
+      <a href="#history">Historie chatů</a>
+      <a href="#search">Vyhledávání</a>
+      <a href="#plans">Tarify a modely</a>
+      <a href="#platforms">Web / Android / iOS</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <section class="layout">
+      <div class="content">
+        <section class="guide" id="zacatek">
+          <h2>1. K čemu je ChatGPT dobrý a jak k němu přistupovat</h2>
+          <p>
+            ChatGPT je nejpraktičtější ve chvíli, kdy mu dáš jasný úkol. Nejde jen o to „něco napsat“,
+            ale o to popsat, čeho chceš dosáhnout, pro koho výsledek je a v jaké podobě ho chceš dostat zpátky.
+            Čím méně neurčitostí v zadání necháš, tím větší šance je, že odpověď bude opravdu užitečná.
+          </p>
+          <p>
+            Dobré je brát ho jako pomocníka pro vysvětlování, přepis textů, plánování, hledání struktury,
+            porovnávání možností, práci s nápady a rychlé zorientování v tématu. U aktuálních nebo rychle se měnících
+            věcí se vyplatí zapnout vyhledávání na webu.
+          </p>
+          <span class="subhead">Nejjednodušší osnova zadání</span>
+          <ul>
+            <li>co přesně chceš udělat,</li>
+            <li>pro koho je výstup určený,</li>
+            <li>jaký má být styl a délka,</li>
+            <li>v jakém formátu chceš odpověď.</li>
+          </ul>
+          <div class="example">
+            <strong>Jednoduchý vzor</strong>
+            <code>Vysvětli mi [téma] česky.
+Piš pro běžného uživatele.
+Nejprve stručně shrň podstatu, potom rozveď důležité souvislosti
+a nakonec uveď 3 praktické příklady.</code>
+          </div>
+        </section>
+
+        <section class="guide" id="prompty">
+          <h2>2. Jak psát lepší zadání</h2>
+          <p>
+            V angličtině se často používá slovo <em>prompt</em>, ale v praxi je to prostě zadání. Dobré zadání je jasné,
+            konkrétní a ví, co od modelu chce. OpenAI doporučuje být přímý, zadání postupně zpřesňovat a přímo říct,
+            jaký tón nebo styl chceš. Pomáhá také oddělit kontext od úkolu a rovnou určit formát výstupu.
+          </p>
+          <span class="subhead">Lepší přístup</span>
+          <p>
+            „Napiš stručné vysvětlení v češtině pro začátečníka, ve třech odstavcích, a na konci přidej krátké shrnutí.“
+          </p>
+          <span class="subhead">Horší přístup</span>
+          <p>
+            „Napiš mi něco o tom.“
+          </p>
+          <span class="subhead">Co zadání zlepší nejvíc</span>
+          <ul>
+            <li>jasný cíl,</li>
+            <li>kontext,</li>
+            <li>cílový čtenář,</li>
+            <li>styl a tón,</li>
+            <li>požadovaný formát.</li>
+          </ul>
+          <div class="example">
+            <strong>Vzor pro přepis textu</strong>
+            <code>Přepiš tento text do čtivější češtiny.
+Zachovej význam, zkrať zbytečně dlouhé věty a piš přirozeně.
+Nevynechávej důležité informace.</code>
+          </div>
+        </section>
+
+        <section class="guide" id="pokyny">
+          <h2>3. Vlastní pokyny: kde je najdeš a co do nich psát</h2>
+          <p>
+            Vlastní pokyny jsou určené pro věci, které chceš mít nastavené dlouhodobě. Typicky jazyk, oslovení,
+            styl odpovědí, míru detailu nebo to, jak má ChatGPT přemýšlet nad vysvětlením. Na webu a desktopu je najdeš
+            v <strong>Nastavení → Personalizace → Vlastní pokyny</strong>. Na iOS a Androidu jsou v
+            <strong>Nastavení → Přizpůsobit ChatGPT</strong>.
+          </p>
+          <p>
+            Delší textová pole mají limit 1500 znaků, takže je lepší psát stručně a prakticky. Když pokyny změníš,
+            projeví se v nových chatech. U existujících konverzací je nejlepší založit nový chat, aby ses dostal
+            na čistý start.
+          </p>
+          <span class="subhead">Co tam dává smysl</span>
+          <ul>
+            <li>jazyk a oslovení,</li>
+            <li>preferovaný styl odpovědí,</li>
+            <li>míru detailu,</li>
+            <li>co má model dlouhodobě hlídat.</li>
+          </ul>
+          <span class="subhead">Co tam raději nedávat</span>
+          <p>
+            Citlivé osobní údaje, čísla dokladů, hesla nebo dlouhé textové šablony, které často měníš.
+          </p>
+          <div class="example">
+            <strong>Praktický vzor vlastních pokynů</strong>
+            <code>Piš na mě česky.
+Odpovídej věcně, srozumitelně a přehledně.
+Když je téma technické, vysvětli ho přesně, ale lidsky.
+Když si nejsi jistý, řekni to a navrhni, jak to ověřit.</code>
+          </div>
+        </section>
+
+        <section class="guide" id="memory">
+          <h2>4. Paměť: co si ChatGPT pamatuje a jak to spravovat</h2>
+          <p>
+            Paměť slouží k tomu, aby si ChatGPT držel užitečné informace mezi chaty, například preference nebo zájmy.
+            V nastavení můžeš spravovat dvě věci: <strong>uložené vzpomínky</strong> a
+            <strong>odkazování na historii chatů</strong>. Ne každá úroveň účtu má stejné možnosti, takže se to může lišit
+            podle tarifu.
+          </p>
+          <p>
+            Důležité je vědět, že paměť není určená na přesné dlouhé šablony nebo celé odstavce textu. Je spíš na
+            dlouhodobější preference, styl a užitečné souvislosti. Když chceš vědět, co si model pamatuje,
+            stačí se ho zeptat. Když něco nechceš používat dál, můžeš to smazat jednotlivě, hromadně nebo paměť úplně vypnout.
+          </p>
+          <span class="subhead">K čemu je dobrá</span>
+          <ul>
+            <li>dlouhodobější preference,</li>
+            <li>styl, který chceš zachovat,</li>
+            <li>opakující se užitečné souvislosti.</li>
+          </ul>
+          <span class="subhead">K čemu dobrá není</span>
+          <p>
+            Na přesné šablony, velké bloky textu nebo citlivé informace, které nechceš dlouhodobě držet.
+          </p>
+        </section>
+
+        <section class="guide" id="temporary">
+          <h2>5. Dočasný chat: čistý start bez paměti</h2>
+          <p>
+            Dočasný chat se hodí ve chvíli, kdy chceš začít s čistým stolem. ChatGPT v něm nepoužívá předchozí vzpomínky
+            ani historii. Pokud máš zapnuté vlastní pokyny, pořád je bude respektovat. Dočasné chaty se neukazují v historii
+            a podle nápovědy se nepoužívají ke zlepšování modelů, i když si je OpenAI může pro bezpečnost držet až 30 dní.
+          </p>
+          <span class="subhead">Kdy se hodí</span>
+          <ul>
+            <li>citlivější téma,</li>
+            <li>jednorázový dotaz bez návaznosti,</li>
+            <li>testování, kdy nechceš míchat starý kontext s novým.</li>
+          </ul>
+        </section>
+
+        <section class="guide" id="projects">
+          <h2>6. Projekty: kdy jsou lepší než běžný chat</h2>
+          <p>
+            Projekty v ChatGPT fungují jako samostatné pracovní prostory. Můžeš v nich držet pohromadě chaty,
+            nahrané soubory a vlastní instrukce k určitému tématu, aby model zůstával víc na stopě. Hodí se hlavně tam,
+            kde je práce dlouhodobá, vracíš se k ní a nechceš, aby se jednotlivé souvislosti ztrácely.
+          </p>
+          <span class="subhead">Hodí se pro</span>
+          <ul>
+            <li>dlouhodobé psaní,</li>
+            <li>výzkum a sběr podkladů,</li>
+            <li>plánování,</li>
+            <li>opakované úkoly kolem jednoho tématu.</li>
+          </ul>
+          <span class="subhead">Nejsou ideální pro</span>
+          <p>
+            Jednorázové krátké otázky, které nepotřebují vlastní soubory ani delší kontext.
+          </p>
+        </section>
+
+        <section class="guide" id="history">
+          <h2>7. Jak hledat ve starších chatech</h2>
+          <p>
+            Když hledáš starší konverzaci, nemusíš ručně procházet celý postranní panel. Na webu je možné prohledávat
+            historii chatů přes ikonu lupy v levém postranním panelu. Vyplatí se být konkrétní a zadávat výrazy,
+            které se v chatu skutečně objevily.
+          </p>
+          <span class="subhead">Jak na to</span>
+          <ul>
+            <li>otevři ChatGPT na webu,</li>
+            <li>v levém panelu klikni na lupu,</li>
+            <li>zadej klíčové slovo nebo frázi,</li>
+            <li>otevři nalezený chat a navazuj tam, kde jsi skončil.</li>
+          </ul>
+        </section>
+
+        <section class="guide" id="search">
+          <h2>8. Vyhledávání na webu v ChatGPT</h2>
+          <p>
+            Vyhledávání se hodí pro věci, které se rychle mění: novinky, ceny, termíny, dostupnost služeb nebo současné
+            funkce produktů. Podle oficiální nápovědy je dostupné pro různé typy účtů a funguje na webu, desktopu i mobilu.
+          </p>
+          <p>
+            ChatGPT může vyhledávání zapnout samo, když otázka podle něj potřebuje aktuální webové zdroje, nebo ho můžeš
+            spustit ručně přes nástroje. Je dobré počítat s tím, že při vyhledávání může dotaz přepsat do cílenější podoby,
+            aby našel přesnější výsledky.
+          </p>
+          <span class="subhead">Kdy vyhledávání použít</span>
+          <ul>
+            <li>aktuální ceny a dostupnost,</li>
+            <li>sou
