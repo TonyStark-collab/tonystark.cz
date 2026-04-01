@@ -7,19 +7,20 @@
   <meta name="description" content="Praktický průvodce ChatGPT: zadání, vlastní pokyny, paměť, dočasný chat, projekty, hledání, modely, tarify a FAQ." />
   <style>
     :root{
-      --bg1:#0d1015;
-      --bg2:#11161d;
-      --bg3:#0a0d12;
-      --text:#fbfdff;
-      --text-soft:#edf2f7;
-      --muted:#a9b3c2;
-      --line:rgba(255,255,255,.10);
-      --line-soft:rgba(255,255,255,.06);
-      --accent:#e7bf8a;
-      --accent-2:#d6a3aa;
-      --accent-3:#8db2c2;
-      --max:1280px;
-      --content:900px;
+      --bg:#0b0f14;
+      --bg-soft:#101720;
+      --bg-soft-2:#141d27;
+      --text:#f7fafc;
+      --text-soft:#dbe5ee;
+      --muted:#9aa7b4;
+      --line:rgba(255,255,255,.08);
+      --line-soft:rgba(255,255,255,.05);
+      --accent:#d8b079;
+      --accent-soft:rgba(216,176,121,.18);
+      --accent-soft-2:rgba(216,176,121,.08);
+      --max:1240px;
+      --content:760px;
+      --shadow:0 18px 40px rgba(0,0,0,.20);
     }
 
     *{box-sizing:border-box}
@@ -29,43 +30,16 @@
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
       background:
-        radial-gradient(720px 420px at 0% 0%, rgba(231,191,138,.07), transparent 55%),
-        radial-gradient(640px 380px at 100% 10%, rgba(214,163,170,.07), transparent 55%),
-        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 46%, var(--bg3) 100%);
+        radial-gradient(900px 500px at 0% 0%, rgba(216,176,121,.06), transparent 50%),
+        radial-gradient(700px 400px at 100% 8%, rgba(117,156,189,.05), transparent 48%),
+        linear-gradient(180deg, #0b0f14 0%, #0d1218 45%, #0a0e13 100%);
       min-height:100vh;
     }
 
-    body::before,
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    body::before{
-      background:
-        radial-gradient(circle at 18% 14%, rgba(255,255,255,.045) 0 1.5px, transparent 3px),
-        radial-gradient(circle at 84% 20%, rgba(255,255,255,.035) 0 1.5px, transparent 3px),
-        radial-gradient(circle at 72% 66%, rgba(255,255,255,.025) 0 1.5px, transparent 3px);
-      opacity:.55;
-    }
-
-    body::after{
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.02), transparent 12%),
-        linear-gradient(0deg, rgba(255,255,255,.015), transparent 14%);
-      opacity:.4;
-    }
-
     a{color:inherit;text-decoration:none}
-
     .wrap{
       width:min(var(--max), calc(100% - 32px));
       margin:0 auto;
-      position:relative;
-      z-index:1;
     }
 
     .topbar{
@@ -73,12 +47,12 @@
       top:0;
       z-index:30;
       backdrop-filter:blur(14px);
-      background:rgba(10,12,16,.74);
+      background:rgba(10,14,19,.78);
       border-bottom:1px solid var(--line-soft);
     }
 
     .topbar-inner{
-      min-height:72px;
+      min-height:74px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -97,10 +71,10 @@
       border-radius:12px;
       display:grid;
       place-items:center;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      color:#12151b;
+      background:linear-gradient(135deg, #e8c58f, #cfa4a9);
+      color:#11161d;
       font-weight:800;
-      box-shadow:0 10px 26px rgba(231,191,138,.14);
+      box-shadow:0 10px 24px rgba(216,176,121,.12);
     }
 
     .brand-title{font-size:1rem;font-weight:700}
@@ -125,108 +99,113 @@
     nav a:hover,
     nav a.active{
       background:rgba(255,255,255,.045);
-      border-color:rgba(255,255,255,.07);
+      border-color:rgba(255,255,255,.06);
     }
 
-    .hero{
-      padding:48px 0 24px;
-      border-bottom:1px solid var(--line-soft);
-      margin-bottom:26px;
+    .page{
+      padding:42px 0 62px;
     }
 
-    .hero-inner{
+    .article{
       max-width:var(--content);
     }
 
     .eyebrow{
       display:inline-block;
-      margin:0 0 12px;
-      color:#e8d6bf;
-      font-size:.78rem;
+      margin:0 0 16px;
+      color:#e6d3b5;
+      font-size:.8rem;
       font-weight:700;
       letter-spacing:.08em;
       text-transform:uppercase;
     }
 
-    h1{
+    .hero{
+      padding:0 0 26px;
+      margin:0 0 26px;
+      border-bottom:1px solid var(--line-soft);
+    }
+
+    .hero h1{
       margin:0 0 14px;
-      font-size:clamp(1.78rem, 3.2vw, 2.55rem);
-      line-height:1.12;
-      letter-spacing:-.03em;
-      font-weight:780;
-      max-width:22ch;
+      font-size:clamp(1.95rem, 4vw, 3.05rem);
+      line-height:1.08;
+      letter-spacing:-.04em;
+      font-weight:790;
+      max-width:16ch;
       text-wrap:balance;
     }
 
     .lead{
-      margin:0 0 20px;
+      margin:0;
       color:var(--text-soft);
-      font-size:1.08rem;
-      line-height:1.88;
-      max-width:var(--content);
+      font-size:1.12rem;
+      line-height:1.92;
       text-wrap:pretty;
     }
 
-    .intro-grid{
+    .summary{
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:22px;
-      max-width:var(--content);
-      padding-top:6px;
+      gap:18px;
+      padding:22px 0 0;
     }
 
-    .intro-item{
-      padding-top:14px;
-      border-top:1px solid var(--line);
+    .summary-item{
+      padding:0 0 0 14px;
+      border-left:2px solid var(--accent-soft);
     }
 
-    .intro-item strong{
+    .summary-item strong{
       display:block;
       margin:0 0 6px;
-      font-size:.94rem;
+      font-size:.95rem;
       color:#ffffff;
     }
 
-    .intro-item p{
+    .summary-item p{
       margin:0;
       color:var(--text-soft);
-      line-height:1.8;
-      font-size:.99rem;
+      line-height:1.78;
+      font-size:1rem;
       text-wrap:pretty;
     }
 
     .toc{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px 22px;
-      padding:0 0 26px;
-      max-width:var(--content);
+      margin:0 0 34px;
+      padding:18px 20px 6px;
+      border:1px solid var(--line-soft);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      box-shadow:var(--shadow);
     }
 
-    .toc a{
-      padding:8px 0;
-      border-bottom:1px solid rgba(255,255,255,.12);
-      color:var(--text-soft);
-      font-size:.97rem;
-      line-height:1.3;
+    .toc-title{
+      margin:0 0 14px;
+      font-size:.92rem;
+      font-weight:700;
+      color:#ffffff;
+      letter-spacing:.02em;
     }
 
-    .layout{
+    .toc-list{
       display:grid;
-      grid-template-columns:minmax(0, var(--content)) 300px;
-      gap:48px;
-      padding:4px 0 58px;
-      align-items:start;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px 18px;
     }
 
-    .content{
-      min-width:0;
-      max-width:var(--content);
+    .toc-list a{
+      display:block;
+      padding:0 0 10px;
+      color:var(--text-soft);
+      border-bottom:1px solid var(--line-soft);
+      font-size:.97rem;
+      line-height:1.4;
     }
 
     section.guide{
-      padding:0 0 40px;
-      margin:0 0 40px;
+      padding:0 0 42px;
+      margin:0 0 42px;
       border-bottom:1px solid var(--line-soft);
     }
 
@@ -237,50 +216,52 @@
     }
 
     section.guide h2{
-      margin:0 0 16px;
-      font-size:1.62rem;
+      margin:0 0 18px;
+      font-size:1.68rem;
       letter-spacing:-.02em;
       line-height:1.2;
+      text-wrap:balance;
     }
 
     section.guide p{
-      margin:0 0 15px;
+      margin:0 0 16px;
       color:var(--text-soft);
-      line-height:1.92;
+      line-height:1.95;
       font-size:1.06rem;
       text-wrap:pretty;
     }
 
     section.guide ul{
-      margin:0 0 15px;
+      margin:0 0 16px;
       padding-left:21px;
       color:var(--text-soft);
-      line-height:1.9;
+      line-height:1.92;
       font-size:1.05rem;
     }
 
-    section.guide li + li{margin-top:7px}
+    section.guide li+li{margin-top:7px}
 
     .subhead{
       display:block;
       margin:22px 0 10px;
       color:#ffffff;
-      font-size:.97rem;
+      font-size:1rem;
       font-weight:700;
       letter-spacing:.01em;
     }
 
     .example{
-      margin:18px 0 0;
-      padding:0 0 0 16px;
-      border-left:2px solid rgba(231,191,138,.28);
+      margin:20px 0 0;
+      padding:14px 0 0 16px;
+      border-top:1px solid var(--line-soft);
+      border-left:2px solid var(--accent-soft);
     }
 
     .example strong{
       display:block;
       margin:0 0 8px;
       color:#ffffff;
-      font-size:.96rem;
+      font-size:.98rem;
     }
 
     .example code{
@@ -292,16 +273,23 @@
       font-size:.95rem;
     }
 
+    .plan-wrap{
+      margin:18px 0 10px;
+      overflow:auto;
+      border-top:1px solid var(--line-soft);
+      border-bottom:1px solid var(--line-soft);
+    }
+
     .plan-table{
       width:100%;
+      min-width:760px;
       border-collapse:collapse;
-      margin:18px 0 8px;
       font-size:.99rem;
     }
 
     .plan-table th,
     .plan-table td{
-      padding:13px 10px;
+      padding:14px 10px;
       text-align:left;
       vertical-align:top;
       border-bottom:1px solid var(--line-soft);
@@ -314,75 +302,33 @@
       font-weight:700;
       font-size:.9rem;
       letter-spacing:.02em;
+      background:rgba(255,255,255,.015);
     }
 
     .plan-table td strong{color:#ffffff}
 
-    .sidebar{
-      align-self:start;
-      position:sticky;
-      top:92px;
-      padding-top:2px;
-    }
-
-    .sidebar-block{
-      margin:0 0 28px;
-      padding-bottom:22px;
-      border-bottom:1px solid var(--line-soft);
-    }
-
-    .sidebar-block:last-child{
-      margin-bottom:0;
-      padding-bottom:0;
-      border-bottom:0;
-    }
-
-    .sidebar-block h3{
-      margin:0 0 10px;
-      font-size:1rem;
-      line-height:1.3;
-    }
-
-    .sidebar-block p,
-    .sidebar-block li{
+    .aside-note{
+      margin:18px 0 0;
+      padding:14px 16px;
+      border-left:2px solid var(--accent-soft);
+      background:linear-gradient(180deg, var(--accent-soft-2), transparent 95%);
       color:var(--text-soft);
-      line-height:1.76;
-      font-size:.98rem;
-    }
-
-    .sidebar-block ul{
-      margin:0;
-      padding-left:18px;
-    }
-
-    .note{
-      display:block;
-      margin-top:10px;
-      color:#f9e8d0;
-      font-size:.92rem;
-      line-height:1.66;
+      line-height:1.82;
+      font-size:1rem;
     }
 
     .small{
       color:var(--muted);
       font-size:.92rem;
-      line-height:1.72;
+      line-height:1.78;
     }
 
     footer{
       padding:22px 0 42px;
       color:#9aa4b8;
       font-size:.88rem;
-    }
-
-    @media(max-width:1120px){
-      .layout{
-        grid-template-columns:1fr;
-        gap:24px;
-      }
-      .sidebar{
-        position:static;
-      }
+      border-top:1px solid var(--line-soft);
+      margin-top:40px;
     }
 
     @media(max-width:1040px){
@@ -394,21 +340,32 @@
     }
 
     @media(max-width:760px){
-      h1{
+      .page{padding:34px 0 54px}
+      .hero h1{
         max-width:none;
-        font-size:clamp(1.62rem, 7vw, 2rem);
+        font-size:clamp(1.9rem, 7.2vw, 2.25rem);
       }
-      .lead{font-size:1.02rem}
+      .lead{font-size:1.03rem}
       nav{gap:4px}
       nav a{padding:8px 10px;font-size:.9rem}
-      .intro-grid{grid-template-columns:1fr;gap:14px}
-      .toc{gap:10px 16px}
-      .toc a{font-size:.94rem}
-      section.guide h2{font-size:1.34rem}
+      .summary{
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+      .toc{
+        padding:16px 16px 4px;
+        border-radius:18px;
+      }
+      .toc-list{
+        grid-template-columns:1fr 1fr;
+        gap:8px 14px;
+      }
+      .toc-list a{font-size:.94rem}
+      section.guide h2{font-size:1.38rem}
       section.guide p,
       section.guide ul{font-size:1rem}
       .plan-table{font-size:.94rem}
-      .plan-table th,.plan-table td{padding:10px 8px}
+      .plan-table th,.plan-table td{padding:11px 8px}
     }
   </style>
 </head>
@@ -433,9 +390,9 @@
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="hero-inner">
+  <main class="wrap page">
+    <article class="article">
+      <section class="hero">
         <p class="eyebrow">Praktický průvodce</p>
         <h1>ChatGPT přehledně a prakticky</h1>
         <p class="lead">
@@ -444,231 +401,232 @@
           užitečnější a konzistentnější.
         </p>
 
-        <div class="intro-grid">
-          <div class="intro-item">
+        <div class="summary">
+          <div class="summary-item">
             <strong>Co tu najdeš</strong>
             <p>Práci se zadáním, vlastní pokyny, paměť, dočasný chat, projekty, hledání na webu, tarify, modely, limity i stručné FAQ.</p>
           </div>
-          <div class="intro-item">
+          <div class="summary-item">
             <strong>Pro koho to je</strong>
             <p>Pro začátečníky i pro lidi, kteří ChatGPT používají často, ale chtějí z něj dostat víc.</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <nav class="toc" aria-label="Obsah průvodce">
-      <a href="#zacatek">Začátek</a>
-      <a href="#prompty">Jak psát zadání</a>
-      <a href="#pokyny">Vlastní pokyny</a>
-      <a href="#memory">Paměť</a>
-      <a href="#temporary">Dočasný chat</a>
-      <a href="#projects">Projekty</a>
-      <a href="#history">Historie chatů</a>
-      <a href="#search">Vyhledávání</a>
-      <a href="#plans">Tarify a modely</a>
-      <a href="#platforms">Web / Android / iOS</a>
-      <a href="#faq">FAQ</a>
-    </nav>
+      <nav class="toc" aria-label="Obsah průvodce">
+        <p class="toc-title">Obsah</p>
+        <div class="toc-list">
+          <a href="#zacatek">Začátek</a>
+          <a href="#prompty">Jak psát zadání</a>
+          <a href="#pokyny">Vlastní pokyny</a>
+          <a href="#memory">Paměť</a>
+          <a href="#temporary">Dočasný chat</a>
+          <a href="#projects">Projekty</a>
+          <a href="#history">Historie chatů</a>
+          <a href="#search">Vyhledávání</a>
+          <a href="#plans">Tarify a modely</a>
+          <a href="#platforms">Web / Android / iOS</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </nav>
 
-    <section class="layout">
-      <div class="content">
-        <section class="guide" id="zacatek">
-          <h2>1. K čemu je ChatGPT dobrý a jak k němu přistupovat</h2>
-          <p>
-            ChatGPT je nejpraktičtější ve chvíli, kdy mu dáš jasný úkol. Nejde jen o to „něco napsat“,
-            ale o to popsat, čeho chceš dosáhnout, pro koho výsledek je a v jaké podobě ho chceš dostat zpátky.
-            Čím méně neurčitostí v zadání necháš, tím větší šance je, že odpověď bude opravdu užitečná.
-          </p>
-          <p>
-            Dobré je brát ho jako pomocníka pro vysvětlování, přepis textů, plánování, hledání struktury,
-            porovnávání možností, práci s nápady a rychlé zorientování v tématu. U aktuálních nebo rychle se měnících
-            věcí se vyplatí zapnout vyhledávání na webu.
-          </p>
-          <span class="subhead">Nejjednodušší osnova zadání</span>
-          <ul>
-            <li>co přesně chceš udělat,</li>
-            <li>pro koho je výstup určený,</li>
-            <li>jaký má být styl a délka,</li>
-            <li>v jakém formátu chceš odpověď.</li>
-          </ul>
-          <div class="example">
-            <strong>Jednoduchý vzor</strong>
-            <code>Vysvětli mi [téma] česky.
+      <section class="guide" id="zacatek">
+        <h2>1. K čemu je ChatGPT dobrý a jak k němu přistupovat</h2>
+        <p>
+          ChatGPT je nejpraktičtější ve chvíli, kdy mu dáš jasný úkol. Nejde jen o to „něco napsat“,
+          ale o to popsat, čeho chceš dosáhnout, pro koho výsledek je a v jaké podobě ho chceš dostat zpátky.
+          Čím méně neurčitostí v zadání necháš, tím větší šance je, že odpověď bude opravdu užitečná.
+        </p>
+        <p>
+          Dobré je brát ho jako pomocníka pro vysvětlování, přepis textů, plánování, hledání struktury,
+          porovnávání možností, práci s nápady a rychlé zorientování v tématu. U aktuálních nebo rychle se měnících
+          věcí se vyplatí zapnout vyhledávání na webu.
+        </p>
+        <span class="subhead">Nejjednodušší osnova zadání</span>
+        <ul>
+          <li>co přesně chceš udělat,</li>
+          <li>pro koho je výstup určený,</li>
+          <li>jaký má být styl a délka,</li>
+          <li>v jakém formátu chceš odpověď.</li>
+        </ul>
+        <div class="example">
+          <strong>Jednoduchý vzor</strong>
+          <code>Vysvětli mi [téma] česky.
 Piš pro běžného uživatele.
 Nejprve stručně shrň podstatu, potom rozveď důležité souvislosti
 a nakonec uveď 3 praktické příklady.</code>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="guide" id="prompty">
-          <h2>2. Jak psát lepší zadání</h2>
-          <p>
-            V angličtině se často používá slovo <em>prompt</em>, ale v praxi je to prostě zadání. Dobré zadání je jasné,
-            konkrétní a ví, co od modelu chce. OpenAI doporučuje být přímý, zadání postupně zpřesňovat a přímo říct,
-            jaký tón nebo styl chceš. Pomáhá také oddělit kontext od úkolu a rovnou určit formát výstupu.
-          </p>
-          <span class="subhead">Lepší přístup</span>
-          <p>
-            „Napiš stručné vysvětlení v češtině pro začátečníka, ve třech odstavcích, a na konci přidej krátké shrnutí.“
-          </p>
-          <span class="subhead">Horší přístup</span>
-          <p>
-            „Napiš mi něco o tom.“
-          </p>
-          <span class="subhead">Co zadání zlepší nejvíc</span>
-          <ul>
-            <li>jasný cíl,</li>
-            <li>kontext,</li>
-            <li>cílový čtenář,</li>
-            <li>styl a tón,</li>
-            <li>požadovaný formát.</li>
-          </ul>
-          <div class="example">
-            <strong>Vzor pro přepis textu</strong>
-            <code>Přepiš tento text do čtivější češtiny.
+      <section class="guide" id="prompty">
+        <h2>2. Jak psát lepší zadání</h2>
+        <p>
+          V angličtině se často používá slovo <em>prompt</em>, ale v praxi je to prostě zadání. Dobré zadání je jasné,
+          konkrétní a ví, co od modelu chce. OpenAI doporučuje být přímý, zadání postupně zpřesňovat a přímo říct,
+          jaký tón nebo styl chceš. Pomáhá také oddělit kontext od úkolu a rovnou určit formát výstupu.
+        </p>
+        <span class="subhead">Lepší přístup</span>
+        <p>
+          „Napiš stručné vysvětlení v češtině pro začátečníka, ve třech odstavcích, a na konci přidej krátké shrnutí.“
+        </p>
+        <span class="subhead">Horší přístup</span>
+        <p>
+          „Napiš mi něco o tom.“
+        </p>
+        <span class="subhead">Co zadání zlepší nejvíc</span>
+        <ul>
+          <li>jasný cíl,</li>
+          <li>kontext,</li>
+          <li>cílový čtenář,</li>
+          <li>styl a tón,</li>
+          <li>požadovaný formát.</li>
+        </ul>
+        <div class="example">
+          <strong>Vzor pro přepis textu</strong>
+          <code>Přepiš tento text do čtivější češtiny.
 Zachovej význam, zkrať zbytečně dlouhé věty a piš přirozeně.
 Nevynechávej důležité informace.</code>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="guide" id="pokyny">
-          <h2>3. Vlastní pokyny: kde je najdeš a co do nich psát</h2>
-          <p>
-            Vlastní pokyny jsou určené pro věci, které chceš mít nastavené dlouhodobě. Typicky jazyk, oslovení,
-            styl odpovědí, míru detailu nebo to, jak má ChatGPT přemýšlet nad vysvětlením. Na webu a desktopu je najdeš
-            v <strong>Nastavení → Personalizace → Vlastní pokyny</strong>. Na iOS a Androidu jsou v
-            <strong>Nastavení → Přizpůsobit ChatGPT</strong>.
-          </p>
-          <p>
-            Delší textová pole mají limit 1500 znaků, takže je lepší psát stručně a prakticky. Když pokyny změníš,
-            projeví se v nových chatech. U existujících konverzací je nejlepší založit nový chat, aby ses dostal
-            na čistý start.
-          </p>
-          <span class="subhead">Co tam dává smysl</span>
-          <ul>
-            <li>jazyk a oslovení,</li>
-            <li>preferovaný styl odpovědí,</li>
-            <li>míru detailu,</li>
-            <li>co má model dlouhodobě hlídat.</li>
-          </ul>
-          <span class="subhead">Co tam raději nedávat</span>
-          <p>
-            Citlivé osobní údaje, čísla dokladů, hesla nebo dlouhé textové šablony, které často měníš.
-          </p>
-          <div class="example">
-            <strong>Praktický vzor vlastních pokynů</strong>
-            <code>Piš na mě česky.
+      <section class="guide" id="pokyny">
+        <h2>3. Vlastní pokyny: kde je najdeš a co do nich psát</h2>
+        <p>
+          Vlastní pokyny jsou určené pro věci, které chceš mít nastavené dlouhodobě. Typicky jazyk, oslovení,
+          styl odpovědí, míru detailu nebo to, jak má ChatGPT přemýšlet nad vysvětlením. Na webu a desktopu je najdeš
+          v <strong>Nastavení → Personalizace → Vlastní pokyny</strong>. Na iOS a Androidu jsou v
+          <strong>Nastavení → Přizpůsobit ChatGPT</strong>.
+        </p>
+        <p>
+          Delší textová pole mají limit 1500 znaků, takže je lepší psát stručně a prakticky. Když pokyny změníš,
+          projeví se v nových chatech. U existujících konverzací je nejlepší založit nový chat, aby ses dostal
+          na čistý start.
+        </p>
+        <span class="subhead">Co tam dává smysl</span>
+        <ul>
+          <li>jazyk a oslovení,</li>
+          <li>preferovaný styl odpovědí,</li>
+          <li>míru detailu,</li>
+          <li>co má model dlouhodobě hlídat.</li>
+        </ul>
+        <span class="subhead">Co tam raději nedávat</span>
+        <p>
+          Citlivé osobní údaje, čísla dokladů, hesla nebo dlouhé textové šablony, které často měníš.
+        </p>
+        <div class="example">
+          <strong>Praktický vzor vlastních pokynů</strong>
+          <code>Piš na mě česky.
 Odpovídej věcně, srozumitelně a přehledně.
 Když je téma technické, vysvětli ho přesně, ale lidsky.
 Když si nejsi jistý, řekni to a navrhni, jak to ověřit.</code>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="guide" id="memory">
-          <h2>4. Paměť: co si ChatGPT pamatuje a jak to spravovat</h2>
-          <p>
-            Paměť slouží k tomu, aby si ChatGPT držel užitečné informace mezi chaty, například preference nebo zájmy.
-            V nastavení můžeš spravovat dvě věci: <strong>uložené vzpomínky</strong> a
-            <strong>odkazování na historii chatů</strong>. Ne každá úroveň účtu má stejné možnosti, takže se to může lišit
-            podle tarifu.
-          </p>
-          <p>
-            Důležité je vědět, že paměť není určená na přesné dlouhé šablony nebo celé odstavce textu. Je spíš na
-            dlouhodobější preference, styl a užitečné souvislosti. Když chceš vědět, co si model pamatuje,
-            stačí se ho zeptat. Když něco nechceš používat dál, můžeš to smazat jednotlivě, hromadně nebo paměť úplně vypnout.
-          </p>
-          <span class="subhead">K čemu je dobrá</span>
-          <ul>
-            <li>dlouhodobější preference,</li>
-            <li>styl, který chceš zachovat,</li>
-            <li>opakující se užitečné souvislosti.</li>
-          </ul>
-          <span class="subhead">K čemu dobrá není</span>
-          <p>
-            Na přesné šablony, velké bloky textu nebo citlivé informace, které nechceš dlouhodobě držet.
-          </p>
-        </section>
+      <section class="guide" id="memory">
+        <h2>4. Paměť: co si ChatGPT pamatuje a jak to spravovat</h2>
+        <p>
+          Paměť slouží k tomu, aby si ChatGPT držel užitečné informace mezi chaty, například preference nebo zájmy.
+          V nastavení můžeš spravovat dvě věci: <strong>uložené vzpomínky</strong> a
+          <strong>odkazování na historii chatů</strong>. Ne každá úroveň účtu má stejné možnosti, takže se to může lišit
+          podle tarifu.
+        </p>
+        <p>
+          Důležité je vědět, že paměť není určená na přesné dlouhé šablony nebo celé odstavce textu. Je spíš na
+          dlouhodobější preference, styl a užitečné souvislosti. Když chceš vědět, co si model pamatuje,
+          stačí se ho zeptat. Když něco nechceš používat dál, můžeš to smazat jednotlivě, hromadně nebo paměť úplně vypnout.
+        </p>
+        <span class="subhead">K čemu je dobrá</span>
+        <ul>
+          <li>dlouhodobější preference,</li>
+          <li>styl, který chceš zachovat,</li>
+          <li>opakující se užitečné souvislosti.</li>
+        </ul>
+        <span class="subhead">K čemu dobrá není</span>
+        <p>
+          Na přesné šablony, velké bloky textu nebo citlivé informace, které nechceš dlouhodobě držet.
+        </p>
+      </section>
 
-        <section class="guide" id="temporary">
-          <h2>5. Dočasný chat: čistý start bez paměti</h2>
-          <p>
-            Dočasný chat se hodí ve chvíli, kdy chceš začít s čistým stolem. ChatGPT v něm nepoužívá předchozí vzpomínky
-            ani historii. Pokud máš zapnuté vlastní pokyny, pořád je bude respektovat. Dočasné chaty se neukazují v historii
-            a podle nápovědy se nepoužívají ke zlepšování modelů, i když si je OpenAI může pro bezpečnost držet až 30 dní.
-          </p>
-          <span class="subhead">Kdy se hodí</span>
-          <ul>
-            <li>citlivější téma,</li>
-            <li>jednorázový dotaz bez návaznosti,</li>
-            <li>testování, kdy nechceš míchat starý kontext s novým.</li>
-          </ul>
-        </section>
+      <section class="guide" id="temporary">
+        <h2>5. Dočasný chat: čistý start bez paměti</h2>
+        <p>
+          Dočasný chat se hodí ve chvíli, kdy chceš začít s čistým stolem. ChatGPT v něm nepoužívá předchozí vzpomínky
+          ani historii. Pokud máš zapnuté vlastní pokyny, pořád je bude respektovat. Dočasné chaty se neukazují v historii
+          a podle nápovědy se nepoužívají ke zlepšování modelů, i když si je OpenAI může pro bezpečnost držet až 30 dní.
+        </p>
+        <span class="subhead">Kdy se hodí</span>
+        <ul>
+          <li>citlivější téma,</li>
+          <li>jednorázový dotaz bez návaznosti,</li>
+          <li>testování, kdy nechceš míchat starý kontext s novým.</li>
+        </ul>
+      </section>
 
-        <section class="guide" id="projects">
-          <h2>6. Projekty: kdy jsou lepší než běžný chat</h2>
-          <p>
-            Projekty v ChatGPT fungují jako samostatné pracovní prostory. Můžeš v nich držet pohromadě chaty,
-            nahrané soubory a vlastní instrukce k určitému tématu, aby model zůstával víc na stopě. Hodí se hlavně tam,
-            kde je práce dlouhodobá, vracíš se k ní a nechceš, aby se jednotlivé souvislosti ztrácely.
-          </p>
-          <span class="subhead">Hodí se pro</span>
-          <ul>
-            <li>dlouhodobé psaní,</li>
-            <li>výzkum a sběr podkladů,</li>
-            <li>plánování,</li>
-            <li>opakované úkoly kolem jednoho tématu.</li>
-          </ul>
-          <span class="subhead">Nejsou ideální pro</span>
-          <p>
-            Jednorázové krátké otázky, které nepotřebují vlastní soubory ani delší kontext.
-          </p>
-        </section>
+      <section class="guide" id="projects">
+        <h2>6. Projekty: kdy jsou lepší než běžný chat</h2>
+        <p>
+          Projekty v ChatGPT fungují jako samostatné pracovní prostory. Můžeš v nich držet pohromadě chaty,
+          nahrané soubory a vlastní instrukce k určitému tématu, aby model zůstával víc na stopě. Hodí se hlavně tam,
+          kde je práce dlouhodobá, vracíš se k ní a nechceš, aby se jednotlivé souvislosti ztrácely.
+        </p>
+        <span class="subhead">Hodí se pro</span>
+        <ul>
+          <li>dlouhodobé psaní,</li>
+          <li>výzkum a sběr podkladů,</li>
+          <li>plánování,</li>
+          <li>opakované úkoly kolem jednoho tématu.</li>
+        </ul>
+        <span class="subhead">Nejsou ideální pro</span>
+        <p>
+          Jednorázové krátké otázky, které nepotřebují vlastní soubory ani delší kontext.
+        </p>
+      </section>
 
-        <section class="guide" id="history">
-          <h2>7. Jak hledat ve starších chatech</h2>
-          <p>
-            Když hledáš starší konverzaci, nemusíš ručně procházet celý postranní panel. Na webu je možné prohledávat
-            historii chatů přes ikonu lupy v levém postranním panelu. Vyplatí se být konkrétní a zadávat výrazy,
-            které se v chatu skutečně objevily.
-          </p>
-          <span class="subhead">Jak na to</span>
-          <ul>
-            <li>otevři ChatGPT na webu,</li>
-            <li>v levém panelu klikni na lupu,</li>
-            <li>zadej klíčové slovo nebo frázi,</li>
-            <li>otevři nalezený chat a navazuj tam, kde jsi skončil.</li>
-          </ul>
-        </section>
+      <section class="guide" id="history">
+        <h2>7. Jak hledat ve starších chatech</h2>
+        <p>
+          Když hledáš starší konverzaci, nemusíš ručně procházet celý postranní panel. Na webu je možné prohledávat
+          historii chatů přes ikonu lupy v levém postranním panelu. Vyplatí se být konkrétní a zadávat výrazy,
+          které se v chatu skutečně objevily.
+        </p>
+        <span class="subhead">Jak na to</span>
+        <ul>
+          <li>otevři ChatGPT na webu,</li>
+          <li>v levém panelu klikni na lupu,</li>
+          <li>zadej klíčové slovo nebo frázi,</li>
+          <li>otevři nalezený chat a navazuj tam, kde jsi skončil.</li>
+        </ul>
+      </section>
 
-        <section class="guide" id="search">
-          <h2>8. Vyhledávání na webu v ChatGPT</h2>
-          <p>
-            Vyhledávání se hodí pro věci, které se rychle mění: novinky, ceny, termíny, dostupnost služeb nebo současné
-            funkce produktů. Podle oficiální nápovědy je dostupné pro různé typy účtů a funguje na webu, desktopu i mobilu.
-          </p>
-          <p>
-            ChatGPT může vyhledávání zapnout samo, když otázka podle něj potřebuje aktuální webové zdroje, nebo ho můžeš
-            spustit ručně přes nástroje. Je dobré počítat s tím, že při vyhledávání může dotaz přepsat do cílenější podoby,
-            aby našel přesnější výsledky.
-          </p>
-          <span class="subhead">Kdy vyhledávání použít</span>
-          <ul>
-            <li>aktuální ceny a dostupnost,</li>
-            <li>současné funkce a změny,</li>
-            <li>novinky, termíny a průběžně se měnící informace.</li>
-          </ul>
-        </section>
+      <section class="guide" id="search">
+        <h2>8. Vyhledávání na webu v ChatGPT</h2>
+        <p>
+          Vyhledávání se hodí pro věci, které se rychle mění: novinky, ceny, termíny, dostupnost služeb nebo současné
+          funkce produktů. Podle oficiální nápovědy je dostupné pro různé typy účtů a funguje na webu, desktopu i mobilu.
+        </p>
+        <p>
+          ChatGPT může vyhledávání zapnout samo, když otázka podle něj potřebuje aktuální webové zdroje, nebo ho můžeš
+          spustit ručně přes nástroje. Je dobré počítat s tím, že při vyhledávání může dotaz přepsat do cílenější podoby,
+          aby našel přesnější výsledky.
+        </p>
+        <span class="subhead">Kdy vyhledávání použít</span>
+        <ul>
+          <li>aktuální ceny a dostupnost,</li>
+          <li>současné funkce a změny,</li>
+          <li>novinky, termíny a průběžně se měnící informace.</li>
+        </ul>
+      </section>
 
-        <section class="guide" id="plans">
-          <h2>9. Tarify, modely, limity a kontextová okna</h2>
-          <p>
-            Níž je praktické shrnutí čtyř úrovní, které pro běžného uživatele dávají největší smysl:
-            <strong>Free</strong>, <strong>Go</strong>, <strong>Plus</strong> a <strong>Pro</strong>.
-            U ChatGPT je potřeba počítat s tím, že OpenAI limity průběžně upravuje podle vytížení.
-            Kromě toho si některé oficiální stránky u úrovně Go momentálně částečně odporují, takže to níž výslovně uvádím.
-          </p>
+      <section class="guide" id="plans">
+        <h2>9. Tarify, modely, limity a kontextová okna</h2>
+        <p>
+          Níž je praktické shrnutí čtyř úrovní, které pro běžného uživatele dávají největší smysl:
+          <strong>Free</strong>, <strong>Go</strong>, <strong>Plus</strong> a <strong>Pro</strong>.
+          U ChatGPT je potřeba počítat s tím, že OpenAI limity průběžně upravuje podle vytížení.
+          Kromě toho si některé oficiální stránky u úrovně Go momentálně částečně odporují, takže to níž výslovně uvádím.
+        </p>
 
+        <div class="plan-wrap">
           <table class="plan-table">
             <thead>
               <tr>
@@ -705,131 +663,105 @@ Když si nejsi jistý, řekni to a navrhni, jak to ověřit.</code>
               </tr>
             </tbody>
           </table>
-
-          <span class="subhead">Co je důležité vědět</span>
-          <ul>
-            <li>Free nemá přístup ke GPT‑5.4 Thinking ani ke GPT‑5.4 Pro.</li>
-            <li>Plus má přístup ke GPT‑5.4 Thinking, ale ne ke GPT‑5.4 Pro.</li>
-            <li>Pro má navíc samostatný model <strong>GPT‑5.4 Pro</strong>, který je na nejtěžší úlohy a dlouhé workflow.</li>
-            <li>Podle oficiální nápovědy nejsou s režimem <strong>Pro</strong> dostupné aplikace, paměť, canvas ani generování obrázků přímo v tomto režimu modelu; GPT‑5.3 Instant a GPT‑5.4 Thinking ale nástroje podporují.</li>
-            <li>U úrovně Go je momentálně rozpor v oficiálních materiálech: ceník uvádí, že GPT‑5.4 Thinking u Go není, ale nápověda zároveň píše, že uživatel Go může zapnout režim Thinking přes plusko u vstupu a poslat v něm až 10 zpráv za 5 hodin.</li>
-          </ul>
-        </section>
-
-        <section class="guide" id="platforms">
-          <h2>10. Co je na webu, Androidu, iOS a na Windows</h2>
-          <p>
-            Pro Windows to beru stejně, jak chceš: jako <strong>web</strong>, tedy běžnou webovou verzi
-            ChatGPT v prohlížeči na stolním počítači nebo notebooku. Oficiální ceník uvádí, že Free, Go, Plus i Pro
-            mají přístup na <strong>webu, iOS a Androidu</strong>.
-          </p>
-
-          <span class="subhead">Web a Windows</span>
-          <ul>
-            <li>stejná webová verze ChatGPT,</li>
-            <li>placené tarify mají přepínač modelů,</li>
-            <li>vyhledávání ve starších chatech přes lupu v levém panelu,</li>
-            <li>vlastní pokyny v Nastavení → Personalizace → Vlastní pokyny.</li>
-          </ul>
-
-          <span class="subhead">Android</span>
-          <ul>
-            <li>oficiální aplikace je v Google Play,</li>
-            <li>podle nápovědy vyžaduje Android 7.0 nebo novější,</li>
-            <li>historii otevřeš v postranním panelu, kde je i vyhledávání,</li>
-            <li>vlastní pokyny jsou v Nastavení → Přizpůsobit ChatGPT.</li>
-          </ul>
-
-          <span class="subhead">iOS</span>
-          <ul>
-            <li>oficiální aplikace je v App Storu,</li>
-            <li>historii otevřeš přes menu se třemi tečkami vpravo nahoře → Historie,</li>
-            <li>export dat je v Nastavení → Ovládání dat,</li>
-            <li>vlastní pokyny jsou v Nastavení → Přizpůsobit ChatGPT.</li>
-          </ul>
-
-          <span class="subhead">Co má podle tarifu smysl hlídat</span>
-          <ul>
-            <li><strong>Free:</strong> základní přístup, omezenější limity a menší kontext.</li>
-            <li><strong>Go:</strong> stejné platformy jako Free, ale víc zpráv, uploadů, obrázků a delší paměť.</li>
-            <li><strong>Plus:</strong> stejné platformy, ale širší nabídka modelů, vyšší limity a přístup k projektům, úkolům a vlastním GPT.</li>
-            <li><strong>Pro:</strong> stejné platformy, ale nejširší nabídka modelů včetně GPT‑5.4 Pro a neomezený přístup v mezích ochranných pravidel.</li>
-          </ul>
-        </section>
-
-        <section class="guide" id="faq">
-          <h2>11. Praktické FAQ</h2>
-          <span class="subhead">Proč někdy dostanu slabší odpověď, i když je téma jednoduché?</span>
-          <p>
-            Nejčastěji chybí kontext, cíl nebo formát. ChatGPT většinou odpovídá lépe, když ví, co přesně od něj čekáš.
-          </p>
-
-          <span class="subhead">Co je lepší: vlastní pokyny, nebo paměť?</span>
-          <p>
-            Vlastní pokyny jsou dobré pro trvalý styl a preference. Paměť je vhodná pro informace, které si má model pamatovat mezi chaty.
-          </p>
-
-          <span class="subhead">Kdy založit projekt?</span>
-          <p>
-            Jakmile máš víc chatů, soubory a delší návaznost na jedno téma, projekt bývá přehlednější než běžný chat.
-          </p>
-
-          <span class="subhead">Jak vypadá opravdu dobré zadání?</span>
-          <p>
-            Stručně řečeno: jasný úkol, kontext, cílový čtenář, požadovaný styl a formát výstupu.
-          </p>
-
-          <span class="subhead">Musím mít všechno nastavené, aby to fungovalo dobře?</span>
-          <p>
-            Ne. I bez dalších nastavení může ChatGPT fungovat dobře. Vlastní pokyny, paměť nebo projekty jen pomáhají tam,
-            kde chceš větší konzistenci a méně opakování.
-          </p>
-        </section>
-
-        <section class="guide">
-          <h2>Poznámka na závěr</h2>
-          <p>
-            Rozhraní ChatGPT se může v čase měnit. Názvy položek v menu nebo pořadí voleb se mohou mírně lišit podle zařízení,
-            jazyka rozhraní a typu účtu. Smysl jednotlivých funkcí ale zůstává stejný: lepší práce se zadáním, lepší
-            přehled o kontextu a větší kontrola nad tím, jak s tebou ChatGPT pracuje.
-          </p>
-          <p class="small">
-            Obsah téhle stránky vychází z aktuálních oficiálních stránek OpenAI a je upravený do praktické, čitelné češtiny.
-          </p>
-        </section>
-      </div>
-
-      <aside class="sidebar">
-        <div class="sidebar-block">
-          <h3>Rychlé doporučení</h3>
-          <p>
-            Když si nejsi jistý, napiš nejdřív, co chceš udělat, pro koho to je a jak má výsledek vypadat.
-            Tím se kvalita odpovědí zlepší víc než jakoukoli zvláštní formulí.
-          </p>
-          <span class="note">Prakticky: úkol + kontext + styl + formát.</span>
         </div>
 
-        <div class="sidebar-block">
-          <h3>Co nastavit hned</h3>
-          <ul>
-            <li>jazyk odpovědí,</li>
-            <li>preferovaný styl,</li>
-            <li>míru detailu,</li>
-            <li>jestli chceš spíš stručnost, nebo rozvedení.</li>
-          </ul>
-        </div>
+        <span class="subhead">Co je důležité vědět</span>
+        <ul>
+          <li>Free nemá přístup ke GPT‑5.4 Thinking ani ke GPT‑5.4 Pro.</li>
+          <li>Plus má přístup ke GPT‑5.4 Thinking, ale ne ke GPT‑5.4 Pro.</li>
+          <li>Pro má navíc samostatný model <strong>GPT‑5.4 Pro</strong>, který je na nejtěžší úlohy a dlouhé workflow.</li>
+          <li>Podle oficiální nápovědy nejsou s režimem <strong>Pro</strong> dostupné aplikace, paměť, canvas ani generování obrázků přímo v tomto režimu modelu; GPT‑5.3 Instant a GPT‑5.4 Thinking ale nástroje podporují.</li>
+          <li>U úrovně Go je momentálně rozpor v oficiálních materiálech: ceník uvádí, že GPT‑5.4 Thinking u Go není, ale nápověda zároveň píše, že uživatel Go může zapnout režim Thinking přes plusko u vstupu a poslat v něm až 10 zpráv za 5 hodin.</li>
+        </ul>
 
-        <div class="sidebar-block">
-          <h3>Na co si dát pozor</h3>
-          <ul>
-            <li>nedávej do vlastních pokynů citlivé údaje,</li>
-            <li>u aktuálních témat používej vyhledávání,</li>
-            <li>paměť není archiv přesných šablon,</li>
-            <li>limity se mohou průběžně měnit.</li>
-          </ul>
+        <div class="aside-note">
+          Prakticky to znamená jediné: Free je dobré na základ, Go na pohodlnější běžné používání,
+          Plus na širší práci s modely a funkcemi a Pro na nejtěžší workflow a nejvyšší limity.
         </div>
-      </aside>
-    </section>
+      </section>
+
+      <section class="guide" id="platforms">
+        <h2>10. Co je na webu, Androidu, iOS a na Windows</h2>
+        <p>
+          Pro Windows to beru stejně, jak chceš: jako <strong>web</strong>, tedy běžnou webovou verzi
+          ChatGPT v prohlížeči na stolním počítači nebo notebooku. Oficiální ceník uvádí, že Free, Go, Plus i Pro
+          mají přístup na <strong>webu, iOS a Androidu</strong>.
+        </p>
+
+        <span class="subhead">Web a Windows</span>
+        <ul>
+          <li>stejná webová verze ChatGPT,</li>
+          <li>placené tarify mají přepínač modelů,</li>
+          <li>vyhledávání ve starších chatech přes lupu v levém panelu,</li>
+          <li>vlastní pokyny v Nastavení → Personalizace → Vlastní pokyny.</li>
+        </ul>
+
+        <span class="subhead">Android</span>
+        <ul>
+          <li>oficiální aplikace je v Google Play,</li>
+          <li>podle nápovědy vyžaduje Android 7.0 nebo novější,</li>
+          <li>historii otevřeš v postranním panelu, kde je i vyhledávání,</li>
+          <li>vlastní pokyny jsou v Nastavení → Přizpůsobit ChatGPT.</li>
+        </ul>
+
+        <span class="subhead">iOS</span>
+        <ul>
+          <li>oficiální aplikace je v App Storu,</li>
+          <li>historii otevřeš přes menu se třemi tečkami vpravo nahoře → Historie,</li>
+          <li>export dat je v Nastavení → Ovládání dat,</li>
+          <li>vlastní pokyny jsou v Nastavení → Přizpůsobit ChatGPT.</li>
+        </ul>
+
+        <span class="subhead">Co má podle tarifu smysl hlídat</span>
+        <ul>
+          <li><strong>Free:</strong> základní přístup, omezenější limity a menší kontext.</li>
+          <li><strong>Go:</strong> stejné platformy jako Free, ale víc zpráv, uploadů, obrázků a delší paměť.</li>
+          <li><strong>Plus:</strong> stejné platformy, ale širší nabídka modelů, vyšší limity a přístup k projektům, úkolům a vlastním GPT.</li>
+          <li><strong>Pro:</strong> stejné platformy, ale nejširší nabídka modelů včetně GPT‑5.4 Pro a neomezený přístup v mezích ochranných pravidel.</li>
+        </ul>
+      </section>
+
+      <section class="guide" id="faq">
+        <h2>11. Praktické FAQ</h2>
+        <span class="subhead">Proč někdy dostanu slabší odpověď, i když je téma jednoduché?</span>
+        <p>
+          Nejčastěji chybí kontext, cíl nebo formát. ChatGPT většinou odpovídá lépe, když ví, co přesně od něj čekáš.
+        </p>
+
+        <span class="subhead">Co je lepší: vlastní pokyny, nebo paměť?</span>
+        <p>
+          Vlastní pokyny jsou dobré pro trvalý styl a preference. Paměť je vhodná pro informace, které si má model pamatovat mezi chaty.
+        </p>
+
+        <span class="subhead">Kdy založit projekt?</span>
+        <p>
+          Jakmile máš víc chatů, soubory a delší návaznost na jedno téma, projekt bývá přehlednější než běžný chat.
+        </p>
+
+        <span class="subhead">Jak vypadá opravdu dobré zadání?</span>
+        <p>
+          Stručně řečeno: jasný úkol, kontext, cílový čtenář, požadovaný styl a formát výstupu.
+        </p>
+
+        <span class="subhead">Musím mít všechno nastavené, aby to fungovalo dobře?</span>
+        <p>
+          Ne. I bez dalších nastavení může ChatGPT fungovat dobře. Vlastní pokyny, paměť nebo projekty jen pomáhají tam,
+          kde chceš větší konzistenci a méně opakování.
+        </p>
+      </section>
+
+      <section class="guide">
+        <h2>Poznámka na závěr</h2>
+        <p>
+          Rozhraní ChatGPT se může v čase měnit. Názvy položek v menu nebo pořadí voleb se mohou mírně lišit podle zařízení,
+          jazyka rozhraní a typu účtu. Smysl jednotlivých funkcí ale zůstává stejný: lepší práce se zadáním, lepší
+          přehled o kontextu a větší kontrola nad tím, jak s tebou ChatGPT pracuje.
+        </p>
+        <p class="small">
+          Obsah téhle stránky vychází z aktuálních oficiálních stránek OpenAI a je upravený do praktické, čitelné češtiny.
+        </p>
+      </section>
+    </article>
   </main>
 
   <footer>
