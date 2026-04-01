@@ -7,18 +7,19 @@
   <meta name="description" content="Praktický průvodce ChatGPT: zadání, vlastní pokyny, paměť, dočasný chat, projekty, hledání, modely, tarify a FAQ." />
   <style>
     :root{
-      --bg1:#0f1116;
-      --bg2:#141821;
-      --bg3:#0b0d12;
+      --bg1:#0d1015;
+      --bg2:#11161d;
+      --bg3:#0a0d12;
       --text:#fbfdff;
-      --text-soft:#eef2f6;
-      --muted:#aab3c2;
+      --text-soft:#edf2f7;
+      --muted:#a9b3c2;
       --line:rgba(255,255,255,.10);
       --line-soft:rgba(255,255,255,.06);
-      --accent:#f0c58a;
-      --accent-2:#d6a0a8;
-      --accent-3:#8fb6c9;
-      --max:1260px;
+      --accent:#e7bf8a;
+      --accent-2:#d6a3aa;
+      --accent-3:#8db2c2;
+      --max:1280px;
+      --content:900px;
     }
 
     *{box-sizing:border-box}
@@ -28,10 +29,9 @@
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
       background:
-        radial-gradient(900px 520px at -8% 12%, rgba(240,197,138,.10), transparent 55%),
-        radial-gradient(760px 480px at 108% 18%, rgba(214,160,168,.09), transparent 52%),
-        radial-gradient(700px 400px at 72% 105%, rgba(143,182,201,.06), transparent 48%),
-        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 100%);
+        radial-gradient(720px 420px at 0% 0%, rgba(231,191,138,.07), transparent 55%),
+        radial-gradient(640px 380px at 100% 10%, rgba(214,163,170,.07), transparent 55%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 46%, var(--bg3) 100%);
       min-height:100vh;
     }
 
@@ -46,20 +46,17 @@
 
     body::before{
       background:
-        linear-gradient(90deg, transparent 0, transparent 12%, rgba(255,255,255,.028) 12.1%, transparent 12.2%),
-        linear-gradient(90deg, transparent 0, transparent 34%, rgba(255,255,255,.022) 34.1%, transparent 34.2%),
-        linear-gradient(0deg, transparent 0, transparent 20%, rgba(255,255,255,.02) 20.1%, transparent 20.2%);
-      opacity:.6;
-      mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.45) 70%, transparent);
-      -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.45) 70%, transparent);
+        radial-gradient(circle at 18% 14%, rgba(255,255,255,.045) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 84% 20%, rgba(255,255,255,.035) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 72% 66%, rgba(255,255,255,.025) 0 1.5px, transparent 3px);
+      opacity:.55;
     }
 
     body::after{
       background:
-        radial-gradient(circle at 18% 16%, rgba(255,255,255,.06) 0 1.8px, transparent 3px),
-        radial-gradient(circle at 84% 22%, rgba(255,255,255,.05) 0 1.8px, transparent 3px),
-        radial-gradient(circle at 72% 64%, rgba(255,255,255,.04) 0 1.8px, transparent 3px);
-      opacity:.55;
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 12%),
+        linear-gradient(0deg, rgba(255,255,255,.015), transparent 14%);
+      opacity:.4;
     }
 
     a{color:inherit;text-decoration:none}
@@ -76,7 +73,7 @@
       top:0;
       z-index:30;
       backdrop-filter:blur(14px);
-      background:rgba(10,12,16,.72);
+      background:rgba(10,12,16,.74);
       border-bottom:1px solid var(--line-soft);
     }
 
@@ -101,14 +98,14 @@
       display:grid;
       place-items:center;
       background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      color:#111318;
+      color:#12151b;
       font-weight:800;
-      box-shadow:0 10px 26px rgba(240,197,138,.18);
+      box-shadow:0 10px 26px rgba(231,191,138,.14);
     }
 
-    .brand-title{font-size:1rem; font-weight:700}
-    .brand-sub{font-size:.78rem; color:var(--muted); margin-top:2px}
-    .brand-text{display:flex; flex-direction:column}
+    .brand-title{font-size:1rem;font-weight:700}
+    .brand-sub{font-size:.78rem;color:var(--muted);margin-top:2px}
+    .brand-text{display:flex;flex-direction:column}
 
     nav{
       display:flex;
@@ -132,16 +129,13 @@
     }
 
     .hero{
-      padding:46px 0 22px;
+      padding:48px 0 24px;
       border-bottom:1px solid var(--line-soft);
       margin-bottom:26px;
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) 300px;
-      gap:34px;
-      align-items:end;
+    .hero-inner{
+      max-width:var(--content);
     }
 
     .eyebrow{
@@ -155,68 +149,84 @@
     }
 
     h1{
-      margin:0 0 16px;
-      font-size:clamp(1.9rem, 3.4vw, 2.9rem);
-      line-height:1.10;
+      margin:0 0 14px;
+      font-size:clamp(1.78rem, 3.2vw, 2.55rem);
+      line-height:1.12;
       letter-spacing:-.03em;
       font-weight:780;
-      max-width:14ch;
+      max-width:22ch;
       text-wrap:balance;
     }
 
     .lead{
-      margin:0;
+      margin:0 0 20px;
       color:var(--text-soft);
       font-size:1.08rem;
-      line-height:1.86;
-      max-width:860px;
+      line-height:1.88;
+      max-width:var(--content);
       text-wrap:pretty;
     }
 
-    .hero-side{
-      padding-left:18px;
-      border-left:1px solid var(--line);
+    .intro-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:22px;
+      max-width:var(--content);
+      padding-top:6px;
     }
 
-    .hero-side p{
-      margin:0 0 10px;
+    .intro-item{
+      padding-top:14px;
+      border-top:1px solid var(--line);
+    }
+
+    .intro-item strong{
+      display:block;
+      margin:0 0 6px;
+      font-size:.94rem;
+      color:#ffffff;
+    }
+
+    .intro-item p{
+      margin:0;
       color:var(--text-soft);
       line-height:1.8;
-      font-size:.98rem;
+      font-size:.99rem;
+      text-wrap:pretty;
     }
-
-    .hero-side p:last-child{margin-bottom:0}
 
     .toc{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
+      gap:12px 22px;
       padding:0 0 26px;
+      max-width:var(--content);
     }
 
     .toc a{
-      padding:9px 0;
-      margin-right:18px;
+      padding:8px 0;
       border-bottom:1px solid rgba(255,255,255,.12);
       color:var(--text-soft);
-      font-size:.94rem;
+      font-size:.97rem;
+      line-height:1.3;
     }
 
     .layout{
       display:grid;
-      grid-template-columns:minmax(0, 1fr) 300px;
-      gap:42px;
+      grid-template-columns:minmax(0, var(--content)) 300px;
+      gap:48px;
       padding:4px 0 58px;
+      align-items:start;
     }
 
     .content{
       min-width:0;
-      max-width:860px;
+      max-width:var(--content);
     }
 
     section.guide{
-      padding:0 0 38px;
-      margin:0 0 38px;
+      padding:0 0 40px;
+      margin:0 0 40px;
       border-bottom:1px solid var(--line-soft);
     }
 
@@ -228,34 +238,34 @@
 
     section.guide h2{
       margin:0 0 16px;
-      font-size:1.58rem;
+      font-size:1.62rem;
       letter-spacing:-.02em;
-      line-height:1.18;
+      line-height:1.2;
     }
 
     section.guide p{
       margin:0 0 15px;
       color:var(--text-soft);
-      line-height:1.9;
-      font-size:1.05rem;
+      line-height:1.92;
+      font-size:1.06rem;
       text-wrap:pretty;
     }
 
     section.guide ul{
-      margin:0 0 15px 0;
-      padding-left:20px;
+      margin:0 0 15px;
+      padding-left:21px;
       color:var(--text-soft);
-      line-height:1.88;
-      font-size:1.04rem;
+      line-height:1.9;
+      font-size:1.05rem;
     }
 
     section.guide li + li{margin-top:7px}
 
     .subhead{
       display:block;
-      margin:20px 0 9px;
+      margin:22px 0 10px;
       color:#ffffff;
-      font-size:.95rem;
+      font-size:.97rem;
       font-weight:700;
       letter-spacing:.01em;
     }
@@ -263,14 +273,14 @@
     .example{
       margin:18px 0 0;
       padding:0 0 0 16px;
-      border-left:2px solid rgba(240,197,138,.26);
+      border-left:2px solid rgba(231,191,138,.28);
     }
 
     .example strong{
       display:block;
       margin:0 0 8px;
       color:#ffffff;
-      font-size:.95rem;
+      font-size:.96rem;
     }
 
     .example code{
@@ -278,7 +288,7 @@
       white-space:pre-wrap;
       font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
       color:#fffdfc;
-      line-height:1.8;
+      line-height:1.84;
       font-size:.95rem;
     }
 
@@ -286,17 +296,17 @@
       width:100%;
       border-collapse:collapse;
       margin:18px 0 8px;
-      font-size:.98rem;
+      font-size:.99rem;
     }
 
     .plan-table th,
     .plan-table td{
-      padding:12px 10px;
+      padding:13px 10px;
       text-align:left;
       vertical-align:top;
       border-bottom:1px solid var(--line-soft);
       color:var(--text-soft);
-      line-height:1.6;
+      line-height:1.68;
     }
 
     .plan-table th{
@@ -306,15 +316,13 @@
       letter-spacing:.02em;
     }
 
-    .plan-table td strong{
-      color:#ffffff;
-    }
+    .plan-table td strong{color:#ffffff}
 
     .sidebar{
       align-self:start;
       position:sticky;
       top:92px;
-      padding-top:4px;
+      padding-top:2px;
     }
 
     .sidebar-block{
@@ -339,7 +347,7 @@
     .sidebar-block li{
       color:var(--text-soft);
       line-height:1.76;
-      font-size:.97rem;
+      font-size:.98rem;
     }
 
     .sidebar-block ul{
@@ -367,38 +375,35 @@
       font-size:.88rem;
     }
 
+    @media(max-width:1120px){
+      .layout{
+        grid-template-columns:1fr;
+        gap:24px;
+      }
+      .sidebar{
+        position:static;
+      }
+    }
+
     @media(max-width:1040px){
       .topbar-inner{
         align-items:flex-start;
         flex-direction:column;
         padding:14px 0;
       }
-
-      .hero-grid,
-      .layout{
-        grid-template-columns:1fr;
-        gap:22px;
-      }
-
-      .hero-side{
-        padding-left:0;
-        border-left:0;
-        border-top:1px solid var(--line);
-        padding-top:16px;
-      }
-
-      .sidebar{
-        position:static;
-      }
     }
 
     @media(max-width:760px){
-      h1{max-width:16ch}
+      h1{
+        max-width:none;
+        font-size:clamp(1.62rem, 7vw, 2rem);
+      }
       .lead{font-size:1.02rem}
       nav{gap:4px}
-      nav a{padding:8px 10px; font-size:.9rem}
-      .toc{justify-content:flex-start}
-      .toc a{margin-right:10px; padding:8px 0}
+      nav a{padding:8px 10px;font-size:.9rem}
+      .intro-grid{grid-template-columns:1fr;gap:14px}
+      .toc{gap:10px 16px}
+      .toc a{font-size:.94rem}
       section.guide h2{font-size:1.34rem}
       section.guide p,
       section.guide ul{font-size:1rem}
@@ -430,21 +435,25 @@
 
   <main class="wrap">
     <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <p class="eyebrow">Praktický průvodce</p>
-          <h1>ChatGPT přehledně a prakticky</h1>
-          <p class="lead">
-            Tahle stránka je psaná pro běžného uživatele, který chce ChatGPT používat lépe a vědět,
-            kde co najde, co má smysl nastavovat a jak psát zadání tak, aby odpovědi byly přesnější,
-            užitečnější a konzistentnější.
-          </p>
-        </div>
+      <div class="hero-inner">
+        <p class="eyebrow">Praktický průvodce</p>
+        <h1>ChatGPT přehledně a prakticky</h1>
+        <p class="lead">
+          Tahle stránka je psaná pro běžného uživatele, který chce ChatGPT používat lépe a vědět,
+          kde co najde, co má smysl nastavovat a jak psát zadání tak, aby odpovědi byly přesnější,
+          užitečnější a konzistentnější.
+        </p>
 
-        <aside class="hero-side">
-          <p><strong>Co tu najdeš:</strong> práci se zadáním, vlastní pokyny, paměť, dočasný chat, projekty, hledání na webu, tarify, modely, limity i stručné FAQ.</p>
-          <p><strong>Pro koho to je:</strong> pro začátečníky i pro lidi, kteří ChatGPT používají často, ale chtějí z něj dostat víc.</p>
-        </aside>
+        <div class="intro-grid">
+          <div class="intro-item">
+            <strong>Co tu najdeš</strong>
+            <p>Práci se zadáním, vlastní pokyny, paměť, dočasný chat, projekty, hledání na webu, tarify, modely, limity i stručné FAQ.</p>
+          </div>
+          <div class="intro-item">
+            <strong>Pro koho to je</strong>
+            <p>Pro začátečníky i pro lidi, kteří ChatGPT používají často, ale chtějí z něj dostat víc.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -646,4 +655,185 @@ Když si nejsi jistý, řekni to a navrhni, jak to ověřit.</code>
           <span class="subhead">Kdy vyhledávání použít</span>
           <ul>
             <li>aktuální ceny a dostupnost,</li>
-            <li>sou
+            <li>současné funkce a změny,</li>
+            <li>novinky, termíny a průběžně se měnící informace.</li>
+          </ul>
+        </section>
+
+        <section class="guide" id="plans">
+          <h2>9. Tarify, modely, limity a kontextová okna</h2>
+          <p>
+            Níž je praktické shrnutí čtyř úrovní, které pro běžného uživatele dávají největší smysl:
+            <strong>Free</strong>, <strong>Go</strong>, <strong>Plus</strong> a <strong>Pro</strong>.
+            U ChatGPT je potřeba počítat s tím, že OpenAI limity průběžně upravuje podle vytížení.
+            Kromě toho si některé oficiální stránky u úrovně Go momentálně částečně odporují, takže to níž výslovně uvádím.
+          </p>
+
+          <table class="plan-table">
+            <thead>
+              <tr>
+                <th>Úroveň</th>
+                <th>Modely</th>
+                <th>Hlavní limity</th>
+                <th>Kontext</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Free</strong></td>
+                <td>GPT‑5.3 Instant, GPT‑5 Thinking Mini</td>
+                <td>GPT‑5.3: 10 zpráv za 5 hodin; po dosažení limitu automatické přepnutí na mini verzi</td>
+                <td>GPT Instant: 27K na chat; na ceníku je u reasoning uvedeno 196K</td>
+              </tr>
+              <tr>
+                <td><strong>Go</strong></td>
+                <td>GPT‑5.3 Instant, GPT‑5 Thinking Mini</td>
+                <td>GPT‑5.3: 160 zpráv za 3 hodiny; více zpráv, uploadů, obrázků a delší paměť než Free</td>
+                <td>GPT Instant: 54K na chat; reasoning na ceníku 256K</td>
+              </tr>
+              <tr>
+                <td><strong>Plus</strong></td>
+                <td>GPT‑5.3 Instant, GPT‑5.4 Thinking, GPT‑5 Thinking Mini, legacy modely</td>
+                <td>GPT‑5.3: 160 zpráv za 3 hodiny; GPT‑5.4 Thinking až 3000 zpráv týdně</td>
+                <td>GPT Instant: 54K na chat; GPT‑5.4 Thinking 256K při ruční volbě</td>
+              </tr>
+              <tr>
+                <td><strong>Pro</strong></td>
+                <td>GPT‑5.3 Instant, GPT‑5.4 Thinking, GPT‑5.4 Pro, GPT‑5 Thinking Mini, legacy modely</td>
+                <td>Neomezený přístup k GPT‑5.3 Instant, GPT‑5.4 Thinking a GPT‑5.4 Pro; neomezeně v mezích ochranných pravidel proti zneužití</td>
+                <td>GPT Instant: 128K na chat; GPT‑5.4 Thinking 400K u úrovně Pro při ruční volbě</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <span class="subhead">Co je důležité vědět</span>
+          <ul>
+            <li>Free nemá přístup ke GPT‑5.4 Thinking ani ke GPT‑5.4 Pro.</li>
+            <li>Plus má přístup ke GPT‑5.4 Thinking, ale ne ke GPT‑5.4 Pro.</li>
+            <li>Pro má navíc samostatný model <strong>GPT‑5.4 Pro</strong>, který je na nejtěžší úlohy a dlouhé workflow.</li>
+            <li>Podle oficiální nápovědy nejsou s režimem <strong>Pro</strong> dostupné aplikace, paměť, canvas ani generování obrázků přímo v tomto režimu modelu; GPT‑5.3 Instant a GPT‑5.4 Thinking ale nástroje podporují.</li>
+            <li>U úrovně Go je momentálně rozpor v oficiálních materiálech: ceník uvádí, že GPT‑5.4 Thinking u Go není, ale nápověda zároveň píše, že uživatel Go může zapnout režim Thinking přes plusko u vstupu a poslat v něm až 10 zpráv za 5 hodin.</li>
+          </ul>
+        </section>
+
+        <section class="guide" id="platforms">
+          <h2>10. Co je na webu, Androidu, iOS a na Windows</h2>
+          <p>
+            Pro Windows to beru stejně, jak chceš: jako <strong>web</strong>, tedy běžnou webovou verzi
+            ChatGPT v prohlížeči na stolním počítači nebo notebooku. Oficiální ceník uvádí, že Free, Go, Plus i Pro
+            mají přístup na <strong>webu, iOS a Androidu</strong>.
+          </p>
+
+          <span class="subhead">Web a Windows</span>
+          <ul>
+            <li>stejná webová verze ChatGPT,</li>
+            <li>placené tarify mají přepínač modelů,</li>
+            <li>vyhledávání ve starších chatech přes lupu v levém panelu,</li>
+            <li>vlastní pokyny v Nastavení → Personalizace → Vlastní pokyny.</li>
+          </ul>
+
+          <span class="subhead">Android</span>
+          <ul>
+            <li>oficiální aplikace je v Google Play,</li>
+            <li>podle nápovědy vyžaduje Android 7.0 nebo novější,</li>
+            <li>historii otevřeš v postranním panelu, kde je i vyhledávání,</li>
+            <li>vlastní pokyny jsou v Nastavení → Přizpůsobit ChatGPT.</li>
+          </ul>
+
+          <span class="subhead">iOS</span>
+          <ul>
+            <li>oficiální aplikace je v App Storu,</li>
+            <li>historii otevřeš přes menu se třemi tečkami vpravo nahoře → Historie,</li>
+            <li>export dat je v Nastavení → Ovládání dat,</li>
+            <li>vlastní pokyny jsou v Nastavení → Přizpůsobit ChatGPT.</li>
+          </ul>
+
+          <span class="subhead">Co má podle tarifu smysl hlídat</span>
+          <ul>
+            <li><strong>Free:</strong> základní přístup, omezenější limity a menší kontext.</li>
+            <li><strong>Go:</strong> stejné platformy jako Free, ale víc zpráv, uploadů, obrázků a delší paměť.</li>
+            <li><strong>Plus:</strong> stejné platformy, ale širší nabídka modelů, vyšší limity a přístup k projektům, úkolům a vlastním GPT.</li>
+            <li><strong>Pro:</strong> stejné platformy, ale nejširší nabídka modelů včetně GPT‑5.4 Pro a neomezený přístup v mezích ochranných pravidel.</li>
+          </ul>
+        </section>
+
+        <section class="guide" id="faq">
+          <h2>11. Praktické FAQ</h2>
+          <span class="subhead">Proč někdy dostanu slabší odpověď, i když je téma jednoduché?</span>
+          <p>
+            Nejčastěji chybí kontext, cíl nebo formát. ChatGPT většinou odpovídá lépe, když ví, co přesně od něj čekáš.
+          </p>
+
+          <span class="subhead">Co je lepší: vlastní pokyny, nebo paměť?</span>
+          <p>
+            Vlastní pokyny jsou dobré pro trvalý styl a preference. Paměť je vhodná pro informace, které si má model pamatovat mezi chaty.
+          </p>
+
+          <span class="subhead">Kdy založit projekt?</span>
+          <p>
+            Jakmile máš víc chatů, soubory a delší návaznost na jedno téma, projekt bývá přehlednější než běžný chat.
+          </p>
+
+          <span class="subhead">Jak vypadá opravdu dobré zadání?</span>
+          <p>
+            Stručně řečeno: jasný úkol, kontext, cílový čtenář, požadovaný styl a formát výstupu.
+          </p>
+
+          <span class="subhead">Musím mít všechno nastavené, aby to fungovalo dobře?</span>
+          <p>
+            Ne. I bez dalších nastavení může ChatGPT fungovat dobře. Vlastní pokyny, paměť nebo projekty jen pomáhají tam,
+            kde chceš větší konzistenci a méně opakování.
+          </p>
+        </section>
+
+        <section class="guide">
+          <h2>Poznámka na závěr</h2>
+          <p>
+            Rozhraní ChatGPT se může v čase měnit. Názvy položek v menu nebo pořadí voleb se mohou mírně lišit podle zařízení,
+            jazyka rozhraní a typu účtu. Smysl jednotlivých funkcí ale zůstává stejný: lepší práce se zadáním, lepší
+            přehled o kontextu a větší kontrola nad tím, jak s tebou ChatGPT pracuje.
+          </p>
+          <p class="small">
+            Obsah téhle stránky vychází z aktuálních oficiálních stránek OpenAI a je upravený do praktické, čitelné češtiny.
+          </p>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-block">
+          <h3>Rychlé doporučení</h3>
+          <p>
+            Když si nejsi jistý, napiš nejdřív, co chceš udělat, pro koho to je a jak má výsledek vypadat.
+            Tím se kvalita odpovědí zlepší víc než jakoukoli zvláštní formulí.
+          </p>
+          <span class="note">Prakticky: úkol + kontext + styl + formát.</span>
+        </div>
+
+        <div class="sidebar-block">
+          <h3>Co nastavit hned</h3>
+          <ul>
+            <li>jazyk odpovědí,</li>
+            <li>preferovaný styl,</li>
+            <li>míru detailu,</li>
+            <li>jestli chceš spíš stručnost, nebo rozvedení.</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <h3>Na co si dát pozor</h3>
+          <ul>
+            <li>nedávej do vlastních pokynů citlivé údaje,</li>
+            <li>u aktuálních témat používej vyhledávání,</li>
+            <li>paměť není archiv přesných šablon,</li>
+            <li>limity se mohou průběžně měnit.</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 TonyStark.cz</div>
+  </footer>
+</body>
+</html>
