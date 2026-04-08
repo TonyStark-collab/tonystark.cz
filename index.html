@@ -210,6 +210,114 @@
 
     .status{margin-top:10px; color:var(--ok); font-size:.9rem}
 
+    .wheel-demo{
+      margin-top:22px;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:18px;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(3,8,16,.8), rgba(4,9,16,.92)),
+        radial-gradient(100% 60% at 50% 42%, rgba(255,221,153,.2), transparent 54%),
+        radial-gradient(90% 80% at 50% 14%, rgba(110,141,199,.26), transparent 60%),
+        #050913;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+      position:relative;
+    }
+
+    .wheel-head{
+      padding:12px 14px;
+      text-align:center;
+      font-size:clamp(.8rem, 2vw, .95rem);
+      color:rgba(243,248,255,.7);
+      letter-spacing:.01em;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(5px);
+    }
+
+    .wheel-window{
+      height:350px;
+      position:relative;
+      overflow:hidden;
+      padding:0 14%;
+    }
+
+    .wheel-window::before,
+    .wheel-window::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      height:110px;
+      z-index:2;
+      pointer-events:none;
+    }
+    .wheel-window::before{
+      top:0;
+      background:linear-gradient(180deg, rgba(5,10,18,.9), rgba(5,10,18,0));
+    }
+    .wheel-window::after{
+      bottom:0;
+      background:linear-gradient(0deg, rgba(5,10,18,.9), rgba(5,10,18,0));
+    }
+
+    .wheel-focus{
+      position:absolute;
+      left:14%;
+      right:14%;
+      top:50%;
+      transform:translateY(-50%);
+      height:88px;
+      border-top:1px solid rgba(255,255,255,.12);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.05));
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .wheel-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      position:absolute;
+      top:50%;
+      left:14%;
+      right:14%;
+      transform:translateY(-50%);
+      z-index:0;
+      transition:transform .36s cubic-bezier(.22,.8,.2,1);
+      touch-action:none;
+      user-select:none;
+    }
+
+    .wheel-item{
+      height:88px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:clamp(1.5rem, 4vw, 2.1rem);
+      font-weight:650;
+      color:rgba(233,240,252,.42);
+      transition:opacity .28s ease, transform .28s ease, color .28s ease;
+      text-align:center;
+      letter-spacing:-.01em;
+    }
+
+    .wheel-item.active{
+      color:#edf3ff;
+      text-shadow:0 10px 26px rgba(0,0,0,.45);
+      transform:scale(1.04);
+      opacity:1;
+    }
+
+    .wheel-note{
+      text-align:center;
+      font-size:.86rem;
+      color:var(--muted);
+      padding:12px 14px 14px;
+      border-top:1px solid rgba(255,255,255,.05);
+      background:rgba(0,0,0,.14);
+    }
+
     @keyframes float{
       0%,100%{transform:translateY(0)}
       50%{transform:translateY(-4px)}
@@ -278,6 +386,23 @@
           <span id="weatherWind">—</span>
           <span id="weatherTime">—</span>
         </div>
+      </section>
+
+      <section class="wheel-demo" aria-label="Ukázka vertikálního kolečka">
+        <div class="wheel-head" id="wheelMeta">Úterý 15. června 2021&nbsp;&nbsp;|&nbsp;&nbsp;14:23:08&nbsp;&nbsp;|&nbsp;&nbsp;Svátek má Vít</div>
+        <div class="wheel-window" id="wheelWindow">
+          <div class="wheel-focus" aria-hidden="true"></div>
+          <ul class="wheel-list" id="wheelList">
+            <li class="wheel-item">Devadesátky</li>
+            <li class="wheel-item">Vítejte...</li>
+            <li class="wheel-item">Kdo jsem?</li>
+            <li class="wheel-item">Devadesátky</li>
+            <li class="wheel-item">Současnost</li>
+            <li class="wheel-item">Projekty</li>
+            <li class="wheel-item">Kontakt</li>
+          </ul>
+        </div>
+        <div class="wheel-note">Posuňte kolečkem myši nebo tahem prstu.</div>
       </section>
       <div class="status" id="status">Lokalita: Praha, Česká republika.</div>
     </main>
@@ -418,6 +543,47 @@
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
     const backdrop = document.getElementById("backdrop");
+    const wheelList = document.getElementById("wheelList");
+    const wheelItems = Array.from(wheelList.querySelectorAll(".wheel-item"));
+    const wheelMeta = document.getElementById("wheelMeta");
+    const wheelWindow = document.getElementById("wheelWindow");
+    const wheelItemHeight = 88;
+    let wheelIndex = 1;
+    let touchStartY = null;
+
+    function updateWheelMeta(now = new Date()) {
+      const dayDate = new Intl.DateTimeFormat("cs-CZ", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(now);
+      const time = new Intl.DateTimeFormat("cs-CZ", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      }).format(now);
+      const key = `${now.getMonth() + 1}-${now.getDate()}`;
+      const nameday = namedays[key] || "—";
+      wheelMeta.textContent = `${dayDate.charAt(0).toUpperCase() + dayDate.slice(1)} | ${time} | Svátek má ${nameday}`;
+    }
+
+    function renderWheel() {
+      wheelList.style.transform = `translateY(calc(-50% - ${wheelIndex * wheelItemHeight}px))`;
+      wheelItems.forEach((item, idx) => {
+        const distance = Math.abs(idx - wheelIndex);
+        item.classList.toggle("active", idx === wheelIndex);
+        item.style.opacity = String(Math.max(0.24, 1 - distance * 0.24));
+        item.style.transform = `scale(${Math.max(0.86, 1 - distance * 0.05)})`;
+      });
+    }
+
+    function moveWheel(direction) {
+      const next = wheelIndex + direction;
+      if (next < 0 || next > wheelItems.length - 1) return;
+      wheelIndex = next;
+      renderWheel();
+    }
 
     function toggleMenu(forceOpen) {
       const open = typeof forceOpen === "boolean" ? forceOpen : !menuPanel.classList.contains("open");
@@ -433,9 +599,32 @@
       link.addEventListener("click", () => toggleMenu(false));
     });
 
+    wheelWindow.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      if (event.deltaY === 0) return;
+      moveWheel(event.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+
+    wheelWindow.addEventListener("touchstart", (event) => {
+      touchStartY = event.changedTouches[0]?.clientY ?? null;
+    }, { passive: true });
+
+    wheelWindow.addEventListener("touchend", (event) => {
+      if (touchStartY === null) return;
+      const endY = event.changedTouches[0]?.clientY ?? touchStartY;
+      const delta = touchStartY - endY;
+      if (Math.abs(delta) > 24) {
+        moveWheel(delta > 0 ? 1 : -1);
+      }
+      touchStartY = null;
+    }, { passive: true });
+
     updateDateTime();
+    updateWheelMeta();
+    renderWheel();
     updateWeather();
     setInterval(updateDateTime, 1000);
+    setInterval(updateWheelMeta, 1000);
     setInterval(updateWeather, 10 * 60 * 1000);
   </script>
 </body>
