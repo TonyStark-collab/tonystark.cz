@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TonyStark.cz | Stručný přehled</title>
-  <meta name="description" content="Strukturovaný souhrn webu TonyStark.cz + aktuální datum, čas, svátek a státní svátek." />
+  <title>TonyStark.cz | Domů</title>
+  <meta name="description" content="TonyStark.cz: technologie, umělá inteligence, rodina, aplikace a projekty v praktickém a srozumitelném pojetí." />
   <style>
     :root{
       --bg:#070d14;
@@ -70,8 +70,8 @@
     nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft)}
     nav a:hover, nav a.active{background:rgba(255,255,255,.04); border-color:var(--line)}
 
-    .hero{padding:58px 0 36px}
-    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 310px; gap:34px; align-items:center}
+    .hero{padding:58px 0 24px}
+    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:26px; align-items:end}
 
     .eyebrow{
       display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
@@ -80,20 +80,20 @@
     }
 
     h1{margin:0 0 16px; font-size:clamp(2rem,4.2vw,3.25rem); line-height:1.06; letter-spacing:-.04em; text-wrap:balance}
-    .lead{margin:0; color:var(--text-soft); font-size:1.13rem; line-height:1.9; max-width:62ch}
+    .lead{margin:0; color:var(--text-soft); font-size:1.13rem; line-height:1.9; max-width:64ch}
 
     .hero-card{
-      background:linear-gradient(180deg, rgba(126,240,192,.12), rgba(126,240,192,.04));
-      border:1px solid rgba(126,240,192,.26);
-      border-radius:var(--radius);
-      padding:18px 18px 16px;
-      box-shadow:var(--shadow);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:none;
+      opacity:.92;
     }
 
-    .hero-card h2{margin:0 0 10px; font-size:1.05rem}
-    .hero-card p{margin:0; color:var(--text-soft); line-height:1.75; font-size:.98rem}
-    .hero-card ul{margin:0; padding-left:18px; color:var(--text-soft); line-height:1.7}
-    .hero-card li{margin:0 0 6px}
+    .hero-card h2{margin:0 0 8px; font-size:.92rem; color:var(--muted); letter-spacing:.02em; text-transform:uppercase}
+    .hero-card ul{margin:0; padding-left:16px; color:var(--text-soft); line-height:1.6; font-size:.88rem}
+    .hero-card li{margin:0 0 5px}
 
     .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
     .btn{
@@ -106,9 +106,19 @@
       background:linear-gradient(135deg, var(--accent), var(--accent-2));
     }
 
-    .section{padding:24px 0 56px}
+    .section{padding:20px 0 56px}
+    .section h2{margin:0 0 14px; font-size:1.45rem; letter-spacing:-.02em}
+    .about-text{
+      background:linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.012));
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .about-text p{margin:0 0 16px; color:var(--text-soft); line-height:1.82}
+    .about-text p:last-child{margin-bottom:0}
+
     .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
-    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.01));
@@ -139,15 +149,15 @@
       background:rgba(255,255,255,.02);
     }
 
-    .stat strong{display:block; margin:0 0 6px; font-size:1.2rem}
+    .stat strong{display:block; margin:0 0 6px; font-size:1.05rem}
     .stat span{color:var(--muted); font-size:.9rem}
     .chip{
       display:inline-flex;
-      margin-top:8px;
-      padding:6px 10px;
+      margin-top:6px;
+      padding:5px 9px;
       border-radius:999px;
-      border:1px solid var(--line);
-      font-size:.82rem;
+      border:1px solid var(--line-soft);
+      font-size:.75rem;
       color:#dcf4ff;
       background:rgba(255,255,255,.03);
     }
@@ -183,7 +193,7 @@
       </a>
 
       <nav aria-label="Hlavní navigace">
-        <a class="active" href="/">O mně</a>
+        <a class="active" href="/">Domů</a>
         <a href="/aplikace/">Aplikace</a>
         <a href="/projekty/">Projekty</a>
         <a href="/smer-webu/">Směr webu</a>
@@ -197,19 +207,19 @@
       <div class="wrap hero-grid">
         <div>
           <p class="eyebrow">Tony Mareček · Technologie &amp; AI</p>
-          <h1>Obsah webu stručně a přehledně.</h1>
+          <h1>Technologie, AI a život v praktickém a lidském pohledu.</h1>
           <p class="lead">
-            Zachoval jsem původní zaměření webu: praktická technika, umělá inteligence a projekty.
-            Níže je inteligentní souhrn toho nejdůležitějšího, bez omáčky a bez zbytečného šumu.
+            Tento web je osobní prostor, kde propojuji zkušenosti z technologií s reálným životem.
+            Najdete tu přehledné informace, aplikace, projekty i jasný směr, který dává smysl v každodenní praxi.
           </p>
           <div class="actions">
             <a class="btn primary" href="/aplikace/">Prozkoumat aplikace</a>
-            <a class="btn" href="/smer-webu/">Směr webu</a>
+            <a class="btn" href="/projekty/">Zobrazit projekty</a>
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Krátké představení">
-          <h2>Dnes v kostce</h2>
+        <aside class="hero-card" aria-label="Denní informační panel">
+          <h2>Dnes</h2>
           <ul>
             <li><strong>Datum:</strong> <span id="today-date">—</span></li>
             <li><strong>Čas:</strong> <span id="today-time">—</span></li>
@@ -221,50 +231,62 @@
       </div>
     </section>
 
+    <section class="section" id="o-mne">
+      <div class="wrap">
+        <h2>O mně</h2>
+        <article class="about-text">
+          <p>Jmenuji se Tony a technologie jsou přirozenou součástí mého života. Dlouhodobě se zajímám o počítače, hardware, software, mobilní zařízení, moderní digitální nástroje a vše, co dokáže být v praxi opravdu užitečné. Mám rád věci, které fungují spolehlivě, dávají smysl a člověku reálně pomáhají. Stejně důležitá je pro mě ale i rodina a běžný život, takže se na techniku dívám nejen technicky, ale i prakticky a lidsky.</p>
+
+          <p>K umělé inteligenci mám blízko hlavně skrze vývoj OpenAI. Ta vznikla v prosinci 2015 a postupně položila základy dnešní generativní AI přes první GPT v roce 2018, GPT-2 v roce 2019 a GPT-3 v roce 2020. Pro širokou veřejnost ale přišel skutečný zlom až 30. listopadu 2022, kdy OpenAI vypustila research preview verzi ChatGPT postavenou na řadě GPT-3.5. Právě tehdy se AI přestala brát jen jako vzdálený výzkum a začala rychle vstupovat do každodenního života.</p>
+
+          <p>Od té doby sleduji, kam se OpenAI posouvá dál – od GPT-4 přes multimodální GPT-4o až k reasoning modelům řady o1 a později i o3, který považuji za mimořádně povedený. Fascinuje mě, jak se z původně čistě výzkumného směru stal praktický ekosystém pro psaní, přemýšlení, tvorbu, práci s obrazem, hlasem i automatizaci.</p>
+
+          <p>Letos to budou tři roky, co jsem ženatý, a s manželkou máme krásnou dceru. Právě spojení technologií, rodiny a reálného života dává tomuto webu jeho směr. Je to prostor, kde propojuji zájem o moderní techniku a AI s tím, co má skutečný význam i využití v každodenním životě.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="section">
       <div class="wrap">
-        <div class="grid two">
+        <div class="grid">
           <article class="card">
-            <h3>Co zůstává stejné</h3>
-            <p>
-              Web je stále postavený na jednoduchosti, rychlosti a čistém českém obsahu.
-              Jádro tvoří návody, praktické postupy a AI know-how použitelné v každodenní práci.
-            </p>
+            <h3>Technologie</h3>
+            <p>Praktické postřehy o hardwaru, softwaru a digitálních nástrojích, které mají skutečné využití.</p>
           </article>
 
           <article class="card">
-            <h3>Jak je obsah nově podaný</h3>
-            <p>
-              Místo dlouhých textů je hlavní stránka přepsaná do strukturovaného přehledu:
-              rychlá orientace, aktuální denní informace a jasné cesty do hlavních sekcí webu.
-            </p>
+            <h3>Umělá inteligence</h3>
+            <p>Vývoj AI, nové modely, smysluplné použití a konkrétní postupy, které fungují i mimo laboratorní demo.</p>
           </article>
-        </div>
 
-        <div class="grid" style="margin-top:16px">
+          <article class="card">
+            <h3>Rodina a život</h3>
+            <p>Technologie v rovnováze s běžným životem: co pomáhá, co šetří čas a co dává dlouhodobě smysl.</p>
+          </article>
+
           <article class="card">
             <h3>Aplikace</h3>
-            <p>Přehled nástrojů a průvodců, které jsou připravené k okamžitému použití.</p>
+            <p>Přehled nástrojů a průvodců připravených k okamžitému použití v práci i každodenní praxi.</p>
             <a class="link" href="/aplikace/">Otevřít sekci aplikace →</a>
           </article>
 
           <article class="card">
             <h3>Projekty</h3>
-            <p>Místo pro aktuální i plánované projekty, experimenty a dlouhodobý vývoj.</p>
+            <p>Aktuální i plánované projekty, experimenty a konkrétní výsledky, na kterých průběžně pracuji.</p>
             <a class="link" href="/projekty/">Přejít na projekty →</a>
           </article>
 
           <article class="card">
             <h3>Směr webu</h3>
-            <p>Kam se web posouvá dál: obsah, funkce a celkový směr v dalších verzích.</p>
-            <a class="link" href="/smer-webu/">Zobrazit roadmapu →</a>
+            <p>Kam se web posouvá dál, jaké má priority a jaký typ obsahu na něm bude postupně přibývat.</p>
+            <a class="link" href="/smer-webu/">Zobrazit směr webu →</a>
           </article>
         </div>
 
         <div class="stats" aria-label="Hodnoty webu">
-          <div class="stat"><strong>100% česky</strong><span>obsah i navigace</span></div>
-          <div class="stat"><strong>Rychle</strong><span>minimalistický statický web</span></div>
-          <div class="stat"><strong>Prakticky</strong><span>minimum teorie, maximum užitku</span></div>
+          <div class="stat"><strong>Technologie a AI</strong><span>Prakticky, moderně a bez zbytečné omáčky.</span></div>
+          <div class="stat"><strong>Rodina a realita</strong><span>Digitální svět zasazený do skutečného života.</span></div>
+          <div class="stat"><strong>Srozumitelně a česky</strong><span>Jasná komunikace, která dává smysl každému.</span></div>
         </div>
       </div>
     </section>
