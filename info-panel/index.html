@@ -4,42 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TonyStark.cz | Info panel</title>
-  <meta name="description" content="Denní informační panel: den, datum, čas, státní svátek a svátek jmen." />
+  <meta name="description" content="Denní informace: den, datum, čas, státní svátek a svátek jmen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0f1115;
-      --bg-soft: #151a23;
-      --card: rgba(255, 255, 255, 0.035);
-      --line: rgba(255, 255, 255, 0.12);
-      --text: #ecf2ff;
-      --text-soft: #c8d1e0;
-      --muted: #9aa8bf;
-      --accent: #a6b9ff;
+      --bg: #121418;
+      --surface: #181b21;
+      --line: #2b313c;
+      --text: #eceff5;
+      --text-soft: #c4cad6;
+      --muted: #98a3b8;
+      --max: 860px;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
       color: var(--text);
-      background:
-        radial-gradient(950px 540px at -8% -8%, rgba(166, 185, 255, 0.18), transparent 50%),
-        radial-gradient(880px 560px at 108% 0%, rgba(94, 117, 168, 0.14), transparent 54%),
-        linear-gradient(180deg, #0e1014 0%, #121722 100%);
-      display: flex;
-      justify-content: center;
-      padding: 28px 16px 52px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      padding: 20px 16px 48px;
     }
 
     .page {
-      width: min(860px, 100%);
+      width: min(var(--max), 100%);
+      margin: 0 auto;
       display: grid;
-      gap: 22px;
+      gap: 28px;
     }
 
     .nav {
@@ -47,111 +42,128 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
-      border-radius: 15px;
+      gap: 8px;
       border: 1px solid var(--line);
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      background: var(--surface);
+      padding: 10px;
     }
 
-    .nav a {
-      text-decoration: none;
+    .brand,
+    .menu a {
       color: var(--text-soft);
-      padding: 8px 11px;
-      border-radius: 10px;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 9px;
       border: 1px solid transparent;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease, color 0.2s ease;
     }
 
-    .nav a:hover,
-    .nav a:focus-visible {
+    .brand {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .menu {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .brand:hover,
+    .brand:focus-visible,
+    .menu a:hover,
+    .menu a:focus-visible {
       color: var(--text);
       border-color: var(--line);
-      background: rgba(255, 255, 255, 0.03);
       outline: none;
     }
 
-    .panel {
-      background: var(--card);
+    main {
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: clamp(18px, 3.6vw, 30px);
+      border-radius: 14px;
+      background: var(--surface);
+      padding: clamp(20px, 4.4vw, 36px);
     }
 
-    .panel h1 {
+    h1 {
       margin: 0 0 20px;
-      font-size: clamp(1.6rem, 4.4vw, 2.2rem);
-      letter-spacing: -0.02em;
+      font-size: clamp(1.6rem, 4.6vw, 2.2rem);
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 10px;
     }
 
     .item {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      border-radius: 10px;
       padding: 14px;
+      background: #1c2028;
     }
 
-    .item.wide { grid-column: 1 / -1; }
+    .wide {
+      grid-column: 1 / -1;
+    }
 
     .label {
       display: block;
-      font-size: 0.8rem;
-      color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
       margin-bottom: 6px;
     }
 
     .value {
       margin: 0;
-      font-size: 1.14rem;
-      line-height: 1.45;
       color: var(--text-soft);
+      font-size: 1.08rem;
     }
 
-    .value.strong {
+    .silny {
       color: var(--text);
-      font-size: clamp(1.22rem, 2.5vw, 1.52rem);
+      font-size: clamp(1.2rem, 3.2vw, 1.5rem);
       font-weight: 600;
-      letter-spacing: 0.01em;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 660px) {
       .grid { grid-template-columns: 1fr; }
+      .brand { width: 100%; }
+      body { padding-top: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <nav class="nav" aria-label="Hlavní navigace">
-      <a href="/">← O mně</a>
-      <a href="/info-panel/" aria-current="page">Info panel</a>
+      <a class="brand" href="/">TonyStark.cz</a>
+      <div class="menu">
+        <a href="/o-mne/">O mně</a>
+        <a href="/info-panel/" aria-current="page">Info panel</a>
+      </div>
     </nav>
 
-    <main class="panel">
-      <h1>Denní informační panel</h1>
+    <main>
+      <h1>Info panel</h1>
       <section class="grid" aria-label="Denní informace">
         <article class="item">
-          <span class="label">Den</span>
-          <p class="value strong" id="today-day">—</p>
+          <span class="label">Den v týdnu</span>
+          <p class="value silny" id="today-day">-</p>
         </article>
         <article class="item">
           <span class="label">Datum</span>
-          <p class="value" id="today-date">—</p>
+          <p class="value" id="today-date">-</p>
         </article>
         <article class="item wide">
           <span class="label">Čas</span>
-          <p class="value strong" id="today-time">—</p>
+          <p class="value silny" id="today-time">-</p>
         </article>
         <article class="item wide">
-          <span class="label" id="holiday-label">Svátek</span>
-          <p class="value" id="holiday-info">—</p>
+          <span class="label" id="holiday-label">Státní svátek</span>
+          <p class="value" id="holiday-info">-</p>
         </article>
       </section>
     </main>
