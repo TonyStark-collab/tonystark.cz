@@ -71,7 +71,7 @@
     nav a:hover, nav a.active{background:rgba(255,255,255,.04); border-color:var(--line)}
 
     .hero{padding:58px 0 24px}
-    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:26px; align-items:end}
+    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr); gap:22px; align-items:start}
 
     .eyebrow{
       display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
@@ -81,19 +81,6 @@
 
     h1{margin:0 0 16px; font-size:clamp(2rem,4.2vw,3.25rem); line-height:1.06; letter-spacing:-.04em; text-wrap:balance}
     .lead{margin:0; color:var(--text-soft); font-size:1.13rem; line-height:1.9; max-width:64ch}
-
-    .hero-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:14px;
-      box-shadow:none;
-      opacity:.92;
-    }
-
-    .hero-card h2{margin:0 0 8px; font-size:.92rem; color:var(--muted); letter-spacing:.02em; text-transform:uppercase}
-    .hero-card ul{margin:0; padding-left:16px; color:var(--text-soft); line-height:1.6; font-size:.88rem}
-    .hero-card li{margin:0 0 5px}
 
     .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
     .btn{
@@ -108,6 +95,26 @@
 
     .section{padding:20px 0 56px}
     .section h2{margin:0 0 14px; font-size:1.45rem; letter-spacing:-.02em}
+    .home-panels{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:14px;
+      margin-top:20px;
+    }
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:16px;
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-size:1.02rem;
+      color:#def5ff;
+    }
+    .panel p{margin:0; color:var(--text-soft); line-height:1.7}
+    .panel ul{margin:0; padding-left:18px; color:var(--text-soft); line-height:1.65}
+    .panel li{margin-bottom:4px}
     .about-text{
       background:linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.012));
       border:1px solid var(--line-soft);
@@ -118,7 +125,7 @@
     .about-text p{margin:0 0 16px; color:var(--text-soft); line-height:1.82}
     .about-text p:last-child{margin-bottom:0}
 
-    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+    .grid{display:grid; grid-template-columns:1fr; gap:16px}
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.01));
@@ -135,22 +142,6 @@
 
     .card .link{display:inline-block; margin-top:12px; color:#dff5ff; font-weight:600; font-size:.96rem}
 
-    .stats{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .stat{
-      padding:14px;
-      border-radius:14px;
-      border:1px solid var(--line-soft);
-      background:rgba(255,255,255,.02);
-    }
-
-    .stat strong{display:block; margin:0 0 6px; font-size:1.05rem}
-    .stat span{color:var(--muted); font-size:.9rem}
     .chip{
       display:inline-flex;
       margin-top:6px;
@@ -166,9 +157,7 @@
 
     @media (max-width: 1040px){
       .topbar-inner{align-items:flex-start; flex-direction:column; padding:14px 0}
-      .hero-grid{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr 1fr}
-      .stats{grid-template-columns:1fr 1fr 1fr}
+      .home-panels{grid-template-columns:1fr}
     }
 
     @media (max-width: 760px){
@@ -177,7 +166,6 @@
       .hero{padding:36px 0 20px}
       .lead{font-size:1.03rem; line-height:1.82}
       .grid{grid-template-columns:1fr}
-      .stats{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -199,6 +187,7 @@
         <a href="/smer-webu/">Směr webu</a>
         <a href="/kontakt/">Kontakt</a>
       </nav>
+
     </div>
   </header>
 
@@ -214,79 +203,54 @@
           </p>
           <div class="actions">
             <a class="btn primary" href="/aplikace/">Prozkoumat aplikace</a>
-            <a class="btn" href="/projekty/">Zobrazit projekty</a>
+            <a class="btn" href="/kontakt/">Kontakt</a>
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Denní informační panel">
-          <h2>Dnes</h2>
-          <ul>
-            <li><strong>Datum:</strong> <span id="today-date">—</span></li>
-            <li><strong>Čas:</strong> <span id="today-time">—</span></li>
-            <li><strong>Svátek:</strong> <span id="nameday">—</span></li>
-            <li><strong>Státní svátek:</strong> <span id="state-holiday">—</span></li>
-          </ul>
-          <span class="chip" id="day-summary">Načítám dnešní informace…</span>
-        </aside>
+        <div class="home-panels">
+          <article class="panel" aria-label="Denní informace">
+            <h2>Dnešní informace</h2>
+            <ul>
+              <li><strong>Datum:</strong> <span id="today-date">—</span></li>
+              <li><strong>Čas:</strong> <span id="today-time">—</span></li>
+              <li><strong>Svátek:</strong> <span id="nameday">—</span></li>
+              <li><strong>Státní svátek:</strong> <span id="state-holiday">—</span></li>
+            </ul>
+            <span class="chip" id="day-summary">Načítám dnešní informace…</span>
+          </article>
+
+          <article class="panel" aria-label="Co web obsahuje">
+            <h2>Co web obsahuje</h2>
+            <p>
+              Stručně a přehledně: osobní zkušenosti z technologií, praktické využití AI a jednoduché webové
+              aplikace, které můžeš hned použít na počítači i mobilu.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section" id="o-mne">
       <div class="wrap">
-        <h2>O mně</h2>
+        <h2>Kdo jsem, co mě zajímá a něco ze života</h2>
         <article class="about-text">
           <p>Jmenuji se Tony a technologie jsou přirozenou součástí mého života. Dlouhodobě se zajímám o počítače, hardware, software, mobilní zařízení, moderní digitální nástroje a vše, co dokáže být v praxi opravdu užitečné. Mám rád věci, které fungují spolehlivě, dávají smysl a člověku reálně pomáhají. Stejně důležitá je pro mě ale i rodina a běžný život, takže se na techniku dívám nejen technicky, ale i prakticky a lidsky.</p>
 
-          <p>K umělé inteligenci mám blízko hlavně skrze vývoj OpenAI. Ta vznikla v prosinci 2015 a postupně položila základy dnešní generativní AI přes první GPT v roce 2018, GPT-2 v roce 2019 a GPT-3 v roce 2020. Pro širokou veřejnost ale přišel skutečný zlom až 30. listopadu 2022, kdy OpenAI vypustila research preview verzi ChatGPT postavenou na řadě GPT-3.5. Právě tehdy se AI přestala brát jen jako vzdálený výzkum a začala rychle vstupovat do každodenního života.</p>
-
-          <p>Od té doby sleduji, kam se OpenAI posouvá dál – od GPT-4 přes multimodální GPT-4o až k reasoning modelům řady o1 a později i o3, který považuji za mimořádně povedený. Fascinuje mě, jak se z původně čistě výzkumného směru stal praktický ekosystém pro psaní, přemýšlení, tvorbu, práci s obrazem, hlasem i automatizaci.</p>
-
-          <p>Letos to budou tři roky, co jsem ženatý, a s manželkou máme krásnou dceru. Právě spojení technologií, rodiny a reálného života dává tomuto webu jeho směr. Je to prostor, kde propojuji zájem o moderní techniku a AI s tím, co má skutečný význam i využití v každodenním životě.</p>
+          <p>K AI mám blízko hlavně prakticky – sleduji nové možnosti, testuji nástroje a hledám způsoby, jak je použít smysluplně v běžném životě i práci. Baví mě dělat věci jednoduše, srozumitelně a bez zbytečné složitosti.</p>
+          <p>Jsem manžel a táta, takže vedle technologií řeším i každodenní realitu rodinného života. Tenhle web proto spojuje obě části: moderní techniku i normální život.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
       <div class="wrap">
+        <h2>Aplikace</h2>
         <div class="grid">
-          <article class="card">
-            <h3>Technologie</h3>
-            <p>Praktické postřehy o hardwaru, softwaru a digitálních nástrojích, které mají skutečné využití.</p>
-          </article>
-
-          <article class="card">
-            <h3>Umělá inteligence</h3>
-            <p>Vývoj AI, nové modely, smysluplné použití a konkrétní postupy, které fungují i mimo laboratorní demo.</p>
-          </article>
-
-          <article class="card">
-            <h3>Rodina a život</h3>
-            <p>Technologie v rovnováze s běžným životem: co pomáhá, co šetří čas a co dává dlouhodobě smysl.</p>
-          </article>
-
           <article class="card">
             <h3>Aplikace</h3>
             <p>Přehled nástrojů a průvodců připravených k okamžitému použití v práci i každodenní praxi.</p>
             <a class="link" href="/aplikace/">Otevřít sekci aplikace →</a>
           </article>
-
-          <article class="card">
-            <h3>Projekty</h3>
-            <p>Aktuální i plánované projekty, experimenty a konkrétní výsledky, na kterých průběžně pracuji.</p>
-            <a class="link" href="/projekty/">Přejít na projekty →</a>
-          </article>
-
-          <article class="card">
-            <h3>Směr webu</h3>
-            <p>Kam se web posouvá dál, jaké má priority a jaký typ obsahu na něm bude postupně přibývat.</p>
-            <a class="link" href="/smer-webu/">Zobrazit směr webu →</a>
-          </article>
-        </div>
-
-        <div class="stats" aria-label="Hodnoty webu">
-          <div class="stat"><strong>Technologie a AI</strong><span>Prakticky, moderně a bez zbytečné omáčky.</span></div>
-          <div class="stat"><strong>Rodina a realita</strong><span>Digitální svět zasazený do skutečného života.</span></div>
-          <div class="stat"><strong>Srozumitelně a česky</strong><span>Jasná komunikace, která dává smysl každému.</span></div>
         </div>
       </div>
     </section>
@@ -359,6 +323,7 @@
 
     updateNow();
     setInterval(updateNow, 1000);
+
   </script>
 </body>
 </html>
