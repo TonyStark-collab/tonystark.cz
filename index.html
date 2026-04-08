@@ -3,307 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>O mně | TonyStark.cz</title>
-  <meta name="description" content="Osobní web Tonyho – O mně, technologie, AI, projekty a aplikace." />
+  <title>TonyStark.cz | Moderní osobní web</title>
+  <meta name="description" content="Osobní web Tonyho: technologie, AI, projekty a užitečné aplikace na jednom přehledném místě." />
   <style>
     :root{
-      --text:#f1f6fa;
-      --text-soft:#e3edf3;
-      --muted:#aab8c4;
+      --bg:#070d14;
+      --bg-soft:#0f1722;
+      --card:#121d2b;
+      --line:rgba(255,255,255,.11);
+      --line-soft:rgba(255,255,255,.06);
+      --text:#f4f8fc;
+      --text-soft:#d6e0ea;
+      --muted:#9eb0bf;
+      --accent:#73d7ff;
+      --accent-2:#9fa9ff;
+      --ok:#7ef0c0;
       --max:1180px;
+      --radius:22px;
+      --shadow:0 20px 40px rgba(0,0,0,.28);
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      color:var(--text);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(1200px 700px at -10% 30%, rgba(63,158,103,.10), transparent 55%),
-        radial-gradient(900px 700px at 110% 25%, rgba(84,140,255,.12), transparent 50%),
-        linear-gradient(180deg, #07121a 0%, #081620 45%, #061018 100%);
+        radial-gradient(1000px 600px at -15% 10%, rgba(115,215,255,.13), transparent 55%),
+        radial-gradient(900px 500px at 115% 0%, rgba(159,169,255,.12), transparent 48%),
+        linear-gradient(180deg, #070d14 0%, #09111b 45%, #060b12 100%);
       min-height:100vh;
-      overflow-x:hidden;
-    }
-
-    body::before,
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    body::before{
-      background:
-        linear-gradient(90deg, transparent 0, transparent 6%, rgba(126,255,176,.06) 6.1%, transparent 6.2%),
-        linear-gradient(90deg, transparent 0, transparent 22%, rgba(126,255,176,.045) 22.1%, transparent 22.2%),
-        linear-gradient(90deg, transparent 0, transparent 36%, rgba(126,255,176,.035) 36.1%, transparent 36.2%),
-        linear-gradient(0deg, transparent 0, transparent 14%, rgba(126,255,176,.04) 14.1%, transparent 14.2%),
-        linear-gradient(0deg, transparent 0, transparent 42%, rgba(126,255,176,.03) 42.1%, transparent 42.2%);
-      opacity:.55;
-      transform:translateX(-8%);
-      mask-image:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.55) 38%, transparent 72%);
-      -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.55) 38%, transparent 72%);
-    }
-
-    body::after{
-      background:
-        radial-gradient(circle at 78% 20%, rgba(255,255,255,.10) 0 2px, transparent 3px),
-        radial-gradient(circle at 88% 32%, rgba(255,255,255,.08) 0 2px, transparent 3px),
-        radial-gradient(circle at 72% 55%, rgba(255,255,255,.08) 0 2px, transparent 3px),
-        radial-gradient(circle at 84% 70%, rgba(255,255,255,.10) 0 2px, transparent 3px),
-        linear-gradient(145deg, transparent 0 72%, rgba(132,173,255,.06) 72.2% 72.5%, transparent 72.7%),
-        linear-gradient(150deg, transparent 0 63%, rgba(132,173,255,.05) 63.2% 63.45%, transparent 63.7%),
-        linear-gradient(130deg, transparent 0 82%, rgba(132,173,255,.05) 82.2% 82.45%, transparent 82.7%);
-      opacity:.52;
-      mask-image:linear-gradient(90deg, transparent 28%, rgba(0,0,0,.65) 55%, rgba(0,0,0,1) 100%);
-      -webkit-mask-image:linear-gradient(90deg, transparent 28%, rgba(0,0,0,.65) 55%, rgba(0,0,0,1) 100%);
     }
 
     a{color:inherit;text-decoration:none}
 
-    .wrap{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
-      position:relative;
-      z-index:1;
-    }
+    .wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
 
     .topbar{
       position:sticky;
       top:0;
       z-index:30;
       backdrop-filter:blur(14px);
-      background:rgba(5,12,18,.62);
-      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(8,14,21,.74);
+      border-bottom:1px solid var(--line-soft);
     }
 
     .topbar-inner{
-      min-height:72px;
+      min-height:74px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:18px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-
-    .brand-mark{
-      width:38px;
-      height:38px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, #79d0ff, #9c9bff);
-      color:#07131b;
-      font-weight:800;
-      box-shadow:0 10px 30px rgba(88,160,255,.18);
-      flex:0 0 auto;
-    }
-
-    .brand-text{min-width:0}
-    .brand-title{
-      font-size:1rem;
-      font-weight:700;
-      letter-spacing:.01em;
-      color:var(--text);
-      white-space:nowrap;
-    }
-    .brand-sub{
-      margin-top:2px;
-      font-size:.78rem;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .nav-side{
-      display:flex;
-      align-items:center;
       gap:16px;
-      min-width:0;
     }
 
-    nav{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand-mark{
+      width:40px; height:40px; border-radius:13px; display:grid; place-items:center;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#07131c; font-weight:800; box-shadow:0 10px 28px rgba(115,215,255,.25);
     }
+    .brand-title{font-size:1rem; font-weight:700}
+    .brand-sub{font-size:.78rem; color:var(--muted); margin-top:2px}
 
-    nav a{
-      padding:10px 13px;
-      border-radius:999px;
-      color:var(--text-soft);
-      border:1px solid transparent;
-      transition:.2s ease;
-      font-size:.95rem;
-    }
+    nav{display:flex; gap:8px; flex-wrap:wrap}
+    nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft)}
+    nav a:hover, nav a.active{background:rgba(255,255,255,.04); border-color:var(--line)}
 
-    nav a:hover{
-      background:rgba(255,255,255,.04);
-      border-color:rgba(255,255,255,.06);
-    }
-
-    .clockline{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color:var(--muted);
-      font-size:.83rem;
-      letter-spacing:.02em;
-      white-space:nowrap;
-      padding-left:12px;
-      border-left:1px solid rgba(255,255,255,.07);
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .clockline .strong{
-      color:var(--text-soft);
-      font-weight:600;
-    }
-
-    .sep{opacity:.5}
-
-    .hero{
-      padding:72px 0 52px;
-    }
-
-    .content{
-      width:min(760px, 100%);
-      margin:0 auto;
-    }
+    .hero{padding:58px 0 36px}
+    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 310px; gap:34px; align-items:center}
 
     .eyebrow{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-size:.84rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
+      display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
+      border:1px solid var(--line); color:#def5ff; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
+      margin:0 0 16px;
     }
 
-    h1{
-      margin:0 0 26px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.08;
-      letter-spacing:-.03em;
-      font-weight:740;
-      color:#f6fbff;
-      text-wrap:balance;
+    h1{margin:0 0 16px; font-size:clamp(2rem,4.2vw,3.25rem); line-height:1.06; letter-spacing:-.04em; text-wrap:balance}
+    .lead{margin:0; color:var(--text-soft); font-size:1.13rem; line-height:1.9; max-width:62ch}
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(126,240,192,.12), rgba(126,240,192,.04));
+      border:1px solid rgba(126,240,192,.26);
+      border-radius:var(--radius);
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow);
     }
 
-    .para-block{
-      margin:0 0 24px;
+    .hero-card h2{margin:0 0 10px; font-size:1.05rem}
+    .hero-card p{margin:0; color:var(--text-soft); line-height:1.75; font-size:.98rem}
+
+    .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px; border-radius:12px; border:1px solid var(--line);
+      color:var(--text-soft); font-weight:600;
+    }
+    .btn.primary{
+      color:#07131c; border:0;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
     }
 
-    .para-label{
-      display:block;
-      margin:0 0 8px;
-      color:#c7d6e1;
-      font-size:.74rem;
-      font-weight:700;
-      letter-spacing:.08em;
-      text-transform:uppercase;
+    .section{padding:24px 0 56px}
+    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.01));
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      transition:transform .2s ease,border-color .2s ease;
     }
 
-    .lead{
-      color:#f0f6fa;
-      font-size:1.2rem;
-      line-height:1.9;
-      margin:0;
-      font-weight:470;
-      text-wrap:pretty;
+    .card:hover{transform:translateY(-2px); border-color:var(--line)}
+    .card h3{margin:0 0 10px; font-size:1.08rem}
+    .card p{margin:0; color:var(--text-soft); line-height:1.76}
+
+    .card .link{display:inline-block; margin-top:12px; color:#dff5ff; font-weight:600; font-size:.96rem}
+
+    .stats{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
     }
 
-    .lead strong{
-      font-weight:620;
-      color:#fbfdff;
+    .stat{
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--line-soft);
+      background:rgba(255,255,255,.02);
     }
 
-    .copy{
-      color:var(--text-soft);
-      font-size:1.12rem;
-      line-height:1.95;
+    .stat strong{display:block; margin:0 0 6px; font-size:1.2rem}
+    .stat span{color:var(--muted); font-size:.9rem}
+
+    footer{padding:30px 0 42px; color:#92a4b2; font-size:.9rem}
+
+    @media (max-width: 1040px){
+      .topbar-inner{align-items:flex-start; flex-direction:column; padding:14px 0}
+      .hero-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .stats{grid-template-columns:1fr 1fr 1fr}
     }
 
-    .copy p{
-      margin:0;
-      text-wrap:pretty;
-    }
-
-    footer{
-      padding:28px 0 44px;
-      color:#92a4b2;
-      font-size:.88rem;
-    }
-
-    @media (max-width: 1060px){
-      .topbar-inner{
-        align-items:flex-start;
-        flex-direction:column;
-        padding:14px 0;
-      }
-
-      .nav-side{
-        width:100%;
-        justify-content:space-between;
-        gap:12px;
-        flex-wrap:wrap;
-      }
-
-      .clockline{
-        padding-left:0;
-        border-left:0;
-        justify-content:flex-start;
-      }
-    }
-
-    @media (max-width: 720px){
-      .hero{
-        padding:42px 0 28px;
-      }
-
-      h1{
-        font-size:clamp(1.72rem, 8vw, 2.35rem);
-        line-height:1.12;
-      }
-
-      .lead{
-        font-size:1.06rem;
-        line-height:1.84;
-      }
-
-      .copy{
-        font-size:1.02rem;
-        line-height:1.88;
-      }
-
-      nav{
-        gap:4px;
-      }
-
-      nav a{
-        padding:8px 10px;
-        font-size:.9rem;
-      }
-
-      .clockline{
-        font-size:.79rem;
-        row-gap:6px;
-        column-gap:8px;
-      }
-
-      .sep{
-        display:none;
-      }
+    @media (max-width: 760px){
+      nav{gap:4px}
+      nav a{padding:8px 10px; font-size:.9rem}
+      .hero{padding:36px 0 20px}
+      .lead{font-size:1.03rem; line-height:1.82}
+      .grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -312,223 +163,81 @@
     <div class="wrap topbar-inner">
       <a class="brand" href="/">
         <span class="brand-mark">T</span>
-        <span class="brand-text">
-          <span class="brand-title">TonyStark.cz</span>
+        <span>
+          <span class="brand-title">TonyStark.cz</span><br />
           <span class="brand-sub">osobní web a projekty</span>
         </span>
       </a>
 
-      <div class="nav-side">
-        <nav aria-label="Hlavní navigace">
-          <a href="/">O mně</a>
-          <a href="/aplikace/">Aplikace</a>
-          <a href="/projekty/">Projekty</a>
-          <a href="/smer-webu/">Směr webu</a>
-          <a href="/kontakt/">Kontakt</a>
-        </nav>
-
-        <div class="clockline" aria-label="Datum, čas a svátky">
-          <span id="dayDate">Načítám datum…</span>
-          <span class="sep">·</span>
-          <span class="strong" id="liveTime">--:--:--</span>
-          <span class="sep">·</span>
-          <span id="nameDay">Svátek: —</span>
-          <span class="sep">·</span>
-          <span id="holidayInfo">Běžný den</span>
-        </div>
-      </div>
+      <nav aria-label="Hlavní navigace">
+        <a class="active" href="/">O mně</a>
+        <a href="/aplikace/">Aplikace</a>
+        <a href="/projekty/">Projekty</a>
+        <a href="/smer-webu/">Směr webu</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
     </div>
   </header>
 
-  <main class="hero">
-    <div class="wrap">
-      <section class="content" aria-labelledby="o-mne">
-        <p class="eyebrow">Tony Mareček</p>
-        <h1 id="o-mne">O mně</h1>
-
-        <div class="para-block">
-          <span class="para-label">Úvod</span>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Tony Mareček · Technologie &amp; AI</p>
+          <h1>Vítej na mém moderním osobním webu.</h1>
           <p class="lead">
-            Technika mě zajímá dlouhodobě — ne jen jako nástroj, ale jako svět, kterému chci rozumět.
-            Baví mě sledovat, <strong>jak věci fungují</strong>, proč fungují právě takhle a jak je posunout
-            do praktičtější, čistší a lidštější podoby.
+            Tohle je moje základna pro praktickou techniku, umělou inteligenci a projekty, které dávají smysl v reálném životě.
+            Cíl je jednoduchý: čistý design, přehledný obsah a skutečně užitečné informace bez zbytečného šumu.
           </p>
-        </div>
-
-        <div class="copy">
-          <div class="para-block">
-            <span class="para-label">Osobní prostor</span>
-            <p>
-              Jmenuji se Tony a tenhle web je moje vlastní místo na internetu. Nevzniká jako hotová výkladní skříň
-              ani jako strohá vizitka, ale jako prostor, kde si chci postupně soustředit to, co mě dlouhodobě zajímá,
-              co zkouším, co si stavím po svém a co pro mě má skutečný smysl.
-            </p>
-          </div>
-
-          <div class="para-block">
-            <span class="para-label">Informační technologie</span>
-            <p>
-              Nejblíž mám k IT, technice, webovým technologiím a umělé inteligenci. Nezajímá mě jen to, co je zrovna nové,
-              ale i souvislosti, vývoj a rozdíl mezi tím, co je opravdu užitečné, a tím, co na první pohled jen dobře působí.
-            </p>
-          </div>
-
-          <div class="para-block">
-            <span class="para-label">Umělá inteligence</span>
-            <p>
-              Umělou inteligenci v podobě chatbotů sleduji v podstatě od jejích ranějších veřejných začátků. Pamatuji si dobu,
-              kdy OpenAI zpřístupnilo GPT-3.5 jako „research preview“, a kdy krátce nato přišel Bard od Googlu. Tehdy kolem nich
-              ještě neexistovala dnešní vrstva aplikací, funkcí a celého ekosystému. O to zajímavější je pro mě sledovat, kam se
-              tenhle svět posunul a jak rychle se z něčeho, co působilo téměř experimentálně, stala běžná součást práce, tvorby
-              i každodenního používání.
-            </p>
-          </div>
-
-          <div class="para-block">
-            <span class="para-label">Technická minulost</span>
-            <p>
-              Podobně to mám i s technikou obecně. Pamatuji si procesory AMD K5 i dobu, kdy se výkon Intelu běžně spojoval
-              s frekvencemi typu 66&nbsp;MHz. I proto můj vztah k počítačům a technologiím nestojí na momentální módě,
-              ale na dlouhodobém zájmu, který se se mnou táhne od starších časů až k dnešku. Možná právě proto mě pořád baví
-              srovnávat staré a nové přístupy, sledovat vývoj a vnímat, co se mění jen na povrchu a co je doopravdy zásadní.
-            </p>
-          </div>
-
-          <div class="para-block">
-            <span class="para-label">Život a směr</span>
-            <p>
-              Vedle techniky je pro mě důležitá i rodina, zázemí a věci, které mají trvalejší hodnotu. Tenhle web beru jako
-              osobní základnu pro to, co mě baví, co se učím a co chci dál rozvíjet. Postupně tu budou přibývat aplikace,
-              projekty, rozpracované nápady i další věci, které vzniknou přirozeně z toho, co mi bude dávat smysl.
-            </p>
+          <div class="actions">
+            <a class="btn primary" href="/aplikace/">Prozkoumat aplikace</a>
+            <a class="btn" href="/kontakt/">Napsat mi</a>
           </div>
         </div>
-      </section>
-    </div>
+
+        <aside class="hero-card" aria-label="Krátké představení">
+          <h2>Co na webu najdeš</h2>
+          <p>
+            Praktické návody, aplikace a postupně rostoucí knihovnu poznámek o AI, webu a technologiích.
+            Všechno psané česky, s důrazem na přehlednost a použitelnost.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid">
+          <article class="card">
+            <h3>Aplikace</h3>
+            <p>Přehled nástrojů a průvodců, které jsou připravené k okamžitému použití.</p>
+            <a class="link" href="/aplikace/">Otevřít sekci aplikace →</a>
+          </article>
+
+          <article class="card">
+            <h3>Projekty</h3>
+            <p>Místo pro aktuální i plánované projekty, experimenty a dlouhodobý vývoj.</p>
+            <a class="link" href="/projekty/">Přejít na projekty →</a>
+          </article>
+
+          <article class="card">
+            <h3>Směr webu</h3>
+            <p>Kam se web posouvá dál: obsah, funkce a celkový směr v dalších verzích.</p>
+            <a class="link" href="/smer-webu/">Zobrazit roadmapu →</a>
+          </article>
+        </div>
+
+        <div class="stats" aria-label="Hodnoty webu">
+          <div class="stat"><strong>100% česky</strong><span>obsah i navigace</span></div>
+          <div class="stat"><strong>Rychle</strong><span>minimalistický statický web</span></div>
+          <div class="stat"><strong>Prakticky</strong><span>minimum teorie, maximum užitku</span></div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <div class="wrap">© 2026 TonyStark.cz</div>
+    <div class="wrap">© 2026 TonyStark.cz · Vytvořeno s důrazem na jednoduchost, eleganci a výkon.</div>
   </footer>
-
-  <script>
-    const NAME_DAYS = {
-      "01-01":"Nový rok","01-02":"Karina","01-03":"Radmila","01-04":"Diana","01-05":"Dalimil","01-06":"Tři králové","01-07":"Vilma","01-08":"Čestmír","01-09":"Vladan","01-10":"Břetislav","01-11":"Bohdana","01-12":"Pravoslav","01-13":"Edita","01-14":"Radovan","01-15":"Alice","01-16":"Ctirad","01-17":"Drahoslav","01-18":"Vladislav","01-19":"Doubravka","01-20":"Ilona","01-21":"Běla","01-22":"Slavomír","01-23":"Zdeněk","01-24":"Milena","01-25":"Miloš","01-26":"Zora","01-27":"Ingrid","01-28":"Otýlie","01-29":"Zdislava","01-30":"Robin","01-31":"Marika",
-      "02-01":"Hynek","02-02":"Nela","02-03":"Blažej","02-04":"Jarmila","02-05":"Dobromila","02-06":"Vanda","02-07":"Veronika","02-08":"Milada","02-09":"Apolena","02-10":"Mojmír","02-11":"Božena","02-12":"Slavěna","02-13":"Věnceslav","02-14":"Valentýn","02-15":"Jiřina","02-16":"Ljuba","02-17":"Miloslava","02-18":"Gizela","02-19":"Patrik","02-20":"Oldřich","02-21":"Lenka","02-22":"Petr","02-23":"Svatopluk","02-24":"Matěj","02-25":"Liliana","02-26":"Dorota","02-27":"Alexandr","02-28":"Lumír","02-29":"Horymír",
-      "03-01":"Bedřich","03-02":"Anežka","03-03":"Kamil","03-04":"Stela","03-05":"Kazimír","03-06":"Miroslav","03-07":"Tomáš","03-08":"Gabriela","03-09":"Františka","03-10":"Viktorie","03-11":"Anděla","03-12":"Řehoř","03-13":"Růžena","03-14":"Rút / Matylda","03-15":"Ida","03-16":"Elena / Herbert","03-17":"Vlastimil","03-18":"Eduard","03-19":"Josef","03-20":"Světlana","03-21":"Radek","03-22":"Leona","03-23":"Ivona","03-24":"Gabriel","03-25":"Marián","03-26":"Emanuel","03-27":"Dita","03-28":"Soňa","03-29":"Taťána","03-30":"Arnošt","03-31":"Kvido",
-      "04-01":"Hugo","04-02":"Erika","04-03":"Richard","04-04":"Ivana","04-05":"Miroslava","04-06":"Vendula","04-07":"Heřman / Hermína","04-08":"Ema","04-09":"Dušan","04-10":"Darja","04-11":"Izabela","04-12":"Julius","04-13":"Aleš","04-14":"Vincenc","04-15":"Anastázie","04-16":"Irena","04-17":"Rudolf","04-18":"Valérie","04-19":"Rostislav","04-20":"Marcela","04-21":"Alexandra","04-22":"Evženie","04-23":"Vojtěch","04-24":"Jiří","04-25":"Marek","04-26":"Oto","04-27":"Jaroslav","04-28":"Vlastislav","04-29":"Robert","04-30":"Blahoslav",
-      "05-01":"Svátek práce","05-02":"Zikmund","05-03":"Alexej","05-04":"Květoslav","05-05":"Klaudie","05-06":"Radoslav","05-07":"Stanislav","05-08":"Den vítězství","05-09":"Ctibor","05-10":"Blažena","05-11":"Svatava","05-12":"Pankrác","05-13":"Servác","05-14":"Bonifác","05-15":"Žofie","05-16":"Přemysl","05-17":"Aneta","05-18":"Nataša","05-19":"Ivo","05-20":"Zbyšek","05-21":"Monika","05-22":"Emil","05-23":"Vladimír","05-24":"Jana","05-25":"Viola","05-26":"Filip","05-27":"Valdemar","05-28":"Vilém","05-29":"Maxmilián","05-30":"Ferdinand","05-31":"Kamila",
-      "06-01":"Laura","06-02":"Jarmil","06-03":"Tamara","06-04":"Dalibor","06-05":"Dobroslav","06-06":"Norbert","06-07":"Iveta","06-08":"Medard","06-09":"Stanislava","06-10":"Gita","06-11":"Bruno","06-12":"Antonie","06-13":"Antonín","06-14":"Roland","06-15":"Vít","06-16":"Zbyněk","06-17":"Adolf","06-18":"Milan","06-19":"Leoš","06-20":"Květa","06-21":"Alois","06-22":"Pavla","06-23":"Zdeňka","06-24":"Jan","06-25":"Ivan","06-26":"Adriana","06-27":"Ladislav","06-28":"Lubomír","06-29":"Petr a Pavel","06-30":"Šárka",
-      "07-01":"Jaroslava","07-02":"Patricie","07-03":"Radomír","07-04":"Prokop","07-05":"Cyril a Metoděj","07-06":"Jan Hus","07-07":"Bohuslava","07-08":"Nora","07-09":"Drahoslava","07-10":"Libuše / Amálie","07-11":"Olga","07-12":"Bořek","07-13":"Markéta","07-14":"Karolína","07-15":"Jindřich","07-16":"Luboš","07-17":"Martina","07-18":"Drahomíra","07-19":"Čeněk","07-20":"Ilja","07-21":"Vítězslav","07-22":"Magdalena","07-23":"Libor","07-24":"Kristýna","07-25":"Jakub","07-26":"Anna","07-27":"Věroslav","07-28":"Viktor","07-29":"Marta","07-30":"Bořivoj","07-31":"Ignác",
-      "08-01":"Oskar","08-02":"Gustav","08-03":"Miluše","08-04":"Dominik","08-05":"Kristián","08-06":"Oldřiška","08-07":"Lada","08-08":"Soběslav","08-09":"Roman","08-10":"Vavřinec","08-11":"Zuzana","08-12":"Klára","08-13":"Alena","08-14":"Alan","08-15":"Hana","08-16":"Jáchym","08-17":"Petra","08-18":"Helena","08-19":"Ludvík","08-20":"Bernard","08-21":"Johana","08-22":"Bohuslav","08-23":"Sandra","08-24":"Bartoloměj","08-25":"Radim","08-26":"Luděk","08-27":"Otakar","08-28":"Augustýn","08-29":"Evelína","08-30":"Vladěna","08-31":"Pavlína",
-      "09-01":"Linda / Samuel","09-02":"Adéla","09-03":"Bronislav","09-04":"Jindřiška","09-05":"Boris","09-06":"Boleslav","09-07":"Regína","09-08":"Mariana","09-09":"Daniela","09-10":"Irma","09-11":"Denisa","09-12":"Marie","09-13":"Lubor","09-14":"Radka","09-15":"Jolana","09-16":"Ludmila","09-17":"Naděžda","09-18":"Kryštof","09-19":"Zita","09-20":"Oleg","09-21":"Matouš","09-22":"Darina","09-23":"Berta","09-24":"Jaromír","09-25":"Zlata","09-26":"Andrea","09-27":"Jonáš","09-28":"Václav","09-29":"Michal","09-30":"Jeroným",
-      "10-01":"Igor","10-02":"Olívie / Oliver","10-03":"Bohumil","10-04":"František","10-05":"Eliška","10-06":"Hanuš","10-07":"Justýna","10-08":"Věra","10-09":"Štefan / Sára","10-10":"Marina","10-11":"Andrej","10-12":"Marcel","10-13":"Renáta","10-14":"Agáta","10-15":"Tereza","10-16":"Havel","10-17":"Hedvika","10-18":"Lukáš","10-19":"Michaela","10-20":"Vendelín","10-21":"Brigita","10-22":"Sabina","10-23":"Teodor","10-24":"Nina","10-25":"Beáta","10-26":"Erik","10-27":"Šarlota","10-28":"Vznik ČSR","10-29":"Silvie","10-30":"Tadeáš","10-31":"Štěpánka",
-      "11-01":"Felix","11-02":"Památka zesnulých","11-03":"Hubert","11-04":"Karel","11-05":"Miriam","11-06":"Liběna","11-07":"Saskie","11-08":"Bohumír","11-09":"Bohdan","11-10":"Evžen","11-11":"Martin","11-12":"Benedikt","11-13":"Tibor","11-14":"Sáva","11-15":"Leopold","11-16":"Otmar","11-17":"Mahulena","11-18":"Romana","11-19":"Alžběta","11-20":"Nikola","11-21":"Albert","11-22":"Cecílie","11-23":"Klement","11-24":"Emílie","11-25":"Kateřina","11-26":"Artur","11-27":"Xenie","11-28":"René","11-29":"Zina","11-30":"Ondřej",
-      "12-01":"Iva","12-02":"Blanka","12-03":"Svatoslav","12-04":"Barbora","12-05":"Jitka","12-06":"Mikuláš","12-07":"Ambrož","12-08":"Květoslava","12-09":"Vratislav","12-10":"Julie","12-11":"Dana","12-12":"Simona","12-13":"Lucie","12-14":"Lýdie","12-15":"Radana","12-16":"Albína","12-17":"Daniel","12-18":"Miloslav","12-19":"Ester","12-20":"Dagmar","12-21":"Natálie","12-22":"Šimon","12-23":"Vlasta","12-24":"Adam a Eva","12-25":"Boží hod vánoční","12-26":"Štěpán","12-27":"Žaneta","12-28":"Bohumila","12-29":"Judita","12-30":"David","12-31":"Silvestr"
-    };
-
-    function formatKey(date){
-      return String(date.getMonth()+1).padStart(2, '0') + "-" + String(date.getDate()).padStart(2, '0');
-    }
-
-    function getNameDay(date){
-      return NAME_DAYS[formatKey(date)] || "—";
-    }
-
-    function easterSunday(year){
-      const a = year % 19;
-      const b = Math.floor(year / 100);
-      const c = year % 100;
-      const d = Math.floor(b / 4);
-      const e = b % 4;
-      const f = Math.floor((b + 8) / 25);
-      const g = Math.floor((b - f + 1) / 3);
-      const h = (19 * a + b - d - g + 15) % 30;
-      const i = Math.floor(c / 4);
-      const k = c % 4;
-      const l = (32 + 2 * e + 2 * i - h - k) % 7;
-      const m = Math.floor((a + 11 * h + 22 * l) / 451);
-      const month = Math.floor((h + l - 7 * m + 114) / 31);
-      const day = ((h + l - 7 * m + 114) % 31) + 1;
-      return new Date(year, month - 1, day);
-    }
-
-    function addDays(date, days){
-      const d = new Date(date);
-      d.setDate(d.getDate() + days);
-      return d;
-    }
-
-    function getHolidayInfo(date){
-      const key = formatKey(date);
-
-      const stateHolidays = {
-        "01-01":"Státní svátek",
-        "05-08":"Státní svátek",
-        "07-05":"Státní svátek",
-        "07-06":"Státní svátek",
-        "09-28":"Státní svátek",
-        "10-28":"Státní svátek",
-        "11-17":"Státní svátek"
-      };
-
-      const otherHolidays = {
-        "05-01":"Ostatní svátek",
-        "12-24":"Ostatní svátek",
-        "12-25":"Ostatní svátek",
-        "12-26":"Ostatní svátek"
-      };
-
-      const easter = easterSunday(date.getFullYear());
-      const goodFriday = addDays(easter, -2);
-      const easterMonday = addDays(easter, 1);
-
-      const gfKey = formatKey(goodFriday);
-      const emKey = formatKey(easterMonday);
-
-      if (stateHolidays[key]) return stateHolidays[key];
-      if (otherHolidays[key]) return otherHolidays[key];
-      if (key === gfKey || key === emKey) return "Ostatní svátek";
-      return "Běžný den";
-    }
-
-    (function(){
-      const dateEl = document.getElementById('dayDate');
-      const timeEl = document.getElementById('liveTime');
-      const nameDayEl = document.getElementById('nameDay');
-      const holidayEl = document.getElementById('holidayInfo');
-
-      function pad(n){ return String(n).padStart(2, '0'); }
-
-      function updateClock(){
-        const now = new Date();
-
-        const dayName = now.toLocaleDateString('cs-CZ', { weekday: 'long' });
-        const dateText = now.toLocaleDateString('cs-CZ', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-
-        const timeText = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-
-        if(dateEl){
-          dateEl.textContent = `${dayName.charAt(0).toUpperCase() + dayName.slice(1)} · ${dateText}`;
-        }
-        if(timeEl){
-          timeEl.textContent = timeText;
-        }
-        if(nameDayEl){
-          nameDayEl.textContent = `Svátek: ${getNameDay(now)}`;
-        }
-        if(holidayEl){
-          holidayEl.textContent = getHolidayInfo(now);
-        }
-      }
-
-      updateClock();
-      setInterval(updateClock, 1000);
-    })();
-  </script>
 </body>
 </html>
