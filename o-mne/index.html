@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TonyStark.cz | O mně</title>
+  <meta name="description" content="Plná osobní stránka O mně na webu TonyStark.cz." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #121418;
+      --surface: #181b21;
+      --line: #2b313c;
+      --text: #eceff5;
+      --text-soft: #c8ced9;
+      --link: #b7c6e6;
+      --max: 900px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.9;
+      padding: 20px 16px 56px;
+    }
+
+    .page {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 30px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      padding: 10px;
+    }
+
+    .brand,
+    .menu a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .brand {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .menu {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .menu a:hover,
+    .menu a:focus-visible,
+    .brand:hover,
+    .brand:focus-visible {
+      color: var(--text);
+      border-color: var(--line);
+      outline: none;
+    }
+
+    main {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      padding: clamp(24px, 4.5vw, 48px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 7vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+    }
+
+    .podpis {
+      font-family: "Marck Script", cursive;
+      font-size: clamp(1.5rem, 4.6vw, 2rem);
+      color: var(--link);
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    .obsah {
+      margin-top: 30px;
+      max-width: 68ch;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.1vw, 1.12rem);
+    }
+
+    .obsah p {
+      margin: 0 0 20px;
+    }
+
+    @media (max-width: 640px) {
+      body { padding-top: 14px; }
+      .page { gap: 22px; }
+      .brand { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav" aria-label="Hlavní navigace">
+      <a class="brand" href="/">TonyStark.cz</a>
+      <div class="menu">
+        <a href="/o-mne/" aria-current="page">O mně</a>
+        <a href="/info-panel/">Info panel</a>
+      </div>
+    </nav>
+
+    <main>
+      <h1>O mně</h1>
+      <span class="podpis">Tony</span>
+
+      <article class="obsah">
+        <p>Jmenuji se Tony. Letos mi bude čtyřicet let a už samotný ročník narození napovídá, že moje dětství i dospívání byly silně spojené s devadesátými lety. Manželka o mně s nadsázkou a ironií říká, že jsem „dítě Černobylu“, čistě ve smyslu roku 1986.</p>
+
+        <p>Byly to krásné časy. Internet ještě nebyl samozřejmostí, a tak jsme jako kluci trávili čas venku, hráli kopanou a svět techniky poznávali postupně, po svém.</p>
+
+        <p>Když jsme se kolem patnácti let dostávali k prvním počítačům, často to znamenalo skládat je z komponent, které kdo dokázal sehnat, přinesl nebo vyměnil. Byla to doba procesorů AMD K5 a K6 nebo starších Intelů na frekvencích kolem 66 či 99 MHz. Jasně, taktovalo se také, ale ne kliknutím v moderním rozhraní. Dělalo se to fyzicky přes jumpry přímo na základní desce.</p>
+
+        <p>Samozřejmě jsme brzy zjistili, že tehdejší výpočetní výkon procesorů kolem stovky megahertzů a jen o něco výš už přestával stačit. Na přehrávání hudby to ještě bylo, ale na další souběžné úkony už často nezbývala téměř žádná výkonová rezerva. Podobně na tom byly i pevné disky, tehdy harddisky, s kapacitou kolem 1 GB. I to začínalo být málo a bylo jasné, že se musí jít dál.</p>
+
+        <p>Jakmile se podařilo něco sehnat nebo poskládat, přecházelo se na procesory s frekvencemi 300 nebo 500 MHz, které už na tehdejší dobu nabízely pořádný kus výkonu a dovolily výrazně pohodlnější multitasking. Když se člověk dostal k procesorům kolem 500 MHz, už se dalo přemýšlet i nad tím, že si pustí nějaký film. Na tehdejší dobu to byl znatelný posun a vyšší frekvence znamenala, že procesor podobné úlohy zvládal podstatně lépe než starší sestavy.</p>
+
+        <p>Přiznám se, že jsem ždímal výkon i z chudáka Celeronu, levnější a ořezané varianty tehdejšího Pentia, ale to už byly spíš technické experimenty než opravdový uživatelský komfort.</p>
+
+        <p>Jakmile jsme si později z různých brigád vydělali vlastní peníze, otevřela se možnost dostat se až k tehdy skoro magické hranici 1 GHz. To už člověk vnímal jako opravdový komfort. Pamatuji si, že u těch výkonnějších sestav byla osazená paměť RAM až 128 MB, což tehdy působilo skoro neuvěřitelně. Pevné disky měly kolem 10 GB, zatímco dnes se běžně pracuje s terabyty. V dobách procesorů na 66 nebo 99 MHz bývala k dispozici paměť 16 nebo 32 MB RAM a začínalo se na modulech SIMM.</p>
+
+        <p>S dnešními počítači se to samozřejmě výkonem nedá vůbec srovnávat. Právě proto na to ale člověk vzpomíná jako na poctivé začátky, kdy byly počítače víc o zkoušení, bastlení a radosti z toho, že se něco vůbec rozběhlo.</p>
+
+        <p>Hudba tehdy hrála z FM rádií, ale postupně jsme si ji začali pouštět i na počítači. Už v dobách procesorů kolem 99 MHz a výš se daly sehnat první písničky na CD. Všechno by člověk nejraději ukládal na harddisk, jenže tehdejší kapacity byly omezené, takže se spousta věcí přehrávala přímo z CD.</p>
+
+        <p>Doba postupně přinesla klasická CD, vypalovatelná a přepisovatelná média CD-R a CD-RW a o něco později i DVD vypalovačky s médii DVD-R a DVD-RW. Díky tomu už nešlo jen o hudbu, ale také o filmy, aplikace a další soubory, které se tehdy mezi lidmi různě předávaly, vypalovaly a archivovaly.</p>
+
+        <p>Filmy a seriály člověk znal hlavně tehdy, když si je včas nahrál na VHS. Byla to doba, která měla svoje tempo, svoje kouzlo a úplně jiný způsob objevování světa, než jaký známe dnes.</p>
+
+        <p>Právě tahle éra mě výrazně formovala. Dodnes si z ní nesu vztah k technice, hudbě, počítačům a ke všemu, co má logiku, vývoj a opravdový charakter.</p>
+
+        <p>Profesně pracuji jako skladník pro expedici, ale mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. Vždy mě bavilo zjišťovat, jak věci fungují, proč někdy nefungují a co udělat pro to, aby fungovaly lépe.</p>
+
+        <p>S umělou inteligencí v podobě velkých jazykových modelů jsem se poprvé výrazněji setkal v roce 2022. Právě tehdy se začal rodit první opravdu velký veřejný boom moderní AI, jak ji dnes známe.</p>
+
+        <p>Počáteční a faktická registrace mého účtu u OpenAI se datuje k 14. prosinci 2022, tedy jen přibližně dva týdny po veřejném uvedení ChatGPT. I to samo o sobě dobře ukazuje, jak rychle si mě tehdejší nástup moderní AI získal.</p>
+
+        <p>Od té doby sleduji vývoj AI průběžně a se skutečným zájmem, ať už jde o samotné modely, jejich možnosti, limity nebo praktické využití v běžném životě i technické praxi.</p>
+
+        <p>Jsem člověk, kterého zajímá vývoj moderních technologií, nové trendy a praktické využití techniky v běžném životě. Mám rád věcnost, funkčnost, čisté řešení a smysluplné nápady. Zároveň ale nejsem jen o technice. Důležitou součástí mého života je rodina, hudba a obyčejné lidské zázemí.</p>
+
+        <p>Jsem manžel a táta. Právě rodina je pro mě tím nejdůležitějším bodem v životě. Vedle ní má své pevné místo i moje dlouholetá vášeň pro techniku, počítače, web, zařízení, systémy a všechno, co se neustále posouvá dopředu.</p>
+
+        <p>Tenhle web je osobním prostorem, kde se potkává moje minulost, zkušenosti, současné zájmy i věci, které mě opravdu vystihují.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
