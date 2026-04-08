@@ -3,344 +3,297 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TonyStark.cz | Domů</title>
-  <meta name="description" content="TonyStark.cz: technologie, umělá inteligence, rodina, aplikace a projekty v praktickém a srozumitelném pojetí." />
+  <title>TonyStark.cz | Denní panel</title>
+  <meta name="description" content="Denní informační panel: den, datum, čas, svátek a počasí pro zvolenou lokalitu." />
   <style>
     :root{
-      --bg:#070d14;
+      --bg:#060b12;
       --bg-soft:#0f1722;
-      --card:#121d2b;
-      --line:rgba(255,255,255,.11);
-      --line-soft:rgba(255,255,255,.06);
-      --text:#f4f8fc;
-      --text-soft:#d6e0ea;
-      --muted:#9eb0bf;
-      --accent:#73d7ff;
+      --card:#122133;
+      --line:rgba(255,255,255,.12);
+      --text:#f3f8ff;
+      --text-soft:#d5e3f2;
+      --muted:#9bb1c6;
+      --accent:#72d8ff;
       --accent-2:#9fa9ff;
       --ok:#7ef0c0;
-      --max:1180px;
       --radius:22px;
-      --shadow:0 20px 40px rgba(0,0,0,.28);
+      --shadow:0 18px 42px rgba(0,0,0,.32);
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
     body{
       margin:0;
+      min-height:100vh;
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1000px 600px at -15% 10%, rgba(115,215,255,.13), transparent 55%),
-        radial-gradient(900px 500px at 115% 0%, rgba(159,169,255,.12), transparent 48%),
-        linear-gradient(180deg, #070d14 0%, #09111b 45%, #060b12 100%);
-      min-height:100vh;
+        radial-gradient(900px 540px at -10% 12%, rgba(114,216,255,.14), transparent 52%),
+        radial-gradient(860px 500px at 112% 0%, rgba(159,169,255,.16), transparent 46%),
+        linear-gradient(180deg, #060b12 0%, #08131e 55%, #050a11 100%);
+      display:flex;
+      justify-content:center;
+      padding:26px 16px 34px;
     }
 
-    a{color:inherit;text-decoration:none}
-
-    .wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .app{
+      width:min(960px, 100%);
+      position:relative;
+    }
 
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:30;
-      backdrop-filter:blur(14px);
-      background:rgba(8,14,21,.74);
-      border-bottom:1px solid var(--line-soft);
-    }
-
-    .topbar-inner{
-      min-height:74px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
+      margin-bottom:18px;
     }
 
-    .brand{display:flex; align-items:center; gap:12px}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+
     .brand-mark{
-      width:40px; height:40px; border-radius:13px; display:grid; place-items:center;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      color:#07131c; font-weight:800; box-shadow:0 10px 28px rgba(115,215,255,.25);
-    }
-    .brand-title{font-size:1rem; font-weight:700}
-    .brand-sub{font-size:.78rem; color:var(--muted); margin-top:2px}
-
-    nav{display:flex; gap:8px; flex-wrap:wrap}
-    nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft)}
-    nav a:hover, nav a.active{background:rgba(255,255,255,.04); border-color:var(--line)}
-
-    .today-dock{
-      margin-left:auto;
-      width:min(340px, 100%);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid var(--line-soft);
-      border-radius:16px;
-      padding:10px 12px;
-      box-shadow:none;
-      opacity:.95;
-    }
-    .today-dock h2{
-      margin:0 0 8px;
-      font-size:.76rem;
-      color:var(--muted);
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-    .today-dock ul{
-      margin:0;
-      padding:0;
-      list-style:none;
+      width:36px;
+      height:36px;
+      border-radius:12px;
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:4px 12px;
-      font-size:.82rem;
+      place-items:center;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#07131c;
+      box-shadow:0 10px 26px rgba(114,216,255,.24);
+    }
+
+    .menu-btn{
+      width:46px;
+      height:46px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+    }
+
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after{
+      display:block;
+      width:20px;
+      height:2px;
+      border-radius:2px;
+      background:currentColor;
+      content:"";
+      transition:.25s ease;
+      position:relative;
+    }
+    .menu-btn span::before{position:absolute; top:-6px; left:0}
+    .menu-btn span::after{position:absolute; top:6px; left:0}
+
+    .menu{
+      position:fixed;
+      top:0;
+      right:0;
+      width:min(320px, 86vw);
+      height:100vh;
+      padding:80px 18px 24px;
+      background:rgba(9,15,23,.97);
+      border-left:1px solid var(--line);
+      transform:translateX(102%);
+      transition:transform .28s ease;
+      overflow-y:auto;
+      z-index:40;
+    }
+
+    .menu.open{transform:translateX(0)}
+
+    .menu a{
+      display:block;
+      padding:14px 14px;
+      border-radius:12px;
       color:var(--text-soft);
+      text-decoration:none;
+      border:1px solid transparent;
+      margin-bottom:8px;
     }
-    .today-dock li{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-    .today-dock li.wide{grid-column:1 / -1}
+    .menu a:hover{background:rgba(255,255,255,.04); border-color:var(--line)}
 
-    .hero{padding:58px 0 24px}
-    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr); gap:26px; align-items:end}
-
-    .eyebrow{
-      display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
-      border:1px solid var(--line); color:#def5ff; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
-      margin:0 0 16px;
-    }
-
-    h1{margin:0 0 16px; font-size:clamp(2rem,4.2vw,3.25rem); line-height:1.06; letter-spacing:-.04em; text-wrap:balance}
-    .lead{margin:0; color:var(--text-soft); font-size:1.13rem; line-height:1.9; max-width:64ch}
-
-    .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 16px; border-radius:12px; border:1px solid var(--line);
-      color:var(--text-soft); font-weight:600;
-    }
-    .btn.primary{
-      color:#07131c; border:0;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-    }
-
-    .section{padding:20px 0 56px}
-    .section h2{margin:0 0 14px; font-size:1.45rem; letter-spacing:-.02em}
-    .about-text{
-      background:linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.012));
-      border:1px solid var(--line-soft);
-      border-radius:var(--radius);
-      padding:22px;
-      box-shadow:var(--shadow);
-    }
-    .about-text p{margin:0 0 16px; color:var(--text-soft); line-height:1.82}
-    .about-text p:last-child{margin-bottom:0}
-
-    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.01));
-      border:1px solid var(--line-soft);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:var(--shadow);
-      transition:transform .2s ease,border-color .2s ease;
-    }
-
-    .card:hover{transform:translateY(-2px); border-color:var(--line)}
-    .card h3{margin:0 0 10px; font-size:1.08rem}
-    .card p{margin:0; color:var(--text-soft); line-height:1.76}
-
-    .card .link{display:inline-block; margin-top:12px; color:#dff5ff; font-weight:600; font-size:.96rem}
-
-    .reveal{
+    .backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.45);
       opacity:0;
-      transform:translateY(34px) scale(.985);
-      filter:blur(5px);
-      transition:opacity .75s ease, transform .75s ease, filter .75s ease;
-      transition-delay:var(--delay, 0ms);
-      will-change:opacity,transform,filter;
+      pointer-events:none;
+      transition:opacity .25s ease;
+      z-index:35;
     }
-    .reveal.in-view{
-      opacity:1;
-      transform:translateY(0) scale(1);
-      filter:blur(0);
+    .backdrop.show{opacity:1; pointer-events:auto}
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
     }
 
-    .stats{
-      margin-top:16px;
+    .panel h1{
+      margin:0 0 18px;
+      font-size:clamp(1.6rem, 3.8vw, 2.4rem);
+      letter-spacing:-.03em;
+    }
+
+    .grid{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-columns:repeat(2, minmax(0,1fr));
       gap:12px;
     }
 
-    .stat{
-      padding:14px;
+    .item{
+      border:1px solid rgba(255,255,255,.09);
       border-radius:14px;
-      border:1px solid var(--line-soft);
       background:rgba(255,255,255,.02);
+      padding:14px;
     }
 
-    .stat strong{display:block; margin:0 0 6px; font-size:1.05rem}
-    .stat span{color:var(--muted); font-size:.9rem}
-    .chip{
-      display:inline-flex;
-      margin-top:6px;
-      padding:5px 9px;
-      border-radius:999px;
-      border:1px solid var(--line-soft);
-      font-size:.75rem;
-      color:#dcf4ff;
-      background:rgba(255,255,255,.03);
+    .item.wide{grid-column:1 / -1}
+    .label{display:block; color:var(--muted); font-size:.82rem; margin-bottom:6px; text-transform:uppercase; letter-spacing:.05em}
+    .value{font-size:1.14rem; color:var(--text-soft); line-height:1.5}
+    .value.strong{font-size:1.38rem; color:var(--text); font-weight:700}
+
+    .weather{
+      margin-top:18px;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:16px;
+      padding:16px;
+      background:rgba(255,255,255,.02);
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:14px;
+      align-items:center;
     }
 
-    footer{padding:30px 0 42px; color:#92a4b2; font-size:.9rem}
-
-    @media (max-width: 1040px){
-      .topbar-inner{align-items:flex-start; flex-direction:column; padding:14px 0}
-      .today-dock{margin-left:0; width:100%}
-      .grid{grid-template-columns:1fr 1fr}
-      .stats{grid-template-columns:1fr 1fr 1fr}
+    .weather-icon{
+      width:74px;
+      height:74px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:2rem;
+      background:linear-gradient(180deg, rgba(114,216,255,.22), rgba(159,169,255,.14));
+      position:relative;
+      overflow:hidden;
+      animation:float 3.1s ease-in-out infinite;
     }
 
-    @media (max-width: 760px){
-      nav{gap:4px}
-      nav a{padding:8px 10px; font-size:.9rem}
-      .hero{padding:36px 0 20px}
-      .lead{font-size:1.03rem; line-height:1.82}
-      .today-dock ul{grid-template-columns:1fr}
+    .weather-icon.rain::after{
+      content:"";
+      position:absolute;
+      inset:12px 18px;
+      background:repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.7) 0,
+        rgba(255,255,255,.7) 5px,
+        transparent 5px,
+        transparent 12px
+      );
+      animation:rain 1.1s linear infinite;
+      opacity:.45;
+    }
+
+    .weather-meta strong{display:block; font-size:1.28rem; margin-bottom:4px}
+    .weather-meta span{display:block; color:var(--text-soft); margin-top:2px}
+
+    .status{margin-top:10px; color:var(--ok); font-size:.9rem}
+
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-4px)}
+    }
+    @keyframes rain{
+      from{transform:translateY(0)}
+      to{transform:translateY(12px)}
+    }
+
+    @media (max-width:700px){
+      .panel{padding:18px}
       .grid{grid-template-columns:1fr}
-      .stats{grid-template-columns:1fr}
+      .weather{grid-template-columns:1fr; text-align:center}
+      .weather-icon{margin:0 auto}
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="/">
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
         <span class="brand-mark">T</span>
-        <span>
-          <span class="brand-title">TonyStark.cz</span><br />
-          <span class="brand-sub">osobní web a projekty</span>
-        </span>
-      </a>
-
-      <nav aria-label="Hlavní navigace">
-        <a class="active" href="/">Domů</a>
-        <a href="/aplikace/">Aplikace</a>
-        <a href="/projekty/">Projekty</a>
-        <a href="/smer-webu/">Směr webu</a>
-        <a href="/kontakt/">Kontakt</a>
-      </nav>
-
-      <aside class="today-dock" aria-label="Denní informační panel">
-        <h2>Dnes</h2>
-        <ul>
-          <li class="wide"><strong>Datum:</strong> <span id="today-date">—</span></li>
-          <li><strong>Čas:</strong> <span id="today-time">—</span></li>
-          <li><strong>Svátek:</strong> <span id="nameday">—</span></li>
-          <li class="wide"><strong>Státní svátek:</strong> <span id="state-holiday">—</span></li>
-        </ul>
-        <span class="chip" id="day-summary">Načítám dnešní informace…</span>
-      </aside>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <p class="eyebrow">Tony Mareček · Technologie &amp; AI</p>
-          <h1>Technologie, AI a život v praktickém a lidském pohledu.</h1>
-          <p class="lead">
-            Tento web je osobní prostor, kde propojuji zkušenosti z technologií s reálným životem.
-            Najdete tu přehledné informace, aplikace, projekty i jasný směr, který dává smysl v každodenní praxi.
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="/aplikace/">Prozkoumat aplikace</a>
-            <a class="btn" href="/projekty/">Zobrazit projekty</a>
-          </div>
-        </div>
+        <span>TonyStark.cz</span>
       </div>
-    </section>
+      <button class="menu-btn" id="menuBtn" aria-label="Otevřít menu" aria-expanded="false" aria-controls="menuPanel">
+        <span></span>
+      </button>
+    </header>
 
-    <section class="section" id="o-mne">
-      <div class="wrap">
-        <h2>O mně</h2>
-        <article class="about-text reveal">
-          <p>Jmenuji se Tony a technologie jsou přirozenou součástí mého života. Dlouhodobě se zajímám o počítače, hardware, software, mobilní zařízení, moderní digitální nástroje a vše, co dokáže být v praxi opravdu užitečné. Mám rád věci, které fungují spolehlivě, dávají smysl a člověku reálně pomáhají. Stejně důležitá je pro mě ale i rodina a běžný život, takže se na techniku dívám nejen technicky, ale i prakticky a lidsky.</p>
+    <aside class="menu" id="menuPanel" aria-label="Rolovací nabídka">
+      <a href="/">Domů</a>
+      <a href="/#o-mne">O mně</a>
+      <a href="/aplikace/">Aplikace</a>
+    </aside>
+    <div class="backdrop" id="backdrop"></div>
 
-          <p>K umělé inteligenci mám blízko hlavně skrze vývoj OpenAI. Ta vznikla v prosinci 2015 a postupně položila základy dnešní generativní AI přes první GPT v roce 2018, GPT-2 v roce 2019 a GPT-3 v roce 2020. Pro širokou veřejnost ale přišel skutečný zlom až 30. listopadu 2022, kdy OpenAI vypustila research preview verzi ChatGPT postavenou na řadě GPT-3.5. Právě tehdy se AI přestala brát jen jako vzdálený výzkum a začala rychle vstupovat do každodenního života.</p>
-
-          <p>Od té doby sleduji, kam se OpenAI posouvá dál – od GPT-4 přes multimodální GPT-4o až k reasoning modelům řady o1 a později i o3, který považuji za mimořádně povedený. Fascinuje mě, jak se z původně čistě výzkumného směru stal praktický ekosystém pro psaní, přemýšlení, tvorbu, práci s obrazem, hlasem i automatizaci.</p>
-
-          <p>Letos to budou tři roky, co jsem ženatý, a s manželkou máme krásnou dceru. Právě spojení technologií, rodiny a reálného života dává tomuto webu jeho směr. Je to prostor, kde propojuji zájem o moderní techniku a AI s tím, co má skutečný význam i využití v každodenním životě.</p>
+    <main class="panel" id="o-mne">
+      <h1>Denní informační panel</h1>
+      <section class="grid" aria-label="Datum a svátky">
+        <article class="item">
+          <span class="label">Den</span>
+          <span class="value strong" id="today-day">—</span>
         </article>
-      </div>
-    </section>
+        <article class="item">
+          <span class="label">Datum</span>
+          <span class="value" id="today-date">—</span>
+        </article>
+        <article class="item wide">
+          <span class="label">Čas</span>
+          <span class="value strong" id="today-time">—</span>
+        </article>
+        <article class="item wide">
+          <span class="label" id="holiday-label">Svátek</span>
+          <span class="value" id="holiday-info">—</span>
+        </article>
+      </section>
 
-    <section class="section">
-      <div class="wrap">
-        <div class="grid">
-          <article class="card reveal" style="--delay:40ms">
-            <h3>Technologie</h3>
-            <p>Praktické postřehy o hardwaru, softwaru a digitálních nástrojích, které mají skutečné využití.</p>
-          </article>
-
-          <article class="card reveal" style="--delay:90ms">
-            <h3>Umělá inteligence</h3>
-            <p>Vývoj AI, nové modely, smysluplné použití a konkrétní postupy, které fungují i mimo laboratorní demo.</p>
-          </article>
-
-          <article class="card reveal" style="--delay:140ms">
-            <h3>Rodina a život</h3>
-            <p>Technologie v rovnováze s běžným životem: co pomáhá, co šetří čas a co dává dlouhodobě smysl.</p>
-          </article>
-
-          <article class="card reveal" style="--delay:190ms">
-            <h3>Aplikace</h3>
-            <p>Přehled nástrojů a průvodců připravených k okamžitému použití v práci i každodenní praxi.</p>
-            <a class="link" href="/aplikace/">Otevřít sekci aplikace →</a>
-          </article>
-
-          <article class="card reveal" style="--delay:240ms">
-            <h3>Projekty</h3>
-            <p>Aktuální i plánované projekty, experimenty a konkrétní výsledky, na kterých průběžně pracuji.</p>
-            <a class="link" href="/projekty/">Přejít na projekty →</a>
-          </article>
-
-          <article class="card reveal" style="--delay:290ms">
-            <h3>Směr webu</h3>
-            <p>Kam se web posouvá dál, jaké má priority a jaký typ obsahu na něm bude postupně přibývat.</p>
-            <a class="link" href="/smer-webu/">Zobrazit směr webu →</a>
-          </article>
+      <section class="weather" aria-label="Počasí" id="weatherBox">
+        <div class="weather-icon" id="weatherIcon" aria-hidden="true">⛅</div>
+        <div class="weather-meta">
+          <strong id="weatherTitle">Načítám počasí…</strong>
+          <span id="weatherTemp">—</span>
+          <span id="weatherWind">—</span>
+          <span id="weatherTime">—</span>
         </div>
+      </section>
+      <div class="status" id="status">Lokalita: Praha, Česká republika.</div>
+    </main>
+  </div>
 
-        <div class="stats" aria-label="Hodnoty webu">
-          <div class="stat reveal" style="--delay:60ms"><strong>Technologie a AI</strong><span>Prakticky, moderně a bez zbytečné omáčky.</span></div>
-          <div class="stat reveal" style="--delay:120ms"><strong>Rodina a realita</strong><span>Digitální svět zasazený do skutečného života.</span></div>
-          <div class="stat reveal" style="--delay:180ms"><strong>Srozumitelně a česky</strong><span>Jasná komunikace, která dává smysl každému.</span></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">© 2026 TonyStark.cz · Vytvořeno s důrazem na jednoduchost, eleganci a výkon.</div>
-  </footer>
   <script>
     const namedays = {
-      "1-1":"Nový rok / Karina","1-2":"Gustav","1-3":"Radmila","1-4":"Diana","1-5":"Dalimil","1-6":"Tři králové / Kašpar","1-7":"Vilma","1-8":"Čestmír","1-9":"Vladan","1-10":"Břetislav","1-11":"Bohdana","1-12":"Pravoslav","1-13":"Edita","1-14":"Radovan","1-15":"Alice","1-16":"Ctirad","1-17":"Drahoslav","1-18":"Vladislav","1-19":"Doubravka","1-20":"Ilona","1-21":"Běla","1-22":"Slavomír","1-23":"Zdeněk","1-24":"Milena","1-25":"Miloš","1-26":"Zora","1-27":"Ingrid","1-28":"Otýlie","1-29":"Zdislava","1-30":"Robin","1-31":"Marika",
+      "1-1":"Karina","1-2":"Gustav","1-3":"Radmila","1-4":"Diana","1-5":"Dalimil","1-6":"Kašpar","1-7":"Vilma","1-8":"Čestmír","1-9":"Vladan","1-10":"Břetislav","1-11":"Bohdana","1-12":"Pravoslav","1-13":"Edita","1-14":"Radovan","1-15":"Alice","1-16":"Ctirad","1-17":"Drahoslav","1-18":"Vladislav","1-19":"Doubravka","1-20":"Ilona","1-21":"Běla","1-22":"Slavomír","1-23":"Zdeněk","1-24":"Milena","1-25":"Miloš","1-26":"Zora","1-27":"Ingrid","1-28":"Otýlie","1-29":"Zdislava","1-30":"Robin","1-31":"Marika",
       "2-1":"Hynek","2-2":"Nela","2-3":"Blažej","2-4":"Jarmila","2-5":"Dobromila","2-6":"Vanda","2-7":"Veronika","2-8":"Milada","2-9":"Apolena","2-10":"Mojmír","2-11":"Božena","2-12":"Slavěna","2-13":"Věnceslav","2-14":"Valentýn","2-15":"Jiřina","2-16":"Ljuba","2-17":"Miloslava","2-18":"Gizela","2-19":"Patrik","2-20":"Oldřich","2-21":"Lenka","2-22":"Petr","2-23":"Svatopluk","2-24":"Matěj","2-25":"Liliana","2-26":"Dorota","2-27":"Alexandr","2-28":"Lumír","2-29":"Horymír",
       "3-1":"Bedřich","3-2":"Anežka","3-3":"Kamil","3-4":"Stela","3-5":"Kazimír","3-6":"Miroslav","3-7":"Tomáš","3-8":"Gabriela","3-9":"Františka","3-10":"Viktorie","3-11":"Anděla","3-12":"Řehoř","3-13":"Růžena","3-14":"Rút / Matylda","3-15":"Ida","3-16":"Elena / Herbert","3-17":"Vlastimil","3-18":"Eduard","3-19":"Josef","3-20":"Světlana","3-21":"Radek","3-22":"Leona","3-23":"Ivona","3-24":"Gabriel","3-25":"Marián","3-26":"Emanuel","3-27":"Dita","3-28":"Soňa","3-29":"Taťána","3-30":"Arnošt","3-31":"Kvido",
       "4-1":"Hugo","4-2":"Erika","4-3":"Richard","4-4":"Ivana","4-5":"Miroslava","4-6":"Vendula","4-7":"Heřman / Hermína","4-8":"Ema","4-9":"Dušan","4-10":"Darja","4-11":"Izabela","4-12":"Julius","4-13":"Aleš","4-14":"Vincenc","4-15":"Anastázie","4-16":"Irena","4-17":"Rudolf","4-18":"Valérie","4-19":"Rostislav","4-20":"Marcela","4-21":"Alexandra","4-22":"Evženie","4-23":"Vojtěch","4-24":"Jiří","4-25":"Marek","4-26":"Oto","4-27":"Jaroslav","4-28":"Vlastislav","4-29":"Robert","4-30":"Blahoslav",
-      "5-1":"Svátek práce / Hugo","5-2":"Zikmund","5-3":"Alexej","5-4":"Květoslav","5-5":"Klaudie","5-6":"Radoslav","5-7":"Stanislav","5-8":"Den vítězství / Viola","5-9":"Ctibor","5-10":"Blažena","5-11":"Svatava","5-12":"Pankrác","5-13":"Servác","5-14":"Bonifác","5-15":"Žofie","5-16":"Přemysl","5-17":"Aneta","5-18":"Nataša","5-19":"Ivo","5-20":"Zbyšek","5-21":"Monika","5-22":"Emil","5-23":"Vladimír","5-24":"Jana","5-25":"Viola","5-26":"Filip","5-27":"Valdemar","5-28":"Vilém","5-29":"Maxmilián","5-30":"Ferdinand","5-31":"Kamila",
+      "5-1":"Hugo","5-2":"Zikmund","5-3":"Alexej","5-4":"Květoslav","5-5":"Klaudie","5-6":"Radoslav","5-7":"Stanislav","5-8":"Viola","5-9":"Ctibor","5-10":"Blažena","5-11":"Svatava","5-12":"Pankrác","5-13":"Servác","5-14":"Bonifác","5-15":"Žofie","5-16":"Přemysl","5-17":"Aneta","5-18":"Nataša","5-19":"Ivo","5-20":"Zbyšek","5-21":"Monika","5-22":"Emil","5-23":"Vladimír","5-24":"Jana","5-25":"Viola","5-26":"Filip","5-27":"Valdemar","5-28":"Vilém","5-29":"Maxmilián","5-30":"Ferdinand","5-31":"Kamila",
       "6-1":"Laura","6-2":"Jarmil","6-3":"Tamara","6-4":"Dalibor","6-5":"Dobroslav","6-6":"Norbert","6-7":"Iveta","6-8":"Medard","6-9":"Stanislava","6-10":"Gita","6-11":"Bruno","6-12":"Antonie","6-13":"Antonín","6-14":"Roland","6-15":"Vít","6-16":"Zbyněk","6-17":"Adolf","6-18":"Milan","6-19":"Leoš","6-20":"Květa","6-21":"Alois","6-22":"Pavla","6-23":"Zdeňka","6-24":"Jan","6-25":"Ivan","6-26":"Adriana","6-27":"Ladislav","6-28":"Lubomír","6-29":"Petr a Pavel","6-30":"Šárka",
       "7-1":"Jaroslava","7-2":"Patricie","7-3":"Radomír","7-4":"Prokop","7-5":"Cyril a Metoděj","7-6":"Mistr Jan Hus","7-7":"Bohuslava","7-8":"Nora","7-9":"Drahoslava","7-10":"Libuše / Amálie","7-11":"Olga","7-12":"Bořek","7-13":"Markéta","7-14":"Karolína","7-15":"Jindřich","7-16":"Luboš","7-17":"Martina","7-18":"Drahomíra","7-19":"Čeněk","7-20":"Ilja","7-21":"Vítězslav","7-22":"Magdaléna","7-23":"Libor","7-24":"Kristýna","7-25":"Jakub","7-26":"Anna","7-27":"Věroslav","7-28":"Viktor","7-29":"Marta","7-30":"Bořivoj","7-31":"Ignác",
       "8-1":"Oskar","8-2":"Gustav","8-3":"Miluše","8-4":"Dominik","8-5":"Kristián","8-6":"Oldřiška","8-7":"Lada","8-8":"Soběslav","8-9":"Roman","8-10":"Vavřinec","8-11":"Zuzana","8-12":"Klára","8-13":"Alena","8-14":"Alan","8-15":"Hana","8-16":"Jáchym","8-17":"Petra","8-18":"Helena","8-19":"Ludvík","8-20":"Bernard","8-21":"Johana","8-22":"Bohuslav","8-23":"Sandra","8-24":"Bartoloměj","8-25":"Radim","8-26":"Luděk","8-27":"Otakar","8-28":"Augustýn","8-29":"Evelína","8-30":"Vladěna","8-31":"Pavlína",
       "9-1":"Linda / Samuel","9-2":"Adéla","9-3":"Bronislav","9-4":"Jindřiška","9-5":"Boris","9-6":"Boleslav","9-7":"Regína","9-8":"Mariana","9-9":"Daniela","9-10":"Irma","9-11":"Denisa","9-12":"Marie","9-13":"Lubor","9-14":"Radka","9-15":"Jolana","9-16":"Ludmila","9-17":"Naděžda","9-18":"Kryštof","9-19":"Zita","9-20":"Oleg","9-21":"Matouš","9-22":"Darina","9-23":"Berta","9-24":"Jaromír","9-25":"Zlata","9-26":"Andrea","9-27":"Jonáš","9-28":"Václav","9-29":"Michal","9-30":"Jeroným",
       "10-1":"Igor","10-2":"Olívie / Oliver","10-3":"Bohumil","10-4":"František","10-5":"Eliška","10-6":"Hanuš","10-7":"Justýna","10-8":"Věra","10-9":"Štefan / Sára","10-10":"Marina","10-11":"Andrej","10-12":"Marcel","10-13":"Renáta","10-14":"Agáta","10-15":"Tereza","10-16":"Havel","10-17":"Hedvika","10-18":"Lukáš","10-19":"Michaela","10-20":"Vendelín","10-21":"Brigita","10-22":"Sabina","10-23":"Teodor","10-24":"Nina","10-25":"Beáta","10-26":"Erik","10-27":"Šarlota","10-28":"Den vzniku samostatného československého státu","10-29":"Silvie","10-30":"Tadeáš","10-31":"Štěpánka",
-      "11-1":"Felix","11-2":"Památka zesnulých / Tobiáš","11-3":"Hubert","11-4":"Karel","11-5":"Miriam","11-6":"Liběna","11-7":"Saskie","11-8":"Bohumír","11-9":"Bohdan","11-10":"Evžen","11-11":"Martin","11-12":"Benedikt","11-13":"Tibor","11-14":"Sáva","11-15":"Leopold","11-16":"Otmar","11-17":"Den boje za svobodu a demokracii","11-18":"Romana","11-19":"Alžběta","11-20":"Nikola","11-21":"Albert","11-22":"Cecílie","11-23":"Klement","11-24":"Emílie","11-25":"Kateřina","11-26":"Artur","11-27":"Xenie","11-28":"René","11-29":"Zina","11-30":"Ondřej",
-      "12-1":"Iva","12-2":"Blanka","12-3":"Svatoslav","12-4":"Barbora","12-5":"Jitka","12-6":"Mikuláš","12-7":"Ambrož","12-8":"Květoslava","12-9":"Vratislav","12-10":"Julie","12-11":"Dana","12-12":"Simona","12-13":"Lucie","12-14":"Lýdie","12-15":"Radana","12-16":"Albína","12-17":"Daniel","12-18":"Miloslav","12-19":"Ester","12-20":"Dagmar","12-21":"Natálie","12-22":"Šimon","12-23":"Vlasta","12-24":"Štědrý den","12-25":"1. svátek vánoční","12-26":"2. svátek vánoční","12-27":"Žaneta","12-28":"Bohumila","12-29":"Judita","12-30":"David","12-31":"Silvestr"
+      "11-1":"Felix","11-2":"Tobiáš","11-3":"Hubert","11-4":"Karel","11-5":"Miriam","11-6":"Liběna","11-7":"Saskie","11-8":"Bohumír","11-9":"Bohdan","11-10":"Evžen","11-11":"Martin","11-12":"Benedikt","11-13":"Tibor","11-14":"Sáva","11-15":"Leopold","11-16":"Otmar","11-17":"Mahulena","11-18":"Romana","11-19":"Alžběta","11-20":"Nikola","11-21":"Albert","11-22":"Cecílie","11-23":"Klement","11-24":"Emílie","11-25":"Kateřina","11-26":"Artur","11-27":"Xenie","11-28":"René","11-29":"Zina","11-30":"Ondřej",
+      "12-1":"Iva","12-2":"Blanka","12-3":"Svatoslav","12-4":"Barbora","12-5":"Jitka","12-6":"Mikuláš","12-7":"Ambrož","12-8":"Květoslava","12-9":"Vratislav","12-10":"Julie","12-11":"Dana","12-12":"Simona","12-13":"Lucie","12-14":"Lýdie","12-15":"Radana","12-16":"Albína","12-17":"Daniel","12-18":"Miloslav","12-19":"Ester","12-20":"Dagmar","12-21":"Natálie","12-22":"Šimon","12-23":"Vlasta","12-24":"Adam a Eva","12-25":"Boží hod vánoční","12-26":"Štěpán","12-27":"Žaneta","12-28":"Bohumila","12-29":"Judita","12-30":"David","12-31":"Silvestr"
     };
 
     const stateHolidays = {
@@ -357,55 +310,130 @@
       "12-26":"2. svátek vánoční"
     };
 
+    const dayEl = document.getElementById("today-day");
     const dateEl = document.getElementById("today-date");
     const timeEl = document.getElementById("today-time");
-    const namedayEl = document.getElementById("nameday");
-    const holidayEl = document.getElementById("state-holiday");
-    const summaryEl = document.getElementById("day-summary");
+    const holidayLabelEl = document.getElementById("holiday-label");
+    const holidayInfoEl = document.getElementById("holiday-info");
 
-    function updateNow() {
+    function updateDateTime() {
       const now = new Date();
       const key = `${now.getMonth() + 1}-${now.getDate()}`;
-      const formattedDate = new Intl.DateTimeFormat("cs-CZ", {
-        weekday: "long",
+      const dayName = new Intl.DateTimeFormat("cs-CZ", { weekday: "long" }).format(now);
+      const dateText = new Intl.DateTimeFormat("cs-CZ", {
         day: "numeric",
         month: "long",
         year: "numeric"
       }).format(now);
-      const formattedTime = new Intl.DateTimeFormat("cs-CZ", {
+      const timeText = new Intl.DateTimeFormat("cs-CZ", {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit"
       }).format(now);
 
-      const nameday = namedays[key] || "Dnes není svátek uveden v přehledu.";
-      const holiday = stateHolidays[key] || "Dnes není státní svátek.";
-      const isHoliday = Boolean(stateHolidays[key]);
+      const holiday = stateHolidays[key];
+      if (holiday) {
+        holidayLabelEl.textContent = "Státní svátek";
+        holidayInfoEl.textContent = holiday;
+      } else {
+        holidayLabelEl.textContent = "Svátek";
+        holidayInfoEl.textContent = namedays[key] || "Dnes není svátek uveden v přehledu.";
+      }
 
-      dateEl.textContent = formattedDate;
-      timeEl.textContent = `${formattedTime}`;
-      namedayEl.textContent = nameday;
-      holidayEl.textContent = holiday;
-      summaryEl.textContent = isHoliday ? "Dnes je státní svátek." : "Dnes není státní svátek.";
+      dayEl.textContent = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+      dateEl.textContent = dateText;
+      timeEl.textContent = timeText;
     }
 
-    updateNow();
-    setInterval(updateNow, 1000);
+    const location = {
+      name: "Praha, Česká republika",
+      latitude: 50.0755,
+      longitude: 14.4378,
+      timezone: "Europe/Prague"
+    };
 
-    const revealElements = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          obs.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.18,
-      rootMargin: "0px 0px -10% 0px"
+    function getWeatherVisual(code, isDay) {
+      if ([0].includes(code)) {
+        return { icon: isDay ? "☀️" : "🌙", text: isDay ? "Jasno" : "Jasná noc", rain: false };
+      }
+      if ([1, 2, 3].includes(code)) {
+        return { icon: "⛅", text: "Polojasno až oblačno", rain: false };
+      }
+      if ([45, 48].includes(code)) {
+        return { icon: "🌫️", text: "Mlha", rain: false };
+      }
+      if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
+        return { icon: "🌧️", text: "Déšť", rain: true };
+      }
+      if ([56, 57, 66, 67, 71, 73, 75, 77, 85, 86].includes(code)) {
+        return { icon: "🌨️", text: "Srážky / sněžení", rain: true };
+      }
+      if ([95, 96, 99].includes(code)) {
+        return { icon: "⛈️", text: "Bouřky", rain: true };
+      }
+      return { icon: "🌤️", text: "Proměnlivo", rain: false };
+    }
+
+    async function updateWeather() {
+      const weatherTitle = document.getElementById("weatherTitle");
+      const weatherTemp = document.getElementById("weatherTemp");
+      const weatherWind = document.getElementById("weatherWind");
+      const weatherTime = document.getElementById("weatherTime");
+      const weatherIcon = document.getElementById("weatherIcon");
+      const status = document.getElementById("status");
+
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,weather_code,wind_speed_10m,is_day&timezone=${encodeURIComponent(location.timezone)}`;
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) throw new Error("Nepodařilo se načíst počasí");
+
+        const data = await response.json();
+        const current = data.current;
+        const weather = getWeatherVisual(current.weather_code, current.is_day === 1);
+
+        weatherTitle.textContent = weather.text;
+        weatherTemp.textContent = `Teplota: ${Math.round(current.temperature_2m)} °C`;
+        weatherWind.textContent = `Vítr: ${Math.round(current.wind_speed_10m)} km/h`;
+        weatherTime.textContent = `Aktualizace: ${new Intl.DateTimeFormat("cs-CZ", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        }).format(new Date(current.time))}`;
+
+        weatherIcon.textContent = weather.icon;
+        weatherIcon.classList.toggle("rain", weather.rain);
+        status.textContent = `Lokalita: ${location.name}.`;
+      } catch (error) {
+        weatherTitle.textContent = "Počasí je dočasně nedostupné";
+        weatherTemp.textContent = "Zkuste obnovit stránku.";
+        weatherWind.textContent = "";
+        weatherTime.textContent = "";
+        status.textContent = "Nepodařilo se načíst online data počasí.";
+      }
+    }
+
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    const backdrop = document.getElementById("backdrop");
+
+    function toggleMenu(forceOpen) {
+      const open = typeof forceOpen === "boolean" ? forceOpen : !menuPanel.classList.contains("open");
+      menuPanel.classList.toggle("open", open);
+      backdrop.classList.toggle("show", open);
+      menuBtn.setAttribute("aria-expanded", String(open));
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+
+    menuBtn.addEventListener("click", () => toggleMenu());
+    backdrop.addEventListener("click", () => toggleMenu(false));
+    menuPanel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => toggleMenu(false));
     });
 
-    revealElements.forEach((el) => observer.observe(el));
+    updateDateTime();
+    updateWeather();
+    setInterval(updateDateTime, 1000);
+    setInterval(updateWeather, 10 * 60 * 1000);
   </script>
 </body>
 </html>
