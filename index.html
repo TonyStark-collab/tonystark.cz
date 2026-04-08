@@ -348,7 +348,7 @@
       timeEl.textContent = timeText;
     }
 
-    const location = {
+    const weatherLocation = {
       name: "Praha, Česká republika",
       latitude: 50.0755,
       longitude: 14.4378,
@@ -386,7 +386,7 @@
       const status = document.getElementById("status");
 
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,weather_code,wind_speed_10m,is_day&timezone=${encodeURIComponent(location.timezone)}`;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${weatherLocation.latitude}&longitude=${weatherLocation.longitude}&current=temperature_2m,weather_code,wind_speed_10m,is_day&timezone=${encodeURIComponent(weatherLocation.timezone)}`;
         const response = await fetch(url, { cache: "no-store" });
         if (!response.ok) throw new Error("Nepodařilo se načíst počasí");
 
@@ -405,7 +405,7 @@
 
         weatherIcon.textContent = weather.icon;
         weatherIcon.classList.toggle("rain", weather.rain);
-        status.textContent = `Lokalita: ${location.name}.`;
+        status.textContent = `Lokalita: ${weatherLocation.name}.`;
       } catch (error) {
         weatherTitle.textContent = "Počasí je dočasně nedostupné";
         weatherTemp.textContent = "Zkuste obnovit stránku.";
