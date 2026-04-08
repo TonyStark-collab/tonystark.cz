@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webové aplikace | TonyStark.cz</title>
+  <meta name="description" content="Samostatná sekce webových aplikací na TonyStark.cz." />
+  <style>
+    :root{--bg:#0b1017;--line:rgba(255,255,255,.1);--line-soft:rgba(255,255,255,.06);--text:#f5f8fc;--text-soft:#d6e1ec;--muted:#9eadbc;--accent:#efc38a;--accent-2:#d4a6ab;--max:1160px;--radius:20px}
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--text);font-family:"Kalam",Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:.01em;background:linear-gradient(180deg,#0b1017 0%, #0d131d 45%, #090f16 100%);text-align:center}
+    a{color:inherit;text-decoration:none}.wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .topbar{position:sticky; top:0; z-index:20; backdrop-filter:blur(14px); background:rgba(10,14,19,.74); border-bottom:1px solid var(--line-soft)}
+    .topbar-inner{min-height:74px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+    .brand{display:flex; align-items:center; gap:12px}.brand-mark{width:40px; height:40px; border-radius:13px; display:grid; place-items:center; font-weight:800; color:#14181f; background:linear-gradient(135deg,var(--accent),var(--accent-2));font-family:Inter,sans-serif}
+    nav{display:flex; gap:8px; flex-wrap:wrap; justify-content:center} nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft);font-weight:700} nav a:hover,nav a.active{background:rgba(255,255,255,.045); border-color:var(--line)}
+    .page{padding:48px 0 62px}
+    h1{margin:0 0 14px; font-size:clamp(2rem,4vw,3rem)}
+    .lead{margin:0 auto 28px; max-width:72ch; color:var(--text-soft); line-height:1.9; font-size:1.12rem; font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .card{padding:20px;border:1px solid var(--line-soft);border-radius:var(--radius);background:rgba(255,255,255,.02)}
+    .card h2{margin:0 0 10px;font-size:1.25rem}
+    .card p{margin:0;color:var(--text-soft);line-height:1.8;font-weight:700}
+    footer{padding:24px 0 42px; color:#97a6b7; font-size:.89rem}
+    @media (max-width: 860px){.grid{grid-template-columns:1fr}}
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark">T</span><strong>TonyStark.cz</strong></a>
+      <nav aria-label="Hlavní navigace">
+        <a href="/">Domů</a>
+        <a href="/aplikace/">Aplikace</a>
+        <a class="active" href="/webove-aplikace/">Webové aplikace</a>
+        <a href="/projekty/">Projekty</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="wrap">
+      <h1>Webové aplikace</h1>
+      <p class="lead">Samostatná sekce pro praktické webové aplikace. Najdeš tady nástroje, které se dají použít hned bez složitého nastavování.</p>
+      <section class="grid">
+        <article class="card">
+          <h2>AI textový pomocník</h2>
+          <p>Nástroj pro strukturování textu, přepis a rychlou práci s obsahem pro běžné i profesionální použití.</p>
+        </article>
+        <article class="card">
+          <h2>Produktivní dashboard</h2>
+          <p>Přehled úkolů, poznámek a chytrých AI zkratek v jednom jednoduchém rozhraní.</p>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer><div class="wrap">© 2026 TonyStark.cz · Webové aplikace</div></footer>
+</body>
+</html>
