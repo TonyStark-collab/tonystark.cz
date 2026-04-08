@@ -70,8 +70,38 @@
     nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft)}
     nav a:hover, nav a.active{background:rgba(255,255,255,.04); border-color:var(--line)}
 
+    .today-dock{
+      margin-left:auto;
+      width:min(340px, 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--line-soft);
+      border-radius:16px;
+      padding:10px 12px;
+      box-shadow:none;
+      opacity:.95;
+    }
+    .today-dock h2{
+      margin:0 0 8px;
+      font-size:.76rem;
+      color:var(--muted);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .today-dock ul{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:4px 12px;
+      font-size:.82rem;
+      color:var(--text-soft);
+    }
+    .today-dock li{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .today-dock li.wide{grid-column:1 / -1}
+
     .hero{padding:58px 0 24px}
-    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:26px; align-items:end}
+    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr); gap:26px; align-items:end}
 
     .eyebrow{
       display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
@@ -81,19 +111,6 @@
 
     h1{margin:0 0 16px; font-size:clamp(2rem,4.2vw,3.25rem); line-height:1.06; letter-spacing:-.04em; text-wrap:balance}
     .lead{margin:0; color:var(--text-soft); font-size:1.13rem; line-height:1.9; max-width:64ch}
-
-    .hero-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:14px;
-      box-shadow:none;
-      opacity:.92;
-    }
-
-    .hero-card h2{margin:0 0 8px; font-size:.92rem; color:var(--muted); letter-spacing:.02em; text-transform:uppercase}
-    .hero-card ul{margin:0; padding-left:16px; color:var(--text-soft); line-height:1.6; font-size:.88rem}
-    .hero-card li{margin:0 0 5px}
 
     .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
     .btn{
@@ -135,6 +152,20 @@
 
     .card .link{display:inline-block; margin-top:12px; color:#dff5ff; font-weight:600; font-size:.96rem}
 
+    .reveal{
+      opacity:0;
+      transform:translateY(34px) scale(.985);
+      filter:blur(5px);
+      transition:opacity .75s ease, transform .75s ease, filter .75s ease;
+      transition-delay:var(--delay, 0ms);
+      will-change:opacity,transform,filter;
+    }
+    .reveal.in-view{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      filter:blur(0);
+    }
+
     .stats{
       margin-top:16px;
       display:grid;
@@ -166,7 +197,7 @@
 
     @media (max-width: 1040px){
       .topbar-inner{align-items:flex-start; flex-direction:column; padding:14px 0}
-      .hero-grid{grid-template-columns:1fr}
+      .today-dock{margin-left:0; width:100%}
       .grid{grid-template-columns:1fr 1fr}
       .stats{grid-template-columns:1fr 1fr 1fr}
     }
@@ -176,6 +207,7 @@
       nav a{padding:8px 10px; font-size:.9rem}
       .hero{padding:36px 0 20px}
       .lead{font-size:1.03rem; line-height:1.82}
+      .today-dock ul{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
       .stats{grid-template-columns:1fr}
     }
@@ -199,6 +231,17 @@
         <a href="/smer-webu/">Směr webu</a>
         <a href="/kontakt/">Kontakt</a>
       </nav>
+
+      <aside class="today-dock" aria-label="Denní informační panel">
+        <h2>Dnes</h2>
+        <ul>
+          <li class="wide"><strong>Datum:</strong> <span id="today-date">—</span></li>
+          <li><strong>Čas:</strong> <span id="today-time">—</span></li>
+          <li><strong>Svátek:</strong> <span id="nameday">—</span></li>
+          <li class="wide"><strong>Státní svátek:</strong> <span id="state-holiday">—</span></li>
+        </ul>
+        <span class="chip" id="day-summary">Načítám dnešní informace…</span>
+      </aside>
     </div>
   </header>
 
@@ -217,24 +260,13 @@
             <a class="btn" href="/projekty/">Zobrazit projekty</a>
           </div>
         </div>
-
-        <aside class="hero-card" aria-label="Denní informační panel">
-          <h2>Dnes</h2>
-          <ul>
-            <li><strong>Datum:</strong> <span id="today-date">—</span></li>
-            <li><strong>Čas:</strong> <span id="today-time">—</span></li>
-            <li><strong>Svátek:</strong> <span id="nameday">—</span></li>
-            <li><strong>Státní svátek:</strong> <span id="state-holiday">—</span></li>
-          </ul>
-          <span class="chip" id="day-summary">Načítám dnešní informace…</span>
-        </aside>
       </div>
     </section>
 
     <section class="section" id="o-mne">
       <div class="wrap">
         <h2>O mně</h2>
-        <article class="about-text">
+        <article class="about-text reveal">
           <p>Jmenuji se Tony a technologie jsou přirozenou součástí mého života. Dlouhodobě se zajímám o počítače, hardware, software, mobilní zařízení, moderní digitální nástroje a vše, co dokáže být v praxi opravdu užitečné. Mám rád věci, které fungují spolehlivě, dávají smysl a člověku reálně pomáhají. Stejně důležitá je pro mě ale i rodina a běžný život, takže se na techniku dívám nejen technicky, ale i prakticky a lidsky.</p>
 
           <p>K umělé inteligenci mám blízko hlavně skrze vývoj OpenAI. Ta vznikla v prosinci 2015 a postupně položila základy dnešní generativní AI přes první GPT v roce 2018, GPT-2 v roce 2019 a GPT-3 v roce 2020. Pro širokou veřejnost ale přišel skutečný zlom až 30. listopadu 2022, kdy OpenAI vypustila research preview verzi ChatGPT postavenou na řadě GPT-3.5. Právě tehdy se AI přestala brát jen jako vzdálený výzkum a začala rychle vstupovat do každodenního života.</p>
@@ -249,34 +281,34 @@
     <section class="section">
       <div class="wrap">
         <div class="grid">
-          <article class="card">
+          <article class="card reveal" style="--delay:40ms">
             <h3>Technologie</h3>
             <p>Praktické postřehy o hardwaru, softwaru a digitálních nástrojích, které mají skutečné využití.</p>
           </article>
 
-          <article class="card">
+          <article class="card reveal" style="--delay:90ms">
             <h3>Umělá inteligence</h3>
             <p>Vývoj AI, nové modely, smysluplné použití a konkrétní postupy, které fungují i mimo laboratorní demo.</p>
           </article>
 
-          <article class="card">
+          <article class="card reveal" style="--delay:140ms">
             <h3>Rodina a život</h3>
             <p>Technologie v rovnováze s běžným životem: co pomáhá, co šetří čas a co dává dlouhodobě smysl.</p>
           </article>
 
-          <article class="card">
+          <article class="card reveal" style="--delay:190ms">
             <h3>Aplikace</h3>
             <p>Přehled nástrojů a průvodců připravených k okamžitému použití v práci i každodenní praxi.</p>
             <a class="link" href="/aplikace/">Otevřít sekci aplikace →</a>
           </article>
 
-          <article class="card">
+          <article class="card reveal" style="--delay:240ms">
             <h3>Projekty</h3>
             <p>Aktuální i plánované projekty, experimenty a konkrétní výsledky, na kterých průběžně pracuji.</p>
             <a class="link" href="/projekty/">Přejít na projekty →</a>
           </article>
 
-          <article class="card">
+          <article class="card reveal" style="--delay:290ms">
             <h3>Směr webu</h3>
             <p>Kam se web posouvá dál, jaké má priority a jaký typ obsahu na něm bude postupně přibývat.</p>
             <a class="link" href="/smer-webu/">Zobrazit směr webu →</a>
@@ -284,9 +316,9 @@
         </div>
 
         <div class="stats" aria-label="Hodnoty webu">
-          <div class="stat"><strong>Technologie a AI</strong><span>Prakticky, moderně a bez zbytečné omáčky.</span></div>
-          <div class="stat"><strong>Rodina a realita</strong><span>Digitální svět zasazený do skutečného života.</span></div>
-          <div class="stat"><strong>Srozumitelně a česky</strong><span>Jasná komunikace, která dává smysl každému.</span></div>
+          <div class="stat reveal" style="--delay:60ms"><strong>Technologie a AI</strong><span>Prakticky, moderně a bez zbytečné omáčky.</span></div>
+          <div class="stat reveal" style="--delay:120ms"><strong>Rodina a realita</strong><span>Digitální svět zasazený do skutečného života.</span></div>
+          <div class="stat reveal" style="--delay:180ms"><strong>Srozumitelně a česky</strong><span>Jasná komunikace, která dává smysl každému.</span></div>
         </div>
       </div>
     </section>
@@ -359,6 +391,21 @@
 
     updateNow();
     setInterval(updateNow, 1000);
+
+    const revealElements = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.18,
+      rootMargin: "0px 0px -10% 0px"
+    });
+
+    revealElements.forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
