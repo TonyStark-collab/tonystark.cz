@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Průvodce Codexem | TonyStark.cz</title>
+  <meta name="description" content="Podrobný průvodce Codexem: co to je, k čemu je to dobré, jak začít, jak škálovat workflow a jak z Codexu dostat maximum." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --bg-soft:#101720;
+      --text:#f7fafc;
+      --text-soft:#dbe5ee;
+      --muted:#9aa7b4;
+      --line:rgba(255,255,255,.08);
+      --line-soft:rgba(255,255,255,.05);
+      --accent:#d8b079;
+      --accent-soft:rgba(216,176,121,.18);
+      --accent-soft-2:rgba(216,176,121,.08);
+      --max:1240px;
+      --content:800px;
+      --shadow:0 18px 40px rgba(0,0,0,.20);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(900px 500px at 0% 0%, rgba(216,176,121,.06), transparent 50%),
+        radial-gradient(700px 400px at 100% 8%, rgba(117,156,189,.05), transparent 48%),
+        linear-gradient(180deg, #0b0f14 0%, #0d1218 45%, #0a0e13 100%);
+      min-height:100vh;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max), calc(100% - 32px));margin:0 auto}
+
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(14px);
+      background:rgba(10,14,19,.78);
+      border-bottom:1px solid var(--line-soft);
+    }
+
+    .topbar-inner{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{
+      width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg, #e8c58f, #cfa4a9);
+      color:#11161d;font-weight:800;box-shadow:0 10px 24px rgba(216,176,121,.12);
+    }
+    .brand-title{font-size:1rem;font-weight:700}
+    .brand-sub{font-size:.78rem;color:var(--muted);margin-top:2px}
+    .brand-text{display:flex;flex-direction:column}
+
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    nav a{padding:10px 13px;border-radius:999px;color:var(--text-soft);border:1px solid transparent;transition:.2s ease;font-size:.95rem}
+    nav a:hover, nav a.active{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.06)}
+
+    .page{padding:42px 0 62px}
+    .article{max-width:var(--content)}
+
+    .eyebrow{display:inline-block;margin:0 0 16px;color:#e6d3b5;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .hero{padding:0 0 26px;margin:0 0 26px;border-bottom:1px solid var(--line-soft)}
+    .hero h1{margin:0 0 14px;font-size:clamp(1.95rem,4vw,3.05rem);line-height:1.08;letter-spacing:-.04em;font-weight:790;max-width:18ch;text-wrap:balance}
+    .lead{margin:0;color:var(--text-soft);font-size:1.12rem;line-height:1.92;text-wrap:pretty}
+
+    .summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:22px 0 0}
+    .summary-item{padding:0 0 0 14px;border-left:2px solid var(--accent-soft)}
+    .summary-item strong{display:block;margin:0 0 6px;font-size:.95rem;color:#fff}
+    .summary-item p{margin:0;color:var(--text-soft);line-height:1.78;font-size:1rem;text-wrap:pretty}
+
+    .toc{margin:0 0 34px;padding:18px 20px 6px;border:1px solid var(--line-soft);border-radius:22px;background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));box-shadow:var(--shadow)}
+    .toc-title{margin:0 0 14px;font-size:.92rem;font-weight:700;color:#fff;letter-spacing:.02em}
+    .toc-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}
+    .toc-list a{display:block;padding:0 0 10px;color:var(--text-soft);border-bottom:1px solid var(--line-soft);font-size:.97rem;line-height:1.4}
+
+    section.guide{padding:0 0 42px;margin:0 0 42px;border-bottom:1px solid var(--line-soft)}
+    section.guide:last-of-type{border-bottom:0;margin-bottom:0;padding-bottom:0}
+    section.guide h2{margin:0 0 18px;font-size:1.68rem;letter-spacing:-.02em;line-height:1.2;text-wrap:balance}
+    section.guide p{margin:0 0 16px;color:var(--text-soft);line-height:1.95;font-size:1.06rem;text-wrap:pretty}
+    section.guide ul, section.guide ol{margin:0 0 16px;padding-left:21px;color:var(--text-soft);line-height:1.92;font-size:1.05rem}
+    section.guide li+li{margin-top:7px}
+
+    .subhead{display:block;margin:22px 0 10px;color:#fff;font-size:1rem;font-weight:700;letter-spacing:.01em}
+    .example{margin:20px 0 0;padding:14px 0 0 16px;border-top:1px solid var(--line-soft);border-left:2px solid var(--accent-soft)}
+    .example strong{display:block;margin:0 0 8px;color:#fff;font-size:.98rem}
+    .example code{display:block;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#fffdfc;line-height:1.84;font-size:.95rem}
+
+    .aside-note{margin:18px 0 0;padding:14px 16px;border-left:2px solid var(--accent-soft);background:linear-gradient(180deg,var(--accent-soft-2),transparent 95%);color:var(--text-soft);line-height:1.82;font-size:1rem}
+
+    footer{padding:22px 0 42px;color:#9aa4b8;font-size:.88rem;border-top:1px solid var(--line-soft);margin-top:40px}
+
+    @media(max-width:1040px){
+      .topbar-inner{align-items:flex-start;flex-direction:column;padding:14px 0}
+    }
+
+    @media(max-width:760px){
+      .page{padding:34px 0 54px}
+      .hero h1{max-width:none;font-size:clamp(1.9rem,7.2vw,2.25rem)}
+      .lead{font-size:1.03rem}
+      nav{gap:4px}
+      nav a{padding:8px 10px;font-size:.9rem}
+      .summary{grid-template-columns:1fr;gap:14px}
+      .toc{padding:16px 16px 4px;border-radius:18px}
+      .toc-list{grid-template-columns:1fr 1fr;gap:8px 14px}
+      .toc-list a{font-size:.94rem}
+      section.guide h2{font-size:1.38rem}
+      section.guide p, section.guide ul, section.guide ol{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">T</span>
+        <span class="brand-text">
+          <span class="brand-title">TonyStark.cz</span>
+          <span class="brand-sub">osobní web a projekty</span>
+        </span>
+      </a>
+
+      <nav aria-label="Hlavní navigace">
+        <a href="/">Domů</a>
+        <a class="active" href="/aplikace/">Aplikace</a>
+        <a href="/webove-aplikace/">Webové aplikace</a>
+        <a href="/projekty/">Projekty</a>
+        <a href="/smer-webu/">Směr webu</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap page">
+    <article class="article">
+      <section class="hero">
+        <p class="eyebrow">Praktický průvodce</p>
+        <h1>Codex od nuly až po profi workflow</h1>
+        <p class="lead">
+          Pokud chceš pochopit, co je Codex, k čemu přesně je a jak ho používat tak, aby ti opravdu šetřil čas,
+          jsi na správném místě. Tento průvodce je psaný pro nováčky, pokročilé i profesionály.
+        </p>
+
+        <div class="summary">
+          <div class="summary-item">
+            <strong>Co je Codex</strong>
+            <p>AI coding agent od OpenAI, který nejen odpovídá, ale umí i navrhnout změny v projektu, upravit soubory a pomoct s kontrolou kvality.</p>
+          </div>
+          <div class="summary-item">
+            <strong>Co se naučíš</strong>
+            <p>Jak psát zadání, jak držet kvalitu výstupů, jak pracovat s iteracemi a jak používat Codex v reálné práci.</p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="toc" aria-label="Obsah průvodce">
+        <p class="toc-title">Obsah</p>
+        <div class="toc-list">
+          <a href="#co-je-codex">Co je Codex</a>
+          <a href="#k-cemu">K čemu přesně je</a>
+          <a href="#mentalni-model">Jak to chápat</a>
+          <a href="#zacatecnik">Postup pro začátečníky</a>
+          <a href="#pokrocily">Postup pro pokročilé</a>
+          <a href="#profik">Postup pro profesionály</a>
+          <a href="#zadani">Šablony zadání</a>
+          <a href="#chyby">Nejčastější chyby</a>
+          <a href="#kvalita">Kontrola kvality</a>
+          <a href="#bezpecnost">Bezpečnost a odpovědnost</a>
+        </div>
+      </nav>
+
+      <section class="guide" id="co-je-codex">
+        <h2>1. Co to je: Codex v jedné minutě</h2>
+        <p>
+          Codex můžeš chápat jako chytrého technického parťáka, kterému zadáš cíl a on navrhne kroky, provede úpravy
+          a vysvětlí, co změnil. Nejde jen o „chat“, ale o nástroj orientovaný na praktickou práci v projektu.
+        </p>
+        <p>
+          V praxi to znamená, že ti pomůže s refaktoringem, doplněním dokumentace, opravami menších chyb,
+          přípravou testů nebo rozbitím velkého úkolu na dobře uchopitelné kroky.
+        </p>
+      </section>
+
+      <section class="guide" id="k-cemu">
+        <h2>2. K čemu přesně to je</h2>
+        <ul>
+          <li>zrychlení rutinních úkolů (opakující se úpravy, textové změny, boilerplate),</li>
+          <li>zlepšení struktury práce (plán, kroky, průběžná kontrola, shrnutí),</li>
+          <li>rychlé vysvětlení cizího kódu nebo projektu,</li>
+          <li>podpora při review: co je rizikové, co otestovat, co hlídat před nasazením,</li>
+          <li>lepší onboarding nových lidí do projektu.</li>
+        </ul>
+        <div class="aside-note">
+          Důležité: Codex není autopilot bez kontroly. Nejlepší výsledky máš, když AI deleguješ exekuci,
+          ale rozhodování a finální kontrolu si necháš u sebe.
+        </div>
+      </section>
+
+      <section class="guide" id="mentalni-model">
+        <h2>3. Jak to má nováček chápat: správný mentální model</h2>
+        <p>
+          Představ si Codex jako juniora až mediora, který je extrémně rychlý, ale potřebuje přesné zadání.
+          Když zadání není jasné, výstup bude průměrný. Když zadání obsahuje cíl, limity a kritéria hotovo,
+          kvalita roste dramaticky.
+        </p>
+        <span class="subhead">Jednoduchý rámec práce</span>
+        <ol>
+          <li>Nejprve definuj cíl (co se má změnit).</li>
+          <li>Potom kontext (kde přesně a proč).</li>
+          <li>Nakonec limity a akceptační kritéria (co se nesmí rozbít a jak poznáš hotovo).</li>
+        </ol>
+      </section>
+
+      <section class="guide" id="zacatecnik">
+        <h2>4. Postup pro začátečníky (první 2 týdny)</h2>
+        <ol>
+          <li><strong>Začni mikroúkoly:</strong> měň jednu věc najednou, ideálně do 10–20 minut práce.</li>
+          <li><strong>Ptej se na plán:</strong> nech si vždy vypsat 3–5 kroků před samotnou úpravou.</li>
+          <li><strong>Požaduj shrnutí změn:</strong> chtěj seznam upravených souborů a stručné „proč“.</li>
+          <li><strong>Dělej kontrolu očima:</strong> otevři změněné soubory a ověř, že odpovídají záměru.</li>
+          <li><strong>Pusť základní checky:</strong> lint/test/build, i kdyby jen minimální.</li>
+        </ol>
+        <div class="example">
+          <strong>Starter prompt pro začátečníka</strong>
+          <code>Cíl: Uprav sekci hero na stránce /aplikace/.
+Kontext: Chci jasnější nadpis a kratší popis.
+Limity: Zachovej existující styl a navigaci.
+Kritéria hotovo: Nadpis max 10 slov, popis 2 věty, žádná změna layoutu.
+Výstup: Seznam změněných souborů + stručné shrnutí.</code>
+        </div>
+      </section>
+
+      <section class="guide" id="pokrocily">
+        <h2>5. Postup pro pokročilé (stabilní workflow)</h2>
+        <ol>
+          <li><strong>Rozděluj práci do fází:</strong> analýza → návrh → implementace → testy → shrnutí.</li>
+          <li><strong>Zaveď šablony zadání:</strong> stejné vstupy = konzistentnější výstupy.</li>
+          <li><strong>Pracuj iterativně:</strong> raději 3 malé revize než 1 velký riskantní zásah.</li>
+          <li><strong>Ptej se na rizika:</strong> „Co může tato změna vedlejšího ovlivnit?“</li>
+          <li><strong>Měj checklist kvality:</strong> funkčnost, styl, výkon, čitelnost, bezpečnost.</li>
+        </ol>
+      </section>
+
+      <section class="guide" id="profik">
+        <h2>6. Postup pro profesionály (týmové nasazení)</h2>
+        <ol>
+          <li><strong>Definuj standardy:</strong> coding style, pravidla review, minimální test coverage.</li>
+          <li><strong>Nastav Definition of Done:</strong> změna + test + dokumentace + známá rizika.</li>
+          <li><strong>Automatizuj rutinu:</strong> opakované refaktoringy, úpravy dokumentace, release notes.</li>
+          <li><strong>Používej auditní stopu:</strong> nech si u důležitých změn vysvětlit „proč“ a „dopad“.</li>
+          <li><strong>Škáluj přes playbook:</strong> každý v týmu používá stejnou strukturu zadání a kontroly.</li>
+        </ol>
+      </section>
+
+      <section class="guide" id="zadani">
+        <h2>7. Šablony zadání, které fungují</h2>
+        <span class="subhead">A) Rychlá univerzální šablona</span>
+        <div class="example">
+          <code>Cíl: [co má být výsledkem]
+Kontext: [soubor/projekt/část systému]
+Limity: [co se nesmí měnit]
+Kritéria hotovo: [konkrétní měřitelné podmínky]
+Výstup: [co mám dostat zpět: diff/shrnutí/testy]</code>
+        </div>
+
+        <span class="subhead">B) Šablona pro bezpečnější změny</span>
+        <div class="example">
+          <code>Nejdřív napiš plán a rizika, nic neupravuj.
+Po mém potvrzení proveď změnu po krocích.
+Po každém kroku napiš, co bylo upraveno a jak to ověřit.
+Na konci navrhni testy a rollback postup.</code>
+        </div>
+      </section>
+
+      <section class="guide" id="chyby">
+        <h2>8. Nejčastější chyby při práci s Codexem</h2>
+        <ul>
+          <li>příliš obecné zadání bez cíle a limitů,</li>
+          <li>snaha řešit velký komplexní problém najednou,</li>
+          <li>vynechané testování a finální kontrola,</li>
+          <li>přebírání výstupu bez ověření dopadu,</li>
+          <li>neexistující standardy týmu (každý pracuje jinak).</li>
+        </ul>
+      </section>
+
+      <section class="guide" id="kvalita">
+        <h2>9. Kontrola kvality: jednoduchý kontrolní list</h2>
+        <ul>
+          <li>Je změna přesně to, co bylo zadáno?</li>
+          <li>Nerozbila se jiná část projektu?</li>
+          <li>Prošly základní testy/checky?</li>
+          <li>Je řešení čitelné i pro člověka, který přijde po tobě?</li>
+          <li>Je jasně popsané, co se změnilo a proč?</li>
+        </ul>
+      </section>
+
+      <section class="guide" id="bezpecnost">
+        <h2>10. Bezpečnost, odpovědnost a zdravý rozum</h2>
+        <p>
+          Do zadání nedávej citlivé údaje, hesla, privátní klíče nebo data, která nechceš sdílet. U kritických změn
+          používej princip „AI navrhne, člověk schválí“. Ve firemním prostředí měj vždy jasná pravidla,
+          co se může delegovat a co musí projít ručním review.
+        </p>
+        <p>
+          Když to shrneme: Codex je silný multiplikátor. Urychlí práci, zvýší konzistenci a pomůže s kvalitou —
+          pokud mu dáš dobré zadání a necháš si finální rozhodnutí na sobě.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 TonyStark.cz</div>
+  </footer>
+</body>
+</html>
