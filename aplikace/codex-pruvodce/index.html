@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codex průvodce | TonyStark.cz</title>
+  <meta name="description" content="Podrobný průvodce používáním Codexu od úplných začátečníků po profesionální workflow." />
+  <style>
+    :root{
+      --bg:#0b1017;
+      --bg-soft:#131b26;
+      --line:rgba(255,255,255,.10);
+      --line-soft:rgba(255,255,255,.06);
+      --text:#f5f8fc;
+      --text-soft:#d6e1ec;
+      --muted:#9eadbc;
+      --accent:#efc38a;
+      --accent-2:#d4a6ab;
+      --max:980px;
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#0b1017 0%, #0d131d 50%, #090f16 100%)}
+    .wrap{width:min(var(--max), calc(100% - 32px));margin:0 auto}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(10,14,19,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
+    .topbar-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
+    .brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#14181f;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    nav a{padding:9px 12px;border-radius:999px;color:var(--text-soft);text-decoration:none}
+    nav a.active,nav a:hover{background:rgba(255,255,255,.05);border:1px solid var(--line-soft)}
+    main{padding:38px 0 56px}
+    h1{margin:0 0 14px;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:-.03em}
+    .lead{margin:0;color:var(--text-soft);line-height:1.85}
+    .panel{margin-top:22px;padding:22px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg, rgba(239,195,138,.08), rgba(255,255,255,.02))}
+    h2{margin:0 0 10px;font-size:1.45rem}
+    h3{margin:18px 0 8px;font-size:1.08rem;color:#f3dcc0}
+    p{margin:0;color:var(--text-soft);line-height:1.8}
+    ul,ol{margin:8px 0 0;padding-left:20px;color:var(--text-soft);line-height:1.75}
+    li+li{margin-top:8px}
+    .back{display:inline-flex;margin-top:18px;padding:10px 14px;border-radius:11px;text-decoration:none;color:#14181f;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    footer{padding:16px 0 34px;color:var(--muted);font-size:.9rem}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">T</span>
+        <strong>TonyStark.cz</strong>
+      </a>
+      <nav aria-label="Hlavní navigace">
+        <a href="/">Domů</a>
+        <a class="active" href="/aplikace/">Aplikace</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <h1>Codex průvodce: od prvního kroku po profesionální workflow</h1>
+      <p class="lead">Codex je AI coding agent od OpenAI. Umí číst projekt, navrhovat a dělat změny, spouštět kontroly a připravit výstup tak, aby šel rychle ověřit člověkem.</p>
+
+      <article class="panel">
+        <h2>Úplní začátečníci</h2>
+        <p>Začni jednoduše a buduj jistotu v malých krocích.</p>
+        <ol>
+          <li>Vyber jeden mini-úkol (30–60 minut), například úpravu jedné sekce stránky.</li>
+          <li>Sepiš zadání: co přesně chceš, kde se to mění, jak poznáš, že je hotovo.</li>
+          <li>Přidej omezení: jazyk, styl, co je zakázáno měnit.</li>
+          <li>Požádej nejdřív o plán, až potom o samotnou změnu.</li>
+          <li>Po každém kroku si nech vysvětlit důvod řešení.</li>
+          <li>Výsledek ručně zkontroluj v prohlížeči/editaci a teprve pak potvrď.</li>
+        </ol>
+
+        <h3>Mírně pokročilí</h3>
+        <p>Zrychli si práci bez ztráty kvality.</p>
+        <ol>
+          <li>Rozděl úkol na fáze: analýza → návrh → implementace → kontrola.</li>
+          <li>Zaveď vlastní checklist „hotovo“ (funkčnost, čitelnost, konzistence).</li>
+          <li>Pracuj po menších blocích a nech si shrnout změny po každém bloku.</li>
+          <li>Vyžádej varianty řešení a vyber nejlepší kompromis.</li>
+          <li>Požádej o sebekontrolu: rizika, limity, možné chyby a mitigace.</li>
+        </ol>
+
+        <h3>Profesionálové</h3>
+        <p>Nastav opakovatelný týmový proces.</p>
+        <ol>
+          <li>Definuj repozitářová pravidla: styl, commity, testy, bezpečnost.</li>
+          <li>Drž oddělené role: Codex implementuje, člověk schvaluje.</li>
+          <li>Vyžaduj auditovatelnost: stručné zdůvodnění, dopad, rollback plán.</li>
+          <li>Zapoj quality gates: lint, testy, smoke test, manuální review kritických změn.</li>
+          <li>Buduj interní playbooky a sdílené prompt šablony pro opakovatelné úkoly.</li>
+        </ol>
+
+        <h3>Rychlé pravidlo</h3>
+        <p>Čím přesnější zadání, tím kvalitnější výsledek. Codex je extrémně rychlý, ale finální odpovědnost za výstup má vždy člověk.</p>
+        <a class="back" href="/aplikace/">← Zpět na Aplikace</a>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 TonyStark.cz · Codex průvodce.</div>
+  </footer>
+</body>
+</html>
