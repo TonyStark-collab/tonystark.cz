@@ -42,48 +42,98 @@
     .clock-wrap {
       justify-self: center;
       display: grid;
-      gap: 10px;
-      width: min(100%, 720px);
-      padding: 12px;
+      gap: 14px;
+      width: min(100%, 760px);
+      padding: 16px;
       border: 1px solid color-mix(in srgb, var(--line) 68%, transparent);
       border-radius: 16px;
       background: color-mix(in srgb, var(--surface) 90%, transparent);
       text-align: center;
     }
 
-    .clock-tubes {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tube {
-      min-width: clamp(2.3rem, 6.6vw, 3.2rem);
-      padding: 8px 9px;
-      border-radius: 9px;
-      border: 1px solid color-mix(in srgb, #ff9a57 30%, var(--line));
-      background: linear-gradient(180deg, #17120f 0%, #0f0d0d 100%);
-      color: #ff8a3d;
+    .clock-label {
+      margin: 0;
       font-family: "Inter", system-ui, sans-serif;
-      font-variant-numeric: tabular-nums;
-      font-size: clamp(1.35rem, 5vw, 2.15rem);
-      line-height: 1;
+      font-size: clamp(0.78rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--text-soft) 62%, #8fa0be);
       font-weight: 600;
-      text-shadow: 0 0 8px color-mix(in srgb, #ff8a3d 85%, transparent);
-      box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffd2ab 20%, transparent),
-        inset 0 -8px 18px color-mix(in srgb, #000 58%, transparent);
     }
 
-    .tube-separator {
-      color: #ff9f5c;
+    .clock-face {
+      width: min(300px, 72vw);
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 1px solid color-mix(in srgb, #7f8fb0 30%, var(--line));
+      background:
+        radial-gradient(circle at 50% 50%, #1d2430 0%, #161d27 62%, #121923 100%);
+      box-shadow:
+        inset 0 0 0 7px color-mix(in srgb, #8ea4ca 8%, transparent),
+        inset 0 0 42px color-mix(in srgb, #0a0e14 74%, transparent),
+        0 20px 32px color-mix(in srgb, #030508 60%, transparent);
+      position: relative;
+    }
+
+    .clock-face::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      border: 1px dashed color-mix(in srgb, #a8b7d7 15%, transparent);
+    }
+
+    .clock-hand {
+      position: absolute;
+      left: 50%;
+      bottom: 50%;
+      transform-origin: center bottom;
+      border-radius: 999px;
+    }
+
+    .clock-hand.hour {
+      width: 8px;
+      height: 25%;
+      background: linear-gradient(180deg, #d7e3ff 0%, #9eb3dd 100%);
+      margin-left: -4px;
+    }
+
+    .clock-hand.minute {
+      width: 6px;
+      height: 34%;
+      background: linear-gradient(180deg, #d9e8ff 0%, #9cb4df 100%);
+      margin-left: -3px;
+    }
+
+    .clock-hand.second {
+      width: 2px;
+      height: 40%;
+      background: linear-gradient(180deg, #ffb370 0%, #ff8646 100%);
+      margin-left: -1px;
+    }
+
+    .clock-center {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffe0b3 0%, #ff9d57 65%, #f9762c 100%);
+      box-shadow: 0 0 12px color-mix(in srgb, #ff9d57 65%, transparent);
+    }
+
+    .clock-time {
+      margin: 0;
       font-family: "Inter", system-ui, sans-serif;
-      font-size: clamp(1.1rem, 4.4vw, 1.7rem);
-      line-height: 1;
-      text-shadow: 0 0 6px color-mix(in srgb, #ff8a3d 70%, transparent);
-      opacity: 0.9;
-      padding-inline: 2px;
+      font-size: clamp(1.35rem, 5vw, 2.3rem);
+      letter-spacing: 0.07em;
+      line-height: 1.1;
+      font-weight: 600;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
     }
 
     .clock-date {
@@ -158,6 +208,14 @@
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: clamp(22px, 4.2vw, 42px);
+      text-align: left;
+    }
+
+    .hero {
+      text-align: center;
+      display: grid;
+      gap: 10px;
+      margin-bottom: 24px;
     }
 
     h1 {
@@ -175,19 +233,49 @@
       margin-top: 4px;
     }
 
-    .text {
-      margin: 26px auto 0;
-      max-width: 66ch;
+    .lead {
+      margin: 0 auto;
+      max-width: 64ch;
+      font-size: clamp(1.08rem, 2.3vw, 1.25rem);
+      color: var(--text-soft);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .content-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 26px;
+    }
+
+    .story-card {
+      border: 1px solid color-mix(in srgb, var(--line) 88%, #4c5670);
+      border-radius: 12px;
+      background: color-mix(in srgb, #11161f 80%, var(--surface));
+      padding: clamp(14px, 2.3vw, 18px);
+    }
+
+    .story-card h2 {
+      margin: 0 0 8px;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: color-mix(in srgb, var(--text-soft) 74%, #a5b4cf);
+    }
+
+    .story-card p {
+      margin: 0;
       font-size: clamp(1.1rem, 2.5vw, 1.28rem);
       color: var(--text-soft);
       font-weight: 700;
+      text-align: center;
     }
-
-    .text p { margin: 0 0 18px; }
 
     .more {
       display: inline-flex;
-      margin-top: 6px;
+      margin-top: 24px;
       color: var(--link);
       text-decoration: none;
       border-bottom: 1px solid color-mix(in srgb, var(--link) 60%, transparent);
@@ -217,6 +305,7 @@
         justify-content: center;
       }
       .menu.open { display: flex; }
+      .story-card p { text-align: left; }
     }
   </style>
 </head>
@@ -236,28 +325,42 @@
       </div>
     </nav>
 
-    <section class="clock-wrap" aria-label="Digitronové hodiny">
-      <div class="clock-tubes" id="clock-time" aria-label="Aktuální čas">
-        <span class="tube" data-digit>0</span>
-        <span class="tube" data-digit>0</span>
-        <span class="tube-separator" aria-hidden="true">:</span>
-        <span class="tube" data-digit>0</span>
-        <span class="tube" data-digit>0</span>
-        <span class="tube-separator" aria-hidden="true">:</span>
-        <span class="tube" data-digit>0</span>
-        <span class="tube" data-digit>0</span>
+    <section class="clock-wrap" aria-label="Aktuální hodiny">
+      <p class="clock-label">Aktuální čas</p>
+      <div class="clock-face" aria-hidden="true">
+        <span class="clock-hand hour" id="hour-hand"></span>
+        <span class="clock-hand minute" id="minute-hand"></span>
+        <span class="clock-hand second" id="second-hand"></span>
+        <span class="clock-center"></span>
       </div>
+      <p class="clock-time" id="clock-time" aria-label="Aktuální čas">00:00:00</p>
       <p class="clock-date" id="clock-date">Načítám datum…</p>
     </section>
 
     <main>
-      <h1>Osobní prostor o technice i životě</h1>
-      <span class="podpis">Tony</span>
+      <header class="hero">
+        <h1>Osobní prostor o technice i životě</h1>
+        <span class="podpis">Tony</span>
+        <p class="lead">Jmenuji se Tony. Vyrůstal jsem v devadesátkách, které mě naučily zvídavosti, tvoření i přirozenému vztahu k technice.</p>
+      </header>
 
-      <div class="text">
-        <p>Jmenuji se Tony. Letos mi bude čtyřicet let a moje dětství i dospívání byly silně spojené s devadesátými lety. Byly to časy, kdy jsme jako kluci trávili hodně času venku a k prvním počítačům jsme se dostávali postupně, často vlastním skládáním a zkoušením.</p>
-        <p>Právě tahle éra mě výrazně formovala. Dodnes si z ní nesu vztah k technice, hudbě, počítačům a ke všemu, co má logiku, vývoj a opravdový charakter. Profesně pracuji jako skladník pro expedici, ale mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence.</p>
-        <p>S moderní AI jsem se výrazněji potkal v roce 2022 a od té doby sleduji její vývoj průběžně a se skutečným zájmem. Zároveň je pro mě nejdůležitější rodina, hudba a obyčejné lidské zázemí...</p>
+      <div class="content-grid">
+        <article class="story-card">
+          <h2>Kořeny</h2>
+          <p>Dětství a dospívání jsem prožil v době, kdy jsme trávili hodně času venku a první počítače poznávali postupně, často vlastním skládáním a zkoušením.</p>
+        </article>
+        <article class="story-card">
+          <h2>Směr</h2>
+          <p>Dodnes si nesu silný vztah k technice, hudbě, počítačům a všemu, co má logiku, vývoj a opravdový charakter. Profesně pracuji jako skladník pro expedici.</p>
+        </article>
+        <article class="story-card">
+          <h2>Vášně</h2>
+          <p>Mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. S moderní AI jsem se výrazněji potkal v roce 2022.</p>
+        </article>
+        <article class="story-card">
+          <h2>Hodnoty</h2>
+          <p>Nejdůležitější je pro mě rodina, hudba a obyčejné lidské zázemí. Právě spojení techniky a normálního života dává všemu dobrý smysl.</p>
+        </article>
       </div>
 
       <a class="more" href="/o-mne/">Více o mně</a>
@@ -269,7 +372,9 @@
     const menu = document.getElementById('site-menu');
     const clockDate = document.getElementById('clock-date');
     const clockTime = document.getElementById('clock-time');
-    const clockDigits = Array.from(document.querySelectorAll('[data-digit]'));
+    const hourHand = document.getElementById('hour-hand');
+    const minuteHand = document.getElementById('minute-hand');
+    const secondHand = document.getElementById('second-hand');
 
     const czechDateFormatter = new Intl.DateTimeFormat('cs-CZ', {
       weekday: 'long',
@@ -291,11 +396,19 @@
       const now = new Date();
       if (clockDate) clockDate.textContent = capitalizeFirst(czechDateFormatter.format(now));
       const [hours, minutes, seconds] = timeFormatter.format(now).split(':');
-      const timeDigits = `${hours}${minutes}${seconds}`.split('');
-      clockDigits.forEach((digit, index) => {
-        digit.textContent = timeDigits[index] ?? '0';
-      });
-      if (clockTime) clockTime.setAttribute('aria-label', `Aktuální čas ${hours}:${minutes}:${seconds}`);
+      if (clockTime) {
+        const readableTime = `${hours}:${minutes}:${seconds}`;
+        clockTime.textContent = readableTime;
+        clockTime.setAttribute('aria-label', `Aktuální čas ${readableTime}`);
+      }
+
+      const sec = now.getSeconds();
+      const min = now.getMinutes() + sec / 60;
+      const hr = (now.getHours() % 12) + min / 60;
+
+      if (secondHand) secondHand.style.transform = `rotate(${sec * 6}deg)`;
+      if (minuteHand) minuteHand.style.transform = `rotate(${min * 6}deg)`;
+      if (hourHand) hourHand.style.transform = `rotate(${hr * 30}deg)`;
     };
 
     menuButton?.addEventListener('click', () => {
