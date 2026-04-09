@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TonyStark.cz | Info panel</title>
+  <title>TonyStark.cz | Denní přehled</title>
   <meta name="description" content="Denní informace: den, datum, čas, státní svátek a svátek jmen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #121418;
@@ -25,7 +25,7 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: "Kalam", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
       line-height: 1.7;
       padding: 20px 16px 48px;
       text-align: center;
@@ -88,21 +88,24 @@
     }
 
     h1 {
-      margin: 0 0 20px;
-      font-size: clamp(1.6rem, 4.6vw, 2.2rem);
+      margin: 0 0 22px;
+      font-size: clamp(1.55rem, 4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 14px;
     }
 
     .item {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 18px 20px;
       background: #1c2028;
+      text-align: left;
     }
 
     .wide {
@@ -112,27 +115,31 @@
     .label {
       display: block;
       text-transform: uppercase;
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
+      font-size: 0.74rem;
+      letter-spacing: 0.09em;
       color: var(--muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
 
     .value {
       margin: 0;
       color: var(--text-soft);
-      font-size: 1.08rem;
+      font-size: 1.12rem;
+      line-height: 1.45;
+      font-weight: 500;
     }
 
     .silny {
       color: var(--text);
-      font-size: clamp(1.2rem, 3.2vw, 1.5rem);
-      font-weight: 600;
+      font-size: clamp(1.26rem, 2.6vw, 1.62rem);
+      font-weight: 700;
     }
 
     @media (max-width: 660px) {
       .grid { grid-template-columns: 1fr; }
       .brand { width: 100%; }
+      .item { text-align: center; }
       body { padding-top: 14px; }
     }
   </style>
@@ -148,12 +155,12 @@
         <a href="/projekty/">Projekty</a>
         <a href="/smer-webu/">Směr webu</a>
         <a href="/kontakt/">Kontakt</a>
-        <a href="/info-panel/" aria-current="page">Info panel</a>
+        <a href="/info-panel/" aria-current="page">Denní přehled</a>
       </div>
     </nav>
 
     <main>
-      <h1>Info panel</h1>
+      <h1>Denní přehled</h1>
       <section class="grid" aria-label="Denní informace">
         <article class="item">
           <span class="label">Den v týdnu</span>
