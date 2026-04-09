@@ -39,6 +39,38 @@
       gap: 36px;
     }
 
+    .clock-wrap {
+      justify-self: center;
+      display: grid;
+      gap: 2px;
+      padding: 8px 14px;
+      border: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--surface) 86%, transparent);
+      text-align: center;
+    }
+
+    .clock-date {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(0.82rem, 1.9vw, 0.95rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--text-soft) 72%, #7f8ca3);
+      font-weight: 500;
+    }
+
+    .clock-time {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(1.6rem, 5vw, 2.45rem);
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-weight: 600;
+    }
+
     .nav {
       display: flex;
       justify-content: space-between;
@@ -179,6 +211,11 @@
       </div>
     </nav>
 
+    <section class="clock-wrap" aria-label="Aktuální datum a čas">
+      <p class="clock-date" id="clock-date">Načítám datum…</p>
+      <p class="clock-time" id="clock-time">--:--:--</p>
+    </section>
+
     <main>
       <h1>Osobní prostor o technice i životě</h1>
       <span class="podpis">Tony</span>
@@ -196,11 +233,38 @@
   <script>
     const menuButton = document.querySelector('.menu-toggle');
     const menu = document.getElementById('site-menu');
+    const clockDate = document.getElementById('clock-date');
+    const clockTime = document.getElementById('clock-time');
+
+    const czechDateFormatter = new Intl.DateTimeFormat('cs-CZ', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    const timeFormatter = new Intl.DateTimeFormat('cs-CZ', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+
+    const capitalizeFirst = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+
+    const updateClock = () => {
+      const now = new Date();
+      if (clockDate) clockDate.textContent = capitalizeFirst(czechDateFormatter.format(now));
+      if (clockTime) clockTime.textContent = timeFormatter.format(now);
+    };
 
     menuButton?.addEventListener('click', () => {
       const isOpen = menu.classList.toggle('open');
       menuButton.setAttribute('aria-expanded', String(isOpen));
     });
+
+    updateClock();
+    setInterval(updateClock, 1000);
   </script>
 </body>
 </html>
