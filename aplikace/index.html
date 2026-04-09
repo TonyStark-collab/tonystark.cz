@@ -188,6 +188,17 @@
           </article>
 
           <article class="app-card">
+            <span class="tag">Průvodce · Codex</span>
+            <h2>Průvodce Codexem: od nuly po profi workflow</h2>
+            <p>
+              Praktický rozcestník pro začátečníky, mírně pokročilé i profesionály: jak zadávat úkoly,
+              kontrolovat výstupy, držet kvalitu a zrychlit práci na reálném projektu.
+            </p>
+            <a class="btn primary" href="#codex-guide">Přejít na průvodce Codexem</a>
+            <div class="meta">Navazuje přímo na průvodce ChatGPT a dává další úroveň práce s AI.</div>
+          </article>
+
+          <article class="app-card">
             <span class="tag">Brzy</span>
             <h2>Další užitečné aplikace</h2>
             <p>
@@ -203,8 +214,8 @@
           Ušetříš si tím čas a rychleji získáš lepší výsledky.
         </p>
 
-        <article class="codex-guide">
-          <h2>Co je Codex a proč ho zařadit do práce i studia</h2>
+        <article class="codex-guide" id="codex-guide">
+          <h2>Průvodce Codexem: větší šťáva, jasný systém a konkrétní výsledky</h2>
           <p>
             Codex je AI coding agent od OpenAI. Nejde jen o klasický chat: Codex umí číst projekt,
             navrhnout změny, upravit soubory, spouštět testy a vracet konkrétní výstupy, které můžeš rovnou
@@ -220,16 +231,41 @@
             <li><strong>Kontrola zůstává na tobě:</strong> ty určuješ cíl, kontroluješ výstup a rozhoduješ o finálním nasazení.</li>
           </ul>
 
-          <h3>Podrobný návod: jak s Codexem začít krok za krokem</h3>
+          <h3>Úroveň 1: Úplný začátečník (první dny s Codexem)</h3>
           <ol>
-            <li><strong>Definuj cíl jednou větou.</strong> Například: „Chci přidat sekci FAQ na stránku Aplikace a zachovat stávající vizuální styl."</li>
-            <li><strong>Dodej kontext.</strong> Uveď, kde se má měnit kód, jaké jsou limity (jazyk, design, bezpečnost) a co se měnit nesmí.</li>
-            <li><strong>Nastav měřitelný výsledek.</strong> Napiš, jak poznáš hotovo: co má fungovat, co má být otestované a jaký má být výstup.</li>
-            <li><strong>Nech Codex navrhnout plán.</strong> Před samotnou úpravou si nech vypsat stručný postup, ať vidíš logiku řešení.</li>
-            <li><strong>Spusť úpravy po menších blocích.</strong> Velké zadání rozděl na menší části (obsah, styl, testy, kontrola), výsledky jsou přesnější.</li>
-            <li><strong>Vyžádej si kontrolu kvality.</strong> Nech Codex projít změny, upozornit na rizika a navrhnout testy nebo revizi textu.</li>
-            <li><strong>Dokonči manuální validací.</strong> Zkontroluj výstup v prohlížeči nebo editoru a finální rozhodnutí udělej vždy člověk.</li>
+            <li><strong>Začni malým úkolem na 10–20 minut.</strong> Třeba opravit sekci textu, přidat jednoduchý blok nebo upravit popisek tlačítka.</li>
+            <li><strong>Zadání napiš ve 4 větách.</strong> Co chceš, kde to je, co se měnit nesmí, jak má vypadat výstup.</li>
+            <li><strong>Požádej o mini plán.</strong> Nech si před úpravou vypsat 3–5 kroků, ať vidíš, že Codex chápe směr.</li>
+            <li><strong>Vyžádej si „co jsi změnil“.</strong> Po úpravě chtěj shrnutí změn, aby sis zvykl kontrolovat výsledek.</li>
+            <li><strong>Vždy udělej finální lidskou kontrolu.</strong> Otevři výstup, ověř text, funkčnost a teprve potom potvrď změny.</li>
           </ol>
+
+          <h3>Úroveň 2: Mírně pokročilý (stabilní workflow bez chaosu)</h3>
+          <ol>
+            <li><strong>Rozděl práci na části.</strong> Obsah, struktura, styl, testy a finální kontrolu řeš jako samostatné kroky.</li>
+            <li><strong>Používej šablonu zadání.</strong> Cíl → kontext → limity → akceptační kritéria → formát výstupu.</li>
+            <li><strong>Nech si hlídat rizika.</strong> Žádej upozornění na vedlejší dopady, rozbití stylu nebo možné regresní chyby.</li>
+            <li><strong>Přidej kontrolní checklist.</strong> „Je to responzivní? sedí styl? fungují odkazy? sedí jazyk?“</li>
+            <li><strong>Pracuj v iteracích.</strong> Jedna změna = jedna revize; místo velkého chaosu získáš čistý, předvídatelný progres.</li>
+          </ol>
+
+          <h3>Úroveň 3: Profesionál (výkon, kvalita, škálování)</h3>
+          <ol>
+            <li><strong>Definuj standardy týmu.</strong> Codexu dej coding conventions, pravidla review a požadovaný styl dokumentace.</li>
+            <li><strong>Nastav „Definition of Done“.</strong> Hotovo = změna + testy + shrnutí + známá rizika + návrh dalších kroků.</li>
+            <li><strong>Automatizuj opakované rutiny.</strong> Refaktoring, lint fixy, aktualizace dokumentace a přípravu release poznámek deleguj systematicky.</li>
+            <li><strong>Používej Codex jako druhý pár očí.</strong> Nech ho validovat architekturu návrhu, hraniční stavy i čitelnost pro nový tým.</li>
+            <li><strong>Buduj auditní stopu rozhodnutí.</strong> U důležitých změn chtěj stručné „proč“, „co“, „dopad“ pro rychlé zpětné dohledání.</li>
+          </ol>
+
+          <h3>Rychlá šablona zadání, kterou můžeš kopírovat</h3>
+          <p>
+            Cíl: [co přesně změnit].
+            Kontext: [soubor/sekce/projekt].
+            Limity: [co zachovat, co neměnit].
+            Kritéria hotovo: [jak poznáme, že je správně].
+            Výstup: [stručné shrnutí + seznam změn + doporučené testy].
+          </p>
 
           <h3>Proč by ho měl používat téměř každý</h3>
           <p>
