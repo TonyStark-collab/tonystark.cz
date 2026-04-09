@@ -7,26 +7,28 @@
   <meta name="description" content="Denní informace: den, datum, čas, státní svátek a svátek jmen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #121418;
-      --surface: #181b21;
-      --line: #2b313c;
-      --text: #eceff5;
-      --text-soft: #c4cad6;
-      --muted: #98a3b8;
-      --max: 860px;
+      --bg: #080d18;
+      --surface: #0f1728;
+      --line: #1f2a44;
+      --text: #f8fbff;
+      --text-soft: #e9effd;
+      --muted: #a2b0cb;
+      --accent: #8bc2ff;
+      --max: 920px;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--bg);
+      min-height: 100vh;
+      background: radial-gradient(circle at 10% 10%, #15233e 0%, var(--bg) 55%);
       color: var(--text);
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.7;
+      line-height: 1.45;
       padding: 20px 16px 48px;
       text-align: center;
     }
@@ -45,14 +47,14 @@
       flex-wrap: wrap;
       gap: 8px;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--surface) 93%, #000 7%);
       padding: 10px;
     }
 
     .brand,
     .menu a {
-      color: var(--text-soft);
+      color: #dbe5ff;
       text-decoration: none;
       padding: 8px 10px;
       border-radius: 9px;
@@ -62,7 +64,7 @@
 
     .brand {
       color: var(--text);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .menu {
@@ -82,65 +84,190 @@
 
     main {
       border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--surface);
-      padding: clamp(20px, 4.4vw, 36px);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(17, 25, 45, 0.95) 0%, rgba(9, 14, 27, 0.95) 100%);
+      padding: clamp(20px, 5vw, 42px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
     h1 {
-      margin: 0 0 22px;
-      font-size: clamp(1.55rem, 4vw, 2rem);
-      font-weight: 700;
-      letter-spacing: 0.01em;
+      margin: 0;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.02em;
     }
 
-    .grid {
+    .subtitle {
+      margin: 10px 0 26px;
+      font-size: clamp(1rem, 2.6vw, 1.2rem);
+      color: #ced9f4;
+    }
+
+    .stack {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 18px;
+      text-align: left;
+      max-width: 720px;
+      margin: 0 auto;
     }
 
     .item {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 18px 20px;
-      background: #1c2028;
-      text-align: left;
-    }
-
-    .wide {
-      grid-column: 1 / -1;
+      padding: 0;
+      border: 0;
+      background: transparent;
     }
 
     .label {
       display: block;
       text-transform: uppercase;
       font-size: 0.74rem;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.12em;
       color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 600;
+      margin-bottom: 3px;
+      font-weight: 700;
     }
 
     .value {
       margin: 0;
       color: var(--text-soft);
-      font-size: 1.12rem;
-      line-height: 1.45;
+      font-size: clamp(1.35rem, 3.2vw, 2rem);
+      line-height: 1.25;
+      font-weight: 600;
+      text-shadow: 0 0 18px rgba(138, 194, 255, 0.14);
+    }
+
+    #today-time {
+      font-size: clamp(2.1rem, 9vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .weather-bar {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+      padding-top: 8px;
+    }
+
+    .weather-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+      background: radial-gradient(circle, rgba(139, 194, 255, 0.36) 0%, rgba(139, 194, 255, 0.08) 58%, transparent 100%);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .weather-icon.sunny { animation: pulseSun 2.4s ease-in-out infinite; }
+    .weather-icon.cloudy { animation: driftCloud 3.5s ease-in-out infinite; }
+    .weather-icon.rainy { animation: rainBounce 1.3s ease-in-out infinite; }
+    .weather-icon.snowy { animation: snowSpin 5s linear infinite; }
+    .weather-icon.storm { animation: stormFlash 1.1s ease-in-out infinite; }
+
+    .weather-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .weather-temp {
+      margin: 0;
+      font-size: clamp(1.5rem, 3.6vw, 2.2rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .weather-detail {
+      margin: 0;
+      color: #d4def8;
+      font-size: 1.02rem;
       font-weight: 500;
     }
 
-    .silny {
-      color: var(--text);
-      font-size: clamp(1.26rem, 2.6vw, 1.62rem);
-      font-weight: 700;
+    .location-row {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
-    @media (max-width: 660px) {
-      .grid { grid-template-columns: 1fr; }
+    .location-row label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    select {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #101a30;
+      color: #f4f8ff;
+      padding: 10px 34px 10px 12px;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 0.98rem;
+      background-image:
+        linear-gradient(45deg, transparent 50%, #9ec8ff 50%),
+        linear-gradient(135deg, #9ec8ff 50%, transparent 50%);
+      background-position:
+        calc(100% - 16px) calc(50% - 2px),
+        calc(100% - 10px) calc(50% - 2px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .status {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes pulseSun {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.1); filter: brightness(1.18); }
+    }
+
+    @keyframes driftCloud {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes rainBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    @keyframes snowSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes stormFlash {
+      0%, 85%, 100% { filter: brightness(1); }
+      90% { filter: brightness(1.4); }
+    }
+
+    @media (max-width: 700px) {
       .brand { width: 100%; }
-      .item { text-align: center; }
-      body { padding-top: 14px; }
+      .stack { text-align: center; }
+      .location-row,
+      .weather-bar { justify-items: center; justify-content: center; }
+      .location-row { justify-content: center; }
+      .weather-bar { grid-template-columns: 1fr; text-align: center; }
     }
   </style>
 </head>
@@ -161,22 +288,49 @@
 
     <main>
       <h1>Denní přehled</h1>
-      <section class="grid" aria-label="Denní informace">
+      <p class="subtitle">Jednoduchý, výrazný přehled dne, času a počasí.</p>
+
+      <section class="stack" aria-label="Denní informace">
         <article class="item">
           <span class="label">Den v týdnu</span>
-          <p class="value silny" id="today-day">-</p>
+          <p class="value" id="today-day">-</p>
         </article>
+
         <article class="item">
           <span class="label">Datum</span>
           <p class="value" id="today-date">-</p>
         </article>
-        <article class="item wide">
+
+        <article class="item">
           <span class="label">Čas</span>
-          <p class="value silny" id="today-time">-</p>
+          <p class="value" id="today-time">-</p>
         </article>
-        <article class="item wide">
+
+        <article class="item">
           <span class="label" id="holiday-label">Státní svátek</span>
           <p class="value" id="holiday-info">-</p>
+        </article>
+
+        <article class="item" aria-live="polite">
+          <span class="label">Počasí</span>
+          <div class="weather-bar">
+            <div class="weather-icon" id="weather-icon" aria-hidden="true">☁️</div>
+            <div class="weather-meta">
+              <p class="weather-temp" id="weather-temp">— °C</p>
+              <p class="weather-detail" id="weather-detail">Načítám aktuální počasí…</p>
+            </div>
+          </div>
+          <div class="location-row">
+            <label for="location-select">Lokalita:</label>
+            <select id="location-select" name="location-select">
+              <option value="50.0755,14.4378,Prague">Praha</option>
+              <option value="49.1951,16.6068,Brno">Brno</option>
+              <option value="49.8209,18.2625,Ostrava">Ostrava</option>
+              <option value="49.7475,13.3776,Plzen">Plzeň</option>
+              <option value="50.7704,15.0583,Liberec">Liberec</option>
+            </select>
+          </div>
+          <p class="status" id="weather-status">Zdroj: Open-Meteo</p>
         </article>
       </section>
     </main>
@@ -212,11 +366,43 @@
       "12-26":"2. svátek vánoční"
     };
 
+    const weatherMap = {
+      0: { text: "Jasno", icon: "☀️", cls: "sunny" },
+      1: { text: "Převážně jasno", icon: "🌤️", cls: "sunny" },
+      2: { text: "Polojasno", icon: "⛅", cls: "cloudy" },
+      3: { text: "Zataženo", icon: "☁️", cls: "cloudy" },
+      45: { text: "Mlha", icon: "🌫️", cls: "cloudy" },
+      48: { text: "Námrazová mlha", icon: "🌫️", cls: "cloudy" },
+      51: { text: "Slabé mrholení", icon: "🌦️", cls: "rainy" },
+      53: { text: "Mrholení", icon: "🌦️", cls: "rainy" },
+      55: { text: "Silné mrholení", icon: "🌧️", cls: "rainy" },
+      61: { text: "Slabý déšť", icon: "🌦️", cls: "rainy" },
+      63: { text: "Déšť", icon: "🌧️", cls: "rainy" },
+      65: { text: "Silný déšť", icon: "🌧️", cls: "rainy" },
+      71: { text: "Slabé sněžení", icon: "🌨️", cls: "snowy" },
+      73: { text: "Sněžení", icon: "❄️", cls: "snowy" },
+      75: { text: "Silné sněžení", icon: "❄️", cls: "snowy" },
+      80: { text: "Přeháňky", icon: "🌦️", cls: "rainy" },
+      81: { text: "Dešťové přeháňky", icon: "🌧️", cls: "rainy" },
+      82: { text: "Silné přeháňky", icon: "⛈️", cls: "storm" },
+      95: { text: "Bouřka", icon: "⛈️", cls: "storm" },
+      96: { text: "Bouřka s krupkami", icon: "⛈️", cls: "storm" },
+      99: { text: "Silná bouřka", icon: "⛈️", cls: "storm" }
+    };
+
     const dayEl = document.getElementById("today-day");
     const dateEl = document.getElementById("today-date");
     const timeEl = document.getElementById("today-time");
     const holidayLabelEl = document.getElementById("holiday-label");
     const holidayInfoEl = document.getElementById("holiday-info");
+
+    const locationSelect = document.getElementById("location-select");
+    const weatherTempEl = document.getElementById("weather-temp");
+    const weatherDetailEl = document.getElementById("weather-detail");
+    const weatherIconEl = document.getElementById("weather-icon");
+    const weatherStatusEl = document.getElementById("weather-status");
+
+    let weatherRefreshTimer;
 
     function updateDateTime() {
       const now = new Date();
@@ -247,8 +433,60 @@
       timeEl.textContent = timeText;
     }
 
+    function applyWeatherAppearance(code) {
+      const weather = weatherMap[code] || { text: "Neznámé podmínky", icon: "🌍", cls: "cloudy" };
+      weatherIconEl.textContent = weather.icon;
+      weatherIconEl.className = `weather-icon ${weather.cls}`;
+      return weather.text;
+    }
+
+    async function fetchWeather() {
+      const [latitude, longitude, city] = locationSelect.value.split(",");
+      weatherStatusEl.textContent = `Načítám počasí pro ${city}…`;
+
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Nepodařilo se načíst data počasí.");
+        }
+
+        const payload = await response.json();
+        const current = payload.current;
+
+        if (!current) {
+          throw new Error("Data počasí jsou neúplná.");
+        }
+
+        const description = applyWeatherAppearance(current.weather_code);
+        weatherTempEl.textContent = `${Math.round(current.temperature_2m)} °C`;
+        weatherDetailEl.textContent = `${description} • vítr ${Math.round(current.wind_speed_10m)} km/h`;
+
+        const updatedAt = new Date(current.time).toLocaleTimeString("cs-CZ", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        weatherStatusEl.textContent = `Lokalita: ${city} • aktualizováno ${updatedAt}`;
+      } catch (error) {
+        weatherTempEl.textContent = "— °C";
+        weatherDetailEl.textContent = "Počasí se nepodařilo načíst.";
+        weatherIconEl.textContent = "⚠️";
+        weatherIconEl.className = "weather-icon storm";
+        weatherStatusEl.textContent = error.message;
+      }
+    }
+
+    function setupWeather() {
+      locationSelect.addEventListener("change", fetchWeather);
+      fetchWeather();
+      weatherRefreshTimer = setInterval(fetchWeather, 10 * 60 * 1000);
+      window.addEventListener("beforeunload", () => clearInterval(weatherRefreshTimer));
+    }
+
     updateDateTime();
     setInterval(updateDateTime, 1000);
+    setupWeather();
   </script>
 </body>
 </html>
