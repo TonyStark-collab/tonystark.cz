@@ -16,7 +16,8 @@
       --text: #eceff5;
       --text-soft: #c8ced9;
       --link: #b7c6e6;
-      --max: 900px;
+      --max: 980px;
+      --article-max: 76ch;
     }
 
     * { box-sizing: border-box; }
@@ -26,7 +27,8 @@
       background: var(--bg);
       color: var(--text);
       font-family: "Kalam", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.9;
+      line-height: 1.8;
+      letter-spacing: 0.01em;
       padding: 20px 16px 56px;
       text-align: center;
     }
@@ -42,15 +44,44 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 8px;
       border: 1px solid var(--line);
       border-radius: 12px;
       background: var(--surface);
       padding: 10px;
+      position: relative;
     }
 
-    .brand,
+    .brand {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 8px 10px;
+      font-family: "Inter", system-ui, sans-serif;
+      border-radius: 9px;
+      border: 1px solid transparent;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     .menu a {
       color: var(--text-soft);
       text-decoration: none;
@@ -58,17 +89,7 @@
       border-radius: 9px;
       border: 1px solid transparent;
       transition: border-color 0.2s ease, color 0.2s ease;
-    }
-
-    .brand {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .menu {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
+      font-weight: 700;
     }
 
     .menu a:hover,
@@ -80,11 +101,23 @@
       outline: none;
     }
 
+    .menu a[aria-current="page"] {
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--line) 80%, transparent);
+      background: color-mix(in srgb, #1f2430 68%, transparent);
+    }
+
     main {
       border: 1px solid var(--line);
       border-radius: 14px;
       background: var(--surface);
       padding: clamp(24px, 4.5vw, 48px);
+      text-align: left;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: clamp(20px, 4vw, 36px);
     }
 
     h1 {
@@ -103,20 +136,60 @@
     }
 
     .obsah {
-      margin-top: 30px;
-      max-width: 68ch;
+      margin: 0 auto;
+      max-width: var(--article-max);
       color: var(--text-soft);
-      font-size: clamp(1rem, 2.1vw, 1.12rem);
+      font-size: clamp(1.02rem, 2.1vw, 1.18rem);
     }
 
-    .obsah p {
-      margin: 0 0 20px;
+    .lead {
+      font-size: clamp(1.12rem, 2.4vw, 1.28rem);
+      color: var(--text);
+      margin: 0 0 22px;
+      text-wrap: pretty;
     }
 
-    @media (max-width: 640px) {
+    .section {
+      margin: 0 0 26px;
+      padding-top: 4px;
+    }
+
+    .section h2 {
+      margin: 0 0 10px;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(1.03rem, 2.2vw, 1.25rem);
+      font-weight: 600;
+      color: color-mix(in srgb, var(--text) 92%, #9eb1d6);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .section p {
+      margin: 0 0 14px;
+      text-wrap: pretty;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 760px) {
       body { padding-top: 14px; }
       .page { gap: 22px; }
-      .brand { width: 100%; }
+      main { text-align: initial; }
+
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .menu {
+        display: none;
+        width: 100%;
+        padding-top: 8px;
+        justify-content: center;
+      }
+      .menu.open { display: flex; }
+
+      .section h2 {
+        margin-bottom: 8px;
+      }
     }
   </style>
 </head>
@@ -124,7 +197,8 @@
   <div class="page">
     <nav class="nav" aria-label="Hlavní navigace">
       <a class="brand" href="/">TonyStark.cz</a>
-      <div class="menu">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Otevřít menu">☰</button>
+      <div class="menu" id="site-menu">
         <a href="/o-mne/" aria-current="page">O mně</a>
         <a href="/aplikace/">Aplikace</a>
         <a href="/webove-aplikace/">Webové aplikace</a>
@@ -136,49 +210,60 @@
     </nav>
 
     <main>
-      <h1>O mně</h1>
-      <span class="podpis">Tony</span>
+      <header class="hero">
+        <h1>O mně</h1>
+        <span class="podpis">Tony</span>
+      </header>
 
       <article class="obsah">
-        <p>Jmenuji se Tony. Letos mi bude čtyřicet let a už samotný ročník narození napovídá, že moje dětství i dospívání byly silně spojené s devadesátými lety. Manželka o mně s nadsázkou a ironií říká, že jsem „dítě Černobylu“, čistě ve smyslu roku 1986.</p>
+        <p class="lead">Jmenuji se Tony. Letos mi bude čtyřicet let a moje dětství i dospívání byly silně spojené s devadesátými lety. Manželka o mně s nadsázkou říká, že jsem „dítě Černobylu“ – čistě ve smyslu roku 1986.</p>
 
-        <p>Byly to krásné časy. Internet ještě nebyl samozřejmostí, a tak jsme jako kluci trávili čas venku, hráli kopanou a svět techniky poznávali postupně, po svém.</p>
+        <section class="section" aria-labelledby="zacatky">
+          <h2 id="zacatky">Začátky u techniky</h2>
+          <p>Byly to krásné časy. Internet ještě nebyl samozřejmostí, a tak jsme jako kluci trávili čas venku, hráli kopanou a svět techniky poznávali postupně, po svém.</p>
+          <p>Když jsme se kolem patnácti let dostávali k prvním počítačům, často to znamenalo skládat je z komponent, které kdo dokázal sehnat, přinesl nebo vyměnil. Byla to doba procesorů AMD K5 a K6 nebo starších Intelů na frekvencích kolem 66 či 99 MHz. Taktovalo se fyzicky přes jumpry přímo na základní desce.</p>
+          <p>Brzy jsme zjistili, že tehdejší výkon i kapacita disků kolem 1 GB přestávají stačit. Jakmile se podařilo něco sehnat nebo poskládat, přecházelo se na procesory 300 a 500 MHz. To už byl na tehdejší dobu citelný skok, díky kterému se počítač stal použitelný i pro víc úloh najednou.</p>
+        </section>
 
-        <p>Když jsme se kolem patnácti let dostávali k prvním počítačům, často to znamenalo skládat je z komponent, které kdo dokázal sehnat, přinesl nebo vyměnil. Byla to doba procesorů AMD K5 a K6 nebo starších Intelů na frekvencích kolem 66 či 99 MHz. Jasně, taktovalo se také, ale ne kliknutím v moderním rozhraní. Dělalo se to fyzicky přes jumpry přímo na základní desce.</p>
+        <section class="section" aria-labelledby="vykon">
+          <h2 id="vykon">Doba, kdy každý MHz byl znát</h2>
+          <p>Přiznám se, že jsem ždímal výkon i z chudáka Celeronu, levnější a ořezané varianty tehdejšího Pentia. Byly to ale spíš technické experimenty než pohodlný provoz.</p>
+          <p>Když jsme si později z brigád vydělali vlastní peníze, otevřela se možnost dostat se až k hranici 1 GHz. V té době už se osazovalo i 128 MB RAM, disky měly kolem 10 GB a proti starším sestavám s 16 nebo 32 MB RAM to byl obrovský rozdíl.</p>
+          <p>S dnešními počítači se to výkonem srovnat nedá, ale právě proto na tu dobu rád vzpomínám. Byly to poctivé začátky, hodně zkoušení a radost z toho, že se něco podařilo rozběhat.</p>
+        </section>
 
-        <p>Samozřejmě jsme brzy zjistili, že tehdejší výpočetní výkon procesorů kolem stovky megahertzů a jen o něco výš už přestával stačit. Na přehrávání hudby to ještě bylo, ale na další souběžné úkony už často nezbývala téměř žádná výkonová rezerva. Podobně na tom byly i pevné disky, tehdy harddisky, s kapacitou kolem 1 GB. I to začínalo být málo a bylo jasné, že se musí jít dál.</p>
+        <section class="section" aria-labelledby="media">
+          <h2 id="media">Hudba, média a tehdejší tempo</h2>
+          <p>Hudba tehdy hrála z FM rádií a postupně i z počítače. Objevovaly se písničky na CD, ale kvůli omezené kapacitě disků se často přehrávalo přímo z média.</p>
+          <p>Postupně přišla klasická CD, CD-R, CD-RW a následně i DVD vypalovačky. Najednou nešlo jen o hudbu, ale i o filmy, aplikace a data, která se mezi lidmi běžně sdílela a archivovala.</p>
+          <p>Filmy a seriály člověk často znal hlavně tehdy, když si je stihl nahrát na VHS. Celé to mělo svoje tempo a kouzlo, které bylo úplně jiné než dnes.</p>
+        </section>
 
-        <p>Jakmile se podařilo něco sehnat nebo poskládat, přecházelo se na procesory s frekvencemi 300 nebo 500 MHz, které už na tehdejší dobu nabízely pořádný kus výkonu a dovolily výrazně pohodlnější multitasking. Když se člověk dostal k procesorům kolem 500 MHz, už se dalo přemýšlet i nad tím, že si pustí nějaký film. Na tehdejší dobu to byl znatelný posun a vyšší frekvence znamenala, že procesor podobné úlohy zvládal podstatně lépe než starší sestavy.</p>
+        <section class="section" aria-labelledby="dnesek">
+          <h2 id="dnesek">Technika dnes a AI</h2>
+          <p>Právě tahle éra mě výrazně formovala. Dodnes si z ní nesu vztah k technice, hudbě, počítačům a ke všemu, co má logiku, vývoj a opravdový charakter.</p>
+          <p>Profesně pracuji jako skladník pro expedici, ale mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. Baví mě chápat, jak věci fungují, proč nefungují a co udělat pro to, aby fungovaly lépe.</p>
+          <p>S moderní AI jsem se výrazněji setkal v roce 2022. Účet u OpenAI jsem si založil 14. prosince 2022, přibližně dva týdny po veřejném uvedení ChatGPT. Od té doby sleduji vývoj průběžně a se skutečným zájmem.</p>
+        </section>
 
-        <p>Přiznám se, že jsem ždímal výkon i z chudáka Celeronu, levnější a ořezané varianty tehdejšího Pentia, ale to už byly spíš technické experimenty než opravdový uživatelský komfort.</p>
-
-        <p>Jakmile jsme si později z různých brigád vydělali vlastní peníze, otevřela se možnost dostat se až k tehdy skoro magické hranici 1 GHz. To už člověk vnímal jako opravdový komfort. Pamatuji si, že u těch výkonnějších sestav byla osazená paměť RAM až 128 MB, což tehdy působilo skoro neuvěřitelně. Pevné disky měly kolem 10 GB, zatímco dnes se běžně pracuje s terabyty. V dobách procesorů na 66 nebo 99 MHz bývala k dispozici paměť 16 nebo 32 MB RAM a začínalo se na modulech SIMM.</p>
-
-        <p>S dnešními počítači se to samozřejmě výkonem nedá vůbec srovnávat. Právě proto na to ale člověk vzpomíná jako na poctivé začátky, kdy byly počítače víc o zkoušení, bastlení a radosti z toho, že se něco vůbec rozběhlo.</p>
-
-        <p>Hudba tehdy hrála z FM rádií, ale postupně jsme si ji začali pouštět i na počítači. Už v dobách procesorů kolem 99 MHz a výš se daly sehnat první písničky na CD. Všechno by člověk nejraději ukládal na harddisk, jenže tehdejší kapacity byly omezené, takže se spousta věcí přehrávala přímo z CD.</p>
-
-        <p>Doba postupně přinesla klasická CD, vypalovatelná a přepisovatelná média CD-R a CD-RW a o něco později i DVD vypalovačky s médii DVD-R a DVD-RW. Díky tomu už nešlo jen o hudbu, ale také o filmy, aplikace a další soubory, které se tehdy mezi lidmi různě předávaly, vypalovaly a archivovaly.</p>
-
-        <p>Filmy a seriály člověk znal hlavně tehdy, když si je včas nahrál na VHS. Byla to doba, která měla svoje tempo, svoje kouzlo a úplně jiný způsob objevování světa, než jaký známe dnes.</p>
-
-        <p>Právě tahle éra mě výrazně formovala. Dodnes si z ní nesu vztah k technice, hudbě, počítačům a ke všemu, co má logiku, vývoj a opravdový charakter.</p>
-
-        <p>Profesně pracuji jako skladník pro expedici, ale mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. Vždy mě bavilo zjišťovat, jak věci fungují, proč někdy nefungují a co udělat pro to, aby fungovaly lépe.</p>
-
-        <p>S umělou inteligencí v podobě velkých jazykových modelů jsem se poprvé výrazněji setkal v roce 2022. Právě tehdy se začal rodit první opravdu velký veřejný boom moderní AI, jak ji dnes známe.</p>
-
-        <p>Počáteční a faktická registrace mého účtu u OpenAI se datuje k 14. prosinci 2022, tedy jen přibližně dva týdny po veřejném uvedení ChatGPT. I to samo o sobě dobře ukazuje, jak rychle si mě tehdejší nástup moderní AI získal.</p>
-
-        <p>Od té doby sleduji vývoj AI průběžně a se skutečným zájmem, ať už jde o samotné modely, jejich možnosti, limity nebo praktické využití v běžném životě i technické praxi.</p>
-
-        <p>Jsem člověk, kterého zajímá vývoj moderních technologií, nové trendy a praktické využití techniky v běžném životě. Mám rád věcnost, funkčnost, čisté řešení a smysluplné nápady. Zároveň ale nejsem jen o technice. Důležitou součástí mého života je rodina, hudba a obyčejné lidské zázemí.</p>
-
-        <p>Jsem manžel a táta. Právě rodina je pro mě tím nejdůležitějším bodem v životě. Vedle ní má své pevné místo i moje dlouholetá vášeň pro techniku, počítače, web, zařízení, systémy a všechno, co se neustále posouvá dopředu.</p>
-
-        <p>Tenhle web je osobním prostorem, kde se potkává moje minulost, zkušenosti, současné zájmy i věci, které mě opravdu vystihují.</p>
+        <section class="section" aria-labelledby="zazemi">
+          <h2 id="zazemi">Co je pro mě důležité</h2>
+          <p>Zajímá mě vývoj technologií, nové trendy a praktické využití techniky v běžném životě. Mám rád věcnost, funkčnost, čisté řešení a smysluplné nápady.</p>
+          <p>Zároveň ale nejsem jen o technice. Jsem manžel a táta. Rodina je pro mě nejdůležitější bod v životě, vedle kterého má své pevné místo hudba i dlouholetá vášeň pro vše, co se v technice posouvá dopředu.</p>
+          <p>Tenhle web je osobním prostorem, kde se potkává moje minulost, zkušenosti, současné zájmy i věci, které mě opravdu vystihují.</p>
+        </section>
       </article>
     </main>
   </div>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('site-menu');
+
+    menuButton?.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  </script>
 </body>
 </html>
