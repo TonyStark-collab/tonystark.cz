@@ -7,7 +7,7 @@
   <meta name="description" content="Osobní web TonyStark.cz v klidném, čistém a čitelném stylu." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kalam:wght@400;700&family=Marck+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #121418;
@@ -43,8 +43,8 @@
       justify-self: center;
       display: grid;
       gap: 14px;
-      width: min(100%, 760px);
-      padding: 16px;
+      width: min(100%, 700px);
+      padding: 14px;
       border: 1px solid color-mix(in srgb, var(--line) 68%, transparent);
       border-radius: 16px;
       background: color-mix(in srgb, var(--surface) 90%, transparent);
@@ -62,7 +62,7 @@
     }
 
     .clock-face {
-      width: min(300px, 72vw);
+      width: min(240px, 60vw);
       aspect-ratio: 1 / 1;
       margin: 0 auto;
       border-radius: 50%;
@@ -82,6 +82,23 @@
       inset: 16px;
       border-radius: 50%;
       border: 1px dashed color-mix(in srgb, #a8b7d7 15%, transparent);
+    }
+
+    .clock-number {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: clamp(0.7rem, 1.7vw, 0.8rem);
+      font-weight: 600;
+      color: color-mix(in srgb, var(--text-soft) 72%, #a9b8d7);
+      transform:
+        translate(-50%, -50%)
+        rotate(calc(var(--i) * 30deg))
+        translateY(calc(-1 * (min(120px, 30vw) - 24px)))
+        rotate(calc(var(--i) * -30deg));
+      text-shadow: 0 0 8px color-mix(in srgb, #0a0f17 72%, transparent);
+      pointer-events: none;
     }
 
     .clock-hand {
@@ -214,7 +231,7 @@
     .hero {
       text-align: center;
       display: grid;
-      gap: 10px;
+      gap: 14px;
       margin-bottom: 24px;
     }
 
@@ -223,14 +240,6 @@
       font-size: clamp(2rem, 6.5vw, 3.2rem);
       line-height: 1.12;
       letter-spacing: 0.01em;
-    }
-
-    .podpis {
-      font-family: "Marck Script", cursive;
-      font-size: clamp(1.4rem, 4.8vw, 2rem);
-      color: var(--link);
-      display: inline-block;
-      margin-top: 4px;
     }
 
     .lead {
@@ -242,22 +251,40 @@
       text-align: center;
     }
 
-    .content-grid {
+    .content-flow {
       display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
       margin-top: 26px;
     }
 
-    .story-card {
-      border: 1px solid color-mix(in srgb, var(--line) 88%, #4c5670);
+    .story-item {
+      border: 1px solid color-mix(in srgb, var(--line) 82%, #4c5670);
       border-radius: 12px;
-      background: color-mix(in srgb, #11161f 80%, var(--surface));
-      padding: clamp(14px, 2.3vw, 18px);
+      background: linear-gradient(90deg, color-mix(in srgb, #11161f 88%, var(--surface)) 0%, color-mix(in srgb, #151c28 74%, var(--surface)) 100%);
+      padding: clamp(12px, 2.3vw, 16px) clamp(14px, 2.8vw, 20px);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 12px;
     }
 
-    .story-card h2 {
-      margin: 0 0 8px;
+    .story-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--line) 70%, #5d6a84);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      color: var(--link);
+      background: color-mix(in srgb, #0f1520 84%, var(--surface));
+    }
+
+    .story-copy h2 {
+      margin: 0 0 5px;
       font-family: "Inter", system-ui, sans-serif;
       font-size: 1rem;
       text-transform: uppercase;
@@ -265,12 +292,12 @@
       color: color-mix(in srgb, var(--text-soft) 74%, #a5b4cf);
     }
 
-    .story-card p {
+    .story-copy p {
       margin: 0;
-      font-size: clamp(1.1rem, 2.5vw, 1.28rem);
+      font-size: clamp(1rem, 2.4vw, 1.22rem);
       color: var(--text-soft);
       font-weight: 700;
-      text-align: center;
+      text-align: left;
     }
 
     .more {
@@ -305,7 +332,6 @@
         justify-content: center;
       }
       .menu.open { display: flex; }
-      .story-card p { text-align: left; }
     }
   </style>
 </head>
@@ -328,6 +354,18 @@
     <section class="clock-wrap" aria-label="Aktuální hodiny">
       <p class="clock-label">Aktuální čas</p>
       <div class="clock-face" aria-hidden="true">
+        <span class="clock-number" style="--i:1">1</span>
+        <span class="clock-number" style="--i:2">2</span>
+        <span class="clock-number" style="--i:3">3</span>
+        <span class="clock-number" style="--i:4">4</span>
+        <span class="clock-number" style="--i:5">5</span>
+        <span class="clock-number" style="--i:6">6</span>
+        <span class="clock-number" style="--i:7">7</span>
+        <span class="clock-number" style="--i:8">8</span>
+        <span class="clock-number" style="--i:9">9</span>
+        <span class="clock-number" style="--i:10">10</span>
+        <span class="clock-number" style="--i:11">11</span>
+        <span class="clock-number" style="--i:12">12</span>
         <span class="clock-hand hour" id="hour-hand"></span>
         <span class="clock-hand minute" id="minute-hand"></span>
         <span class="clock-hand second" id="second-hand"></span>
@@ -340,26 +378,37 @@
     <main>
       <header class="hero">
         <h1>Osobní prostor o technice i životě</h1>
-        <span class="podpis">Tony</span>
-        <p class="lead">Jmenuji se Tony. Vyrůstal jsem v devadesátkách, které mě naučily zvídavosti, tvoření i přirozenému vztahu k technice.</p>
+        <p class="lead">Vyrůstal jsem v devadesátkách, které mě naučily zvídavosti, tvoření i přirozenému vztahu k technice.</p>
       </header>
 
-      <div class="content-grid">
-        <article class="story-card">
-          <h2>Kořeny</h2>
-          <p>Dětství a dospívání jsem prožil v době, kdy jsme trávili hodně času venku a první počítače poznávali postupně, často vlastním skládáním a zkoušením.</p>
+      <div class="content-flow">
+        <article class="story-item">
+          <span class="story-mark" aria-hidden="true">01</span>
+          <div class="story-copy">
+            <h2>Kořeny</h2>
+            <p>Dětství a dospívání jsem prožil v době, kdy jsme trávili hodně času venku a první počítače poznávali postupně, často vlastním skládáním a zkoušením.</p>
+          </div>
         </article>
-        <article class="story-card">
-          <h2>Směr</h2>
-          <p>Dodnes si nesu silný vztah k technice, hudbě, počítačům a všemu, co má logiku, vývoj a opravdový charakter. Profesně pracuji jako skladník pro expedici.</p>
+        <article class="story-item">
+          <span class="story-mark" aria-hidden="true">02</span>
+          <div class="story-copy">
+            <h2>Směr</h2>
+            <p>Dodnes si nesu silný vztah k technice, hudbě, počítačům a všemu, co má logiku, vývoj a opravdový charakter. Profesně pracuji jako skladník pro expedici.</p>
+          </div>
         </article>
-        <article class="story-card">
-          <h2>Vášně</h2>
-          <p>Mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. S moderní AI jsem se výrazněji potkal v roce 2022.</p>
+        <article class="story-item">
+          <span class="story-mark" aria-hidden="true">03</span>
+          <div class="story-copy">
+            <h2>Vášně</h2>
+            <p>Mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. S moderní AI jsem se výrazněji potkal v roce 2022.</p>
+          </div>
         </article>
-        <article class="story-card">
-          <h2>Hodnoty</h2>
-          <p>Nejdůležitější je pro mě rodina, hudba a obyčejné lidské zázemí. Právě spojení techniky a normálního života dává všemu dobrý smysl.</p>
+        <article class="story-item">
+          <span class="story-mark" aria-hidden="true">04</span>
+          <div class="story-copy">
+            <h2>Hodnoty</h2>
+            <p>Nejdůležitější je pro mě rodina, hudba a obyčejné lidské zázemí. Právě spojení techniky a normálního života dává všemu dobrý smysl.</p>
+          </div>
         </article>
       </div>
 
