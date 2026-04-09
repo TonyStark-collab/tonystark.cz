@@ -7,18 +7,21 @@
   <meta name="description" content="Aplikace a průvodci TonyStark.cz: praktické nástroje, AI pomocníci a přehledný rozcestník." />
   <style>
     :root{
-      --bg:#0b1017;
-      --bg-soft:#131b26;
-      --line:rgba(255,255,255,.10);
-      --line-soft:rgba(255,255,255,.06);
-      --text:#f5f8fc;
-      --text-soft:#d6e1ec;
-      --muted:#9eadbc;
+      --bg:#080d14;
+      --bg-alt:#111926;
+      --surface:#151f2e;
+      --surface-soft:#1a2537;
+      --line:rgba(196,215,255,.16);
+      --line-soft:rgba(196,215,255,.09);
+      --text:#f4f7fd;
+      --text-soft:#cad8eb;
+      --muted:#9aaec8;
       --accent:#efc38a;
-      --accent-2:#d4a6ab;
+      --accent-strong:#f4d1a2;
+      --ink:#101723;
       --max:1160px;
-      --radius:22px;
-      --shadow:0 18px 36px rgba(0,0,0,.28);
+      --radius:20px;
+      --shadow:0 26px 44px rgba(2,8,17,.44);
     }
 
     *{box-sizing:border-box}
@@ -27,9 +30,10 @@
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
       background:
-        radial-gradient(860px 500px at -12% 0%, rgba(239,195,138,.11), transparent 50%),
-        radial-gradient(780px 460px at 112% 0%, rgba(212,166,171,.10), transparent 48%),
-        linear-gradient(180deg, #0b1017 0%, #0d131d 45%, #090f16 100%);
+        radial-gradient(760px 380px at -12% 0%, rgba(239,195,138,.14), transparent 62%),
+        radial-gradient(840px 420px at 100% 8%, rgba(99,140,230,.13), transparent 62%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 56px),
+        linear-gradient(180deg, #0b1220 0%, #09101d 34%, #080d14 100%);
       min-height:100vh;
     }
 
@@ -39,7 +43,7 @@
     .topbar{
       position:sticky; top:0; z-index:20;
       backdrop-filter:blur(14px);
-      background:rgba(10,14,19,.74);
+      background:rgba(8,12,19,.75);
       border-bottom:1px solid var(--line-soft);
     }
 
@@ -51,30 +55,64 @@
 
     nav{display:flex; gap:8px; flex-wrap:wrap}
     nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft)}
-    nav a:hover, nav a.active{background:rgba(255,255,255,.045); border-color:var(--line)}
+    nav a:hover, nav a.active{background:rgba(255,255,255,.05); border-color:var(--line)}
 
-    .hero{padding:52px 0 24px}
+    .hero{padding:52px 0 30px}
     .eyebrow{display:inline-block; margin:0 0 14px; color:#f2dcc0; font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
     h1{margin:0 0 14px; font-size:clamp(2rem,4vw,3rem); line-height:1.08; letter-spacing:-.04em}
-    .lead{margin:0; max-width:70ch; color:var(--text-soft); line-height:1.88; font-size:1.08rem}
+    .lead{margin:0; max-width:70ch; color:var(--text-soft); line-height:1.8; font-size:1.08rem}
+
+    .hero-shell{
+      border:1px solid var(--line-soft);
+      border-radius:calc(var(--radius) + 2px);
+      padding:clamp(22px,4vw,34px);
+      background:
+        linear-gradient(120deg, rgba(239,195,138,.1), transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:22px;
+    }
+
+    .hero-actions{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .quick-link{
+      border:1px solid var(--line-soft);
+      border-radius:14px;
+      padding:12px 14px;
+      background:rgba(10,16,28,.55);
+      display:grid;
+      gap:4px;
+      min-height:84px;
+    }
+
+    .quick-label{font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:#f2dcc0}
+    .quick-link strong{font-size:1rem; font-weight:650; line-height:1.35}
+    .quick-link span{font-size:.88rem; color:var(--muted)}
 
     .apps{padding:10px 0 58px}
     .apps-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
 
     .app-card{
-      border:1px solid var(--line-soft);
+      border:1px solid var(--line);
       border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
+        linear-gradient(180deg, var(--surface) 0%, var(--bg-alt) 100%);
       box-shadow:var(--shadow);
-      padding:20px;
+      padding:22px;
       display:flex;
       flex-direction:column;
       gap:12px;
-      min-height:220px;
+      min-height:236px;
     }
 
     .tag{display:inline-flex; align-items:center; gap:6px; font-size:.75rem; letter-spacing:.07em; text-transform:uppercase; color:#f3dcc0}
-    .app-card h2{margin:0; font-size:1.25rem; line-height:1.25}
+    .app-card h2{margin:0; font-size:1.34rem; line-height:1.25}
     .app-card p{margin:0; color:var(--text-soft); line-height:1.8}
     .meta{margin-top:auto; color:var(--muted); font-size:.9rem}
 
@@ -88,24 +126,72 @@
       border-radius:11px;
       font-weight:600;
       border:1px solid var(--line);
-      color:var(--text-soft);
-      background:rgba(255,255,255,.02);
+      color:var(--text);
+      background:rgba(255,255,255,.04);
     }
 
     .btn.primary{
-      color:#14181f;
+      color:var(--ink);
       border:0;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      background:linear-gradient(140deg,var(--accent),var(--accent-strong));
+    }
+
+    .journey{
+      margin-top:18px;
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
+      padding:22px;
+      display:grid;
+      gap:16px;
+    }
+
+    .journey h3{
+      margin:0;
+      font-size:1.34rem;
+      letter-spacing:-.02em;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .step{
+      border:1px solid var(--line-soft);
+      border-radius:14px;
+      padding:12px 13px;
+      background:rgba(8,16,28,.6);
+      display:grid;
+      gap:8px;
+    }
+
+    .step strong{
+      font-size:.8rem;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:#f2dcc0;
+    }
+
+    .step span{
+      color:var(--text-soft);
+      line-height:1.65;
+      font-size:.95rem;
     }
 
     .hint{
       margin-top:18px;
       padding:16px 18px;
-      border-left:2px solid rgba(239,195,138,.34);
-      background:rgba(239,195,138,.07);
-      border-radius:0 14px 14px 0;
+      border:1px solid var(--line-soft);
+      background:rgba(12,20,34,.7);
+      border-radius:14px;
       color:var(--text-soft);
-      line-height:1.75;
+      line-height:1.7;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
     }
 
 
@@ -114,6 +200,8 @@
     @media (max-width: 960px){
       .topbar-inner{align-items:flex-start; flex-direction:column; padding:14px 0}
       .apps-grid{grid-template-columns:1fr}
+      .hero-actions, .steps{grid-template-columns:1fr}
+      .hint{align-items:flex-start; flex-direction:column}
     }
 
     @media (max-width: 760px){
@@ -121,6 +209,7 @@
       nav a{padding:8px 10px; font-size:.9rem}
       .hero{padding:34px 0 18px}
       .lead{font-size:1rem; line-height:1.82}
+      .app-card{padding:18px}
     }
   </style>
 </head>
@@ -149,12 +238,35 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <p class="eyebrow">Sekce aplikací</p>
-        <h1>Aplikace a průvodci na jednom místě</h1>
-        <p class="lead">
-          Tady najdeš praktické nástroje a průvodce, které rozšiřují hlavní obsah webu.
-          Vše je navržené tak, aby sis rychle vybral, co potřebuješ, a mohl rovnou začít.
-        </p>
+        <div class="hero-shell">
+          <div>
+            <p class="eyebrow">Sekce aplikací</p>
+            <h1>Aplikace a průvodci na jednom místě</h1>
+            <p class="lead">
+              Nový rozcestník je postavený jako rychlá orientační mapa: nejdřív si vybereš cíl,
+              pak otevřeš správný nástroj. Vizuál i struktura drží stejný tmavý jazyk jako zbytek webu,
+              ale s jasnější navigací podle toho, co chceš právě řešit.
+            </p>
+          </div>
+
+          <div class="hero-actions">
+            <a class="quick-link" href="/aplikace/chatgpt-pruvodce/">
+              <span class="quick-label">Začni rychle</span>
+              <strong>Potřebuji zvládnout ChatGPT prakticky</strong>
+              <span>Jasné kapitoly od zadávání až po pokročilé funkce.</span>
+            </a>
+            <a class="quick-link" href="/aplikace/codex-pruvodce/">
+              <span class="quick-label">Jdu do hloubky</span>
+              <strong>Chci stabilní workflow s Codexem</strong>
+              <span>Postup od prvních úkolů po profesionální režim práce.</span>
+            </a>
+            <a class="quick-link" href="/smer-webu/">
+              <span class="quick-label">Sleduj novinky</span>
+              <strong>Zajímá mě plán dalších aplikací</strong>
+              <span>Co přibude příště a na jaké scénáře to bude cílit.</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -176,11 +288,11 @@
             <span class="tag">Průvodce · Codex</span>
             <h2>Průvodce Codexem: od nuly po profi workflow</h2>
             <p>
-              Podrobný návod od prvního zadání až po stabilní workflow: jak psát požadavky,
-              hlídat kvalitu výstupů a používat Codex prakticky na reálných úkolech.
+              Praktický rozcestník pro začátečníky, mírně pokročilé i profesionály:
+              jak zadávat úkoly, kontrolovat výstupy, držet kvalitu a zrychlit práci na reálném projektu.
             </p>
-            <a class="btn primary" href="/aplikace/codex-pruvodce/">Otevřít podrobný průvodce</a>
-            <div class="meta">Bez zkratek a rychlých výcuců — jen kompletní průvodce krok za krokem.</div>
+            <a class="btn primary" href="/aplikace/codex-pruvodce/">Otevřít průvodce</a>
+            <div class="meta">Samostatná stránka s podrobným návodem pro začátečníky, pokročilé i profesionály.</div>
           </article>
 
           <article class="app-card">
@@ -194,10 +306,27 @@
           </article>
         </div>
 
+        <section class="journey" aria-label="Jak vybrat správný obsah">
+          <h3>Jak vybrat správný start</h3>
+          <div class="steps">
+            <div class="step">
+              <strong>Krok 1</strong>
+              <span>Vyber si scénář: ChatGPT pro práci s textem, nebo Codex pro AI spolupráci v projektu.</span>
+            </div>
+            <div class="step">
+              <strong>Krok 2</strong>
+              <span>Otevři průvodce a projdi doporučenou posloupnost kapitol bez přeskakování základů.</span>
+            </div>
+            <div class="step">
+              <strong>Krok 3</strong>
+              <span>Použij plán rozvoje a sleduj, které nové aplikace přibudou pro další úroveň produktivity.</span>
+            </div>
+          </div>
+        </section>
+
         <p class="hint">
-          Chceš detailní postup pro práci s Codexem? Rychlý náhled jsme odstranili, aby stránka zůstala přehledná.
-          Otevři rovnou kompletního průvodce s konkrétními kroky pro začátečníky i pokročilé.
-          <a class="btn primary" href="/aplikace/codex-pruvodce/" style="margin-left:8px">Otevřít podrobný průvodce Codexem</a>
+          Chceš detailní postup pro práci s Codexem? Otevři plnou verzi průvodce s konkrétními kroky.
+          <a class="btn primary" href="/aplikace/codex-pruvodce/">Otevřít detailní průvodce</a>
         </p>
       </div>
     </section>
