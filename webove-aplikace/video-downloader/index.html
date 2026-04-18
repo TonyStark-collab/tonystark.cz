@@ -279,10 +279,27 @@
 
     const query = new URLSearchParams(window.location.search);
     const apiStorageKey = 'video-downloader-api-base';
+
+    function readStoredApiBase(){
+      try {
+        return window.localStorage.getItem(apiStorageKey);
+      } catch {
+        return null;
+      }
+    }
+
+    function storeApiBase(value){
+      try {
+        window.localStorage.setItem(apiStorageKey, value);
+      } catch {
+        // LocalStorage může být v některých režimech prohlížeče blokovaný.
+      }
+    }
+
     const configuredApiBase = (
       window.VIDEO_DOWNLOADER_API_BASE ||
       query.get('api') ||
-      window.localStorage.getItem(apiStorageKey) ||
+      readStoredApiBase() ||
       '/api/downloader'
     ).trim();
 
@@ -482,7 +499,7 @@
           const response = await fetch(makeApiUrl('/status', null, candidate), { headers: { 'Accept': 'application/json' } });
           const data = await fetchJsonWithError(response);
           activeApiBase = candidate;
-          window.localStorage.setItem(apiStorageKey, candidate);
+          storeApiBase(candidate);
           return data;
         } catch {
           // zkus další kandidát
@@ -588,6 +605,15 @@
       link.remove();
       window.URL.revokeObjectURL(blobUrl);
     }
+
+    $url.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        if (!$fetchBtn.disabled) {
+          $fetchBtn.click();
+        }
+      }
+    });
 
     $fetchBtn.addEventListener('click', async () => {
       const url = $url.value.trim();
