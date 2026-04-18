@@ -145,6 +145,16 @@
     .tip{border:1px solid var(--line-soft);border-radius:12px;padding:10px 12px;background:rgba(7,16,33,.45);color:var(--text-soft);line-height:1.5;font-size:.9rem}
 
     .small{font-size:.82rem;color:var(--muted);line-height:1.6}
+    .api-note{
+      margin-top:10px;
+      font-size:.8rem;
+      color:var(--muted);
+      border:1px dashed var(--line-soft);
+      border-radius:12px;
+      padding:9px 10px;
+      background:rgba(7,16,33,.35);
+      word-break:break-word;
+    }
 
     .state{font-size:.86rem;font-weight:600}
     .state.ok{color:var(--ok)}
@@ -187,6 +197,7 @@
           <span class="status-pill"><strong>Poslední sync:</strong> <span id="engineSync">čekám na API…</span></span>
           <span class="status-pill"><strong>Stav:</strong> <span id="engineState" class="state warn">neověřeno</span></span>
         </div>
+        <div id="apiInfo" class="api-note">API endpoint: inicializace…</div>
       </section>
 
       <section class="layout" aria-label="Downloader aplikace">
@@ -264,10 +275,37 @@
     const $engineVersion = document.getElementById('engineVersion');
     const $engineSync = document.getElementById('engineSync');
     const $engineState = document.getElementById('engineState');
+    const $apiInfo = document.getElementById('apiInfo');
 
     const query = new URLSearchParams(window.location.search);
-    const configuredApiBase = (window.VIDEO_DOWNLOADER_API_BASE || query.get('api') || '/api/downloader').trim();
-    const apiBase = configuredApiBase.replace(/\/$/, '');
+    const apiStorageKey = 'video-downloader-api-base';
+    const configuredApiBase = (
+      window.VIDEO_DOWNLOADER_API_BASE ||
+      query.get('api') ||
+      window.localStorage.getItem(apiStorageKey) ||
+      '/api/downloader'
+    ).trim();
+
+    function normalizeApiBase(base){
+      return String(base || '')
+        .trim()
+        .replace(/\/$/, '');
+    }
+
+    function listApiCandidates(initialBase){
+      const currentOriginBase = `${window.location.origin}/api/downloader`;
+      const preferredProductionBase = 'https://tonystark.cz/api/downloader';
+      const candidates = [
+        normalizeApiBase(initialBase),
+        normalizeApiBase(currentOriginBase),
+        normalizeApiBase(preferredProductionBase)
+      ].filter(Boolean);
+
+      return [...new Set(candidates)];
+    }
+
+    let apiCandidates = listApiCandidates(configuredApiBase);
+    let activeApiBase = apiCandidates[0];
 
     let selectedPlatform = null;
     let selectedFormat = '';
@@ -397,9 +435,9 @@
       }).format(date);
     }
 
-    function makeApiUrl(path, params){
+    function makeApiUrl(path, params, base = activeApiBase){
       const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-      const url = new URL(`${apiBase}${normalizedPath}`, window.location.origin);
+      const url = new URL(`${base}${normalizedPath}`, window.location.origin);
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
           if (value !== undefined && value !== null && value !== '') {
@@ -410,37 +448,81 @@
       return url;
     }
 
+    function parseApiErrorMessage(rawText, fallback){
+      const cleanText = String(rawText || '')
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      if (!cleanText) {
+        return fallback;
+      }
+
+      const github404Hints = ['Page not found', 'GitHub Pages'];
+      if (github404Hints.some(hint => cleanText.includes(hint))) {
+        return 'API endpoint nebyl nalezen (GitHub Pages 404). Přepni API přes ?api=https://.../api/downloader nebo nastav window.VIDEO_DOWNLOADER_API_BASE.';
+      }
+
+      return cleanText;
+    }
+
     async function fetchJsonWithError(response){
       if (response.ok) {
         return response.json();
       }
 
       const text = await response.text();
-      const cleanText = text
-        .replace(/<[^>]*>/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      throw new Error(cleanText || `HTTP ${response.status}`);
+      const fallback = `HTTP ${response.status}`;
+      throw new Error(parseApiErrorMessage(text, fallback));
+    }
+
+    async function discoverApiBase() {
+      for (const candidate of apiCandidates) {
+        try {
+          const response = await fetch(makeApiUrl('/status', null, candidate), { headers: { 'Accept': 'application/json' } });
+          const data = await fetchJsonWithError(response);
+          activeApiBase = candidate;
+          window.localStorage.setItem(apiStorageKey, candidate);
+          return data;
+        } catch {
+          // zkus další kandidát
+        }
+      }
+
+      throw new Error('Backend není dostupný na žádném z očekávaných endpointů.');
+    }
+
+    function updateApiInfo(message){
+      $apiInfo.textContent = `API endpoint: ${message}`;
     }
 
     async function refreshEngineStatus(){
       try {
-        const response = await fetch(makeApiUrl('/status'), { headers: { 'Accept': 'application/json' } });
-        const data = await fetchJsonWithError(response);
-
+        const data = await discoverApiBase();
         $engineVersion.textContent = data.version || data.engine_version || 'neuvedeno';
         $engineSync.textContent = data.lastSync || data.last_sync || formatNow();
         $engineState.textContent = 'online';
         $engineState.className = 'state ok';
+        updateApiInfo(activeApiBase);
       } catch {
         $engineVersion.textContent = 'nedostupné';
         $engineSync.textContent = formatNow();
         $engineState.textContent = 'offline';
         $engineState.className = 'state warn';
+        updateApiInfo(`${activeApiBase} (offline)`);
       }
     }
 
     async function fetchFormats(url){
+      if (!$engineState.classList.contains('ok')) {
+        try {
+          await discoverApiBase();
+          updateApiInfo(activeApiBase);
+        } catch {
+          // Necháme pokračovat na posledním známém endpointu kvůli explicitní chybě z backendu.
+        }
+      }
+
       const postResponse = await fetch(makeApiUrl('/formats'), {
         method: 'POST',
         headers: {
@@ -491,11 +573,7 @@
 
       if (!response.ok) {
         const text = await response.text();
-        const cleanText = text
-          .replace(/<[^>]*>/g, ' ')
-          .replace(/\s+/g, ' ')
-          .trim();
-        throw new Error(cleanText || `HTTP ${response.status}`);
+        throw new Error(parseApiErrorMessage(text, `HTTP ${response.status}`));
       }
 
       const blob = await response.blob();
