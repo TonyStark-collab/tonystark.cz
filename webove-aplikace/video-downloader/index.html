@@ -156,6 +156,22 @@
       word-break:break-word;
     }
 
+
+    .api-controls{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .api-controls input{
+      flex:1 1 320px;
+    }
+
+    .api-controls .btn{
+      padding:10px 12px;
+    }
+
     .state{font-size:.86rem;font-weight:600}
     .state.ok{color:var(--ok)}
     .state.warn{color:var(--warn)}
@@ -198,6 +214,11 @@
           <span class="status-pill"><strong>Stav:</strong> <span id="engineState" class="state warn">neověřeno</span></span>
         </div>
         <div id="apiInfo" class="api-note">API endpoint: inicializace…</div>
+        <div class="api-controls">
+          <input id="apiBaseInput" type="text" placeholder="Volitelné API (např. https://api.example.cz/api/downloader)" autocomplete="off" />
+          <button id="saveApiBtn" class="btn" type="button">Uložit API</button>
+          <button id="resetApiBtn" class="btn" type="button">Výchozí API</button>
+        </div>
       </section>
 
       <section class="layout" aria-label="Downloader aplikace">
@@ -276,6 +297,9 @@
     const $engineSync = document.getElementById('engineSync');
     const $engineState = document.getElementById('engineState');
     const $apiInfo = document.getElementById('apiInfo');
+    const $apiBaseInput = document.getElementById('apiBaseInput');
+    const $saveApiBtn = document.getElementById('saveApiBtn');
+    const $resetApiBtn = document.getElementById('resetApiBtn');
 
     const query = new URLSearchParams(window.location.search);
     const apiStorageKey = 'video-downloader-api-base';
@@ -296,6 +320,14 @@
       }
     }
 
+    function clearStoredApiBase(){
+      try {
+        window.localStorage.removeItem(apiStorageKey);
+      } catch {
+        // ignore
+      }
+    }
+
     const configuredApiBase = (
       window.VIDEO_DOWNLOADER_API_BASE ||
       query.get('api') ||
@@ -311,11 +343,18 @@
 
     function listApiCandidates(initialBase){
       const currentOriginBase = `${window.location.origin}/api/downloader`;
+      const currentOriginRoot = window.location.origin;
       const preferredProductionBase = 'https://tonystark.cz/api/downloader';
+      const hardcodedFallbacks = [
+        '/api/downloader',
+        currentOriginBase,
+        preferredProductionBase,
+        currentOriginRoot
+      ];
+
       const candidates = [
         normalizeApiBase(initialBase),
-        normalizeApiBase(currentOriginBase),
-        normalizeApiBase(preferredProductionBase)
+        ...hardcodedFallbacks.map(normalizeApiBase)
       ].filter(Boolean);
 
       return [...new Set(candidates)];
@@ -323,6 +362,7 @@
 
     let apiCandidates = listApiCandidates(configuredApiBase);
     let activeApiBase = apiCandidates[0];
+    $apiBaseInput.value = activeApiBase;
 
     let selectedPlatform = null;
     let selectedFormat = '';
@@ -511,6 +551,25 @@
 
     function updateApiInfo(message){
       $apiInfo.textContent = `API endpoint: ${message}`;
+      if (activeApiBase) {
+        $apiBaseInput.value = activeApiBase;
+      }
+    }
+
+    async function applyApiBase(base, shouldPersist = true){
+      const normalized = normalizeApiBase(base);
+      if (!normalized) {
+        throw new Error('API endpoint nesmí být prázdný.');
+      }
+
+      apiCandidates = listApiCandidates(normalized);
+      activeApiBase = apiCandidates[0];
+      if (shouldPersist) {
+        storeApiBase(activeApiBase);
+      }
+
+      updateApiInfo(activeApiBase);
+      await refreshEngineStatus();
     }
 
     async function refreshEngineStatus(){
@@ -680,6 +739,39 @@
       } finally {
         $downloadBtn.disabled = false;
         $downloadBtn.textContent = '3) Stáhnout zvolenou variantu';
+      }
+    });
+
+    $saveApiBtn.addEventListener('click', async () => {
+      const candidate = $apiBaseInput.value.trim();
+      if (!candidate) {
+        alert('Nejdřív zadej API endpoint.');
+        return;
+      }
+
+      $saveApiBtn.disabled = true;
+      const originalText = $saveApiBtn.textContent;
+      $saveApiBtn.textContent = 'Ukládám…';
+
+      try {
+        await applyApiBase(candidate, true);
+      } catch (error) {
+        alert(error instanceof Error ? error.message : 'Nepodařilo se uložit API endpoint.');
+      } finally {
+        $saveApiBtn.disabled = false;
+        $saveApiBtn.textContent = originalText;
+      }
+    });
+
+    $resetApiBtn.addEventListener('click', async () => {
+      clearStoredApiBase();
+      const defaultBase = '/api/downloader';
+      $apiBaseInput.value = defaultBase;
+
+      try {
+        await applyApiBase(defaultBase, false);
+      } catch {
+        updateApiInfo(`${defaultBase} (offline)`);
       }
     });
 
