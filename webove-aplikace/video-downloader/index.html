@@ -253,22 +253,6 @@
       { name: 'X / Twitter', match: /(x\.com|twitter\.com)/i }
     ];
 
-    const sampleFormats = {
-      YouTube: [
-        { id: 'yt-4k', label: '2160p · MP4 (video+audio)', detail: 'HEVC · ~240 MB · Nejvyšší kvalita' },
-        { id: 'yt-1080', label: '1080p · MP4 (video+audio)', detail: 'H.264 · ~96 MB · Stabilní volba' },
-        { id: 'yt-audio', label: 'Audio only · M4A', detail: 'AAC 160 kbps · ~9 MB' }
-      ],
-      Instagram: [
-        { id: 'ig-hd', label: '1080p · MP4', detail: 'Original stream · ~28 MB' },
-        { id: 'ig-sd', label: '720p · MP4', detail: 'Nižší datová náročnost · ~12 MB' }
-      ],
-      'X / Twitter': [
-        { id: 'x-hd', label: '1280x720 · MP4', detail: 'Best available · ~22 MB' },
-        { id: 'x-mobile', label: '854x480 · MP4', detail: 'Mobile friendly · ~10 MB' }
-      ]
-    };
-
     const $url = document.getElementById('videoUrl');
     const $fetchBtn = document.getElementById('fetchBtn');
     const $downloadBtn = document.getElementById('downloadBtn');
@@ -283,6 +267,7 @@
 
     let selectedPlatform = null;
     let selectedFormat = '';
+    let selectedUrl = '';
 
     function detectPlatform(url){
       return platformRules.find(rule => rule.match.test(url))?.name || null;
@@ -294,11 +279,65 @@
       });
     }
 
-    function renderFormats(platform){
-      const formats = sampleFormats[platform] || [];
+    function resetSelection(message = 'Po načtení odkazu se zde zobrazí dostupné formáty z backendu.') {
+      $quality.innerHTML = '<option value="">Nejdříve načti formáty</option>';
+      $quality.disabled = true;
+      $downloadBtn.disabled = true;
+      selectedFormat = '';
+      $formatList.innerHTML = `<div class="empty">${message}</div>`;
+    }
 
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function readFormatsPayload(payload){
+      if (Array.isArray(payload)) {
+        return payload;
+      }
+
+      if (Array.isArray(payload?.formats)) {
+        return payload.formats;
+      }
+
+      if (Array.isArray(payload?.data?.formats)) {
+        return payload.data.formats;
+      }
+
+      return [];
+    }
+
+    function normalizeFormat(format, index){
+      const id = format?.id ?? format?.format_id ?? format?.itag ?? '';
+      const labelParts = [
+        format?.label,
+        format?.quality,
+        format?.resolution,
+        format?.ext
+      ].filter(Boolean);
+      const metaParts = [
+        format?.filesize,
+        format?.vcodec,
+        format?.acodec,
+        format?.fps ? `${format.fps} fps` : null
+      ].filter(Boolean);
+
+      return {
+        id: String(id),
+        label: labelParts.length ? labelParts.join(' · ') : `Formát #${index + 1}`,
+        detail: metaParts.length ? metaParts.join(' · ') : 'Bez detailu',
+        recommended: Boolean(format?.recommended || index === 0)
+      };
+    }
+
+    function renderFormats(formats){
       if (!formats.length) {
-        $formatList.innerHTML = '<div class="empty">Pro tuto adresu nebyly nalezeny formáty.</div>';
+        resetSelection('Backend vrátil prázdný seznam formátů pro tento odkaz.');
         return;
       }
 
@@ -306,9 +345,14 @@
       $quality.innerHTML = '';
 
       formats.forEach((format, index) => {
+        const normalized = normalizeFormat(format, index);
+        if (!normalized.id) {
+          return;
+        }
+
         const option = document.createElement('option');
-        option.value = format.id;
-        option.textContent = format.label;
+        option.value = normalized.id;
+        option.textContent = normalized.label;
         $quality.append(option);
 
         const row = document.createElement('button');
@@ -316,25 +360,30 @@
         row.className = 'format-item';
         row.innerHTML = `
           <span class="format-left">
-            <span class="format-title">${format.label}</span>
-            <span class="format-meta">${format.detail}</span>
+            <span class="format-title">${escapeHtml(normalized.label)}</span>
+            <span class="format-meta">${escapeHtml(normalized.detail)}</span>
           </span>
-          <span class="state ${index === 0 ? 'ok' : 'warn'}">${index === 0 ? 'Doporučeno' : 'Volitelné'}</span>
+          <span class="state ${normalized.recommended ? 'ok' : 'warn'}">${normalized.recommended ? 'Doporučeno' : 'Volitelné'}</span>
         `;
 
         row.addEventListener('click', () => {
-          $quality.value = format.id;
-          selectedFormat = format.id;
-          $downloadBtn.disabled = false;
+          $quality.value = normalized.id;
+          selectedFormat = normalized.id;
+          $downloadBtn.disabled = !selectedUrl || !selectedFormat;
         });
 
         $formatList.append(row);
       });
 
+      if (!$quality.options.length) {
+        resetSelection('Backend vrátil formáty bez format_id. Nelze pokračovat.');
+        return;
+      }
+
       $quality.disabled = false;
-      selectedFormat = formats[0].id;
+      selectedFormat = $quality.options[0].value;
       $quality.value = selectedFormat;
-      $downloadBtn.disabled = false;
+      $downloadBtn.disabled = !selectedUrl || !selectedFormat;
     }
 
     function formatNow(date = new Date()){
@@ -353,16 +402,77 @@
         }
 
         const data = await response.json();
-        $engineVersion.textContent = data.version || 'neuvedeno';
-        $engineSync.textContent = data.lastSync || 'neuvedeno';
+        $engineVersion.textContent = data.version || data.engine_version || 'neuvedeno';
+        $engineSync.textContent = data.lastSync || data.last_sync || formatNow();
         $engineState.textContent = 'online';
         $engineState.className = 'state ok';
       } catch {
-        $engineVersion.textContent = 'demo';
+        $engineVersion.textContent = 'nedostupné';
         $engineSync.textContent = formatNow();
         $engineState.textContent = 'offline';
         $engineState.className = 'state warn';
       }
+    }
+
+    async function fetchFormats(url){
+      const response = await fetch('/api/downloader/formats', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url })
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || `HTTP ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    function readFileName(response, fallback = 'video-download.bin') {
+      const disposition = response.headers.get('content-disposition') || '';
+      const utf8Match = disposition.match(/filename\*=UTF-8''([^;]+)/i);
+      if (utf8Match?.[1]) {
+        return decodeURIComponent(utf8Match[1]);
+      }
+      const asciiMatch = disposition.match(/filename="?([^";]+)"?/i);
+      if (asciiMatch?.[1]) {
+        return asciiMatch[1];
+      }
+      return fallback;
+    }
+
+    async function startDownload(url, formatId){
+      const response = await fetch('/api/downloader/download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          url,
+          format_id: formatId
+        })
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || `HTTP ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const suggestedName = `video-${Date.now()}.bin`;
+      const fileName = readFileName(response, suggestedName);
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = fileName;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(blobUrl);
     }
 
     $fetchBtn.addEventListener('click', async () => {
@@ -379,28 +489,61 @@
         return;
       }
 
-      renderPlatform(selectedPlatform);
+      $fetchBtn.disabled = true;
+      $fetchBtn.textContent = 'Načítám…';
+      resetSelection('Načítám formáty z backendu…');
 
-      $previewTitle.textContent = 'Načteno: ' + selectedPlatform;
-      $previewMeta.textContent = 'Ukázková metadata: název, autor, délka a doporučená kvalita.';
-      $previewThumb.textContent = 'Platforma: ' + selectedPlatform;
+      try {
+        const data = await fetchFormats(url);
+        selectedUrl = url;
+        renderPlatform(selectedPlatform);
 
-      renderFormats(selectedPlatform);
+        const meta = data?.metadata || data?.info || {};
+        const title = meta.title || 'Načteno: ' + selectedPlatform;
+        const author = meta.uploader || meta.author || 'neuvedeno';
+        const duration = meta.duration_string || meta.duration || 'neuvedeno';
+
+        $previewTitle.textContent = title;
+        $previewMeta.textContent = `Platforma: ${selectedPlatform} · Autor: ${author} · Délka: ${duration}`;
+        $previewThumb.textContent = selectedPlatform;
+
+        renderFormats(readFormatsPayload(data));
+      } catch (error) {
+        selectedUrl = '';
+        resetSelection('Nepodařilo se načíst formáty. Zkontroluj URL nebo backend API.');
+        $previewTitle.textContent = 'Chyba načtení';
+        $previewMeta.textContent = (error instanceof Error ? error.message : 'Neznámá chyba při načítání formátů.').slice(0, 220);
+        $previewThumb.textContent = 'Backend error';
+      } finally {
+        $fetchBtn.disabled = false;
+        $fetchBtn.textContent = 'Načíst kvality';
+      }
     });
 
     $quality.addEventListener('change', () => {
       selectedFormat = $quality.value;
-      $downloadBtn.disabled = !selectedFormat;
+      $downloadBtn.disabled = !selectedUrl || !selectedFormat;
     });
 
-    $downloadBtn.addEventListener('click', () => {
-      if (!selectedFormat || !selectedPlatform) {
+    $downloadBtn.addEventListener('click', async () => {
+      if (!selectedUrl || !selectedFormat) {
         return;
       }
 
-      alert('Stahování je v této ukázce vypnuté.');
+      $downloadBtn.disabled = true;
+      $downloadBtn.textContent = 'Stahuji…';
+
+      try {
+        await startDownload(selectedUrl, selectedFormat);
+      } catch (error) {
+        alert(error instanceof Error ? error.message : 'Stahování selhalo.');
+      } finally {
+        $downloadBtn.disabled = false;
+        $downloadBtn.textContent = '3) Stáhnout zvolenou variantu';
+      }
     });
 
+    resetSelection();
     refreshEngineStatus();
   </script>
 </body>
