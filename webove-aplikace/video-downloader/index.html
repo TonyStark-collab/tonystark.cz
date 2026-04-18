@@ -265,6 +265,10 @@
     const $engineSync = document.getElementById('engineSync');
     const $engineState = document.getElementById('engineState');
 
+    const query = new URLSearchParams(window.location.search);
+    const configuredApiBase = (window.VIDEO_DOWNLOADER_API_BASE || query.get('api') || '/api/downloader').trim();
+    const apiBase = configuredApiBase.replace(/\/$/, '');
+
     let selectedPlatform = null;
     let selectedFormat = '';
     let selectedUrl = '';
@@ -393,15 +397,37 @@
       }).format(date);
     }
 
+    function makeApiUrl(path, params){
+      const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+      const url = new URL(`${apiBase}${normalizedPath}`, window.location.origin);
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== '') {
+            url.searchParams.set(key, String(value));
+          }
+        });
+      }
+      return url;
+    }
+
+    async function fetchJsonWithError(response){
+      if (response.ok) {
+        return response.json();
+      }
+
+      const text = await response.text();
+      const cleanText = text
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      throw new Error(cleanText || `HTTP ${response.status}`);
+    }
+
     async function refreshEngineStatus(){
       try {
-        const response = await fetch('/api/downloader/status', { headers: { 'Accept': 'application/json' } });
+        const response = await fetch(makeApiUrl('/status'), { headers: { 'Accept': 'application/json' } });
+        const data = await fetchJsonWithError(response);
 
-        if (!response.ok) {
-          throw new Error('HTTP ' + response.status);
-        }
-
-        const data = await response.json();
         $engineVersion.textContent = data.version || data.engine_version || 'neuvedeno';
         $engineSync.textContent = data.lastSync || data.last_sync || formatNow();
         $engineState.textContent = 'online';
@@ -415,7 +441,7 @@
     }
 
     async function fetchFormats(url){
-      const response = await fetch('/api/downloader/formats', {
+      const postResponse = await fetch(makeApiUrl('/formats'), {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -424,12 +450,14 @@
         body: JSON.stringify({ url })
       });
 
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error(text || `HTTP ${response.status}`);
+      if (postResponse.status === 405) {
+        const getResponse = await fetch(makeApiUrl('/formats', { url }), {
+          headers: { 'Accept': 'application/json' }
+        });
+        return fetchJsonWithError(getResponse);
       }
 
-      return response.json();
+      return fetchJsonWithError(postResponse);
     }
 
     function readFileName(response, fallback = 'video-download.bin') {
@@ -446,7 +474,7 @@
     }
 
     async function startDownload(url, formatId){
-      const response = await fetch('/api/downloader/download', {
+      const postResponse = await fetch(makeApiUrl('/download'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -457,9 +485,17 @@
         })
       });
 
+      const response = postResponse.status === 405
+        ? await fetch(makeApiUrl('/download', { url, format_id: formatId }))
+        : postResponse;
+
       if (!response.ok) {
         const text = await response.text();
-        throw new Error(text || `HTTP ${response.status}`);
+        const cleanText = text
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        throw new Error(cleanText || `HTTP ${response.status}`);
       }
 
       const blob = await response.blob();
