@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Downloader | TonyStark.cz</title>
+  <meta name="description" content="Video downloader pro YouTube, Instagram a X/Twitter s výběrem kvality před stažením." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#060d1a;
+      --bg-2:#0b1324;
+      --surface:#101c33;
+      --surface-soft:#14233f;
+      --line:rgba(176,206,255,.22);
+      --line-soft:rgba(176,206,255,.14);
+      --text:#f1f6ff;
+      --text-soft:#c4d4ef;
+      --muted:#93a6c5;
+      --accent:#4fc3ff;
+      --accent-2:#7effc5;
+      --danger:#ff7a8a;
+      --ok:#89f8b8;
+      --warn:#ffd16f;
+      --radius:20px;
+      --max:1100px;
+      --shadow:0 24px 42px rgba(2,10,25,.48);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(760px 420px at 10% 0%, rgba(79,195,255,.16), transparent 62%),
+        radial-gradient(760px 420px at 92% 12%, rgba(126,255,197,.12), transparent 66%),
+        linear-gradient(180deg,var(--bg-2) 0%, var(--bg) 100%);
+      min-height:100vh;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max), calc(100% - 32px));margin:0 auto}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line-soft);
+      background:rgba(6,13,26,.78);
+    }
+
+    .topbar-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand-mark{
+      width:38px;height:38px;border-radius:12px;
+      display:grid;place-items:center;
+      color:#07111d;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      font-weight:800;
+    }
+
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    nav a{padding:9px 12px;border-radius:999px;border:1px solid transparent;color:var(--text-soft);font-weight:600;font-size:.94rem}
+    nav a:hover,nav a.active{background:rgba(255,255,255,.04);border-color:var(--line)}
+
+    main{padding:42px 0 56px}
+
+    .hero{
+      border:1px solid var(--line-soft);
+      border-radius:calc(var(--radius) + 4px);
+      background:linear-gradient(130deg, rgba(79,195,255,.11), rgba(126,255,197,.06) 52%, rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:clamp(22px,3.8vw,38px);
+      margin-bottom:22px;
+      display:grid;
+      gap:16px;
+    }
+
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:#d5f6ff;font-weight:700;width:max-content}
+    h1{margin:0;font-size:clamp(1.8rem,4vw,2.9rem);line-height:1.1;letter-spacing:-.03em}
+    .lead{margin:0;color:var(--text-soft);max-width:70ch;line-height:1.75}
+
+    .status-row{display:flex;flex-wrap:wrap;gap:12px}
+    .status-pill{padding:10px 12px;border-radius:12px;border:1px solid var(--line-soft);background:rgba(7,17,34,.55);font-size:.88rem;color:var(--text-soft)}
+
+    .layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.9fr);gap:18px}
+
+    .panel{
+      border:1px solid var(--line-soft);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      padding:20px;
+    }
+
+    .panel h2{margin:0 0 12px;font-size:1.2rem}
+    .muted{color:var(--muted)}
+
+    .field{display:grid;gap:8px;margin-bottom:12px}
+    label{font-size:.9rem;color:var(--text-soft);font-weight:600}
+
+    .input-wrap{display:flex;gap:10px;align-items:center}
+    input[type="url"],select{
+      width:100%;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(4,12,25,.6);
+      color:var(--text);
+      padding:12px 12px;
+      font-size:.96rem;
+    }
+
+    .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      border-radius:12px;
+      font-weight:700;
+      padding:11px 14px;
+      cursor:pointer;
+    }
+
+    .btn.primary{border:0;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#071423}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+
+    .platforms{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+    .platform{padding:7px 11px;border-radius:999px;border:1px solid var(--line-soft);background:rgba(7,16,33,.5);font-size:.8rem;color:var(--text-soft)}
+    .platform.active{border-color:rgba(126,255,197,.6);color:#d9ffe6;background:rgba(126,255,197,.16)}
+
+    .formats{display:grid;gap:8px;margin-top:12px}
+    .format-item{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line-soft);padding:10px 11px;border-radius:12px;background:rgba(7,17,34,.58)}
+    .format-left{display:grid;gap:2px}
+    .format-title{font-weight:600;font-size:.93rem}
+    .format-meta{font-size:.82rem;color:var(--muted)}
+
+    .empty{padding:20px;border:1px dashed var(--line-soft);border-radius:14px;color:var(--muted);text-align:center}
+
+    .preview{display:grid;gap:12px}
+    .thumb{aspect-ratio:16/9;border-radius:14px;border:1px solid var(--line-soft);background:linear-gradient(120deg, rgba(79,195,255,.13), rgba(126,255,197,.08));display:grid;place-items:center;color:#d4e8ff;font-weight:600}
+
+    .tips{display:grid;gap:10px;margin-top:4px}
+    .tip{border:1px solid var(--line-soft);border-radius:12px;padding:10px 12px;background:rgba(7,16,33,.45);color:var(--text-soft);line-height:1.5;font-size:.9rem}
+
+    .small{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+    .state{font-size:.86rem;font-weight:600}
+    .state.ok{color:var(--ok)}
+    .state.warn{color:var(--warn)}
+    .state.error{color:var(--danger)}
+
+    footer{padding:20px 0 42px;color:var(--muted);font-size:.86rem;text-align:center}
+
+    @media (max-width: 940px){
+      .layout{grid-template-columns:1fr}
+      .input-wrap{flex-direction:column;align-items:stretch}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark">T</span><span>TonyStark.cz</span></a>
+      <nav aria-label="Hlavní navigace">
+        <a href="/">Domů</a>
+        <a href="/aplikace/">Aplikace</a>
+        <a class="active" href="/webove-aplikace/">Webové aplikace</a>
+        <a href="/projekty/">Projekty</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <span class="badge">Video downloader</span>
+        <h1>Stahování videí s volbou kvality před downloadem</h1>
+        <p class="lead">
+          Jedno rozhraní pro YouTube, Instagram i X/Twitter. Nejprve vložíš odkaz, aplikace načte dostupné formáty,
+          ty vybereš kvalitu (video/audio) a až potom spustíš stažení.
+        </p>
+        <div class="status-row">
+          <span class="status-pill"><strong>Aktualizace engine:</strong> <span id="engineVersion">čekám na API…</span></span>
+          <span class="status-pill"><strong>Poslední sync:</strong> <span id="engineSync">čekám na API…</span></span>
+          <span class="status-pill"><strong>Stav:</strong> <span id="engineState" class="state warn">neověřeno</span></span>
+        </div>
+      </section>
+
+      <section class="layout" aria-label="Downloader aplikace">
+        <article class="panel">
+          <h2>1) Vlož odkaz a načti formáty</h2>
+          <div class="field">
+            <label for="videoUrl">URL videa</label>
+            <div class="input-wrap">
+              <input id="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off" />
+              <button id="fetchBtn" class="btn primary" type="button">Načíst kvality</button>
+            </div>
+          </div>
+
+          <div id="platformList" class="platforms" aria-live="polite">
+            <span class="platform">YouTube</span>
+            <span class="platform">Instagram</span>
+            <span class="platform">X / Twitter</span>
+          </div>
+
+          <div class="field">
+            <label for="qualitySelect">2) Vyber doporučenou kvalitu</label>
+            <select id="qualitySelect" disabled>
+              <option value="">Nejdříve načti formáty</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Dostupné varianty</label>
+            <div id="formatList" class="formats">
+              <div class="empty">Po načtení odkazu se zde zobrazí formáty (MP4/WebM/M4A) s rozlišením a velikostí.</div>
+            </div>
+          </div>
+
+          <button id="downloadBtn" class="btn" type="button" disabled>3) Stáhnout zvolenou variantu</button>
+          <p class="small">Používej pouze obsah, ke kterému máš práva (vlastní videa, licence nebo povolení autora).</p>
+        </article>
+
+        <aside class="panel preview">
+          <h2>Náhled metadat</h2>
+          <div class="thumb" id="previewThumb">Čekám na načtení videa</div>
+          <div>
+            <strong id="previewTitle">Žádný titul</strong>
+            <p id="previewMeta" class="muted">Po načtení uvidíš délku videa, platformu, autora a doporučenou volbu kvality.</p>
+          </div>
+
+          <div class="tips">
+            <div class="tip"><strong>Jak zajistit aktuálnost:</strong> backend nastav na yt-dlp + pravidelné auto-update (např. denně přes cron).</div>
+            <div class="tip"><strong>Odolnost na změny YouTube:</strong> při chybě parsování přepnout na fallback instanci a logovat URL patterny.</div>
+            <div class="tip"><strong>Výkon:</strong> metadata řeš přes frontu, aby i při špičce zůstalo UI rychlé.</div>
+          </div>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 TonyStark.cz · Video Downloader (UI) · Pro ostrý provoz připoj API endpointy.
+  </footer>
+
+  <script>
+    const platformRules = [
+      { name: 'YouTube', match: /(youtube\.com|youtu\.be)/i },
+      { name: 'Instagram', match: /instagram\.com/i },
+      { name: 'X / Twitter', match: /(x\.com|twitter\.com)/i }
+    ];
+
+    const sampleFormats = {
+      YouTube: [
+        { id: 'yt-4k', label: '2160p · MP4 (video+audio)', detail: 'HEVC · ~240 MB · Nejvyšší kvalita' },
+        { id: 'yt-1080', label: '1080p · MP4 (video+audio)', detail: 'H.264 · ~96 MB · Stabilní volba' },
+        { id: 'yt-audio', label: 'Audio only · M4A', detail: 'AAC 160 kbps · ~9 MB' }
+      ],
+      Instagram: [
+        { id: 'ig-hd', label: '1080p · MP4', detail: 'Original stream · ~28 MB' },
+        { id: 'ig-sd', label: '720p · MP4', detail: 'Nižší datová náročnost · ~12 MB' }
+      ],
+      'X / Twitter': [
+        { id: 'x-hd', label: '1280x720 · MP4', detail: 'Best available · ~22 MB' },
+        { id: 'x-mobile', label: '854x480 · MP4', detail: 'Mobile friendly · ~10 MB' }
+      ]
+    };
+
+    const $url = document.getElementById('videoUrl');
+    const $fetchBtn = document.getElementById('fetchBtn');
+    const $downloadBtn = document.getElementById('downloadBtn');
+    const $quality = document.getElementById('qualitySelect');
+    const $formatList = document.getElementById('formatList');
+    const $previewTitle = document.getElementById('previewTitle');
+    const $previewMeta = document.getElementById('previewMeta');
+    const $previewThumb = document.getElementById('previewThumb');
+    const $engineVersion = document.getElementById('engineVersion');
+    const $engineSync = document.getElementById('engineSync');
+    const $engineState = document.getElementById('engineState');
+
+    let selectedPlatform = null;
+    let selectedFormat = '';
+
+    function detectPlatform(url){
+      return platformRules.find(rule => rule.match.test(url))?.name || null;
+    }
+
+    function renderPlatform(active){
+      document.querySelectorAll('.platform').forEach(node => {
+        node.classList.toggle('active', node.textContent.trim() === active);
+      });
+    }
+
+    function renderFormats(platform){
+      const formats = sampleFormats[platform] || [];
+
+      if (!formats.length) {
+        $formatList.innerHTML = '<div class="empty">Pro tuto adresu nebyly nalezeny formáty.</div>';
+        return;
+      }
+
+      $formatList.innerHTML = '';
+      $quality.innerHTML = '';
+
+      formats.forEach((format, index) => {
+        const option = document.createElement('option');
+        option.value = format.id;
+        option.textContent = format.label;
+        $quality.append(option);
+
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'format-item';
+        row.innerHTML = `
+          <span class="format-left">
+            <span class="format-title">${format.label}</span>
+            <span class="format-meta">${format.detail}</span>
+          </span>
+          <span class="state ${index === 0 ? 'ok' : 'warn'}">${index === 0 ? 'Doporučeno' : 'Volitelné'}</span>
+        `;
+
+        row.addEventListener('click', () => {
+          $quality.value = format.id;
+          selectedFormat = format.id;
+          $downloadBtn.disabled = false;
+        });
+
+        $formatList.append(row);
+      });
+
+      $quality.disabled = false;
+      selectedFormat = formats[0].id;
+      $quality.value = selectedFormat;
+      $downloadBtn.disabled = false;
+    }
+
+    function formatNow(date = new Date()){
+      return new Intl.DateTimeFormat('cs-CZ', {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }).format(date);
+    }
+
+    async function refreshEngineStatus(){
+      try {
+        const response = await fetch('/api/downloader/status', { headers: { 'Accept': 'application/json' } });
+
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+
+        const data = await response.json();
+        $engineVersion.textContent = data.version || 'neuvedeno';
+        $engineSync.textContent = data.lastSync || 'neuvedeno';
+        $engineState.textContent = 'online';
+        $engineState.className = 'state ok';
+      } catch {
+        $engineVersion.textContent = 'yt-dlp auto-update (doporučeno denně)';
+        $engineSync.textContent = formatNow();
+        $engineState.textContent = 'demo režim';
+        $engineState.className = 'state warn';
+      }
+    }
+
+    $fetchBtn.addEventListener('click', async () => {
+      const url = $url.value.trim();
+
+      if (!url) {
+        alert('Vlož odkaz na video.');
+        return;
+      }
+
+      selectedPlatform = detectPlatform(url);
+      if (!selectedPlatform) {
+        alert('Podporované platformy: YouTube, Instagram, X/Twitter.');
+        return;
+      }
+
+      renderPlatform(selectedPlatform);
+
+      $previewTitle.textContent = 'Načteno: ' + selectedPlatform;
+      $previewMeta.textContent = 'Ukázková metadata. V produkci zde zobraz název, autora, délku, náhled a přesné velikosti z API.';
+      $previewThumb.textContent = 'Platforma: ' + selectedPlatform;
+
+      renderFormats(selectedPlatform);
+    });
+
+    $quality.addEventListener('change', () => {
+      selectedFormat = $quality.value;
+      $downloadBtn.disabled = !selectedFormat;
+    });
+
+    $downloadBtn.addEventListener('click', () => {
+      if (!selectedFormat || !selectedPlatform) {
+        return;
+      }
+
+      alert('Demo UI: propoj tlačítko na backend endpoint /api/downloader/download a odešli URL + format_id.');
+    });
+
+    refreshEngineStatus();
+  </script>
+</body>
+</html>
