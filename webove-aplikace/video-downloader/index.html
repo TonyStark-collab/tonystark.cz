@@ -233,9 +233,9 @@
           </div>
 
           <div class="tips">
-            <div class="tip"><strong>Jak zajistit aktuálnost:</strong> backend nastav na yt-dlp + pravidelné auto-update (např. denně přes cron).</div>
-            <div class="tip"><strong>Odolnost na změny YouTube:</strong> při chybě parsování přepnout na fallback instanci a logovat URL patterny.</div>
-            <div class="tip"><strong>Výkon:</strong> metadata řeš přes frontu, aby i při špičce zůstalo UI rychlé.</div>
+            <div class="tip"><strong>Tip:</strong> Po načtení odkazu zvol doporučený formát pro nejlepší kvalitu.</div>
+            <div class="tip"><strong>Podpora:</strong> Funguje pro YouTube, Instagram a X/Twitter odkazy.</div>
+            <div class="tip"><strong>Bezpečnost:</strong> Stahuj jen obsah, ke kterému máš oprávnění.</div>
           </div>
         </aside>
       </section>
@@ -243,7 +243,7 @@
   </main>
 
   <footer>
-    © 2026 TonyStark.cz · Video Downloader (UI) · Pro ostrý provoz připoj API endpointy.
+    © 2026 TonyStark.cz · Video Downloader
   </footer>
 
   <script>
@@ -358,9 +358,9 @@
         $engineState.textContent = 'online';
         $engineState.className = 'state ok';
       } catch {
-        $engineVersion.textContent = 'yt-dlp auto-update (doporučeno denně)';
+        $engineVersion.textContent = 'demo';
         $engineSync.textContent = formatNow();
-        $engineState.textContent = 'demo režim';
+        $engineState.textContent = 'offline';
         $engineState.className = 'state warn';
       }
     }
@@ -382,7 +382,7 @@
       renderPlatform(selectedPlatform);
 
       $previewTitle.textContent = 'Načteno: ' + selectedPlatform;
-      $previewMeta.textContent = 'Ukázková metadata. V produkci zde zobraz název, autora, délku, náhled a přesné velikosti z API.';
+      $previewMeta.textContent = 'Ukázková metadata: název, autor, délka a doporučená kvalita.';
       $previewThumb.textContent = 'Platforma: ' + selectedPlatform;
 
       renderFormats(selectedPlatform);
@@ -398,7 +398,7 @@
         return;
       }
 
-      alert('Demo UI: propoj tlačítko na backend endpoint /api/downloader/download a odešli URL + format_id.');
+      alert('Stahování je v této ukázce vypnuté.');
     });
 
     refreshEngineStatus();
