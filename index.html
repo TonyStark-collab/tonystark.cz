@@ -10,13 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #121418;
-      --surface: #181b21;
-      --line: #2b313c;
-      --text: #f6f9ff;
-      --text-soft: #dde4f0;
-      --link: #c5d5f8;
-      --max: 860px;
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --line: #d9e2ef;
+      --text: #1d2a3b;
+      --text-soft: #465a75;
+      --link: #2e5fbf;
+      --accent: #4e7fe8;
+      --accent-2: #ff9b62;
+      --max: 960px;
     }
 
     * { box-sizing: border-box; }
@@ -36,7 +38,7 @@
       width: min(var(--max), 100%);
       margin: 0 auto;
       display: grid;
-      gap: 36px;
+      gap: 34px;
     }
 
     .clock-wrap {
@@ -46,8 +48,8 @@
       width: min(100%, 700px);
       padding: 14px;
       border: 1px solid color-mix(in srgb, var(--line) 68%, transparent);
-      border-radius: 16px;
-      background: color-mix(in srgb, var(--surface) 90%, transparent);
+      border-radius: 20px;
+      background: color-mix(in srgb, var(--surface) 96%, #eef3fa);
       text-align: center;
     }
 
@@ -169,9 +171,9 @@
       align-items: center;
       gap: 8px;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
-      padding: 10px;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--surface) 98%, #f5f8fd);
+      padding: 12px;
       position: relative;
     }
 
@@ -209,7 +211,7 @@
       padding: 8px 10px;
       border-radius: 9px;
       border: 1px solid transparent;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
       font-weight: 700;
     }
 
@@ -217,21 +219,23 @@
     .menu a:focus-visible {
       color: var(--text);
       border-color: var(--line);
+      background: color-mix(in srgb, #e7eefb 72%, transparent);
       outline: none;
     }
 
     main {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 20px;
       padding: clamp(22px, 4.2vw, 42px);
       text-align: left;
+      box-shadow: 0 12px 28px color-mix(in srgb, #9cb0cd 28%, transparent);
     }
 
     .hero {
       text-align: center;
       display: grid;
-      gap: 14px;
+      gap: 18px;
       margin-bottom: 24px;
     }
 
@@ -251,6 +255,38 @@
       text-align: center;
     }
 
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--accent) 0%, #6a95ee 100%);
+      box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 34%, transparent);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
     .content-flow {
       display: grid;
       gap: 14px;
@@ -259,13 +295,19 @@
 
     .story-item {
       border: 1px solid color-mix(in srgb, var(--line) 82%, #4c5670);
-      border-radius: 12px;
-      background: linear-gradient(90deg, color-mix(in srgb, #11161f 88%, var(--surface)) 0%, color-mix(in srgb, #151c28 74%, var(--surface)) 100%);
+      border-radius: 14px;
+      background: linear-gradient(90deg, color-mix(in srgb, #f9fbff 96%, var(--surface)) 0%, color-mix(in srgb, #f2f6fc 80%, var(--surface)) 100%);
       padding: clamp(12px, 2.3vw, 16px) clamp(14px, 2.8vw, 20px);
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: start;
       gap: 12px;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .story-item:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
     }
 
     .story-mark {
@@ -280,7 +322,7 @@
       display: grid;
       place-items: center;
       color: var(--link);
-      background: color-mix(in srgb, #0f1520 84%, var(--surface));
+      background: color-mix(in srgb, #edf3ff 86%, var(--surface));
     }
 
     .story-copy h2 {
@@ -312,8 +354,8 @@
 
     .more:hover,
     .more:focus-visible {
-      color: #d3def5;
-      border-bottom-color: #d3def5;
+      color: #214895;
+      border-bottom-color: #214895;
       outline: none;
     }
 
@@ -332,6 +374,8 @@
         justify-content: center;
       }
       .menu.open { display: flex; }
+      .hero-actions { justify-content: stretch; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
@@ -379,6 +423,9 @@
       <header class="hero">
         <h1>Osobní prostor o technice i životě</h1>
         <p class="lead">Vyrůstal jsem v devadesátkách, které mě naučily zvídavosti, tvoření i přirozenému vztahu k technice.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/projekty/">Prozkoumat projekty</a>
+        </div>
       </header>
 
       <div class="content-flow">
