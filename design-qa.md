@@ -44,3 +44,15 @@ Iterations corrected visible asset backgrounds with contour clipping, overly str
 Verified 390px mobile frame without horizontal overflow; menu opens and Escape closes; homepage CTA scrolls to guides; Codex link reaches its existing page. Browser logs show only extension metadata errors, no application error. Existing guide contents and secondary routes remain unchanged.
 
 Remaining visual differences are limited to the exact photographic subjects/paper tears and subtle distressed lettering of the raster reference. The real keyboard is deliberately retained as requested.
+
+## Whole-site editorial and content revision
+
+Scope: all nine interior pages; the approved homepage receives consistent utility-link labels only.
+
+- Replaced generic cards and repeated promises with editorial sections, numbered project rows, a readable biography, functional tool listing and a direct contact page. Preserved all ten existing routes and every pre-existing anchor ID.
+- Biography uses previously published facts; family and music retain a clear place in the site's purpose. No new private biographical details added.
+- Rewrote both guides with original practical prompts, copy controls, collapsible contents, inline official sources and a revision date. Removed fixed model/plan-limit tables and unverified setting limits. Sources inspected: learn.chatgpt.com/docs/{use-chatgpt,quickstart,prompting,personalize,projects,pricing}.
+- New shared interior stylesheet follows the approved ivory, condensed typography, paper and concert direction. OpenAI remains an exact SVG over the collage.
+- Daily panel retains the existing date/name-day/weather functions. Added refresh, Czech city names, stale-response protection, accessible weather status and linked attribution. Its existing calendar only covers fixed holidays and an orientational name-day list; this limitation is now visible.
+
+Validation before deployment: all ten pages have exactly one h1, unique IDs, valid local href/src and fragment destinations, and all old anchors preserved. JavaScript syntax and git diff whitespace checks passed. All nine interior pages were checked at a 390px frame (375px document client width): no horizontal overflow or failed images. Inspected rendered desktop guide, biography, guide listing and tool page, plus mobile guide, prompt and daily-panel layouts. Mobile menu opens and closes with Escape; contents links scroll to chapters; FAQ disclosure opens; copy fallback selects the intended prompt. Prague weather loaded successfully.
