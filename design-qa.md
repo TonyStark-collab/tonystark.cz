@@ -32,3 +32,15 @@ Existing guide information and external service behavior are outside this visual
 ## Keyboard compositing correction
 
 Removed the CSS photo border and clipped the original photograph to the keyboard's actual outline. A wrapper casts a small contour-following shadow. Original image bytes, displayed image dimensions, position, angle and key lettering are preserved. Desktop screenshot checked; mobile document at 375px client width has no horizontal overflow, image loads at its original 2352px source width, and computed border is zero. No new bitmap asset or generated lettering was introduced.
+
+## Selected-reference detail pass
+
+final result: passed
+
+Compared the attached 18954.png reference and a full rendered homepage together in `tony-detail-comparison.jpg` (session QA). Refined typography with self-hosted Roboto Condensed, heading proportions, bigger layered guide art, exact supplementary copy, hero handwritten note, paper texture, a quieter concert composition and footer navigation. Exact OpenAI SVG and the previously approved real keyboard cutout remain intact.
+
+Iterations corrected visible asset backgrounds with contour clipping, overly strong paper texture, guide heading wrapping, and number spacing at desktop/mobile sizes. Inspected the updated desktop guide section after the initial comparison. The headline and regular-weight concert heading follow the approved user instructions.
+
+Verified 390px mobile frame without horizontal overflow; menu opens and Escape closes; homepage CTA scrolls to guides; Codex link reaches its existing page. Browser logs show only extension metadata errors, no application error. Existing guide contents and secondary routes remain unchanged.
+
+Remaining visual differences are limited to the exact photographic subjects/paper tears and subtle distressed lettering of the raster reference. The real keyboard is deliberately retained as requested.
