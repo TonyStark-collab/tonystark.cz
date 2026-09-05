@@ -1,342 +1,60 @@
 <!DOCTYPE html>
+
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TonyStark.cz | Denní přehled</title>
-  <meta name="description" content="Denní informace: den, datum, čas, státní svátek a svátek jmen." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #080d18;
-      --surface: #0f1728;
-      --line: #1f2a44;
-      --text: #f8fbff;
-      --text-soft: #e9effd;
-      --muted: #a2b0cb;
-      --accent: #8bc2ff;
-      --max: 920px;
-    }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TonyStark.cz | Denní přehled</title>
+<meta content="Denní informace: den, datum, čas, státní svátek a svátek jmen." name="description"/>
 
-    * { box-sizing: border-box; }
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at 10% 10%, #15233e 0%, var(--bg) 55%);
-      color: var(--text);
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.45;
-      padding: 20px 16px 48px;
-      text-align: center;
-    }
 
-    .page {
-      width: min(var(--max), 100%);
-      margin: 0 auto;
-      display: grid;
-      gap: 28px;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: color-mix(in srgb, var(--surface) 93%, #000 7%);
-      padding: 10px;
-    }
-
-    .brand,
-    .menu a {
-      color: #dbe5ff;
-      text-decoration: none;
-      padding: 8px 10px;
-      border-radius: 9px;
-      border: 1px solid transparent;
-      transition: border-color 0.2s ease, color 0.2s ease;
-    }
-
-    .brand {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .menu {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .brand:hover,
-    .brand:focus-visible,
-    .menu a:hover,
-    .menu a:focus-visible {
-      color: var(--text);
-      border-color: var(--line);
-      outline: none;
-    }
-
-    main {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(17, 25, 45, 0.95) 0%, rgba(9, 14, 27, 0.95) 100%);
-      padding: clamp(20px, 5vw, 42px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(1.9rem, 5vw, 3rem);
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: 0.02em;
-    }
-
-    .subtitle {
-      margin: 10px 0 26px;
-      font-size: clamp(1rem, 2.6vw, 1.2rem);
-      color: #ced9f4;
-    }
-
-    .stack {
-      display: grid;
-      gap: 18px;
-      text-align: left;
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .item {
-      padding: 0;
-      border: 0;
-      background: transparent;
-    }
-
-    .label {
-      display: block;
-      text-transform: uppercase;
-      font-size: 0.74rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 3px;
-      font-weight: 700;
-    }
-
-    .value {
-      margin: 0;
-      color: var(--text-soft);
-      font-size: clamp(1.35rem, 3.2vw, 2rem);
-      line-height: 1.25;
-      font-weight: 600;
-      text-shadow: 0 0 18px rgba(138, 194, 255, 0.14);
-    }
-
-    #today-time {
-      font-size: clamp(2.1rem, 9vw, 4.2rem);
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      color: #ffffff;
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .weather-bar {
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      align-items: center;
-      padding-top: 8px;
-    }
-
-    .weather-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      font-size: 2rem;
-      background: radial-gradient(circle, rgba(139, 194, 255, 0.36) 0%, rgba(139, 194, 255, 0.08) 58%, transparent 100%);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .weather-icon.sunny { animation: pulseSun 2.4s ease-in-out infinite; }
-    .weather-icon.cloudy { animation: driftCloud 3.5s ease-in-out infinite; }
-    .weather-icon.rainy { animation: rainBounce 1.3s ease-in-out infinite; }
-    .weather-icon.snowy { animation: snowSpin 5s linear infinite; }
-    .weather-icon.storm { animation: stormFlash 1.1s ease-in-out infinite; }
-
-    .weather-meta {
-      display: grid;
-      gap: 4px;
-    }
-
-    .weather-temp {
-      margin: 0;
-      font-size: clamp(1.5rem, 3.6vw, 2.2rem);
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.1;
-    }
-
-    .weather-detail {
-      margin: 0;
-      color: #d4def8;
-      font-size: 1.02rem;
-      font-weight: 500;
-    }
-
-    .location-row {
-      margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .location-row label {
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    select {
-      appearance: none;
-      border: 1px solid var(--line);
-      background: #101a30;
-      color: #f4f8ff;
-      padding: 10px 34px 10px 12px;
-      border-radius: 10px;
-      font: inherit;
-      font-size: 0.98rem;
-      background-image:
-        linear-gradient(45deg, transparent 50%, #9ec8ff 50%),
-        linear-gradient(135deg, #9ec8ff 50%, transparent 50%);
-      background-position:
-        calc(100% - 16px) calc(50% - 2px),
-        calc(100% - 10px) calc(50% - 2px);
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-    }
-
-    .status {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    @keyframes pulseSun {
-      0%, 100% { transform: scale(1); filter: brightness(1); }
-      50% { transform: scale(1.1); filter: brightness(1.18); }
-    }
-
-    @keyframes driftCloud {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(5px); }
-    }
-
-    @keyframes rainBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(4px); }
-    }
-
-    @keyframes snowSpin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes stormFlash {
-      0%, 85%, 100% { filter: brightness(1); }
-      90% { filter: brightness(1.4); }
-    }
-
-    @media (max-width: 700px) {
-      .brand { width: 100%; }
-      .stack { text-align: center; }
-      .location-row,
-      .weather-bar { justify-items: center; justify-content: center; }
-      .location-row { justify-content: center; }
-      .weather-bar { grid-template-columns: 1fr; text-align: center; }
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <nav class="nav" aria-label="Hlavní navigace">
-      <a class="brand" href="/">TonyStark.cz</a>
-      <div class="menu">
-        <a href="/o-mne/">O mně</a>
-        <a href="/aplikace/">Aplikace</a>
-        <a href="/webove-aplikace/">Webové aplikace</a>
-        <a href="/projekty/">Projekty</a>
-        <a href="/smer-webu/">Směr webu</a>
-        <a href="/kontakt/">Kontakt</a>
-        <a href="/info-panel/" aria-current="page">Denní přehled</a>
-      </div>
-    </nav>
-
-    <main>
-      <h1>Denní přehled</h1>
-      <p class="subtitle">Jednoduchý, výrazný přehled dne, času a počasí.</p>
-
-      <section class="stack" aria-label="Denní informace">
-        <article class="item">
-          <span class="label">Den v týdnu</span>
-          <p class="value" id="today-day">-</p>
-        </article>
-
-        <article class="item">
-          <span class="label">Datum</span>
-          <p class="value" id="today-date">-</p>
-        </article>
-
-        <article class="item">
-          <span class="label">Čas</span>
-          <p class="value" id="today-time">-</p>
-        </article>
-
-        <article class="item">
-          <span class="label" id="holiday-label">Státní svátek</span>
-          <p class="value" id="holiday-info">-</p>
-        </article>
-
-        <article class="item" aria-live="polite">
-          <span class="label">Počasí</span>
-          <div class="weather-bar">
-            <div class="weather-icon" id="weather-icon" aria-hidden="true">☁️</div>
-            <div class="weather-meta">
-              <p class="weather-temp" id="weather-temp">— °C</p>
-              <p class="weather-detail" id="weather-detail">Načítám aktuální počasí…</p>
-            </div>
-          </div>
-          <div class="location-row">
-            <label for="location-select">Lokalita:</label>
-            <select id="location-select" name="location-select">
-              <option value="50.0755,14.4378,Prague">Praha</option>
-              <option value="49.1951,16.6068,Brno">Brno</option>
-              <option value="49.8209,18.2625,Ostrava">Ostrava</option>
-              <option value="49.7475,13.3776,Plzen">Plzeň</option>
-              <option value="50.7704,15.0583,Liberec">Liberec</option>
-            </select>
-          </div>
-          <p class="status" id="weather-status">Zdroj: Open-Meteo</p>
-        </article>
-      </section>
-    </main>
-  </div>
-
-  <script>
+<link href="/assets/site.css" rel="stylesheet"/><script defer="" src="/assets/site.js"></script></head>
+<body class="interior"><a class="skip-link" href="#main">Přejít na obsah</a>
+<header class="site-header"><div class="site-header-inner"><a aria-label="TonyStark.cz – domů" class="wordmark" href="/">TonyStark<span>.cz</span></a><button aria-controls="site-nav" aria-expanded="false" class="nav-toggle" type="button">Menu</button><nav aria-label="Hlavní navigace" class="site-nav" id="site-nav"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a><a href="/kontakt/">Kontakt</a></nav></div></header><main id="main">
+<h1>Denní přehled</h1>
+<p class="subtitle">Jednoduchý, výrazný přehled dne, času a počasí.</p>
+<section aria-label="Denní informace" class="stack">
+<article class="item">
+<span class="label">Den v týdnu</span>
+<p class="value" id="today-day">-</p>
+</article>
+<article class="item">
+<span class="label">Datum</span>
+<p class="value" id="today-date">-</p>
+</article>
+<article class="item">
+<span class="label">Čas</span>
+<p class="value" id="today-time">-</p>
+</article>
+<article class="item">
+<span class="label" id="holiday-label">Státní svátek</span>
+<p class="value" id="holiday-info">-</p>
+</article>
+<article aria-live="polite" class="item">
+<span class="label">Počasí</span>
+<div class="weather-bar">
+<div aria-hidden="true" class="weather-icon" id="weather-icon">☁️</div>
+<div class="weather-meta">
+<p class="weather-temp" id="weather-temp">— °C</p>
+<p class="weather-detail" id="weather-detail">Načítám aktuální počasí…</p>
+</div>
+</div>
+<div class="location-row">
+<label for="location-select">Lokalita:</label>
+<select id="location-select" name="location-select">
+<option value="50.0755,14.4378,Prague">Praha</option>
+<option value="49.1951,16.6068,Brno">Brno</option>
+<option value="49.8209,18.2625,Ostrava">Ostrava</option>
+<option value="49.7475,13.3776,Plzen">Plzeň</option>
+<option value="50.7704,15.0583,Liberec">Liberec</option>
+</select>
+</div>
+<p class="status" id="weather-status">Zdroj: Open-Meteo</p>
+</article>
+</section>
+</main><footer class="site-footer"><div class="footer-top"><a class="footer-brand" href="/">TonyStark.cz</a><span>Osobní web a projekty</span><nav aria-label="Další stránky"><a href="/webove-aplikace/">Webové aplikace</a><a href="/smer-webu/">Směr webu</a><a href="/info-panel/">Info panel</a><a href="/kontakt/">Kontakt</a></nav></div><p class="footer-note">IT a AI. Hudba. Rodina. Život.</p></footer><script>
     const namedays = {
       "1-1":"Karina","1-2":"Gustav","1-3":"Radmila","1-4":"Diana","1-5":"Dalimil","1-6":"Kašpar","1-7":"Vilma","1-8":"Čestmír","1-9":"Vladan","1-10":"Břetislav","1-11":"Bohdana","1-12":"Pravoslav","1-13":"Edita","1-14":"Radovan","1-15":"Alice","1-16":"Ctirad","1-17":"Drahoslav","1-18":"Vladislav","1-19":"Doubravka","1-20":"Ilona","1-21":"Běla","1-22":"Slavomír","1-23":"Zdeněk","1-24":"Milena","1-25":"Miloš","1-26":"Zora","1-27":"Ingrid","1-28":"Otýlie","1-29":"Zdislava","1-30":"Robin","1-31":"Marika",
       "2-1":"Hynek","2-2":"Nela","2-3":"Blažej","2-4":"Jarmila","2-5":"Dobromila","2-6":"Vanda","2-7":"Veronika","2-8":"Milada","2-9":"Apolena","2-10":"Mojmír","2-11":"Božena","2-12":"Slavěna","2-13":"Věnceslav","2-14":"Valentýn","2-15":"Jiřina","2-16":"Ljuba","2-17":"Miloslava","2-18":"Gizela","2-19":"Patrik","2-20":"Oldřich","2-21":"Lenka","2-22":"Petr","2-23":"Svatopluk","2-24":"Matěj","2-25":"Liliana","2-26":"Dorota","2-27":"Alexandr","2-28":"Lumír","2-29":"Horymír",
@@ -487,6 +205,5 @@
     updateDateTime();
     setInterval(updateDateTime, 1000);
     setupWeather();
-  </script>
-</body>
+  </script></body>
 </html>

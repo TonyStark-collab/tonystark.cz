@@ -1,268 +1,53 @@
 <!DOCTYPE html>
+
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TonyStark.cz | O mně</title>
-  <meta name="description" content="Plná osobní stránka O mně na webu TonyStark.cz." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kalam:wght@400;700&family=Marck+Script&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #121418;
-      --surface: #181b21;
-      --line: #2b313c;
-      --text: #eceff5;
-      --text-soft: #c8ced9;
-      --link: #b7c6e6;
-      --max: 980px;
-      --article-max: 76ch;
-    }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TonyStark.cz | O mně</title>
+<meta content="Plná osobní stránka O mně na webu TonyStark.cz." name="description"/>
 
-    * { box-sizing: border-box; }
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Kalam", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.8;
-      letter-spacing: 0.01em;
-      padding: 20px 16px 56px;
-      text-align: center;
-    }
 
-    .page {
-      width: min(var(--max), 100%);
-      margin: 0 auto;
-      display: grid;
-      gap: 30px;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
-      padding: 10px;
-      position: relative;
-    }
-
-    .brand {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 700;
-      padding: 8px 10px;
-      font-family: "Inter", system-ui, sans-serif;
-      border-radius: 9px;
-      border: 1px solid transparent;
-    }
-
-    .menu-toggle {
-      display: none;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--text);
-      border-radius: 10px;
-      width: 40px;
-      height: 40px;
-      font-size: 1.3rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .menu {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .menu a {
-      color: var(--text-soft);
-      text-decoration: none;
-      padding: 8px 10px;
-      border-radius: 9px;
-      border: 1px solid transparent;
-      transition: border-color 0.2s ease, color 0.2s ease;
-      font-weight: 700;
-    }
-
-    .menu a:hover,
-    .menu a:focus-visible,
-    .brand:hover,
-    .brand:focus-visible {
-      color: var(--text);
-      border-color: var(--line);
-      outline: none;
-    }
-
-    .menu a[aria-current="page"] {
-      color: var(--text);
-      border-color: color-mix(in srgb, var(--line) 80%, transparent);
-      background: color-mix(in srgb, #1f2430 68%, transparent);
-    }
-
-    main {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--surface);
-      padding: clamp(24px, 4.5vw, 48px);
-      text-align: left;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: clamp(20px, 4vw, 36px);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.1rem, 7vw, 3.4rem);
-      line-height: 1.08;
-      letter-spacing: 0.01em;
-    }
-
-    .podpis {
-      font-family: "Marck Script", cursive;
-      font-size: clamp(1.5rem, 4.6vw, 2rem);
-      color: var(--link);
-      margin-top: 6px;
-      display: inline-block;
-    }
-
-    .obsah {
-      margin: 0 auto;
-      max-width: var(--article-max);
-      color: var(--text-soft);
-      font-size: clamp(1.02rem, 2.1vw, 1.18rem);
-    }
-
-    .lead {
-      font-size: clamp(1.12rem, 2.4vw, 1.28rem);
-      color: var(--text);
-      margin: 0 0 22px;
-      text-wrap: pretty;
-    }
-
-    .section {
-      margin: 0 0 26px;
-      padding-top: 4px;
-    }
-
-    .section h2 {
-      margin: 0 0 10px;
-      font-family: "Inter", system-ui, sans-serif;
-      font-size: clamp(1.03rem, 2.2vw, 1.25rem);
-      font-weight: 600;
-      color: color-mix(in srgb, var(--text) 92%, #9eb1d6);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .section p {
-      margin: 0 0 14px;
-      text-wrap: pretty;
-    }
-
-    .section p:last-child {
-      margin-bottom: 0;
-    }
-
-    @media (max-width: 760px) {
-      body { padding-top: 14px; }
-      .page { gap: 22px; }
-      main { text-align: initial; }
-
-      .menu-toggle { display: inline-grid; place-items: center; }
-      .menu {
-        display: none;
-        width: 100%;
-        padding-top: 8px;
-        justify-content: center;
-      }
-      .menu.open { display: flex; }
-
-      .section h2 {
-        margin-bottom: 8px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <nav class="nav" aria-label="Hlavní navigace">
-      <a class="brand" href="/">TonyStark.cz</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Otevřít menu">☰</button>
-      <div class="menu" id="site-menu">
-        <a href="/o-mne/" aria-current="page">O mně</a>
-        <a href="/aplikace/">Aplikace</a>
-        <a href="/webove-aplikace/">Webové aplikace</a>
-        <a href="/projekty/">Projekty</a>
-        <a href="/smer-webu/">Směr webu</a>
-        <a href="/kontakt/">Kontakt</a>
-        <a href="/info-panel/">Info panel</a>
-      </div>
-    </nav>
-
-    <main>
-      <header class="hero">
-        <h1>O mně</h1>
-      </header>
-
-      <article class="obsah">
-        <p class="lead">Jmenuji se Tony. Letos mi bude čtyřicet let a moje dětství i dospívání byly silně spojené s devadesátými lety. Manželka o mně s nadsázkou říká, že jsem „dítě Černobylu“ – čistě ve smyslu roku 1986.</p>
-
-        <section class="section" aria-labelledby="zacatky">
-          <h2 id="zacatky">Začátky u techniky</h2>
-          <p>Byly to krásné časy. Internet ještě nebyl samozřejmostí, a tak jsme jako kluci trávili čas venku, hráli kopanou a svět techniky poznávali postupně, po svém.</p>
-          <p>Když jsme se kolem patnácti let dostávali k prvním počítačům, často to znamenalo skládat je z komponent, které kdo dokázal sehnat, přinesl nebo vyměnil. Byla to doba procesorů AMD K5 a K6 nebo starších Intelů na frekvencích kolem 66 či 99 MHz. Taktovalo se fyzicky přes jumpry přímo na základní desce.</p>
-          <p>Brzy jsme zjistili, že tehdejší výkon i kapacita disků kolem 1 GB přestávají stačit. Jakmile se podařilo něco sehnat nebo poskládat, přecházelo se na procesory 300 a 500 MHz. To už byl na tehdejší dobu citelný skok, díky kterému se počítač stal použitelný i pro víc úloh najednou.</p>
-        </section>
-
-        <section class="section" aria-labelledby="vykon">
-          <h2 id="vykon">Doba, kdy každý MHz byl znát</h2>
-          <p>Přiznám se, že jsem ždímal výkon i z chudáka Celeronu, levnější a ořezané varianty tehdejšího Pentia. Byly to ale spíš technické experimenty než pohodlný provoz.</p>
-          <p>Když jsme si později z brigád vydělali vlastní peníze, otevřela se možnost dostat se až k hranici 1 GHz. V té době už se osazovalo i 128 MB RAM, disky měly kolem 10 GB a proti starším sestavám s 16 nebo 32 MB RAM to byl obrovský rozdíl.</p>
-          <p>S dnešními počítači se to výkonem srovnat nedá, ale právě proto na tu dobu rád vzpomínám. Byly to poctivé začátky, hodně zkoušení a radost z toho, že se něco podařilo rozběhat.</p>
-        </section>
-
-        <section class="section" aria-labelledby="media">
-          <h2 id="media">Hudba, média a tehdejší tempo</h2>
-          <p>Hudba tehdy hrála z FM rádií a postupně i z počítače. Objevovaly se písničky na CD, ale kvůli omezené kapacitě disků se často přehrávalo přímo z média.</p>
-          <p>Postupně přišla klasická CD, CD-R, CD-RW a následně i DVD vypalovačky. Najednou nešlo jen o hudbu, ale i o filmy, aplikace a data, která se mezi lidmi běžně sdílela a archivovala.</p>
-          <p>Filmy a seriály člověk často znal hlavně tehdy, když si je stihl nahrát na VHS. Celé to mělo svoje tempo a kouzlo, které bylo úplně jiné než dnes.</p>
-        </section>
-
-        <section class="section" aria-labelledby="dnesek">
-          <h2 id="dnesek">Technika dnes a AI</h2>
-          <p>Právě tahle éra mě výrazně formovala. Dodnes si z ní nesu vztah k technice, hudbě, počítačům a ke všemu, co má logiku, vývoj a opravdový charakter.</p>
-          <p>Profesně pracuji jako skladník pro expedici, ale mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. Baví mě chápat, jak věci fungují, proč nefungují a co udělat pro to, aby fungovaly lépe.</p>
-          <p>S moderní AI jsem se výrazněji setkal v roce 2022. Účet u OpenAI jsem si založil 14. prosince 2022, přibližně dva týdny po veřejném uvedení ChatGPT. Od té doby sleduji vývoj průběžně a se skutečným zájmem.</p>
-        </section>
-
-        <section class="section" aria-labelledby="zazemi">
-          <h2 id="zazemi">Co je pro mě důležité</h2>
-          <p>Zajímá mě vývoj technologií, nové trendy a praktické využití techniky v běžném životě. Mám rád věcnost, funkčnost, čisté řešení a smysluplné nápady.</p>
-          <p>Zároveň ale nejsem jen o technice. Jsem manžel a táta. Rodina je pro mě nejdůležitější bod v životě, vedle kterého má své pevné místo hudba i dlouholetá vášeň pro vše, co se v technice posouvá dopředu.</p>
-          <p>Tenhle web je osobním prostorem, kde se potkává moje minulost, zkušenosti, současné zájmy i věci, které mě opravdu vystihují.</p>
-        </section>
-      </article>
-    </main>
-  </div>
-
-  <script>
-    const menuButton = document.querySelector('.menu-toggle');
-    const menu = document.getElementById('site-menu');
-
-    menuButton?.addEventListener('click', () => {
-      const isOpen = menu.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-    });
-  </script>
-</body>
+<link href="/assets/site.css" rel="stylesheet"/><script defer="" src="/assets/site.js"></script></head>
+<body class="interior"><a class="skip-link" href="#main">Přejít na obsah</a>
+<header class="site-header"><div class="site-header-inner"><a aria-label="TonyStark.cz – domů" class="wordmark" href="/">TonyStark<span>.cz</span></a><button aria-controls="site-nav" aria-expanded="false" class="nav-toggle" type="button">Menu</button><nav aria-label="Hlavní navigace" class="site-nav" id="site-nav"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a><a href="/kontakt/">Kontakt</a></nav></div></header><main id="main">
+<header class="hero">
+<h1>O mně</h1>
+</header>
+<article class="obsah">
+<p class="lead">Jmenuji se Tony. Letos mi bude čtyřicet let a moje dětství i dospívání byly silně spojené s devadesátými lety. Manželka o mně s nadsázkou říká, že jsem „dítě Černobylu“ – čistě ve smyslu roku 1986.</p>
+<section aria-labelledby="zacatky" class="section">
+<h2 id="zacatky">Začátky u techniky</h2>
+<p>Byly to krásné časy. Internet ještě nebyl samozřejmostí, a tak jsme jako kluci trávili čas venku, hráli kopanou a svět techniky poznávali postupně, po svém.</p>
+<p>Když jsme se kolem patnácti let dostávali k prvním počítačům, často to znamenalo skládat je z komponent, které kdo dokázal sehnat, přinesl nebo vyměnil. Byla to doba procesorů AMD K5 a K6 nebo starších Intelů na frekvencích kolem 66 či 99 MHz. Taktovalo se fyzicky přes jumpry přímo na základní desce.</p>
+<p>Brzy jsme zjistili, že tehdejší výkon i kapacita disků kolem 1 GB přestávají stačit. Jakmile se podařilo něco sehnat nebo poskládat, přecházelo se na procesory 300 a 500 MHz. To už byl na tehdejší dobu citelný skok, díky kterému se počítač stal použitelný i pro víc úloh najednou.</p>
+</section>
+<section aria-labelledby="vykon" class="section">
+<h2 id="vykon">Doba, kdy každý MHz byl znát</h2>
+<p>Přiznám se, že jsem ždímal výkon i z chudáka Celeronu, levnější a ořezané varianty tehdejšího Pentia. Byly to ale spíš technické experimenty než pohodlný provoz.</p>
+<p>Když jsme si později z brigád vydělali vlastní peníze, otevřela se možnost dostat se až k hranici 1 GHz. V té době už se osazovalo i 128 MB RAM, disky měly kolem 10 GB a proti starším sestavám s 16 nebo 32 MB RAM to byl obrovský rozdíl.</p>
+<p>S dnešními počítači se to výkonem srovnat nedá, ale právě proto na tu dobu rád vzpomínám. Byly to poctivé začátky, hodně zkoušení a radost z toho, že se něco podařilo rozběhat.</p>
+</section>
+<section aria-labelledby="media" class="section">
+<h2 id="media">Hudba, média a tehdejší tempo</h2>
+<p>Hudba tehdy hrála z FM rádií a postupně i z počítače. Objevovaly se písničky na CD, ale kvůli omezené kapacitě disků se často přehrávalo přímo z média.</p>
+<p>Postupně přišla klasická CD, CD-R, CD-RW a následně i DVD vypalovačky. Najednou nešlo jen o hudbu, ale i o filmy, aplikace a data, která se mezi lidmi běžně sdílela a archivovala.</p>
+<p>Filmy a seriály člověk často znal hlavně tehdy, když si je stihl nahrát na VHS. Celé to mělo svoje tempo a kouzlo, které bylo úplně jiné než dnes.</p>
+</section>
+<section aria-labelledby="dnesek" class="section">
+<h2 id="dnesek">Technika dnes a AI</h2>
+<p>Právě tahle éra mě výrazně formovala. Dodnes si z ní nesu vztah k technice, hudbě, počítačům a ke všemu, co má logiku, vývoj a opravdový charakter.</p>
+<p>Profesně pracuji jako skladník pro expedici, ale mou dlouhodobou vášní je IT, hardware, software, mobilní technologie a umělá inteligence. Baví mě chápat, jak věci fungují, proč nefungují a co udělat pro to, aby fungovaly lépe.</p>
+<p>S moderní AI jsem se výrazněji setkal v roce 2022. Účet u OpenAI jsem si založil 14. prosince 2022, přibližně dva týdny po veřejném uvedení ChatGPT. Od té doby sleduji vývoj průběžně a se skutečným zájmem.</p>
+</section>
+<section aria-labelledby="zazemi" class="section">
+<h2 id="zazemi">Co je pro mě důležité</h2>
+<p>Zajímá mě vývoj technologií, nové trendy a praktické využití techniky v běžném životě. Mám rád věcnost, funkčnost, čisté řešení a smysluplné nápady.</p>
+<p>Zároveň ale nejsem jen o technice. Jsem manžel a táta. Rodina je pro mě nejdůležitější bod v životě, vedle kterého má své pevné místo hudba i dlouholetá vášeň pro vše, co se v technice posouvá dopředu.</p>
+<p>Tenhle web je osobním prostorem, kde se potkává moje minulost, zkušenosti, současné zájmy i věci, které mě opravdu vystihují.</p>
+</section>
+</article>
+</main><footer class="site-footer"><div class="footer-top"><a class="footer-brand" href="/">TonyStark.cz</a><span>Osobní web a projekty</span><nav aria-label="Další stránky"><a href="/webove-aplikace/">Webové aplikace</a><a href="/smer-webu/">Směr webu</a><a href="/info-panel/">Info panel</a><a href="/kontakt/">Kontakt</a></nav></div><p class="footer-note">IT a AI. Hudba. Rodina. Život.</p></footer></body>
 </html>
