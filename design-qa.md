@@ -28,3 +28,7 @@ First comparison found an overly tall hero and undersized desktop type. Correcte
 - Browser error log contained only a browser-extension metadata message; no application JavaScript error observed.
 
 Existing guide information and external service behavior are outside this visual update's content scope.
+
+## Keyboard compositing correction
+
+Removed the CSS photo border and clipped the original photograph to the keyboard's actual outline. A wrapper casts a small contour-following shadow. Original image bytes, displayed image dimensions, position, angle and key lettering are preserved. Desktop screenshot checked; mobile document at 375px client width has no horizontal overflow, image loads at its original 2352px source width, and computed border is zero. No new bitmap asset or generated lettering was introduced.
