@@ -5,3 +5,6 @@
 - OpenAI knot: Simple Icons v11 (CC0); trademark belongs to OpenAI. https://github.com/simple-icons/simple-icons/tree/11.0.0
 - Arrow and terminal: Phosphor Icons v2.1.1, MIT. https://github.com/phosphor-icons/core
 - Anton and Inter: Google Fonts, SIL Open Font License. https://fonts.google.com/specimen/Anton and https://fonts.google.com/specimen/Inter
+
+- Refined guide collages, hero paper note, concert strip and paper texture: generated for the selected visual reference. OpenAI logo remains the original SVG overlay.
+- Roboto Condensed: Google Fonts, SIL Open Font License, included in assets/fonts/RobotoCondensed-OFL.txt. https://fonts.google.com/specimen/Roboto+Condensed
