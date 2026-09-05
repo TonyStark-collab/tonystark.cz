@@ -1,339 +1,98 @@
 <!DOCTYPE html>
+
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aplikace a průvodci | TonyStark.cz</title>
-  <meta name="description" content="Aplikace a průvodci TonyStark.cz: praktické nástroje, AI pomocníci a přehledný rozcestník." />
-  <style>
-    :root{
-      --bg:#080d14;
-      --bg-alt:#111926;
-      --surface:#151f2e;
-      --surface-soft:#1a2537;
-      --line:rgba(196,215,255,.16);
-      --line-soft:rgba(196,215,255,.09);
-      --text:#f4f7fd;
-      --text-soft:#cad8eb;
-      --muted:#9aaec8;
-      --accent:#efc38a;
-      --accent-strong:#f4d1a2;
-      --ink:#101723;
-      --max:1160px;
-      --radius:20px;
-      --shadow:0 26px 44px rgba(2,8,17,.44);
-    }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aplikace a průvodci | TonyStark.cz</title>
+<meta content="Aplikace a průvodci TonyStark.cz: praktické nástroje, AI pomocníci a přehledný rozcestník." name="description"/>
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(760px 380px at -12% 0%, rgba(239,195,138,.14), transparent 62%),
-        radial-gradient(840px 420px at 100% 8%, rgba(99,140,230,.13), transparent 62%),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 56px),
-        linear-gradient(180deg, #0b1220 0%, #09101d 34%, #080d14 100%);
-      min-height:100vh;
-    }
-
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
-
-    .topbar{
-      position:sticky; top:0; z-index:20;
-      backdrop-filter:blur(14px);
-      background:rgba(8,12,19,.75);
-      border-bottom:1px solid var(--line-soft);
-    }
-
-    .topbar-inner{min-height:74px; display:flex; align-items:center; justify-content:space-between; gap:16px}
-    .brand{display:flex; align-items:center; gap:12px}
-    .brand-mark{width:40px; height:40px; border-radius:13px; display:grid; place-items:center; font-weight:800; color:#14181f; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
-    .brand-title{font-size:1rem; font-weight:700}
-    .brand-sub{font-size:.78rem; color:var(--muted); margin-top:2px}
-
-    nav{display:flex; gap:8px; flex-wrap:wrap}
-    nav a{padding:10px 13px; border-radius:999px; border:1px solid transparent; color:var(--text-soft)}
-    nav a:hover, nav a.active{background:rgba(255,255,255,.05); border-color:var(--line)}
-
-    .hero{padding:52px 0 30px}
-    .eyebrow{display:inline-block; margin:0 0 14px; color:#f2dcc0; font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
-    h1{margin:0 0 14px; font-size:clamp(2rem,4vw,3rem); line-height:1.08; letter-spacing:-.04em}
-    .lead{margin:0; max-width:70ch; color:var(--text-soft); line-height:1.8; font-size:1.08rem}
-
-    .hero-shell{
-      border:1px solid var(--line-soft);
-      border-radius:calc(var(--radius) + 2px);
-      padding:clamp(22px,4vw,34px);
-      background:
-        linear-gradient(120deg, rgba(239,195,138,.1), transparent 45%),
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
-      box-shadow:var(--shadow);
-      display:grid;
-      gap:22px;
-    }
-
-    .hero-actions{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .quick-link{
-      border:1px solid var(--line-soft);
-      border-radius:14px;
-      padding:12px 14px;
-      background:rgba(10,16,28,.55);
-      display:grid;
-      gap:4px;
-      min-height:84px;
-    }
-
-    .quick-label{font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:#f2dcc0}
-    .quick-link strong{font-size:1rem; font-weight:650; line-height:1.35}
-    .quick-link span{font-size:.88rem; color:var(--muted)}
-
-    .apps{padding:10px 0 58px}
-    .apps-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
-
-    .app-card{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-        linear-gradient(180deg, var(--surface) 0%, var(--bg-alt) 100%);
-      box-shadow:var(--shadow);
-      padding:22px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      min-height:236px;
-    }
-
-    .tag{display:inline-flex; align-items:center; gap:6px; font-size:.75rem; letter-spacing:.07em; text-transform:uppercase; color:#f3dcc0}
-    .app-card h2{margin:0; font-size:1.34rem; line-height:1.25}
-    .app-card p{margin:0; color:var(--text-soft); line-height:1.8}
-    .meta{margin-top:auto; color:var(--muted); font-size:.9rem}
-
-    .btn{
-      margin-top:2px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:max-content;
-      padding:10px 14px;
-      border-radius:11px;
-      font-weight:600;
-      border:1px solid var(--line);
-      color:var(--text);
-      background:rgba(255,255,255,.04);
-    }
-
-    .btn.primary{
-      color:var(--ink);
-      border:0;
-      background:linear-gradient(140deg,var(--accent),var(--accent-strong));
-    }
-
-    .journey{
-      margin-top:18px;
-      border:1px solid var(--line-soft);
-      border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
-      padding:22px;
-      display:grid;
-      gap:16px;
-    }
-
-    .journey h3{
-      margin:0;
-      font-size:1.34rem;
-      letter-spacing:-.02em;
-    }
-
-    .steps{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .step{
-      border:1px solid var(--line-soft);
-      border-radius:14px;
-      padding:12px 13px;
-      background:rgba(8,16,28,.6);
-      display:grid;
-      gap:8px;
-    }
-
-    .step strong{
-      font-size:.8rem;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-      color:#f2dcc0;
-    }
-
-    .step span{
-      color:var(--text-soft);
-      line-height:1.65;
-      font-size:.95rem;
-    }
-
-    .hint{
-      margin-top:18px;
-      padding:16px 18px;
-      border:1px solid var(--line-soft);
-      background:rgba(12,20,34,.7);
-      border-radius:14px;
-      color:var(--text-soft);
-      line-height:1.7;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-
-
-    footer{padding:24px 0 42px; color:#97a6b7; font-size:.89rem}
-
-    @media (max-width: 960px){
-      .topbar-inner{align-items:flex-start; flex-direction:column; padding:14px 0}
-      .apps-grid{grid-template-columns:1fr}
-      .hero-actions, .steps{grid-template-columns:1fr}
-      .hint{align-items:flex-start; flex-direction:column}
-    }
-
-    @media (max-width: 760px){
-      nav{gap:4px}
-      nav a{padding:8px 10px; font-size:.9rem}
-      .hero{padding:34px 0 18px}
-      .lead{font-size:1rem; line-height:1.82}
-      .app-card{padding:18px}
-    }
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="/">
-        <span class="brand-mark">T</span>
-        <span>
-          <span class="brand-title">TonyStark.cz</span><br />
-          <span class="brand-sub">osobní web a projekty</span>
-        </span>
-      </a>
-
-      <nav aria-label="Hlavní navigace">
-        <a href="/">Domů</a>
-        <a class="active" href="/aplikace/">Aplikace</a>
-        <a href="/webove-aplikace/">Webové aplikace</a>
-        <a href="/projekty/">Projekty</a>
-        <a href="/smer-webu/">Směr webu</a>
-        <a href="/kontakt/">Kontakt</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <div class="hero-shell">
-          <div>
-            <p class="eyebrow">Sekce aplikací</p>
-            <h1>Aplikace a průvodci na jednom místě</h1>
-            <p class="lead">
-              Nový rozcestník je postavený jako rychlá orientační mapa: nejdřív si vybereš cíl,
-              pak otevřeš správný nástroj. Vizuál i struktura drží stejný tmavý jazyk jako zbytek webu,
-              ale s jasnější navigací podle toho, co chceš právě řešit.
-            </p>
-          </div>
-
-          <div class="hero-actions">
-            <a class="quick-link" href="/aplikace/chatgpt-pruvodce/">
-              <span class="quick-label">Začni rychle</span>
-              <strong>Potřebuji zvládnout ChatGPT prakticky</strong>
-              <span>Jasné kapitoly od zadávání až po pokročilé funkce.</span>
-            </a>
-            <a class="quick-link" href="/aplikace/codex-pruvodce/">
-              <span class="quick-label">Jdu do hloubky</span>
-              <strong>Chci stabilní workflow s Codexem</strong>
-              <span>Postup od prvních úkolů po profesionální režim práce.</span>
-            </a>
-            <a class="quick-link" href="/smer-webu/">
-              <span class="quick-label">Sleduj novinky</span>
-              <strong>Zajímá mě plán dalších aplikací</strong>
-              <span>Co přibude příště a na jaké scénáře to bude cílit.</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="apps">
-      <div class="wrap">
-        <div class="apps-grid">
-          <article class="app-card">
-            <span class="tag">Průvodce · AI</span>
-            <h2>ChatGPT přehledně a prakticky</h2>
-            <p>
+<link href="/assets/site.css" rel="stylesheet"/><script defer="" src="/assets/site.js"></script></head>
+<body class="interior"><a class="skip-link" href="#main">Přejít na obsah</a>
+<header class="site-header"><div class="site-header-inner"><a aria-label="TonyStark.cz – domů" class="wordmark" href="/">TonyStark<span>.cz</span></a><button aria-controls="site-nav" aria-expanded="false" class="nav-toggle" type="button">Menu</button><nav aria-label="Hlavní navigace" class="site-nav" id="site-nav"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a><a href="/kontakt/">Kontakt</a></nav></div></header><main id="main">
+<section class="hero">
+<div class="wrap">
+<div class="hero-shell">
+<div>
+<p class="eyebrow">Sekce aplikací</p>
+<h1>Aplikace a průvodci na jednom místě</h1>
+<p class="lead">Praktičtí průvodci používáním ChatGPT a Codexu. Vyber si téma a pusť se do něj vlastním tempem.</p>
+</div>
+<div class="hero-actions">
+<a class="quick-link" href="/aplikace/chatgpt-pruvodce/">
+<span class="quick-label">Začni rychle</span>
+<strong>Potřebuji zvládnout ChatGPT prakticky</strong>
+<span>Jasné kapitoly od zadávání až po pokročilé funkce.</span>
+</a>
+<a class="quick-link" href="/aplikace/codex-pruvodce/">
+<span class="quick-label">Jdu do hloubky</span>
+<strong>Chci stabilní workflow s Codexem</strong>
+<span>Postup od prvních úkolů po profesionální režim práce.</span>
+</a>
+<a class="quick-link" href="/smer-webu/">
+<span class="quick-label">Sleduj novinky</span>
+<strong>Zajímá mě plán dalších aplikací</strong>
+<span>Co přibude příště a na jaké scénáře to bude cílit.</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="apps">
+<div class="wrap">
+<div class="apps-grid">
+<article class="app-card">
+<span class="tag">Průvodce · AI</span>
+<h2>ChatGPT přehledně a prakticky</h2>
+<p>
               Kompletní český průvodce používáním ChatGPT: zadání, vlastní pokyny, paměť, dočasný chat,
               projekty, vyhledávání, tarify i nejčastější otázky.
             </p>
-            <a class="btn primary" href="/aplikace/chatgpt-pruvodce/">Otevřít průvodce</a>
-            <div class="meta">Aktualizovaný a vhodný pro začátečníky i pokročilé.</div>
-          </article>
-
-          <article class="app-card">
-            <span class="tag">Průvodce · Codex</span>
-            <h2>Průvodce Codexem: od nuly po profi workflow</h2>
-            <p>
+<a class="btn primary" href="/aplikace/chatgpt-pruvodce/">Otevřít průvodce</a>
+<div class="meta">Aktualizovaný a vhodný pro začátečníky i pokročilé.</div>
+</article>
+<article class="app-card">
+<span class="tag">Průvodce · Codex</span>
+<h2>Průvodce Codexem: od nuly po profi workflow</h2>
+<p>
               Praktický rozcestník pro začátečníky, mírně pokročilé i profesionály:
               jak zadávat úkoly, kontrolovat výstupy, držet kvalitu a zrychlit práci na reálném projektu.
             </p>
-            <a class="btn primary" href="/aplikace/codex-pruvodce/">Otevřít průvodce</a>
-            <div class="meta">Samostatná stránka s podrobným návodem pro začátečníky, pokročilé i profesionály.</div>
-          </article>
-
-          <article class="app-card">
-            <span class="tag">Brzy</span>
-            <h2>Další užitečné aplikace</h2>
-            <p>
+<a class="btn primary" href="/aplikace/codex-pruvodce/">Otevřít průvodce</a>
+<div class="meta">Samostatná stránka s podrobným návodem pro začátečníky, pokročilé i profesionály.</div>
+</article>
+<article class="app-card">
+<span class="tag">Brzy</span>
+<h2>Další užitečné aplikace</h2>
+<p>
               Připravuji nové nástroje zaměřené na produktivitu, práci s textem, AI workflow a praktickou automatizaci.
             </p>
-            <a class="btn" href="/smer-webu/">Zobrazit plán rozvoje</a>
-            <div class="meta">Jakmile bude nová aplikace venku, objeví se právě tady.</div>
-          </article>
-        </div>
-
-        <section class="journey" aria-label="Jak vybrat správný obsah">
-          <h3>Jak vybrat správný start</h3>
-          <div class="steps">
-            <div class="step">
-              <strong>Krok 1</strong>
-              <span>Vyber si scénář: ChatGPT pro práci s textem, nebo Codex pro AI spolupráci v projektu.</span>
-            </div>
-            <div class="step">
-              <strong>Krok 2</strong>
-              <span>Otevři průvodce a projdi doporučenou posloupnost kapitol bez přeskakování základů.</span>
-            </div>
-            <div class="step">
-              <strong>Krok 3</strong>
-              <span>Použij plán rozvoje a sleduj, které nové aplikace přibudou pro další úroveň produktivity.</span>
-            </div>
-          </div>
-        </section>
-
-        <p class="hint">
+<a class="btn" href="/smer-webu/">Zobrazit plán rozvoje</a>
+<div class="meta">Jakmile bude nová aplikace venku, objeví se právě tady.</div>
+</article>
+</div>
+<section aria-label="Jak vybrat správný obsah" class="journey">
+<h3>Jak vybrat správný start</h3>
+<div class="steps">
+<div class="step">
+<strong>Krok 1</strong>
+<span>Vyber si scénář: ChatGPT pro práci s textem, nebo Codex pro AI spolupráci v projektu.</span>
+</div>
+<div class="step">
+<strong>Krok 2</strong>
+<span>Otevři průvodce a projdi doporučenou posloupnost kapitol bez přeskakování základů.</span>
+</div>
+<div class="step">
+<strong>Krok 3</strong>
+<span>Použij plán rozvoje a sleduj, které nové aplikace přibudou pro další úroveň produktivity.</span>
+</div>
+</div>
+</section>
+<p class="hint">
           Chceš detailní postup pro práci s Codexem? Otevři plnou verzi průvodce s konkrétními kroky.
           <a class="btn primary" href="/aplikace/codex-pruvodce/">Otevřít detailní průvodce</a>
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">© 2026 TonyStark.cz · Aplikace, které dávají praktický smysl.</div>
-  </footer>
-</body>
+</p>
+</div>
+</section>
+</main><footer class="site-footer"><div class="footer-top"><a class="footer-brand" href="/">TonyStark.cz</a><span>Osobní web a projekty</span><nav aria-label="Další stránky"><a href="/webove-aplikace/">Webové aplikace</a><a href="/smer-webu/">Směr webu</a><a href="/info-panel/">Info panel</a><a href="/kontakt/">Kontakt</a></nav></div><p class="footer-note">IT a AI. Hudba. Rodina. Život.</p></footer></body>
 </html>
