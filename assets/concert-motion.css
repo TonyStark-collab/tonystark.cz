@@ -6,15 +6,19 @@
 .home .world-band{position:relative;isolation:isolate}
 .world-band>.world-copy{position:relative;z-index:1}
 .world-band>.concert-motion{max-width:none;z-index:0;mask-image:linear-gradient(90deg,transparent 35%,#000 68%);-webkit-mask-image:linear-gradient(90deg,transparent 35%,#000 68%)}
-.stage-beam{transform-box:view-box;animation:concert-sweep var(--duration,4s) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
-.stage-beam:nth-child(even){animation-direction:alternate-reverse}
-.stage-haze{transform-box:view-box;animation:concert-haze var(--duration,6s) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
-.stage-glow{animation:concert-glow 4s ease-in-out infinite alternate;animation-delay:-2s}
-.concert-motion .stage-beam,.concert-motion .stage-haze,.concert-motion .stage-glow{animation-play-state:paused}
-.concert-motion[data-playing="true"] .stage-beam,.concert-motion[data-playing="true"] .stage-haze,.concert-motion[data-playing="true"] .stage-glow{animation-play-state:running}
-@keyframes concert-sweep{0%{transform:rotate(-26deg);opacity:.48}50%{opacity:.85}100%{transform:rotate(24deg);opacity:.64}}
-@keyframes concert-haze{from{transform:translate(-65px,22px);opacity:.2}to{transform:translate(85px,-25px);opacity:.48}}
-@keyframes concert-glow{from{opacity:.1}to{opacity:.32}}
+.stage-beam{transform-box:view-box;animation:concert-sweep var(--duration,3s) ease-in-out infinite;animation-direction:var(--direction,alternate);animation-delay:var(--delay,0s)}
+.stage-haze{transform-box:fill-box;transform-origin:center;animation:concert-haze var(--duration,6s) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
+.stage-glow{animation:concert-glow 2.8s ease-in-out infinite alternate;animation-delay:-1.4s}
+.stage-wash{animation:concert-wash 7s ease-in-out infinite;animation-delay:-1s}
+.stage-wash--cool{animation-delay:-4.5s}
+.stage-flare{animation:concert-flare 2.6s ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
+.concert-motion .stage-effect{animation-play-state:paused}
+.concert-motion[data-playing="true"] .stage-effect{animation-play-state:running}
+@keyframes concert-sweep{0%{transform:rotate(-36deg);opacity:.6}50%{opacity:1}100%{transform:rotate(34deg);opacity:.75}}
+@keyframes concert-haze{from{transform:translate(-85px,26px) scale(.94);opacity:.25}to{transform:translate(95px,-36px) scale(1.1);opacity:.58}}
+@keyframes concert-glow{from{opacity:.16}to{opacity:.5}}
+@keyframes concert-wash{0%,100%{opacity:.04}35%{opacity:.38}60%{opacity:.46}80%{opacity:.14}}
+@keyframes concert-flare{from{opacity:.45}to{opacity:.95}}
 .concert-toggle{position:absolute;right:16px;bottom:16px;z-index:4;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:8px 13px;border:1px solid #827c70;border-radius:2px;background:#faf9f3ed;color:#161d1d;font-family:RobotoCondensed,Arial,sans-serif;font-size:14px;line-height:1.25;cursor:pointer;box-shadow:0 1px 6px #0002}
 .concert-toggle[hidden]{display:none}
 .concert-toggle svg{width:14px;height:14px;flex:none;fill:currentColor}
