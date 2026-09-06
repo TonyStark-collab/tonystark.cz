@@ -25,3 +25,9 @@ body.home{--paper:#faf9f3;--red:#fa4032;--lime:#b2f914;--line:#b4b4ba;font-famil
 @media(min-width:1151px){.home .guides-heading h2{font-size:clamp(72px,6.3vw,89px)}.home .guide-entry{grid-template-columns:112px minmax(0,1fr) 210px;gap:12px}}
 @media(max-width:600px){.home .guide-number{font-size:58px}}
 @media(min-width:1151px){.home .guide-number{font-size:128px}}
+
+/* The paper photographs sit above the real keyboard, as in the reference. */
+.home .keyboard-placement{z-index:1}
+.home .collage-foreground{position:absolute;inset:0;z-index:2;pointer-events:none;mask-image:url('/assets/hero-paper-mask.svg');mask-size:cover;mask-position:center;mask-repeat:no-repeat;-webkit-mask-image:url('/assets/hero-paper-mask.svg');-webkit-mask-size:cover;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat}
+.home .hero-note{z-index:3}
+@media(max-width:600px){.home .collage-foreground{mask-position:center 62%;-webkit-mask-position:center 62%}}
