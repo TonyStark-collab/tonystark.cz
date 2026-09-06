@@ -25,6 +25,8 @@
 .concert-toggle:hover{background:#fff}
 .world-band>.concert-toggle{right:max(4%,calc((100% - 1320px)/2));bottom:12px;color:#fff;background:#111917eb;border-color:#7c827e}
 .world-band>.concert-toggle:hover{background:#26322f}
+/* Keep motion controls available to keyboard and screen-reader users. */
+.concert-toggle:not(:focus-visible){width:1px;height:1px;min-height:0;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;box-shadow:none}
 .concert-toggle:focus-visible{outline:3px solid #b2f914;outline-offset:3px}
-@media(max-width:600px){.concert-toggle{right:12px;bottom:12px;font-size:13px;padding:8px 11px}.home .world-band{padding-bottom:66px}.world-band>.concert-toggle{right:6%;bottom:11px}}
+@media(max-width:600px){.concert-toggle{right:12px;bottom:12px;font-size:13px}.concert-toggle:focus-visible{padding:8px 11px}.world-band>.concert-toggle{right:6%;bottom:11px}}
 @media(prefers-reduced-motion:reduce){.concert-motion,.concert-toggle{display:none!important}}
