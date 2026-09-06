@@ -15,14 +15,14 @@
     hero: {
       width: 1000, height: 1000,
       clip: 'M1000 314L951 325 899 338 847 350 796 362 744 374 692 386 640 398 586 410 602 501 617 593 633 684 657 793 691 785 719 778 722 769 772 757 824 745 876 733 930 718 1000 701Z',
-      beams: [[720,438,190,72],[841,422,210,90],[955,407,200,68]],
+      beams: [[720,438,285,42],[841,422,310,50],[955,407,300,40]],
       haze: [[807,585,165,44],[902,633,130,31]],
       glow: [865,550,200,145],
     },
     band: {
       width: 2048, height: 682,
       clip: 'M1240 70H2048V650H1140L1200 375Z',
-      beams: [[1442,185,255,100],[1566,182,240,105],[1667,195,245,87],[1754,175,240,103],[1859,193,230,80]],
+      beams: [[1442,185,355,55],[1566,182,370,65],[1667,195,345,48],[1754,175,365,60],[1859,193,345,48]],
       haze: [[1600,343,290,48],[1840,405,265,39]],
       glow: [1700,320,390,190],
     },
@@ -36,7 +36,7 @@
       <defs>
         <clipPath id="${id}-clip"><path d="${scene.clip}"/></clipPath>
         <linearGradient id="${id}-beam" x1="0" y1="0" x2="0" y2="1">
-          <stop stop-color="#fff3d5" stop-opacity=".95"/><stop offset=".35" stop-color="#ffbd85" stop-opacity=".62"/><stop offset="1" stop-color="#ff5839" stop-opacity="0"/>
+          <stop stop-color="#fff5e6"/><stop offset=".35" stop-color="#ffdec9" stop-opacity=".9"/><stop offset=".7" stop-color="#ff9b73" stop-opacity=".4"/><stop offset="1" stop-color="#ff5839" stop-opacity="0"/>
         </linearGradient>
         <radialGradient id="${id}-haze"><stop stop-color="#ffd5bf" stop-opacity=".85"/><stop offset=".45" stop-color="#ff9774" stop-opacity=".5"/><stop offset="1" stop-color="#ff6348" stop-opacity="0"/></radialGradient>
         <radialGradient id="${id}-glow"><stop stop-color="#ffb17e" stop-opacity=".7"/><stop offset="1" stop-color="#ff342c" stop-opacity="0"/></radialGradient>
@@ -44,8 +44,8 @@
       </defs>
       <g clip-path="url(#${id}-clip)">
         <ellipse class="stage-glow" cx="${gx}" cy="${gy}" rx="${grx}" ry="${gry}" fill="url(#${id}-glow)"/>
-        ${scene.beams.map(([x,y,length,spread],i) => `<g class="stage-beam" style="transform-origin:${x}px ${y}px;--duration:${10+i*2}s;--delay:-${i*3}s"><path d="M${x-3} ${y}L${x-spread} ${y+length}Q${x} ${y+length+25} ${x+spread} ${y+length}L${x+3} ${y}Z" fill="url(#${id}-beam)" filter="url(#${id}-soft)"/></g>`).join('')}
-        ${scene.haze.map(([x,y,rx,ry],i) => `<g class="stage-haze" style="--duration:${17+i*6}s;--delay:-${i*8}s"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="url(#${id}-haze)"/></g>`).join('')}
+        ${scene.beams.map(([x,y,length,spread],i) => `<g class="stage-beam" style="transform-origin:${x}px ${y}px;--duration:${3.6+i*.65}s;--delay:-${1.8+i*1.3}s"><path d="M${x-3} ${y}L${x-spread} ${y+length}Q${x} ${y+length+25} ${x+spread} ${y+length}L${x+3} ${y}Z" fill="url(#${id}-beam)" filter="url(#${id}-soft)"/></g>`).join('')}
+        ${scene.haze.map(([x,y,rx,ry],i) => `<g class="stage-haze" style="--duration:${5+i*2}s;--delay:-${2+i*3}s"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="url(#${id}-haze)"/></g>`).join('')}
       </g>
     </svg>`;
   };
