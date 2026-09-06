@@ -19,11 +19,6 @@
 @keyframes concert-glow{from{opacity:.16}to{opacity:.5}}
 @keyframes concert-wash{0%,100%{opacity:.04}35%{opacity:.38}60%{opacity:.46}80%{opacity:.14}}
 @keyframes concert-flare{from{opacity:.45}to{opacity:.95}}
-.concert-crowd{visibility:hidden}
-.concert-motion[data-crowd-ready="true"] .concert-crowd{visibility:visible}
-.crowd-actor{transform-box:view-box;animation:crowd-sway var(--crowd-duration,4s) cubic-bezier(.45,0,.55,1) infinite;animation-delay:var(--crowd-delay,0s)}
-.concert-motion:not([data-crowd-ready="true"]) .crowd-actor{animation-play-state:paused}
-@keyframes crowd-sway{0%,100%{transform:rotate(calc(var(--crowd-sway)*-.7)) translateY(0)}50%{transform:rotate(var(--crowd-sway)) translateY(calc(var(--crowd-lift)*-1))}}
 .concert-toggle{position:absolute;right:16px;bottom:16px;z-index:4;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:8px 13px;border:1px solid #827c70;border-radius:2px;background:#faf9f3ed;color:#161d1d;font-family:RobotoCondensed,Arial,sans-serif;font-size:14px;line-height:1.25;cursor:pointer;box-shadow:0 1px 6px #0002}
 .concert-toggle[hidden]{display:none}
 .concert-toggle svg{width:14px;height:14px;flex:none;fill:currentColor}
