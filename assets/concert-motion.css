@@ -6,12 +6,12 @@
 .home .world-band{position:relative;isolation:isolate}
 .world-band>.world-copy{position:relative;z-index:1}
 .world-band>.concert-motion{max-width:none;z-index:0;mask-image:linear-gradient(90deg,transparent 35%,#000 68%);-webkit-mask-image:linear-gradient(90deg,transparent 35%,#000 68%)}
-.stage-beam{transform-box:view-box;animation:concert-sweep var(--duration,3s) ease-in-out infinite;animation-direction:var(--direction,alternate);animation-delay:var(--delay,0s)}
-.stage-haze{transform-box:fill-box;transform-origin:center;animation:concert-haze var(--duration,6s) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
-.stage-glow{animation:concert-glow 2.8s ease-in-out infinite alternate;animation-delay:-1.4s}
-.stage-wash{animation:concert-wash 7s ease-in-out infinite;animation-delay:-1s}
-.stage-wash--cool{animation-delay:-4.5s}
-.stage-flare{animation:concert-flare 2.6s ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
+.stage-beam{transform-box:view-box;animation:concert-sweep var(--duration,1.5s) ease-in-out infinite;animation-direction:var(--direction,alternate);animation-delay:var(--delay,0s)}
+.stage-haze{transform-box:fill-box;transform-origin:center;animation:concert-haze var(--duration,3s) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
+.stage-glow{animation:concert-glow 1.4s ease-in-out infinite alternate;animation-delay:-.7s}
+.stage-wash{animation:concert-wash 3.5s ease-in-out infinite;animation-delay:-.5s}
+.stage-wash--cool{animation-delay:-2.25s}
+.stage-flare{animation:concert-flare 1.3s ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
 .concert-motion .stage-effect{animation-play-state:paused}
 .concert-motion[data-playing="true"] .stage-effect{animation-play-state:running}
 @keyframes concert-sweep{0%{transform:rotate(-36deg);opacity:.6}50%{opacity:1}100%{transform:rotate(34deg);opacity:.75}}
