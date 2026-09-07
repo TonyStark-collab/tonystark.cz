@@ -1,0 +1,74 @@
+.dashboard-page { --accent: #d73529; }
+.dashboard-page .breadcrumb { margin-bottom: 28px; }
+.dashboard-page .daily-intro { padding-bottom: 26px; margin-bottom: 30px; }
+.editorial.dashboard-page main .daily-intro h1 { font-size: clamp(42px, 4.7vw, 64px); margin-bottom: 14px; line-height: 1.15; }
+.editorial.dashboard-page main .daily-intro .page-lead { font-size: 22px; }
+.daily-board { display: grid; grid-template-columns: 1.08fr 1fr; grid-template-areas: 'day weather' 'nameday weather'; gap: 18px 24px; }
+.daily-board article { min-width: 0; }
+.day-card { grid-area: day; background: #142d29; color: #faf9f3; padding: 30px 34px 26px; border-top: 4px solid #d73529; }
+.day-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap; }
+.day-heading p { margin: 0; font-family: RobotoCondensed, Arial, sans-serif; }
+.day-heading #today-day { font-size: 32px; font-weight: 600; }
+.day-heading #today-date { font-size: 20px; color: #d3dbd4; }
+.day-card .clock-label { font-family: RobotoCondensed, Arial, sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin: 26px 0 4px; color: #d3dbd4; }
+.day-card .clock-value { display: flex; align-items: baseline; gap: 15px; margin: 0; font-family: RobotoCondensed, Arial, sans-serif; font-weight: 600; font-size: clamp(64px, 7.5vw, 104px); line-height: 1.06; font-variant-numeric: tabular-nums; letter-spacing: -2px; white-space: nowrap; }
+.clock-seconds { font-size: .34em; letter-spacing: 0; color: #c5d9ca; }
+.day-card .clock-note { margin: 16px 0 0; font-size: 14px; color: #c5d9ca; }
+.weather-card { grid-area: weather; display: flex; flex-direction: column; background: #f0ecdf; border-top: 4px solid #bbaa85; padding: 28px 32px 22px; }
+.weather-heading { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.weather-heading label { font-family: RobotoCondensed, Arial, sans-serif; font-size: 17px; font-weight: 600; white-space: nowrap; }
+.weather-heading select { width: auto; max-width: 65%; min-height: 46px; padding: 9px 35px 9px 12px; border: 1px solid #9e9b8e; border-radius: 0; background-color: #faf9f3; color: #182c28; font-size: 17px; cursor: pointer; }
+.weather-reading { margin: 28px 0; flex: 1; }
+.weather-card .weather-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.weather-card .weather-temp { font-family: Anton, Impact, sans-serif; font-size: clamp(64px, 6.5vw, 88px); font-weight: 400; line-height: 1.15; letter-spacing: -2px; margin: 0; white-space: nowrap; }
+.weather-card .weather-icon { display: grid; place-items: center; flex-shrink: 0; width: 90px; height: 90px; font-size: 64px; line-height: 1; background: none; border: 0; box-shadow: none; animation: none; }
+.weather-card .weather-detail { font-size: 18px; margin: 16px 0 0; line-height: 1.6; }
+.weather-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 18px; border-top: 1px solid #c6c0ae; }
+.weather-footer .status { font-size: 14px; color: #4a514a; line-height: 1.5; margin: 0; }
+.weather-footer .copy-button { background: #142d29; color: #faf9f3; border: 1px solid #142d29; font-size: 16px; padding: 10px 15px; white-space: nowrap; }
+.weather-footer .copy-button:hover { background: #254d40; }
+.weather-footer .copy-button:disabled { opacity: .6; cursor: wait; }
+.weather-card .weather-source { font-size: 14px; color: #555b51; margin: 17px 0 0; }
+.nameday-card { grid-area: nameday; display: flex; align-items: baseline; justify-content: space-between; gap: 10px 24px; border-bottom: 1px solid var(--line); padding: 14px 2px 18px; }
+.nameday-card .label { font-family: RobotoCondensed, Arial, sans-serif; font-size: 16px; color: #595f57; flex-shrink: 0; }
+.nameday-card p { font-family: RobotoCondensed, Arial, sans-serif; font-size: 28px; font-weight: 600; line-height: 1.25; text-align: right; margin: 0; overflow-wrap: anywhere; }
+.editorial.dashboard-page main .daily-note { margin: 20px 0 0; max-width: 76ch; }
+.dashboard-page .next-step { margin-top: 34px; padding-top: 24px; border-top-width: 2px; }
+.editorial.dashboard-page main .next-step h2 { font-size: 28px; }
+@media (max-width: 850px) {
+  .daily-board { gap: 16px; grid-template-columns: 1fr 1fr; }
+  .day-card, .weather-card { padding-left: 22px; padding-right: 22px; }
+  .day-heading { display: block; }
+  .weather-card .weather-icon { width: 62px; height: 62px; font-size: 48px; }
+  .weather-footer { align-items: flex-start; flex-direction: column; }
+  .nameday-card { flex-wrap: wrap; }
+  .nameday-card p { text-align: left; }
+}
+@media (max-width: 600px) {
+  .editorial.dashboard-page main { width: 90%; }
+  .dashboard-page .breadcrumb { margin-bottom: 22px; }
+  .dashboard-page .daily-intro { margin-bottom: 22px; padding-bottom: 22px; }
+  .editorial.dashboard-page main .daily-intro h1 { font-size: clamp(36px, 9.5vw, 48px); letter-spacing: -.8px; }
+  .editorial.dashboard-page main .daily-intro .page-lead { font-size: 19px; }
+  .daily-board { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'day' 'nameday' 'weather'; gap: 14px; }
+  .day-card { padding: 22px 24px; }
+  .day-heading { display: flex; }
+  .day-heading #today-day { font-size: 28px; }
+  .day-heading #today-date { font-size: 18px; }
+  .day-card .clock-label { margin-top: 20px; }
+  .day-card .clock-value { font-size: clamp(64px, 20vw, 96px); }
+  .day-card .clock-note { margin-top: 12px; }
+  .nameday-card { padding: 4px 1px 16px; }
+  .nameday-card p { font-size: 26px; }
+  .weather-card { padding: 20px 24px; }
+  .weather-reading { margin: 24px 0; }
+  .weather-card .weather-temp { font-size: 72px; }
+  .weather-card .weather-icon { width: 72px; height: 72px; font-size: 54px; }
+  .weather-footer { flex-direction: row; align-items: center; gap: 12px; }
+  .weather-footer .copy-button { padding: 10px 12px; }
+  .weather-card .weather-detail { font-size: 17px; }
+}
+@media (max-width: 360px) {
+  .day-card, .weather-card { padding-left: 18px; padding-right: 18px; }
+  .weather-footer { flex-direction: column; align-items: flex-start; }
+}
