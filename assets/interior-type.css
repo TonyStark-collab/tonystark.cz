@@ -1,0 +1,117 @@
+/* Approved homepage pairing, extended to the three overview pages. */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/assets/fonts/space-grotesk-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto Slab';
+  src: url('/assets/fonts/roboto-slab-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+.editorial.type-pairing {
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.editorial.type-pairing .site-nav,
+.editorial.type-pairing .breadcrumb,
+.editorial.type-pairing .eyebrow,
+.editorial.type-pairing main .page-lead,
+.editorial.type-pairing main .about-lead,
+.editorial.type-pairing .about-nav a,
+.editorial.type-pairing .about-details summary,
+.editorial.type-pairing .text-link,
+.editorial.type-pairing .guide-personal,
+.editorial.type-pairing .site-footer {
+  font-family: 'Space Grotesk', Arial, sans-serif;
+}
+.editorial.type-pairing .site-nav a { font-size: 17px; }
+.editorial.type-pairing .breadcrumb { font-size: 14px; }
+.editorial.type-pairing .eyebrow {
+  font-size: 12px;
+  line-height: 1.65;
+  letter-spacing: 1.4px;
+}
+.editorial.type-pairing main .page-intro h1,
+.editorial.type-pairing main .about-intro h1,
+.editorial.type-pairing main .editorial-row h2,
+.editorial.type-pairing main .editorial-split h2,
+.editorial.type-pairing main .about-copy h2,
+.editorial.type-pairing main .next-step h2,
+.editorial.type-pairing .row-number,
+.editorial.type-pairing .about-concert figcaption {
+  font-family: 'Roboto Slab', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.editorial.type-pairing main .page-intro h1,
+.editorial.type-pairing main .about-intro h1 {
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.25;
+  max-width: 100%;
+}
+.editorial.type-pairing main .page-lead,
+.editorial.type-pairing main .about-lead {
+  font-size: clamp(19px, 1.8vw, 23px);
+  line-height: 1.6;
+  max-width: 65ch;
+}
+.editorial.type-pairing .about-intro { gap: 48px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.editorial.type-pairing main .editorial-row h2,
+.editorial.type-pairing main .editorial-split h2,
+.editorial.type-pairing main .about-copy h2,
+.editorial.type-pairing main .next-step h2 {
+  font-size: clamp(25px, 2.4vw, 32px);
+  line-height: 1.35;
+}
+.editorial.type-pairing .editorial-row,
+.editorial.type-pairing .editorial-row:not(:has(.row-art)) { grid-template-columns: 76px minmax(0, 1fr); gap: 26px; }
+.editorial.type-pairing .editorial-row:has(.row-art) { grid-template-columns: 76px minmax(0, 1fr) 190px; }
+.editorial.type-pairing .row-number { font-size: 64px; line-height: 1.2; }
+.editorial.type-pairing .editorial-row p:not(.eyebrow),
+.editorial.type-pairing .editorial-split p,
+.editorial.type-pairing main .about-copy p { font-size: 17px; line-height: 1.8; }
+.editorial.type-pairing .text-link { font-size: 17px; font-weight: 600; max-width: 100%; gap: 14px; }
+.editorial.type-pairing .text-link img { flex-shrink: 0; }
+.editorial.type-pairing .guide-personal { font-size: 15px; }
+.editorial.type-pairing .about-nav a { font-size: 16px; }
+.editorial.type-pairing .about-details summary { font-size: 17px; line-height: 1.6; }
+.editorial.type-pairing main .detail-copy p { font-size: 16px; }
+.editorial.type-pairing .about-concert figcaption { font-size: clamp(21px, 2vw, 28px); line-height: 1.45; }
+.editorial.type-pairing .site-footer { font-size: 14px; }
+.editorial.type-pairing .footer-note { font-size: 12px; }
+.editorial.type-pairing .footer-utilities { flex-wrap: wrap; }
+@media (max-width: 1000px) {
+  .editorial.type-pairing .editorial-row:has(.row-art) { grid-template-columns: 60px minmax(0, 1fr) 140px; }
+  .editorial.type-pairing .editorial-row:not(:has(.row-art)) { grid-template-columns: 60px minmax(0, 1fr); }
+  .editorial.type-pairing .row-number { font-size: 52px; }
+  .editorial.type-pairing .about-intro { gap: 28px; }
+}
+@media (max-width: 700px) {
+  /* Override the older guide introduction's important mobile size. */
+  .editorial.type-pairing main .page-intro h1,
+  .editorial.type-pairing main .about-intro h1 { font-size: clamp(29px, 6.8vw, 38px) !important; line-height: 1.3; }
+  .editorial.type-pairing .about-intro { display: block; }
+  .editorial.type-pairing main .about-lead { margin-top: 22px; }
+  .editorial.type-pairing .about-section { display: block; }
+  .editorial.type-pairing .about-section > .eyebrow { padding-top: 0; margin-bottom: 12px; }
+  .editorial.type-pairing .editorial-row,
+  .editorial.type-pairing .editorial-row:has(.row-art),
+  .editorial.type-pairing .editorial-row:not(:has(.row-art)) { grid-template-columns: 43px minmax(0, 1fr); gap: 16px; }
+  .editorial.type-pairing .row-number { font-size: 39px; }
+  .editorial.type-pairing .row-art-wrap { width: 112px; }
+  .editorial.type-pairing main .editorial-row h2 { font-size: 24px; overflow-wrap: anywhere; }
+  .editorial.type-pairing .editorial-row p:not(.eyebrow),
+  .editorial.type-pairing .editorial-split p,
+  .editorial.type-pairing main .about-copy p { font-size: 16px; line-height: 1.75; }
+  .editorial.type-pairing .eyebrow { font-size: 11px; letter-spacing: 1.1px; }
+  .editorial.type-pairing .text-link { font-size: 16px; gap: 10px; }
+  .editorial.type-pairing .about-nav { gap: 4px 22px; }
+  .editorial.type-pairing .about-concert figcaption { position: static; transform: none; max-width: none; color: var(--ink); padding-top: 12px; font-size: 21px; }
+}
