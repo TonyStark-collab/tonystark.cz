@@ -1,4 +1,22 @@
 /* A quieter personal introduction, using the site's existing type and paper. */
+@font-face {
+ font-family:'Special Elite';
+ src:url('/assets/fonts/special-elite-400.woff2') format('woff2');
+ font-style:normal;
+ font-weight:400;
+ font-display:swap;
+}
+.editorial.type-pairing.about-page main .about-lead {
+ font-family:'Special Elite','Courier New',monospace;
+ font-size:23px;
+ font-weight:400;
+ line-height:1.6;
+ letter-spacing:normal;
+ text-wrap:pretty;
+}
+@media(max-width:700px) {
+ .editorial.type-pairing.about-page main .about-lead { font-size:21px; }
+}
 .about-page .wordmark { font-size:39px; }
 .editorial.about-page main { max-width:1100px; padding-top:42px; }
 .about-intro { display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:center; padding:8px 0 32px; }
