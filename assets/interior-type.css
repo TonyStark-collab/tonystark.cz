@@ -1,4 +1,4 @@
-/* Approved homepage pairing, extended to the three overview pages. */
+/* Shared interior typography, based on the approved homepage pairing. */
 @font-face {
   font-family: 'Space Grotesk';
   src: url('/assets/fonts/space-grotesk-variable.woff2') format('woff2');
@@ -87,6 +87,61 @@
 .editorial.type-pairing .site-footer { font-size: 14px; }
 .editorial.type-pairing .footer-note { font-size: 12px; }
 .editorial.type-pairing .footer-utilities { flex-wrap: wrap; }
+/* Reading pages and tools share the same hierarchy and interface typography. */
+.editorial.type-pairing main :is(h2, h3),
+.editorial.type-pairing :is(.tip-number, .principles article > span, .nameday-line) {
+  font-family: 'Roboto Slab', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1.35;
+}
+.editorial.type-pairing main h2 { font-size: clamp(25px, 2.4vw, 32px); }
+.editorial.type-pairing main h3 { font-size: clamp(21px, 2vw, 26px); }
+.editorial.type-pairing :is(.guide-sidebar, .guide-section summary, .prompt-block > div,
+  .copy-button, .practice-nav, .work-status, .experiment-lesson, .experiment-links,
+  .art-label, .art-caption, .practice-tip summary, .tip-topic, .story-rail),
+.editorial.type-pairing main :is(.edition, .experiment-lesson p, .scene-intro > p,
+  .digital-clock, .clock-note, .weather-source, .scene-caption),
+.editorial.type-pairing .scene-weather :is(label, select, button, p) {
+  font-family: 'Space Grotesk', Arial, sans-serif;
+}
+.editorial.type-pairing .guide-sidebar :is(summary, nav a) { font-size: 15px; line-height: 1.55; }
+.editorial.type-pairing .guide-sidebar nav a { min-height: 44px; }
+.editorial.type-pairing .guide-section summary { font-size: 18px; line-height: 1.6; }
+.editorial.type-pairing .prompt-block > div { flex-wrap: wrap; font-size: 18px; }
+.editorial.type-pairing .prompt-block pre { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 16px; line-height: 1.75; }
+.editorial.type-pairing .copy-button { font-size: 14px; }
+.editorial.type-pairing main .edition { font-size: 14px; line-height: 1.6; }
+.editorial.type-pairing .guide-section :is(p, li) { line-height: 1.8; }
+.editorial.type-pairing .reading-layout { gap: clamp(28px, 4vw, 56px); }
+.editorial.type-pairing :is(.practice-nav, .story-rail) { font-size: 16px; }
+.editorial.type-pairing .tip-number { font-size: 44px; }
+.editorial.type-pairing main .experiment-lesson p { font-size: 21px; line-height: 1.6; }
+.editorial.type-pairing .practice-small-tool .text-link { white-space: normal; }
+.editorial.type-pairing main .scene-intro h1 {
+  font-family: 'Roboto Slab', Georgia, serif;
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: normal;
+  max-width: none;
+}
+.editorial.type-pairing .scene-intro > p:last-child { font-size: clamp(19px, 1.8vw, 23px); }
+.editorial.type-pairing #today-day,
+.editorial.type-pairing #today-date { font-family: 'Space Grotesk', Arial, sans-serif; }
+.editorial.type-pairing #today-day { font-size: clamp(18px, 1.8vw, 25px); }
+.editorial.type-pairing #today-date { font-size: 18px; }
+.editorial.type-pairing #today-number,
+.editorial.type-pairing #weather-temp {
+  font-family: 'Roboto Slab', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+}
+.editorial.type-pairing .nameday-line { font-size: clamp(25px, 2.4vw, 32px); }
+.editorial.type-pairing .weather-heading select { font-size: 17px; }
+.editorial.type-pairing main .scene-caption { font-size: 12px; }
 @media (max-width: 1000px) {
   .editorial.type-pairing .editorial-row:has(.row-art) { grid-template-columns: 60px minmax(0, 1fr) 140px; }
   .editorial.type-pairing .editorial-row:not(:has(.row-art)) { grid-template-columns: 60px minmax(0, 1fr); }
@@ -94,6 +149,12 @@
   .editorial.type-pairing .about-intro { gap: 28px; }
 }
 @media (max-width: 700px) {
+  .editorial.type-pairing main .scene-intro h1 { font-size: clamp(29px, 6.8vw, 38px); line-height: 1.3; }
+  .editorial.type-pairing .guide-sources { padding: 22px 20px; }
+  .editorial.type-pairing main .guide-sources h2 { font-size: 25px; }
+  .editorial.type-pairing .principles article { padding-left: 0; }
+  .editorial.type-pairing .principles article > span { position: static; display: block; margin-bottom: 8px; font-size: 25px; }
+  .editorial.type-pairing .practice-section-heading h2 { overflow-wrap: anywhere; }
   /* Override the older guide introduction's important mobile size. */
   .editorial.type-pairing main .page-intro h1,
   .editorial.type-pairing main .about-intro h1 { font-size: clamp(29px, 6.8vw, 38px) !important; line-height: 1.3; }
@@ -114,4 +175,10 @@
   .editorial.type-pairing .text-link { font-size: 16px; gap: 10px; }
   .editorial.type-pairing .about-nav { gap: 4px 22px; }
   .editorial.type-pairing .about-concert figcaption { position: static; transform: none; max-width: none; color: var(--ink); padding-top: 12px; font-size: 21px; }
+}
+@media (max-width: 600px) {
+  .editorial.type-pairing #today-day { font-size: clamp(13px, 3.6vw, 20px); }
+  .editorial.type-pairing #today-date { font-size: clamp(13px, 3.4vw, 18px); }
+  .editorial.type-pairing #today-number { font-size: clamp(60px, 18vw, 100px); }
+  .editorial.type-pairing #weather-temp { font-size: 56px; }
 }
