@@ -6,3 +6,33 @@
 .work-art-label{position:absolute;inset:23% 15% auto;text-align:center;font-family:Anton,Impact,sans-serif;font-size:clamp(25px,3vw,40px);line-height:1.1;color:#172e3e;transform:rotate(-5deg)}
 .work-art-label small{display:block;margin-top:10px;font-family:RobotoCondensed,Arial,sans-serif;font-size:16px;font-weight:600;line-height:1.25}
 @media(max-width:700px){.work-art-label{font-size:28px}.work-art-label small{font-size:14px;margin-top:6px}.guides-page .editorial-row .text-link{display:inline-flex;max-width:100%;gap:10px;line-height:1.4}.guides-page .editorial-row .text-link img{flex-shrink:0}}
+
+/* Reading pages: compact introductions, readable examples, clear orientation. */
+:is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial .breadcrumb{margin-bottom:26px}
+:is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial .page-intro{padding-bottom:32px;margin-bottom:12px}
+:is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial main .page-intro h1{font-size:clamp(46px,5.2vw,70px);line-height:1.15;letter-spacing:-1px;margin-bottom:18px}
+:is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial main .page-lead{font-size:23px;line-height:1.5;max-width:760px}
+:is(.chatgpt-guide,.codex-guide).editorial .page-intro.with-art{grid-template-columns:minmax(0,1fr) 190px;gap:40px}
+:is(.chatgpt-guide,.work-guide,.codex-guide).editorial main .edition{margin-top:16px}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .reading-layout{padding-top:20px}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .guide-section{padding-bottom:24px;margin-bottom:24px}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .guide-section .eyebrow{margin-bottom:10px}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .prompt-block{padding:22px 24px;margin:22px 0}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .prompt-block pre{font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.75;margin-top:16px}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .guide-sidebar nav a{padding:9px 10px;gap:10px}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .guide-sidebar nav a[aria-current="location"]{color:var(--accent);font-weight:700;background:color-mix(in srgb,var(--accent) 8%,transparent);box-shadow:inset 3px 0 var(--accent)}
+:is(.chatgpt-guide,.work-guide,.codex-guide) .guide-section details summary{display:list-item;padding-left:5px}
+@media(max-width:700px){
+ :is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial .breadcrumb{margin-bottom:20px}
+ :is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial .page-intro{padding-bottom:24px}
+ :is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial main .page-intro h1{font-size:clamp(36px,9vw,48px)!important;line-height:1.18;letter-spacing:-.5px;margin-bottom:16px}
+ :is(.guides-page,.chatgpt-guide,.work-guide,.codex-guide).editorial main .page-lead{font-size:19px}
+ :is(.chatgpt-guide,.codex-guide).editorial .page-intro.with-art{display:block}
+ :is(.chatgpt-guide,.codex-guide) .page-intro .page-art{display:none}
+ :is(.chatgpt-guide,.work-guide,.codex-guide) .guide-section{padding-bottom:20px;margin-bottom:20px}
+ :is(.chatgpt-guide,.work-guide,.codex-guide) .prompt-block{padding:18px;margin:20px 0}
+ :is(.chatgpt-guide,.work-guide,.codex-guide) .guide-sidebar{margin-bottom:24px}
+ :is(.chatgpt-guide,.work-guide,.codex-guide) .guide-sidebar nav{grid-template-columns:1fr}
+}
+/* Crop the existing paper collage to an irregular silhouette. */
+.guides-page .work-art .row-art{clip-path:polygon(9% 13%,31% 9%,32% 5%,72% 8%,72% 13%,91% 16%,88% 45%,93% 47%,89% 89%,68% 91%,67% 95%,24% 89%,24% 85%,7% 83%)}
