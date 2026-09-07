@@ -1,58 +1,48 @@
-# Design QA — 2026-09-05
+# Daily overview visual QA — 7 September 2026
 
 final result: passed
 
-Scope: approved editorial/concert design applied to the homepage and shared styles/navigation on all ten existing pages.
+## Visual evidence
 
-## Visual comparison
+- Source visual truth: `/workspace/scratch/ff24d952cdc6/generated_images/exec-98a7f7ce-b3bf-494a-aa5e-8574a4ee8764.png` (941 × 1670 px).
+- Browser implementation capture: `/tmp/daily-scene-reference-viewport.png` in browser runtime, 1363 × 1670 px with centered 941 × 1670 CSS-pixel iframe. Compare its central content at 1:1 density, excluding the gray browser stage.
+- Additional desktop viewport: 1363 × 936 CSS px. Mobile: 390 × 844 CSS px iframe (375 px content plus scrollbar), `/tmp/daily-scene-mobile.png` in browser runtime.
+- Route: `/info-panel/`, Monday 7 September 2026, loaded current weather. The reference contains sunbeams despite its overcast label; production correctly shows the overcast image for the observed conditions. The clock reflects actual capture time instead of the mock's fixed time.
+- Source and final browser capture were opened together in the same comparison tool call. The full page and readable desktop/mobile views show the real assets, clock markings, calendar, weather controls, and footer.
 
-Inspected the approved reference and rendered desktop implementation together in a normalized comparison image (`tony-qa-final.jpg`, session QA artifact). Checked typography, spacing, colors, images, and copy.
+## Intentional refinements approved for implementation
 
-- Anton display headings and Inter body copy reproduce the condensed editorial hierarchy. The concert heading deliberately uses regular weight.
-- Ivory, ink and red establish the main palette; lime highlights Codex 02.
-- Approved Czech headline, introduction including family, and concert section copy are present.
-- Hero collage, concert strip and paper guide imagery follow the reference composition. A real public-domain keyboard photograph is embedded unchanged, preserving correct lettering. This intentionally differs from the generated keyboard in the reference.
-- ChatGPT uses the OpenAI knot. Codex uses a terminal symbol.
+Smaller analog clock, discreet live digital time with subdued seconds, weather closer to the date, existing Anton/RobotoCondensed fonts instead of the mock's mixed serif fonts, responsive three-column desktop and two-column intermediate layouts. The selected visual direction is preserved with photographic landscape, evergreen paper dial, torn ivory calendar, cream header/footer, and red date/name accents. Backgrounds are illustrative, explicitly labeled, and switch between day, overcast, and night based on weather data.
 
-First comparison found an overly tall hero and undersized desktop type. Corrected hero height, display sizes, wordmark, guide proportions and CTA sizes. Mobile guide columns were subsequently widened and their body text increased to 14px. Rechecked both corrections visually.
+## Comparison history and findings
+
+1. P2: inherited paragraph margins stretched the calendar and displaced its date. Scoped paragraph rules now remove those inherited margins. Recaptured desktop and mobile show all calendar text inside the torn paper.
+2. P2: the first calendar asset had an opaque rectangular exterior. Regenerated with genuine alpha transparency; WebP preserves it. Final capture shows landscape around irregular edges without a white rectangle.
+3. P2: repeated edge-mask tiles created visible vertical seams. Replaced with one continuous raster mask; final capture shows a continuous paper transition.
+4. P2: intermediate clock alignment left unnecessary space above the clock. Aligned near the calendar's top; final 941 px capture shows the intended grouping.
+
+No actionable P0/P1/P2 findings remain.
+
+## Required fidelity surfaces
+
+- Typography: actual local Anton and RobotoCondensed loaded; Czech accents and two-line mobile title render correctly. Accurate numeric dial, live digital time, prominent red day number. Text remains selectable except the intentionally decorative analog clock canvas.
+- Spacing/layout: compact scene replaces rectangular cards. Date/weather cluster stays beside the clock at intermediate widths. Mobile controls and footer remain reachable; measured body width and scroll width both 375 px. Desktop has no horizontal overflow.
+- Colors/tokens: existing ivory, red, near-black, and evergreen retained. White weather copy has a dark photographic backing and text shadow. Keyboard focus is visible; controls have 44 px minimum height.
+- Images: generated landscape variants and paper assets are compressed WebP. Clock and calendar preserve actual transparency. Stock Phosphor icons are used with the existing license; no emoji substitutes. Canvas marks/hands are live time visualization over the raster dial.
+- Copy/content: live Czech date, day, nameday and existing fixed holiday data preserved. Existing navigation and project link preserved. Weather source, timestamp, retry/loading states and illustration label are explicit.
 
 ## Functional checks
 
-- Validated local href/src targets and anchor IDs on all ten HTML pages: no missing targets.
-- Confirmed both guide main-content texts match the previous committed versions.
-- Desktop CTA reaches the guides section; ChatGPT link opens the guide; its contents link reaches #prompty.
-- Tested mobile at 390px frame width: menu opens, Escape closes it, CTA reaches guides. Document scroll width equals client width (375px with scrollbar), without horizontal overflow.
-- Inspected desktop guide and mobile guide listings for readable type and intact layout.
-- All homepage images loaded successfully.
-- Info panel shows date/time/name day and successfully loads Prague weather.
-- Browser error log contained only a browser-extension metadata message; no application JavaScript error observed.
+- Browser city switch Praha → Brno returned 23 °C and Brno timestamp.
+- Refresh displayed loading then restored Brno weather and enabled the control.
+- Mobile city switch to Ostrava returned its weather and timestamp.
+- Live digital seconds and analog hands advance across captures.
+- Node validation checked exact clock-hand positions at 03:15:30, day/night/storm scene and icon mapping, and successful weather data rendering.
+- JavaScript syntax and git diff whitespace checks passed.
+- Browser console checked: no application errors. Unrelated browser-extension metadata errors excluded.
 
-Existing guide information and external service behavior are outside this visual update's content scope.
+## Follow-up polish / limits
 
-## Keyboard compositing correction
-
-Removed the CSS photo border and clipped the original photograph to the keyboard's actual outline. A wrapper casts a small contour-following shadow. Original image bytes, displayed image dimensions, position, angle and key lettering are preserved. Desktop screenshot checked; mobile document at 375px client width has no horizontal overflow, image loads at its original 2352px source width, and computed border is zero. No new bitmap asset or generated lettering was introduced.
-
-## Selected-reference detail pass
-
-final result: passed
-
-Compared the attached 18954.png reference and a full rendered homepage together in `tony-detail-comparison.jpg` (session QA). Refined typography with self-hosted Roboto Condensed, heading proportions, bigger layered guide art, exact supplementary copy, hero handwritten note, paper texture, a quieter concert composition and footer navigation. Exact OpenAI SVG and the previously approved real keyboard cutout remain intact.
-
-Iterations corrected visible asset backgrounds with contour clipping, overly strong paper texture, guide heading wrapping, and number spacing at desktop/mobile sizes. Inspected the updated desktop guide section after the initial comparison. The headline and regular-weight concert heading follow the approved user instructions.
-
-Verified 390px mobile frame without horizontal overflow; menu opens and Escape closes; homepage CTA scrolls to guides; Codex link reaches its existing page. Browser logs show only extension metadata errors, no application error. Existing guide contents and secondary routes remain unchanged.
-
-Remaining visual differences are limited to the exact photographic subjects/paper tears and subtle distressed lettering of the raster reference. The real keyboard is deliberately retained as requested.
-
-## Whole-site editorial and content revision
-
-Scope: all nine interior pages; the approved homepage receives consistent utility-link labels only.
-
-- Replaced generic cards and repeated promises with editorial sections, numbered project rows, a readable biography, functional tool listing and a direct contact page. Preserved all ten existing routes and every pre-existing anchor ID.
-- Biography uses previously published facts; family and music retain a clear place in the site's purpose. No new private biographical details added.
-- Rewrote both guides with original practical prompts, copy controls, collapsible contents, inline official sources and a revision date. Removed fixed model/plan-limit tables and unverified setting limits. Sources inspected: learn.chatgpt.com/docs/{use-chatgpt,quickstart,prompting,personalize,projects,pricing}.
-- New shared interior stylesheet follows the approved ivory, condensed typography, paper and concert direction. OpenAI remains an exact SVG over the collage.
-- Daily panel retains the existing date/name-day/weather functions. Added refresh, Czech city names, stale-response protection, accessible weather status and linked attribution. Its existing calendar only covers fixed holidays and an orientational name-day list; this limitation is now visible.
-
-Validation before deployment: all ten pages have exactly one h1, unique IDs, valid local href/src and fragment destinations, and all old anchors preserved. JavaScript syntax and git diff whitespace checks passed. All nine interior pages were checked at a 390px frame (375px document client width): no horizontal overflow or failed images. Inspected rendered desktop guide, biography, guide listing and tool page, plus mobile guide, prompt and daily-panel layouts. Mobile menu opens and closes with Escape; contents links scroll to chapters; FAQ disclosure opens; copy fallback selects the intended prompt. Prague weather loaded successfully.
+- Background landscapes are illustrative generated assets, not local live camera images. Three atmosphere variants intentionally do not depict every precipitation subtype.
+- A physical mobile-device check was not performed; mobile was verified in a browser iframe.
+- Existing nameday calendar remains indicative and excludes movable Easter holidays.
