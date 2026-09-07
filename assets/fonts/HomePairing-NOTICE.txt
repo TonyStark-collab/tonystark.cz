@@ -1,0 +1,7 @@
+Space Grotesk and Roboto Slab downloaded from the Google Fonts repository.
+Sources: https://github.com/google/fonts/tree/main/ofl/spacegrotesk and https://github.com/google/fonts/tree/main/apache/robotoslab
+Converted to WOFF2 on 2026-09-07. Glyph designs unchanged.
+See SpaceGrotesk-OFL.txt and RobotoSlab-LICENSE.txt for licences.
+
+Space Grotesk: Copyright 2020 The Space Grotesk Project Authors (https://github.com/floriankarsten/space-grotesk)
+Roboto Slab: Copyright 2018 The Roboto Slab Project Authors (https://github.com/googlefonts/robotoslab)
