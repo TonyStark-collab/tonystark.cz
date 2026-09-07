@@ -1,0 +1,8 @@
+/* Scoped additions preserve the established interior layout. */
+.guides-page .editorial-row.guide-work,.work-guide{--accent:#245e82}
+.guides-page .editorial-row.guide-codex{--accent:#42621a}
+.guides-page .editorial-row .eyebrow,.work-guide .guide-section .eyebrow{font-size:.875rem;line-height:1.6;letter-spacing:.12em}
+.guides-page .guide-work .guide-personal{font-family:RobotoCondensed,Arial,sans-serif;font-size:1rem;font-weight:600;color:var(--accent);margin-top:0}
+.work-art-label{position:absolute;inset:23% 15% auto;text-align:center;font-family:Anton,Impact,sans-serif;font-size:clamp(25px,3vw,40px);line-height:1.1;color:#172e3e;transform:rotate(-5deg)}
+.work-art-label small{display:block;margin-top:10px;font-family:RobotoCondensed,Arial,sans-serif;font-size:16px;font-weight:600;line-height:1.25}
+@media(max-width:700px){.work-art-label{font-size:28px}.work-art-label small{font-size:14px;margin-top:6px}.guides-page .editorial-row .text-link{display:inline-flex;max-width:100%;gap:10px;line-height:1.4}.guides-page .editorial-row .text-link img{flex-shrink:0}}
