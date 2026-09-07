@@ -53,19 +53,39 @@
         <ellipse class="stage-effect stage-wash" cx="${gx-40}" cy="${gy-30}" rx="${grx*1.25}" ry="${gry*1.2}" fill="url(#${id}-wash)"/>
         <ellipse class="stage-effect stage-wash stage-wash--cool" cx="${gx+grx*.2}" cy="${gy-20}" rx="${grx}" ry="${gry*1.15}" fill="url(#${id}-wash-cool)"/>
         <ellipse class="stage-effect stage-glow" cx="${gx}" cy="${gy}" rx="${grx}" ry="${gry}" fill="url(#${id}-glow)"/>
-        ${scene.beams.map(([x,y,length,spread,tone],i) => `<g class="stage-effect stage-beam" style="transform-origin:${x}px ${y}px;--duration:${1.3+i*.225}s;--delay:-${.65+i*.45}s;--direction:${i%2 ? 'alternate-reverse' : 'alternate'}"><path d="M${x-3} ${y}L${x-spread} ${y+length}Q${x} ${y+length+25} ${x+spread} ${y+length}L${x+3} ${y}Z" fill="url(#${id}-beam${tone==='cool' ? '-cool' : ''})" filter="url(#${id}-soft)"/></g>`).join('')}
-        ${scene.haze.map(([x,y,rx,ry],i) => `<g class="stage-effect stage-haze" style="--duration:${2.4+i*.7}s;--delay:-${1+i*1.15}s" fill="url(#${id}-haze${i===1 ? '-cool' : ''})"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/><ellipse cx="${x-rx*.35}" cy="${y-ry*.7}" rx="${rx*.65}" ry="${ry*.8}" opacity=".55"/><ellipse cx="${x+rx*.5}" cy="${y+ry*.45}" rx="${rx*.55}" ry="${ry*.7}" opacity=".45"/></g>`).join('')}
-        ${scene.beams.map(([x,y],i) => `<circle class="stage-effect stage-flare" cx="${x}" cy="${y}" r="${name==='hero' ? 16 : 22}" fill="url(#${id}-flare)" style="--delay:-${i*.3}s"/>`).join('')}
+        ${scene.beams.map(([x,y,length,spread,tone]) => `<g class="stage-effect stage-beam"><path d="M${x-3} ${y}L${x-spread} ${y+length}Q${x} ${y+length+25} ${x+spread} ${y+length}L${x+3} ${y}Z" fill="url(#${id}-beam${tone==='cool' ? '-cool' : ''})" filter="url(#${id}-soft)"/></g>`).join('')}
+        ${scene.haze.map(([x,y,rx,ry],i) => `<g class="stage-effect stage-haze" fill="url(#${id}-haze${i===1 ? '-cool' : ''})"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/><ellipse cx="${x-rx*.35}" cy="${y-ry*.7}" rx="${rx*.65}" ry="${ry*.8}" opacity=".55"/><ellipse cx="${x+rx*.5}" cy="${y+ry*.45}" rx="${rx*.55}" ry="${ry*.7}" opacity=".45"/></g>`).join('')}
+        ${scene.beams.map(([x,y]) => `<circle class="stage-effect stage-flare" cx="${x}" cy="${y}" r="${name==='hero' ? 16 : 22}" fill="url(#${id}-flare)"/>`).join('')}
       </g>
     </svg>`;
   };
 
+  // Set individual CSS properties from our fixed scene data. No inline style
+  // strings are parsed, so the page can enforce style-src-attr 'none'.
+  function styleScene(layer, scene) {
+    layer.querySelectorAll('.stage-beam').forEach((beam, i) => {
+      const [x, y] = scene.beams[i];
+      beam.style.transformOrigin = `${x}px ${y}px`;
+      beam.style.setProperty('--duration', `${1.3 + i * .225}s`);
+      beam.style.setProperty('--delay', `-${.65 + i * .45}s`);
+      beam.style.setProperty('--direction', i % 2 ? 'alternate-reverse' : 'alternate');
+    });
+    layer.querySelectorAll('.stage-haze').forEach((haze, i) => {
+      haze.style.setProperty('--duration', `${2.4 + i * .7}s`);
+      haze.style.setProperty('--delay', `-${1 + i * 1.15}s`);
+    });
+    layer.querySelectorAll('.stage-flare').forEach((flare, i) => {
+      flare.style.setProperty('--delay', `-${i * .3}s`);
+    });
+  }
+
   const visibleLayers = new Set();
   for (const layer of layers) {
     const name = layer.dataset.concertScene;
+    if (!Object.hasOwn(scenes, name)) continue;
     const scene = scenes[name];
-    if (!scene) continue;
     layer.innerHTML = render(name, scene);
+    styleScene(layer, scene);
     layer.dataset.playing = 'false';
   }
 

@@ -181,7 +181,12 @@
 
       try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m,is_day&timezone=auto`;
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetch(url, {
+          signal: controller.signal,
+          credentials: "omit",
+          referrerPolicy: "no-referrer",
+          redirect: "error"
+        });
         if (!response.ok) throw new Error("Nepodařilo se načíst data počasí.");
         const payload = await response.json();
         if (requestId !== weatherRequestId) return;
