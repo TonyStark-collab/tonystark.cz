@@ -72,7 +72,7 @@ class Page(HTMLParser):
             "img-src": ["'self'", "data:"], "font-src": ["'self'"],
             "object-src": ["'none'"], "frame-src": ["'none'"],
             "worker-src": ["'none'"], "form-action": ["'none'"],
-            "connect-src": ["https://api.open-meteo.com"] if self.path == "info-panel/index.html" else ["'none'"],
+            "connect-src": ["https://api.open-meteo.com", "https://geocoding-api.open-meteo.com"] if self.path == "info-panel/index.html" else ["'none'"],
         }
         if self.policy != expected:
             self.fail("CSP is missing or differs from the reviewed resource allowlist")
