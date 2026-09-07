@@ -2,3 +2,9 @@ node_modules/
 dist/
 
 __qa.html
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
