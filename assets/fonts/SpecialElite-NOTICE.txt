@@ -1,0 +1,5 @@
+Special Elite
+Copyright (c) 2010 by Brian J. Bonislawsky DBA Astigmatic (AOETI). All rights reserved.
+Available under the Apache 2.0 licence.
+Source: https://github.com/google/fonts/tree/main/apache/specialelite
+Converted from SpecialElite-Regular.ttf to WOFF2 on 2026-09-07; glyph designs unchanged.
