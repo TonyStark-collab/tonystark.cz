@@ -18,6 +18,39 @@
 .editorial.type-pairing .editorial-row:nth-child(2),
 .editorial.type-pairing .editorial-row.guide-codex { --accent: #426039; }
 .editorial.type-pairing .editorial-row.guide-work { --accent: #245e82; }
+.editorial.type-pairing.work-guide { --accent: #245e82; }
+.editorial.type-pairing.codex-guide { --accent: #426039; }
+.editorial.type-pairing.dashboard-page { --accent: #426039; }
+.editorial.type-pairing main :is(.edition, .small-note) { color: #4b524a; }
+.editorial.type-pairing .prompt-block {
+  background: #f4eddf;
+  border-left-color: var(--accent);
+}
+.editorial.type-pairing .copy-button { border-color: #6c7266; }
+.editorial.type-pairing .copy-button:hover { background: #e3dfcf; }
+.editorial.type-pairing .guide-sidebar nav a[aria-current="location"] {
+  background: color-mix(in srgb, var(--accent) 10%, #eee3d0);
+}
+.editorial.type-pairing .guide-sources,
+.editorial.type-pairing .practice-small-tool,
+.editorial.type-pairing .experiment-art {
+  background: #d8dfd1 url('/assets/paper-texture.webp') repeat;
+  background-size: 700px 700px;
+  background-blend-mode: multiply;
+}
+.editorial.type-pairing .practice-feature { background: #252a28; color: #f2efe5; }
+.editorial.type-pairing .practice-feature .eyebrow,
+.editorial.type-pairing .experiment-lesson > span { color: #d6dfca; }
+.editorial.type-pairing .experiment-lesson,
+.editorial.type-pairing .experiment-links .text-link { border-color: #b9c7aa; }
+.editorial.type-pairing .experiment-links a:hover { color: #fff; }
+.editorial.type-pairing .experiment-links a:focus-visible { outline-color: #f2cf8d; }
+.editorial.type-pairing .tip-number { color: var(--accent); }
+.editorial.type-pairing .practice-tip:nth-child(n+2) .tip-number { color: #426039; }
+.editorial.type-pairing main .tip-topic { color: #4b524a; }
+.editorial.type-pairing .practice-tip pre { background: #f4eddf; }
+.editorial.type-pairing .daily-scene::after { background-blend-mode: multiply; }
+.editorial.type-pairing .nameday-line strong { color: #ab3026; }
 .editorial.type-pairing .next-step,
 .editorial.type-pairing .editorial-split {
   background: #d8dfd1 url('/assets/paper-texture.webp') repeat;
