@@ -1,9 +1,9 @@
 /* Approved paper, sage and graphite treatment; homepage only. */
 @font-face {
-  font-family: Fraunces;
-  src: url('/assets/fonts/fraunces-variable.woff2') format('woff2');
+  font-family: 'Special Elite';
+  src: url('/assets/fonts/special-elite-400.woff2') format('woff2');
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -27,13 +27,11 @@ body.home {
 .home .primary-link:hover { background-color: #aa2c22; }
 
 .home .hero-copy h1 {
-  font-family: Fraunces, Georgia, serif;
-  font-weight: 500;
-  font-optical-sizing: auto;
-  font-variation-settings: 'SOFT' 25, 'WONK' 1;
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-weight: 400;
   font-size: clamp(38px, 4.5vw, 64px);
   line-height: 1.2;
-  letter-spacing: -0.035em;
+  letter-spacing: normal;
   text-transform: none;
   white-space: normal;
   transform: none;
