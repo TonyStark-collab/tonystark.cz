@@ -6,13 +6,16 @@ Web je statická stránka na GitHub Pages. Změny zabezpečení nemají měnit o
 
 - Každá stránka má před načítáním zdrojů Content-Security-Policy v HTML.
 - JavaScript, styly a fonty pocházejí z vlastní domény. Inline skripty, obsluhy událostí, vložené styly, rámce, objekty a formuláře jsou zakázané.
-- Pouze denní přehled smí přes JavaScript kontaktovat `https://api.open-meteo.com`. Požadavky neposílají přihlašovací údaje ani referrer a nepřijímají přesměrování.
+- Pouze denní přehled smí přes JavaScript kontaktovat `https://api.open-meteo.com` pro počasí a `https://geocoding-api.open-meteo.com` pro vyhledávání míst. Požadavky neposílají přihlašovací údaje ani referrer a nepřijímají přesměrování.
+- Vyhledávání předává název místa a případný filtr země. Poloha zařízení se zjišťuje jen po kliknutí a povolení prohlížečem; souřadnice se před uložením a odesláním službě počasí zaokrouhlují na dvě desetinná místa. Poslední místo je uloženo pouze v místním úložišti prohlížeče. Názvy z API se vkládají jako text, souřadnice se ověřují.
 - Animace nastavují jednotlivé CSS vlastnosti přes DOM; není nutné povolovat `unsafe-inline` ani `unsafe-eval`.
 - Referrer pro běžné odkazy je omezen pravidlem `strict-origin-when-cross-origin`.
 
 Kontrola při pull requestu a zápisu do main prověřuje politiky všech stránek, aktivní HTML, zdroje, běžné vzory tajných klíčů, syntaxi JavaScriptu a známé zranitelnosti závislostí. Nenahrazuje ruční kontrolu změn.
 
 Lokálně ze složky projektu spusť `python3 .github/scripts/check_security.py` (Python 3, bez dalších balíčků) a `npm audit` (Node.js a npm, připojení k registru). Syntaxi jednotlivého skriptu ověří například `node --check assets/concert-motion.js`.
+
+Výběr místa, souběžné požadavky, selhání služeb a zamítnutí polohy ověřuje `node --test .github/scripts/weather_locations.test.cjs`; testy používají simulované odpovědi bez připojení k síti a běží také v CI.
 
 Při změně CSP ověř úvodní animace, mobilní nabídku, kopírování zadání a počasí v prohlížeči. Ochranu neoslabuj jen kvůli vývojovému serveru; pro přesný statický náhled lze použít `python3 -m http.server 5173 --bind 127.0.0.1` a otevřít `http://127.0.0.1:5173/`.
 

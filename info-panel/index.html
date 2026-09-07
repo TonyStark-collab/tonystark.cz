@@ -1,4 +1,4 @@
-<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; frame-src 'none'; worker-src 'none'; form-action 'none'; connect-src https://api.open-meteo.com"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Denní přehled | TonyStark.cz</title><meta name="description" content="Den, datum, čas, svátek a počasí pro vybrané město. Jednoduchý informační panel v prohlížeči."><meta name="theme-color" content="#eee3d0"><link rel="canonical" href="https://tonystark.cz/info-panel/"><link rel="stylesheet" href="/assets/site.css?v=20260906-type-scale"><link rel="stylesheet" href="/assets/interior.css?v=20260906-type-scale"><link rel="stylesheet" href="/assets/daily-overview.css?v=20260907-scene5"><link rel="preload" href="/assets/fonts/anton-400.ttf" as="font" type="font/ttf" crossorigin><script src="/assets/site.js" defer></script><script src="/assets/interior.js" defer></script><link rel="stylesheet" href="/assets/interior-type.css?v=20260907-shared-system"><link rel="stylesheet" href="/assets/interior-paper.css?v=20260907-shared-system"><link rel="preload" href="/assets/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin></head><body class="interior editorial type-pairing dashboard-page"><a class="skip-link" href="#main">Přejít na obsah</a><header class="site-header"><div class="site-header-inner"><a aria-label="TonyStark.cz – domů" class="wordmark" href="/">TonyStark<span>.cz</span></a><button aria-controls="site-nav" aria-expanded="false" class="nav-toggle" type="button">Menu</button><nav aria-label="Hlavní navigace" class="site-nav" id="site-nav"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a></nav></div></header><main id="main">
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; frame-src 'none'; worker-src 'none'; form-action 'none'; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Denní přehled | TonyStark.cz</title><meta name="description" content="Den, datum, čas, svátek a počasí pro vybrané město. Jednoduchý informační panel v prohlížeči."><meta name="theme-color" content="#eee3d0"><link rel="canonical" href="https://tonystark.cz/info-panel/"><link rel="stylesheet" href="/assets/site.css?v=20260906-type-scale"><link rel="stylesheet" href="/assets/interior.css?v=20260906-type-scale"><link rel="stylesheet" href="/assets/daily-overview.css?v=20260907-scene5"><link rel="preload" href="/assets/fonts/anton-400.ttf" as="font" type="font/ttf" crossorigin><script src="/assets/site.js" defer></script><script src="/assets/interior.js" defer></script><link rel="stylesheet" href="/assets/interior-type.css?v=20260907-shared-system"><link rel="stylesheet" href="/assets/interior-paper.css?v=20260907-shared-system"><link rel="preload" href="/assets/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/weather-locations.css?v=20260907-locations"></head><body class="interior editorial type-pairing dashboard-page"><a class="skip-link" href="#main">Přejít na obsah</a><header class="site-header"><div class="site-header-inner"><a aria-label="TonyStark.cz – domů" class="wordmark" href="/">TonyStark<span>.cz</span></a><button aria-controls="site-nav" aria-expanded="false" class="nav-toggle" type="button">Menu</button><nav aria-label="Hlavní navigace" class="site-nav" id="site-nav"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a></nav></div></header><main id="main">
 <section class="daily-scene" id="daily-scene" data-sky="cloudy" aria-label="Denní přehled">
 <div class="scene-content">
 <header class="scene-intro"><p class="eyebrow">Denní přehled</p><h1>Dnešek na jednom místě.</h1><p>Den, čas a počasí. Stačí jeden pohled.</p></header>
@@ -13,13 +13,22 @@
 <div class="calendar-text"><p id="today-day">—</p><p id="today-number">—</p><p id="today-date">—</p></div>
 </div>
 <div class="scene-weather" aria-label="Počasí">
-<div class="weather-heading"><label for="location-select">Počasí pro</label><select id="location-select" name="location-select">
-<option value="50.0755,14.4378,Prague">Praha</option>
-<option value="49.1951,16.6068,Brno">Brno</option>
-<option value="49.8209,18.2625,Ostrava">Ostrava</option>
-<option value="49.7475,13.3776,Plzen">Plzeň</option>
-<option value="50.7704,15.0583,Liberec">Liberec</option>
-</select></div>
+<div class="weather-heading"><div><span class="weather-label">Počasí pro</span><strong id="selected-location">Praha</strong><span id="selected-region">Česko</span></div></div>
+<details class="location-picker" id="location-picker">
+<summary>Změnit místo</summary>
+<div class="location-picker-content">
+<button type="button" id="use-location">Použít moji polohu</button>
+<p class="location-hint">Polohu použijeme až po tvém povolení. Nebo vyhledej místo podle názvu.</p>
+<div role="search" aria-label="Vyhledat místo pro počasí">
+<label for="location-country">Kde hledat</label>
+<select id="location-country"><option value="CZ">Česko</option><option value="SK">Slovensko</option><option value="">Celý svět</option></select>
+<label for="location-query">Město nebo obec</label>
+<div class="location-search-row"><input id="location-query" type="search" placeholder="Např. Těmice nebo Bzenec" maxlength="100" autocomplete="off" enterkeyhint="search" aria-describedby="location-status"><button type="button" id="search-location">Hledat</button></div>
+</div>
+<p id="location-status" role="status" aria-live="polite">Napiš alespoň 2 znaky. Hledat můžeš i bez háčků a čárek.</p>
+<ul id="location-results" aria-label="Nalezená místa"></ul>
+<p class="location-hint">Poslední výběr se uloží v tomto prohlížeči. Místa: <a href="https://open-meteo.com/en/docs/geocoding-api">Open-Meteo</a> / <a href="https://www.geonames.org/">GeoNames</a>.</p>
+</div></details>
 <div id="weather-reading" aria-live="polite" aria-atomic="true">
 <div class="weather-bar"><p id="weather-temp">— °C</p><img id="weather-icon" src="/assets/icons/weather/cloud.svg" alt="" width="64" height="64"></div>
 <p id="weather-detail">Načítám aktuální počasí…</p>
@@ -35,4 +44,4 @@
 <p class="nameday-line"><span id="holiday-label">Dnes má svátek</span> <strong id="holiday-info">—</strong></p>
 <p class="small-note">Jmenný kalendář je orientační. Přehled svátků obsahuje pevná data, nikoli pohyblivé velikonoční svátky.</p>
 <a class="text-link" href="/projekty/">Prohlédnout projekty<img src="/assets/icons/arrow-right.svg" alt="" width="22" height="22"></a>
-</section></main><footer class="site-footer"><div class="footer-top"><a class="footer-brand" href="/">TonyStark.cz</a><span>Osobní web a projekty</span><nav aria-label="Navigace v zápatí"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a></nav></div><nav aria-label="Další stránky" class="footer-note footer-utilities"><a href="/webove-aplikace/">Z praxe</a><a href="/smer-webu/">Směr webu</a><a href="/info-panel/">Denní přehled</a></nav></footer><script src="/assets/daily-overview.js?v=20260907-security" defer></script></body></html>
+</section></main><footer class="site-footer"><div class="footer-top"><a class="footer-brand" href="/">TonyStark.cz</a><span>Osobní web a projekty</span><nav aria-label="Navigace v zápatí"><a href="/aplikace/">Průvodci</a><a href="/projekty/">Projekty</a><a href="/o-mne/">O mně</a></nav></div><nav aria-label="Další stránky" class="footer-note footer-utilities"><a href="/webove-aplikace/">Z praxe</a><a href="/smer-webu/">Směr webu</a><a href="/info-panel/">Denní přehled</a></nav></footer><script src="/assets/daily-overview.js?v=20260907-locations" defer></script></body></html>

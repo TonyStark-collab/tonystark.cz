@@ -125,7 +125,32 @@
       dial.restore();
     }
 
-    const locationSelect = document.getElementById("location-select");
+    const locationPicker = document.getElementById("location-picker");
+    const locationQuery = document.getElementById("location-query");
+    const locationCountry = document.getElementById("location-country");
+    const locationResults = document.getElementById("location-results");
+    const locationStatus = document.getElementById("location-status");
+    const searchLocationButton = document.getElementById("search-location");
+    const useLocationButton = document.getElementById("use-location");
+    const locationName = document.getElementById("selected-location");
+    const locationRegion = document.getElementById("selected-region");
+    const locationStorageKey = "tonystark.weather.location.v1";
+    let selectedLocation = { latitude: 50.0755, longitude: 14.4378, name: "Praha", region: "Česko" };
+    let locationIntent = 0;
+    let searchController;
+
+    function validLocation(value) {
+      return value && Number.isFinite(value.latitude) && Math.abs(value.latitude) <= 90
+        && Number.isFinite(value.longitude) && Math.abs(value.longitude) <= 180
+        && typeof value.name === "string" && value.name.trim().length > 0 && value.name.length <= 150
+        && typeof value.region === "string" && value.region.length <= 350;
+    }
+    try {
+      const saved = JSON.parse(localStorage.getItem(locationStorageKey));
+      if (validLocation(saved)) selectedLocation = saved;
+    } catch { /* Unavailable storage must not prevent weather from working. */ }
+    locationName.textContent = selectedLocation.name;
+    locationRegion.textContent = selectedLocation.region;
     const weatherTempEl = document.getElementById("weather-temp");
     const weatherDetailEl = document.getElementById("weather-detail");
     const weatherIconEl = document.getElementById("weather-icon");
@@ -165,8 +190,7 @@
     }
 
     async function fetchWeather() {
-      const [latitude, longitude] = locationSelect.value.split(",");
-      const city = locationSelect.selectedOptions[0].textContent;
+      const { latitude, longitude, name: city } = selectedLocation;
       const requestId = ++weatherRequestId;
       weatherController?.abort();
       weatherController = new AbortController();
@@ -216,7 +240,128 @@
       }
     }
 
-    locationSelect.addEventListener("change", fetchWeather);
+    function cancelLocationRequest() {
+      locationIntent++;
+      searchController?.abort();
+      searchLocationButton.disabled = false;
+      useLocationButton.disabled = false;
+      locationResults.replaceChildren();
+      locationResults.removeAttribute("aria-busy");
+    }
+
+    function chooseLocation(place, fromDevice = false) {
+      if (!validLocation(place)) return;
+      cancelLocationRequest();
+      selectedLocation = place;
+      locationName.textContent = place.name;
+      locationRegion.textContent = place.region;
+      try {
+        const saved = fromDevice ? { ...place, name: "Uložená poloha", region: "Poslední zjištěná poloha zařízení" } : place;
+        localStorage.setItem(locationStorageKey, JSON.stringify(saved));
+      } catch { /* The current selection still works without storage. */ }
+      locationPicker.open = false;
+      locationPicker.querySelector("summary").focus();
+      locationStatus.textContent = "Napiš název dalšího místa a klepni na Hledat.";
+      fetchWeather();
+    }
+
+    function resetLocationSearch() {
+      cancelLocationRequest();
+      locationStatus.textContent = "Napiš alespoň 2 znaky. Hledat můžeš i bez háčků a čárek.";
+    }
+
+    async function searchLocations() {
+      cancelLocationRequest();
+      const query = locationQuery.value.trim();
+      if (query.length < 2) {
+        locationStatus.textContent = "Napiš alespoň 2 znaky z názvu města nebo obce.";
+        locationQuery.focus();
+        return;
+      }
+      const intent = locationIntent;
+      const controller = new AbortController();
+      searchController = controller;
+      const timeout = setTimeout(() => controller.abort(), 12000);
+      searchLocationButton.disabled = true;
+      locationResults.setAttribute("aria-busy", "true");
+      locationStatus.textContent = "Hledám místa…";
+      try {
+        const url = new URL("https://geocoding-api.open-meteo.com/v1/search");
+        url.search = new URLSearchParams({ name: query.slice(0, 100), count: "50", language: "cs", format: "json" });
+        if (["CZ", "SK"].includes(locationCountry.value)) url.searchParams.set("countryCode", locationCountry.value);
+        const response = await fetch(url, { signal: controller.signal, credentials: "omit", referrerPolicy: "no-referrer", redirect: "error" });
+        if (!response.ok) throw new Error("Location search failed");
+        const payload = await response.json();
+        if (intent !== locationIntent) return;
+        if (payload.error || (payload.results !== undefined && !Array.isArray(payload.results))) throw new Error("Invalid search results");
+        const places = (payload.results || []).slice(0, 50).map(place => ({
+          latitude: place.latitude, longitude: place.longitude, name: place.name,
+          region: [...new Set([place.admin2, place.admin1, place.country].filter(part => typeof part === "string" && part && part !== place.name))].join(" · ")
+        })).filter(validLocation);
+        for (const place of places) {
+          const item = document.createElement("li");
+          const button = document.createElement("button");
+          button.type = "button";
+          const name = document.createElement("strong");
+          name.textContent = place.name;
+          const region = document.createElement("span");
+          region.textContent = place.region || "Vybrat toto místo";
+          button.append(name, region);
+          button.addEventListener("click", () => chooseLocation(place));
+          item.append(button);
+          locationResults.append(item);
+        }
+        locationStatus.textContent = places.length
+          ? `Vyber správné místo níže (${places.length}).${places.length === 50 ? " Pro přesnější výběr dopiš delší název nebo oblast za čárku." : ""}`
+          : "Žádné místo nenalezeno. Zkus jiný název nebo přepni na Celý svět.";
+      } catch {
+        if (intent === locationIntent) locationStatus.textContent = "Místa se nepodařilo načíst. Zkontroluj připojení a zkus Hledat znovu.";
+      } finally {
+        clearTimeout(timeout);
+        if (intent === locationIntent) {
+          searchLocationButton.disabled = false;
+          locationResults.removeAttribute("aria-busy");
+        }
+      }
+    }
+
+    function useDeviceLocation() {
+      cancelLocationRequest();
+      if (!navigator.geolocation) {
+        locationStatus.textContent = "Polohu tu nelze zjistit. Vyhledej město nebo obec podle názvu.";
+        return;
+      }
+      const intent = locationIntent;
+      useLocationButton.disabled = true;
+      locationStatus.textContent = "Čekám na polohu. Pokud se prohlížeč zeptá, povol její použití.";
+      function failed(error) {
+        if (intent !== locationIntent) return;
+        useLocationButton.disabled = false;
+        locationStatus.textContent = error?.code === 1
+          ? "Poloha není povolená. Můžeš ji povolit v nastavení webu, nebo vyhledat místo podle názvu."
+          : "Polohu se nepodařilo zjistit. Zkus to znovu, nebo vyhledej místo podle názvu.";
+      }
+      try {
+        navigator.geolocation.getCurrentPosition(position => {
+          if (intent !== locationIntent) return;
+          const place = {
+            latitude: Math.round(position.coords.latitude * 100) / 100,
+            longitude: Math.round(position.coords.longitude * 100) / 100,
+            name: "Moje poloha", region: "Přibližná poloha zařízení"
+          };
+          if (!validLocation(place)) { failed(); return; }
+          chooseLocation(place, true);
+        }, failed, { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
+      } catch { failed(); }
+    }
+
+    locationQuery.addEventListener("input", resetLocationSearch);
+    locationCountry.addEventListener("change", resetLocationSearch);
+    locationQuery.addEventListener("keydown", event => {
+      if (event.key === "Enter") { event.preventDefault(); searchLocations(); }
+    });
+    searchLocationButton.addEventListener("click", searchLocations);
+    useLocationButton.addEventListener("click", useDeviceLocation);
     refreshButton.addEventListener("click", fetchWeather);
     fallbackSky();
     updateDateTime();
