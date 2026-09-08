@@ -1,0 +1,45 @@
+/* Chapter layout B: original photographs and complete personal stories. */
+.technical-archive { position:relative; isolation:isolate; padding:48px 0 12px; scroll-margin-top:24px; border-bottom:1px solid var(--line); }
+.technical-archive::before { content:""; position:absolute; inset:0 -3%; z-index:-1; pointer-events:none; background:url('/assets/pcb-paper.webp') left top / auto 900px repeat-y; opacity:.17; mask-image:linear-gradient(90deg,#000,transparent 13%,transparent 90%,#000); }
+.archive-intro { padding-bottom:30px; border-bottom:1px solid var(--line); }
+.editorial.type-pairing main .archive-intro h2 { font-family:'Special Elite',monospace; font-size:clamp(28px,3.3vw,40px); line-height:1.25; margin:8px 0 12px; }
+.archive-intro>p:last-child { margin:0; }
+.archive-chapter { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:42px; align-items:center; padding:36px 0; border-bottom:1px solid var(--line); }
+.archive-photo { margin:0; min-width:0; }
+.archive-photo>a { display:block; padding:9px; background:#f8f0df; box-shadow:0 2px 8px #29251b25; border:1px solid #a69c8766; text-decoration:none; }
+.archive-photo img { display:block; width:100%; height:auto; }
+.archive-chapter .archive-photo { max-width:340px; justify-self:center; width:100%; }
+.archive-invex .archive-photo { max-width:280px; }
+.archive-geforce { grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); }
+.archive-geforce .archive-photo { max-width:none; }
+.archive-enlarge { display:block; color:#932a23; font-size:14px; line-height:1.5; padding:9px 3px 2px; }
+.archive-photo figcaption { font-size:14px; line-height:1.6; color:#465045; padding:12px 2px 0; }
+.archive-number { display:block; color:#ab3026; font-family:Anton,RobotoCondensed,sans-serif; font-weight:700; font-size:40px; line-height:1.1; margin-bottom:10px; }
+.editorial.type-pairing main .technical-archive h3 { font-family:'Special Elite',monospace; font-size:clamp(23px,2.2vw,29px); line-height:1.35; margin:0 0 18px; }
+.technical-archive p { font-size:17px; line-height:1.8; margin:0 0 16px; }
+.archive-story p:last-child { margin-bottom:0; }
+.archive-vhs { padding:36px 0; }
+.archive-vhs>header { display:flex; align-items:baseline; gap:22px; margin-bottom:14px; }
+.archive-vhs-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:38px; }
+.archive-vhs-pair .archive-photo { max-width:360px; margin:0 auto 24px; }
+.editorial.type-pairing main .technical-archive h4 { font-family:'Roboto Slab',Georgia,serif; font-weight:500; font-size:22px; line-height:1.4; margin:0 0 15px; }
+.archive-dialog { padding:64px 16px 18px; border:1px solid #837966; background:#f5ecdb; color:#151917; max-width:96vw; max-height:96dvh; width:fit-content; }
+.archive-dialog::backdrop { background:#101512ed; }
+.archive-dialog figure { margin:0; }
+.archive-dialog img { display:block; max-width:100%; width:auto; height:auto; max-height:74dvh; margin:auto; object-fit:contain; }
+.archive-dialog figcaption { font-size:14px; line-height:1.6; max-width:70ch; margin:14px auto 0; }
+.archive-close { position:absolute; right:12px; top:10px; min-height:44px; padding:8px 16px; border:1px solid #7c7363; color:#151917; background:#f5ecdb; font:inherit; cursor:pointer; }
+body.archive-photo-open { overflow:hidden; }
+.archive-dialog :focus-visible { outline:3px solid #ab3026; outline-offset:3px; }
+@media(max-width:700px) {
+ .archive-chapter,.archive-geforce { grid-template-columns:minmax(0,1fr); gap:24px; padding:28px 0; }
+ .archive-chapter .archive-photo { max-width:360px; }
+ .archive-invex .archive-photo { max-width:270px; }
+ .archive-geforce .archive-photo { max-width:none; }
+ .archive-vhs-pair { grid-template-columns:minmax(0,1fr); gap:30px; }
+ .archive-vhs>header { display:block; }
+ .technical-archive { padding-top:32px; }
+ .technical-archive p { font-size:16px; line-height:1.75; }
+ .archive-number { font-size:34px; }
+ .archive-intro { padding-bottom:24px; }
+}
