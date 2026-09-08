@@ -58,9 +58,15 @@ body.archive-photo-open { overflow:hidden; }
  .archive-intro { padding-bottom:24px; }
 }
 
-.archive-game { margin:36px 0 12px; padding:30px clamp(16px,4vw,48px); background:#252a28; color:#f4ecdc; }
-.archive-game .eyebrow { color:#dbc9ac; }
-.archive-game figure { margin:0 auto; max-width:900px; }
-.archive-game video { display:block; width:100%; height:auto; background:#101512; }
-.archive-game figcaption { color:#e0d6c6; font-size:14px; line-height:1.6; margin-top:12px; }
-@media(max-width:700px) { .archive-game { margin:28px 0 8px; padding:22px 12px; } }
+.archive-game { display:grid; grid-template-columns:minmax(150px, .65fr) minmax(0,1.35fr); align-items:center; gap:26px; max-width:740px; margin:28px auto; padding:24px 0; background:transparent; color:var(--ink); }
+.archive-game .eyebrow { color:var(--accent); }
+.editorial.type-pairing main .archive-game h3 { font-size:24px; margin-bottom:0; }
+.archive-game figure { margin:0; min-width:0; }
+.archive-game video { display:block; width:100%; height:auto; background:#101512; border:7px solid #f8f0df; box-shadow:0 2px 7px #29251b20; }
+.archive-game figcaption { color:var(--muted); font-size:14px; line-height:1.6; margin-top:10px; }
+@media(max-width:700px) {
+ .archive-game { display:block; max-width:340px; margin:20px auto; padding:16px 0; }
+ .archive-game header { margin-bottom:14px; }
+ .editorial.type-pairing main .archive-game h3 { font-size:22px; }
+ .archive-game figure { max-width:280px; margin:0 auto; }
+}
