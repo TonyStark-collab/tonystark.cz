@@ -57,3 +57,10 @@ body.archive-photo-open { overflow:hidden; }
  .archive-number { font-size:34px; }
  .archive-intro { padding-bottom:24px; }
 }
+
+.archive-game { margin:36px 0 12px; padding:30px clamp(16px,4vw,48px); background:#252a28; color:#f4ecdc; }
+.archive-game .eyebrow { color:#dbc9ac; }
+.archive-game figure { margin:0 auto; max-width:900px; }
+.archive-game video { display:block; width:100%; height:auto; background:#101512; }
+.archive-game figcaption { color:#e0d6c6; font-size:14px; line-height:1.6; margin-top:12px; }
+@media(max-width:700px) { .archive-game { margin:28px 0 8px; padding:22px 12px; } }

@@ -74,6 +74,9 @@ class Page(HTMLParser):
             "worker-src": ["'none'"], "form-action": ["'none'"],
             "connect-src": ["https://api.open-meteo.com", "https://geocoding-api.open-meteo.com"] if self.path == "info-panel/index.html" else ["'none'"],
         }
+        # The personal archive hosts a same-origin game-menu video.
+        if self.path == "o-mne/index.html":
+            expected["media-src"] = ["'self'"]
         if self.policy != expected:
             self.fail("CSP is missing or differs from the reviewed resource allowlist")
         if self.referrer != "strict-origin-when-cross-origin":
