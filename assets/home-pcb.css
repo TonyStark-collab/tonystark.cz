@@ -1,44 +1,16 @@
-/* Photographic PCB reverse side, separate from all original collage layers. */
+/* Sage PCB reconstructed from Tony's selected original visual (19049).
+   One continuous background behind the header and hero; no doubled pattern. */
+body.home {
+  background-image:url('/assets/pcb-sage-paper.png'),url('/assets/paper-texture.webp');
+  background-position:center top,center top;
+  background-size:100% auto,700px 700px;
+  background-repeat:no-repeat,repeat;
+  background-blend-mode:normal,multiply;
+}
 .home .home-hero::before,
-.home .site-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: url('/assets/pcb-paper.webp') left bottom / 100% 100% no-repeat;
-  opacity: .38;
-  z-index: -1;
-  mask-image: linear-gradient(to right, #000, transparent 23%, transparent 94%, #000),
-    linear-gradient(to top, #000, transparent 34%);
-}
-
-.home .home-hero,
-.home .site-header {
-  isolation: isolate;
-}
-
-.home .site-header { position: relative; }
-.home .site-header::before {
-  background-position: left top;
-  background-size: 100% auto;
-  opacity: .28;
-  mask-image: linear-gradient(to right, #000, transparent 25%, transparent 94%, #000);
-}
-
-/* Keep the full-size pattern behind the copy, not enlarged over the collage. */
-@media (max-width: 600px) {
-  .home .home-hero::before { content: none; }
-  .home .hero-copy { isolation: isolate; }
-  .home .hero-copy::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: url('/assets/pcb-paper.webp') left bottom / 100% 100% no-repeat;
-    opacity: .26;
-    mask-image: linear-gradient(to right, #000, transparent 19%, transparent 96%, #000),
-      linear-gradient(to top, #000, transparent 18%);
-  }
-  .home .site-header::before { opacity: .2; }
+.home .site-header::before,
+.home .hero-copy::before { content:none; }
+.home .site-header { position:relative; }
+@media(max-width:760px) {
+  body.home { background-size:auto 780px,700px 700px; background-position:30% top,center top; }
 }
