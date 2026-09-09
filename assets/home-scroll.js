@@ -17,8 +17,15 @@
     const t = clamp((value - start) / (end - start));
     return t * t * (3 - 2 * t);
   };
-  const set = (key, value) => story.style.setProperty(key, value);
+  // Do not repeatedly invalidate painting once a scene reaches either end.
+  const values = new Map();
+  const set = (key, value) => {
+    if (values.get(key) === value) return;
+    values.set(key, value);
+    story.style.setProperty(key, value);
+  };
   function availability(element, available) {
+    if (element.getAttribute('aria-hidden') === String(!available) && element.inert === !available) return;
     element.inert = !available;
     element.setAttribute('aria-hidden', String(!available));
   }
@@ -59,6 +66,7 @@
       cancelAnimationFrame(frame);
       frame = 0;
       for (const property of ['--frame-width', '--concert-zoom', '--paper-y', '--scene-light']) story.style.removeProperty(property);
+      values.clear();
       availability(concertCopy, true);
       availability(pcb, false);
     } else schedule();
