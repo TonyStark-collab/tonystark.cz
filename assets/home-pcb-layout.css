@@ -26,30 +26,20 @@ body.home { isolation:auto; }
   height:clamp(640px,57vw,1000px);
   z-index:0;
   pointer-events:none;
-  background:none;
-}
-.home-pcb-background::before,
-.home-pcb-background::after {
-  content:'';
-  position:absolute;
-  inset:0 auto 0 0;
-  width:clamp(22px,5.5vw,100px);
-  background-image:linear-gradient(0deg,var(--paper),#eee3d000 20%),linear-gradient(90deg,#eee3d044,#eee3d0 100%),url('/assets/pcb-sage-paper.png');
-  background-size:100% 100%,100% 100%,auto 100%;
-  background-position:left top;
+  background-image:linear-gradient(0deg,var(--paper),#eee3d000 18%),url('/assets/pcb-sage-paper.png');
+  background-size:100% 100%,100% auto;
+  background-position:center top;
   background-repeat:no-repeat;
 }
-.home-pcb-background::after {
-  inset:0 0 0 auto;
-  background-image:linear-gradient(0deg,var(--paper),#eee3d000 20%),linear-gradient(270deg,#eee3d044,#eee3d0 100%),url('/assets/pcb-sage-paper.png');
-  background-position:right top;
-}
 .home .hero-copy {
-  background:none;
-  box-shadow:none;
+  background-color:#eee3d0f5;
+  box-shadow:0 0 26px 20px #eee3d0f5;
 }
 @media(max-width:760px) {
   .home-pcb-background {
     height:780px;
+    background-size:100% 100%,auto 780px;
+    background-position:center top,26% top;
   }
+  .home .hero-copy { box-shadow:0 0 20px 14px #eee3d0f5; }
 }
