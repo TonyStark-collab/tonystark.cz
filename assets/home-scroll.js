@@ -43,7 +43,7 @@
     let paper = ease(.52, .88, p);
     // Only keyboard focus can hold a scene. A tap must never latch the animation.
     if (concertCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 0;
-    if (pcbCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 1;
+    if (pcbCopy && pcbCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 1;
     const initialWidth = compact.matches ? 88 : 76;
     set('--frame-width', `${(initialWidth + (100 - initialWidth) * opening).toFixed(3)}%`);
     set('--concert-zoom', (1.32 - ease(0, .5, p) * .32).toFixed(4));
@@ -51,8 +51,8 @@
     set('--scene-light', (.45 + ease(.1, .46, p) * .45).toFixed(3));
     // Neither caption fades. The incoming opaque paper physically covers the
     // concert; remove only covered links from focus and the accessibility tree.
-    availability(concertCopy, paper < .23);
-    availability(pcb, paper > .72);
+    availability(concertCopy, !pcb || paper < .23);
+    if (pcb) availability(pcb, paper > .72);
   }
   function schedule() {
     if (active && !frame && !document.hidden) frame = requestAnimationFrame(render);
@@ -68,7 +68,7 @@
       for (const property of ['--frame-width', '--concert-zoom', '--paper-y', '--scene-light']) story.style.removeProperty(property);
       values.clear();
       availability(concertCopy, true);
-      availability(pcb, true);
+      if (pcb) availability(pcb, true);
     } else schedule();
   }
   window.addEventListener('scroll', schedule, { passive: true });
