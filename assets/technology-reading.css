@@ -12,3 +12,25 @@
 .technology-essay p { font-family:'Space Grotesk',sans-serif; font-size:18px; line-height:1.8; text-align:left; margin:0 0 1.3em; }
 .technology-essay p:last-child { margin-bottom:0; }
 @media(max-width:760px) { .technology-reading::before,.technology-reading::after { width:22px; opacity:.28; } .technology-essay p { font-size:17px; line-height:1.75; } .technology-essay h2 { margin-bottom:28px; } .technology-essay + .technology-essay { margin-top:56px; } }
+
+/* Small monochrome brand accents and an optional, native disclosure. */
+.ai-brand-still { display:flex; justify-content:center; align-items:center; gap:clamp(26px,6vw,64px); margin:42px 0 22px; }
+.ai-brand-still figure { margin:0; display:grid; justify-items:center; gap:12px; }
+.ai-brand-still img { display:block; width:44px; height:44px; object-fit:contain; opacity:.57; }
+.ai-brand-still figcaption { font-family:'Space Grotesk',sans-serif; font-size:14px; color:#555249; }
+.ai-explainer { margin:12px 0 0; padding:0; border:0; background:none; }
+.ai-explainer summary { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 0; cursor:pointer; list-style:none; font-family:'Special Elite','Courier New',monospace; font-size:clamp(20px,2.5vw,25px); line-height:1.5; }
+.ai-explainer summary::-webkit-details-marker { display:none; }
+.ai-explainer summary > span:first-child { text-decoration:underline; text-decoration-color:#b64c3d80; text-decoration-thickness:3px; text-underline-offset:7px; }
+.ai-disclosure-sign { flex:0 0 24px; text-align:center; font-family:Arial,sans-serif; font-size:27px; color:#914536; }
+.ai-disclosure-sign::before { content:'+'; }
+.ai-explainer[open] .ai-disclosure-sign::before { content:'−'; }
+.ai-explainer summary:focus-visible { outline:2px solid #914536; outline-offset:5px; }
+.ai-explainer-copy { padding-top:16px; }
+.ai-explainer-copy p { padding-top:0; }
+@supports (interpolate-size:allow-keywords) {
+ .ai-explainer { interpolate-size:allow-keywords; }
+ .ai-explainer::details-content { block-size:0; overflow:hidden; transition:block-size .3s ease,content-visibility .3s allow-discrete; }
+ .ai-explainer[open]::details-content { block-size:auto; }
+}
+@media(prefers-reduced-motion:reduce) { .ai-explainer::details-content { transition:none; } }
