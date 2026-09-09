@@ -19,3 +19,7 @@ document.addEventListener('focusin', event => {
   if (!nav.contains(event.target) && !toggle.contains(event.target)) setMenu(false);
 });
 nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+
+nav.querySelectorAll('a').forEach(link => {
+  if (location.pathname === link.pathname || (link.pathname === '/aplikace/' && location.pathname.startsWith('/aplikace/'))) link.setAttribute('aria-current', 'page');
+});

@@ -44,7 +44,7 @@
     // Only keyboard focus can hold a scene. A tap must never latch the animation.
     if (concertCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 0;
     if (pcbCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 1;
-    const initialWidth = compact.matches ? 80 : 64;
+    const initialWidth = compact.matches ? 88 : 76;
     set('--frame-width', `${(initialWidth + (100 - initialWidth) * opening).toFixed(3)}%`);
     set('--concert-zoom', (1.32 - ease(0, .5, p) * .32).toFixed(4));
     set('--paper-y', `${((1 - paper) * 102).toFixed(3)}%`);
@@ -68,7 +68,7 @@
       for (const property of ['--frame-width', '--concert-zoom', '--paper-y', '--scene-light']) story.style.removeProperty(property);
       values.clear();
       availability(concertCopy, true);
-      availability(pcb, false);
+      availability(pcb, true);
     } else schedule();
   }
   window.addEventListener('scroll', schedule, { passive: true });
