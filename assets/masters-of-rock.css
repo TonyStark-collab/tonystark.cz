@@ -31,3 +31,13 @@
 @media(max-width:760px) {
   .home:not(.home-scroll-ready) .mor-story .story-concert { height:clamp(550px,78svh,680px); }
 }
+
+/* Fade the complete concert scene into the actual page paper. */
+.home .mor-story .story-frame { background:none; }
+.home .mor-story .story-concert {
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 12%,#000 88%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 12%,#000 88%,transparent);
+  mask-composite:intersect;
+}
+.home .mor-story .story-copy-concert { left:9%; right:9%; bottom:13%; }
