@@ -1,0 +1,33 @@
+/* Tony's own festival photographs. No frames or replacement artwork. */
+.mor-story .story-concert { background:#071420; }
+.mor-story .mor-photos { position:absolute; inset:0; overflow:hidden; }
+.mor-photo { position:absolute; height:100%; width:60%; object-fit:cover; }
+.mor-photo-day { left:0; object-position:48% 57%; }
+.mor-photo-night { right:0; object-position:52% 55%; width:64%; mask-image:linear-gradient(90deg,transparent,#000 35%); }
+.mor-photos::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,#03111ce8,transparent 40%); pointer-events:none; }
+.mor-logo {
+  position:absolute; z-index:1; width:clamp(260px,30vw,410px); aspect-ratio:1;
+  left:52%; top:40%; transform:translate(-50%,-50%);
+  mix-blend-mode:screen; pointer-events:none;
+}
+.mor-logo video { display:block; width:100%; height:100%; object-fit:contain; }
+.home .mor-story .story-copy-concert { top:auto; bottom:30px; left:6%; right:6%; transform:none; }
+.home .mor-story .story-copy-concert h2 { max-width:none; font-size:clamp(28px,3.3vw,44px); margin-bottom:8px; }
+.mor-place { margin:0 0 10px; font-family:'Space Grotesk',sans-serif; font-size:14px; letter-spacing:.08em; color:#f5ecd9; }
+.home .mor-story .story-copy-concert a { font-size:16px; }
+@media(max-width:760px) {
+  .home .mor-story .story-viewport { height:clamp(550px,78svh,680px); }
+  .home.home-scroll-ready .mor-story { height:calc(clamp(550px,78svh,680px) + var(--story-travel)); }
+  .mor-photo-day { top:0; left:0; width:100%; height:57%; object-position:50% 65%; }
+  .mor-photo-night { top:37%; right:0; width:100%; height:63%; object-position:50% 55%; mask-image:linear-gradient(transparent,#000 27%); }
+  .mor-logo { width:280px; max-width:88%; left:50%; top:42%; }
+  .home .mor-story .story-copy-concert { bottom:22px; }
+  .home .mor-story .story-copy-concert h2 { font-size:28px; max-width:10em; }
+  .mor-place { font-size:13px; margin-bottom:8px; }
+}
+/* Both photographs and the completed logo remain available without motion. */
+.home:not(.home-scroll-ready) .mor-story .story-concert { height:clamp(500px,65svh,680px); }
+.home:not(.home-scroll-ready) .mor-story .story-viewport { height:auto; }
+@media(max-width:760px) {
+  .home:not(.home-scroll-ready) .mor-story .story-concert { height:clamp(550px,78svh,680px); }
+}
