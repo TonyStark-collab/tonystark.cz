@@ -1,48 +1,28 @@
-/* Recompose the existing PCB artwork at a finer scale, in a static paint layer. */
+/* Regular background painting: the original artwork, paper washes and no masks,
+   transforms or opacity layers shared with the opening text. */
+body.home { isolation:auto; }
 .home-pcb-background {
+  --pcb-width:780px;
+  --pcb-height:calc(var(--pcb-width) * 941 / 1672);
+  position:absolute;
+  inset:0 0 auto;
   height:clamp(640px,57vw,1000px);
-  mask-image:linear-gradient(#000 0 82%,transparent 100%);
-}
-.home-pcb-background img {
-  position:absolute;
-  inset:0 auto auto 0;
-  width:82%;
-  height:auto;
-  max-width:none;
-  opacity:.84;
-  mask-image:linear-gradient(90deg,#000 0 65%,transparent 100%),linear-gradient(#000 0 60%,transparent 100%);
-  mask-composite:intersect;
-}
-.home-pcb-background::before {
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:radial-gradient(ellipse at 24% 38%,#eee3d08c,transparent 52%);
-}
-.home-pcb-background::after {
-  content:'';
-  position:absolute;
-  inset:0 -5% auto 34%;
-  aspect-ratio:1672 / 941;
-  background:url('/assets/pcb-sage-paper.png') left top/100% auto no-repeat;
-  opacity:.48;
-  mask-image:linear-gradient(90deg,transparent,#000 22%,#000 85%,transparent),linear-gradient(#000 0 60%,transparent 100%);
-  mask-composite:intersect;
+  z-index:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(0deg,var(--paper),#eee3d000 24%),
+    radial-gradient(ellipse at 27% 35%,#eee3d09e,#eee3d026 65%),
+    linear-gradient(var(--paper),#eee3d000 12%,#eee3d000 65%,var(--paper)),
+    linear-gradient(90deg,var(--paper),#eee3d000 15%,#eee3d000 80%,var(--paper)),
+    url('/assets/pcb-sage-paper.png');
+  background-size:100% 100%,100% 100%,100% var(--pcb-height),var(--pcb-width) 100%,var(--pcb-width) auto;
+  background-position:left top,left top,left top,140px top,140px top;
+  background-repeat:no-repeat,no-repeat,repeat,repeat,repeat;
 }
 @media(max-width:760px) {
-  .home-pcb-background { height:900px; }
-  .home-pcb-background img {
-    width:750px;
-    height:auto;
-    object-fit:initial;
-    opacity:.72;
-    mask-image:linear-gradient(#000 0 70%,transparent 100%);
-  }
-  .home-pcb-background::after {
-    inset:235px auto auto -210px;
-    width:750px;
-    opacity:.4;
-    mask-image:linear-gradient(transparent,#000 20%,#000 75%,transparent);
+  .home-pcb-background {
+    --pcb-width:480px;
+    height:900px;
+    background-position:left top,left top,left top,80px top,80px top;
   }
 }

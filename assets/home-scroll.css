@@ -6,11 +6,9 @@ body.home {
   background-repeat: repeat;
   background-blend-mode: multiply;
 }
-.home-pcb-background { position: absolute; inset: 0 0 auto; z-index: 0; pointer-events: none; overflow: hidden; }
-.home-pcb-background img { display: block; width: 100%; height: auto; }
 .home .home-hero { z-index: 1; overflow: visible; }
-/* Keep text in its own paint layer when Android discards offscreen tiles. */
-.home .hero-copy { isolation: isolate; transform: translateZ(0); }
+/* Intro copy stays in normal document painting, without a forced GPU layer. */
+.home .hero-copy { isolation: auto; transform: none; z-index: auto; }
 .home .hero-copy h1, .home .hero-copy .intro { opacity: 1; visibility: visible; }
 .home .home-guides, .home .site-footer { position: relative; z-index: 1; }
 
@@ -122,8 +120,6 @@ body.home {
   .home-scroll-ready .story-viewport { position: sticky; top: 10svh; }
 }
 @media (max-width: 760px) {
-  .home-pcb-background { height: 780px; }
-  .home-pcb-background img { height: 100%; object-fit: cover; object-position: 30% top; }
   .story-viewport { height: clamp(340px, 62svh, 520px); }
   .home .scroll-story { --story-travel: max(620px, 105svh); }
   .home .story-copy { left: 8%; right: 8%; }
