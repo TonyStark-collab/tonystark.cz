@@ -1,71 +1,52 @@
 (() => {
   'use strict';
   const story = document.querySelector('[data-scroll-story]');
-  const hero = document.querySelector('.home-hero');
-  const art = document.querySelector('.hero-art');
-  const guides = document.querySelector('.home-guides');
-  if (!story || !hero || !art || !guides) return;
-
+  if (!story) return;
+  const viewport = story.querySelector('.story-viewport');
+  const concert = story.querySelector('.story-concert');
+  const pcb = story.querySelector('.story-pcb');
   const concertCopy = story.querySelector('.story-copy-concert');
   const pcbCopy = story.querySelector('.story-copy-pcb');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const compact = window.matchMedia('(max-width: 760px)');
   let active = false;
   let frame = 0;
-  let pageHeight = window.innerHeight;
-  let sceneIsPcb = false;
 
   const clamp = x => Math.max(0, Math.min(1, x));
   const ease = (start, end, value) => {
     const t = clamp((value - start) / (end - start));
     return t * t * (3 - 2 * t);
   };
-  // Individual DOM properties preserve the existing strict CSP.
-  const set = (element, key, value) => element.style.setProperty(key, value);
-
-  function copyState(isPcb) {
-    if (isPcb === sceneIsPcb) return;
-    sceneIsPcb = isPcb;
-    concertCopy.inert = isPcb;
-    pcbCopy.inert = !isPcb;
-    concertCopy.setAttribute('aria-hidden', String(isPcb));
-    pcbCopy.setAttribute('aria-hidden', String(!isPcb));
+  const set = (key, value) => story.style.setProperty(key, value);
+  function availability(element, available) {
+    element.inert = !available;
+    element.setAttribute('aria-hidden', String(!available));
   }
 
   function render() {
     frame = 0;
     if (!active || document.hidden) return;
-    // Read geometry before writing any style; no scroll interception or timer loop.
-    const scene = story.getBoundingClientRect();
-    const artwork = art.getBoundingClientRect();
-    const guideBox = guides.getBoundingClientRect();
-    const stickyTop = pageHeight * (compact.matches ? .12 : .10);
-    const travel = compact.matches ? 220 : 350;
-    const p = clamp((stickyTop - scene.top) / travel);
-    let mix = ease(.05, .90, p);
-    // Keep a keyboard-focused link readable until focus leaves its scene.
-    if (concertCopy.contains(document.activeElement)) mix = 0;
-    if (pcbCopy.contains(document.activeElement)) mix = 1;
-    const opening = ease(0, 1, (pageHeight * .85 - scene.top) / (pageHeight * .65));
-    const heroProgress = clamp(-artwork.top / Math.max(artwork.height, 1));
-    const amount = compact.matches ? 15 : 34;
-
-    set(story, '--scene-inset', `${((1 - opening) * (compact.matches ? 5 : 12)).toFixed(2)}%`);
-    set(story, '--scene-zoom', (1.16 - opening * .12 + mix * .025).toFixed(4));
-    set(story, '--scene-shift', `${((opening - .5) * -12).toFixed(2)}px`);
-    set(story, '--scene-mix', mix.toFixed(4));
-    set(story, '--scene-light', (.35 + opening * .45).toFixed(3));
-    set(story, '--concert-copy-opacity', (1 - ease(0, .5, mix)).toFixed(3));
-    set(story, '--pcb-copy-opacity', ease(.5, 1, mix).toFixed(3));
-    set(story, '--pcb-light-x', `${(-90 + ease(.05, 1, p) * 180).toFixed(2)}%`);
-    set(hero, '--keyboard-shift', `${(-heroProgress * amount).toFixed(2)}px`);
-    set(hero, '--note-shift', `${(heroProgress * amount * .6).toFixed(2)}px`);
-    set(hero, '--note-turn', `${(heroProgress * -3).toFixed(2)}deg`);
-    set(hero, '--art-shift', `${(heroProgress * -8).toFixed(2)}px`);
-    set(guides, '--guides-shift', `${(clamp((pageHeight - guideBox.top) / pageHeight) * -24).toFixed(2)}px`);
-    copyState(mix >= .5);
+    // Use the actual CSS sticky inset and layout heights, including small viewport
+    // units. Android's expanding address bar must not introduce a second timeline.
+    const top = story.getBoundingClientRect().top;
+    const inset = parseFloat(getComputedStyle(viewport).top) || 0;
+    const travel = Math.max(1, story.offsetHeight - viewport.offsetHeight);
+    const p = clamp((inset - top) / travel);
+    const opening = ease(0, .34, p);
+    let paper = ease(.52, .88, p);
+    // Only keyboard focus can hold a scene. A tap must never latch the animation.
+    if (concertCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 0;
+    if (pcbCopy.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) paper = 1;
+    const initialWidth = compact.matches ? 80 : 64;
+    set('--frame-width', `${(initialWidth + (100 - initialWidth) * opening).toFixed(3)}%`);
+    set('--concert-zoom', (1.32 - ease(0, .5, p) * .32).toFixed(4));
+    set('--paper-y', `${((1 - paper) * 102).toFixed(3)}%`);
+    set('--scene-light', (.45 + ease(.1, .46, p) * .45).toFixed(3));
+    // Neither caption fades. The incoming opaque paper physically covers the
+    // concert; remove only covered links from focus and the accessibility tree.
+    availability(concertCopy, paper < .23);
+    availability(pcb, paper > .72);
   }
-
   function schedule() {
     if (active && !frame && !document.hidden) frame = requestAnimationFrame(render);
   }
@@ -77,22 +58,14 @@
     if (!active) {
       cancelAnimationFrame(frame);
       frame = 0;
-      // Clear only this module's properties, without replacing the style attribute.
-      for (const element of [story, hero, guides]) {
-        for (const property of Array.from(element.style)) {
-          if (/^--(scene-|concert-copy-|pcb-|keyboard-|note-|art-|guides-shift)/.test(property)) {
-            element.style.removeProperty(property);
-          }
-        }
-      }
-      copyState(false);
+      for (const property of ['--frame-width', '--concert-zoom', '--paper-y', '--scene-light']) story.style.removeProperty(property);
+      availability(concertCopy, true);
+      availability(pcb, false);
     } else schedule();
   }
   window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', () => {
-    pageHeight = window.innerHeight;
-    schedule();
-  }, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  window.visualViewport?.addEventListener('resize', schedule, { passive: true });
   window.addEventListener('pageshow', schedule);
   window.addEventListener('load', schedule, { once: true });
   window.addEventListener('storage', event => {
@@ -108,8 +81,8 @@
   });
   if ('ResizeObserver' in window) {
     const observer = new ResizeObserver(schedule);
-    observer.observe(hero);
     observer.observe(story);
+    observer.observe(viewport);
   }
   document.fonts?.ready.then(schedule);
   syncMotion();

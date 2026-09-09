@@ -99,7 +99,8 @@
     const w = width/scale;
     const h = height/scale;
     const yPosition = layer.dataset.concertScene === 'hero' ? (mobileLayout.matches ? .62 : .5) : .6;
-    svg.setAttribute('viewBox', `${(scene.width-w)*.5} ${(scene.height-h)*yPosition} ${w} ${h}`);
+    const xPosition = layer.dataset.concertAlign === 'right' ? 1 : .5;
+    svg.setAttribute('viewBox', `${(scene.width-w)*xPosition} ${(scene.height-h)*yPosition} ${w} ${h}`);
   }
 
   function syncPlayback() {
