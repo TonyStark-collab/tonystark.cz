@@ -7,6 +7,8 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let visible = false;
   let attempt = 0;
+  let replayTimer = null;
+  let finished = false;
   function allowed() {
     let enabled = true;
     try { enabled = localStorage.getItem('tonystark-concert-motion') !== 'paused'; } catch {}
@@ -14,13 +16,28 @@
   }
   function sync() {
     const token = ++attempt;
-    if (!allowed()) { video.pause(); return; }
+    if (!allowed()) {
+      clearTimeout(replayTimer);
+      replayTimer = null;
+      video.pause();
+      return;
+    }
     if (!video.hasAttribute('src')) video.src = video.dataset.src;
-    if (video.ended) return;
+    if (finished) {
+      if (replayTimer === null) replayTimer = setTimeout(() => {
+        replayTimer = null;
+        if (!allowed()) return;
+        finished = false;
+        video.currentTime = 0;
+        sync();
+      }, 10000);
+      return;
+    }
     video.play()?.then(() => {
       if (token !== attempt && !allowed()) video.pause();
     }).catch(() => { /* The completed logo poster remains the fallback. */ });
   }
+  video.addEventListener('ended', () => { finished = true; sync(); });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
       visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .3;
