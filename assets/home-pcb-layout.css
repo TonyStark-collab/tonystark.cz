@@ -1,6 +1,24 @@
 /* Regular background painting: the original artwork, paper washes and no masks,
    transforms or opacity layers shared with the opening text. */
 body.home { isolation:auto; }
+.home .hero-actions .primary-link {
+  min-height:44px;
+  padding:8px 0;
+  gap:12px;
+  background:none;
+  color:var(--ink);
+  font-family:'Special Elite','Courier New',monospace;
+  font-size:17px;
+  font-weight:400;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  text-decoration:none;
+  transform:none;
+}
+.home .hero-actions .primary-link img { width:18px; height:18px; filter:none; }
+.home .hero-actions .primary-link:hover { background:none; color:var(--brick); transform:none; }
+.home .hero-actions .primary-link:focus-visible { outline:2px solid var(--brick); outline-offset:5px; }
 .home-pcb-background {
   --pcb-width:780px;
   --pcb-height:calc(var(--pcb-width) * 941 / 1672);
@@ -11,9 +29,9 @@ body.home { isolation:auto; }
   pointer-events:none;
   background-image:
     linear-gradient(0deg,var(--paper),#eee3d000 24%),
-    radial-gradient(ellipse at 27% 35%,#eee3d09e,#eee3d026 65%),
-    linear-gradient(var(--paper),#eee3d000 12%,#eee3d000 65%,var(--paper)),
-    linear-gradient(90deg,var(--paper),#eee3d000 15%,#eee3d000 80%,var(--paper)),
+    radial-gradient(ellipse at 27% 35%,#eee3d059,#eee3d00d 65%),
+    linear-gradient(var(--paper),#eee3d000 5%,#eee3d000 88%,var(--paper)),
+    linear-gradient(90deg,var(--paper),#eee3d000 5%,#eee3d000 95%,var(--paper)),
     url('/assets/pcb-sage-paper.png');
   background-size:100% 100%,100% 100%,100% var(--pcb-height),var(--pcb-width) 100%,var(--pcb-width) auto;
   background-position:left top,left top,left top,140px top,140px top;
