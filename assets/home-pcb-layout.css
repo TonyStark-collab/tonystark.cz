@@ -19,28 +19,27 @@ body.home { isolation:auto; }
 .home .hero-actions .primary-link img { width:18px; height:18px; filter:none; }
 .home .hero-actions .primary-link:hover { background:none; color:var(--brick); transform:none; }
 .home .hero-actions .primary-link:focus-visible { outline:2px solid var(--brick); outline-offset:5px; }
+/* A single continuous image. Keep dense tracks outside the reading surface. */
 .home-pcb-background {
-  --pcb-width:780px;
-  --pcb-height:calc(var(--pcb-width) * 941 / 1672);
   position:absolute;
   inset:0 0 auto;
   height:clamp(640px,57vw,1000px);
   z-index:0;
   pointer-events:none;
-  background-image:
-    linear-gradient(0deg,var(--paper),#eee3d000 24%),
-    radial-gradient(ellipse at 27% 35%,#eee3d059,#eee3d00d 65%),
-    linear-gradient(var(--paper),#eee3d000 5%,#eee3d000 88%,var(--paper)),
-    linear-gradient(90deg,var(--paper),#eee3d000 5%,#eee3d000 95%,var(--paper)),
-    url('/assets/pcb-sage-paper.png');
-  background-size:100% 100%,100% 100%,100% var(--pcb-height),var(--pcb-width) 100%,var(--pcb-width) auto;
-  background-position:left top,left top,left top,140px top,140px top;
-  background-repeat:no-repeat,no-repeat,repeat,repeat,repeat;
+  background-image:linear-gradient(0deg,var(--paper),#eee3d000 18%),url('/assets/pcb-sage-paper.png');
+  background-size:100% 100%,100% auto;
+  background-position:center top;
+  background-repeat:no-repeat;
+}
+.home .hero-copy {
+  background-color:#eee3d0f5;
+  box-shadow:0 0 26px 20px #eee3d0f5;
 }
 @media(max-width:760px) {
   .home-pcb-background {
-    --pcb-width:480px;
-    height:900px;
-    background-position:left top,left top,left top,80px top,80px top;
+    height:780px;
+    background-size:100% 100%,auto 780px;
+    background-position:center top,26% top;
   }
+  .home .hero-copy { box-shadow:0 0 20px 14px #eee3d0f5; }
 }
