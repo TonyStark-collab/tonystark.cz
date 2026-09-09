@@ -1,5 +1,6 @@
 /* Tony's own festival photographs. No frames or replacement artwork. */
-.mor-story .story-concert { background:#071420; }
+.mor-story .story-concert { background:none; }
+.mor-art { position:absolute; inset:110px 0 0; background:#071420; }
 .mor-story .mor-photos { position:absolute; inset:0; overflow:hidden; }
 .mor-photo { position:absolute; height:100%; width:60%; object-fit:cover; }
 .mor-photo-day { left:0; object-position:48% 57%; }
@@ -34,10 +35,20 @@
 
 /* Fade the complete concert scene into the actual page paper. */
 .home .mor-story .story-frame { background:none; }
-.home .mor-story .story-concert {
+.home .mor-story .mor-art {
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 12%,#000 88%,transparent);
   -webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 12%,#000 88%,transparent);
   mask-composite:intersect;
 }
 .home .mor-story .story-copy-concert { left:9%; right:9%; bottom:13%; }
+
+/* Readable caption on the page paper, outside the photographic fade. */
+.home .mor-story .story-copy-concert { top:18px; bottom:auto; left:7%; right:7%; color:var(--ink); text-align:center; }
+.home .mor-story .story-copy-concert h2 { font-size:clamp(24px,3vw,38px); line-height:1.25; max-width:none; margin:0 0 10px; text-shadow:none; }
+.home .mor-story .mor-place { font-family:'Special Elite','Courier New',monospace; font-size:clamp(17px,1.7vw,21px); color:var(--ink); letter-spacing:0; margin:0; }
+@media(max-width:760px) {
+  .mor-art { top:125px; }
+  .home .mor-story .story-copy-concert { left:4%; right:4%; }
+  .home .mor-story .story-copy-concert h2 { font-size:clamp(23px,6vw,28px); }
+}
