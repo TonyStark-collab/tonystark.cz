@@ -91,3 +91,14 @@ body.home { font-family: 'Space Grotesk', Arial, sans-serif; }
   .home .guide-art { grid-column: 2; grid-row: 1 / span 2; }
   .home .guide-copy .text-link { font-size: 14px; }
 }
+
+/* Homepage greeting, using the existing typewriter face. */
+.home .site-header .wordmark.home-welcome {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.home .site-header .home-welcome span { color: var(--red); }
