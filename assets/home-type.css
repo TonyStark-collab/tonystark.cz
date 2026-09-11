@@ -94,6 +94,8 @@ body.home { font-family: 'Space Grotesk', Arial, sans-serif; }
 
 /* Homepage greeting, using the existing typewriter face. */
 .home .site-header .wordmark.home-welcome {
+  position: relative;
+  top: 6px;
   font-family: 'Special Elite', 'Courier New', monospace;
   font-weight: 400;
   font-size: clamp(32px, 4vw, 46px);
