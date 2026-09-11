@@ -43,3 +43,11 @@
 .practice-outro a:hover { color:var(--ink); }
 .practice-outro a:focus-visible { outline:2px solid #914536; outline-offset:5px; }
 @media(max-width:760px) { .practice-outro { padding-top:36px; padding-bottom:48px; } .practice-outro p { font-size:17px; line-height:1.75; } }
+
+/* Direct routes to the personal work, in the existing editorial style. */
+.home .hero-shortcuts { display:flex; flex-wrap:wrap; gap:8px 28px; }
+.home .hero-shortcuts a { display:inline-flex; align-items:center; gap:12px; min-height:44px; color:#914536; font-family:'Space Grotesk',Arial,sans-serif; font-size:17px; font-weight:600; text-decoration:underline; text-underline-offset:6px; text-decoration-thickness:1px; }
+.home .hero-shortcuts a:hover { color:var(--ink); }
+.home .hero-shortcuts a:focus-visible { outline:2px solid #914536; outline-offset:4px; }
+.technology-essay .ai-explainer-copy h3 { font-family:'Space Grotesk',Arial,sans-serif; font-size:20px; line-height:1.5; margin:24px 0 14px; }
+.technology-essay .ai-explainer-copy h3:first-child { margin-top:0; }

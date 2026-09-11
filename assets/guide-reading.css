@@ -1,5 +1,5 @@
-/* Reading refinements for the two revised pages only. */
-body.editorial.type-pairing.chatgpt-guide {
+/* Shared reading treatment for ChatGPT, Work and Codex. */
+body.editorial.type-pairing:is(.chatgpt-guide, .work-guide, .codex-guide) {
   background-image: linear-gradient(#eee3d080, #eee3d080), url('/assets/paper-texture.webp');
   background-blend-mode: normal, multiply;
 }
@@ -10,65 +10,65 @@ body.editorial.type-pairing.chatgpt-guide {
   font-size: 12px;
   letter-spacing: 1.2px;
 }
-.chatgpt-guide.editorial.type-pairing .reading-layout {
+:is(.chatgpt-guide, .work-guide, .codex-guide).editorial.type-pairing .reading-layout {
   max-width: 1120px;
   grid-template-columns: 230px minmax(0, 1fr);
   gap: clamp(28px, 4vw, 56px);
 }
-.chatgpt-guide .guide-body {
+:is(.chatgpt-guide, .work-guide, .codex-guide) .guide-body {
   max-width: min(72ch, 700px);
 }
-.chatgpt-guide.editorial .guide-section {
+:is(.chatgpt-guide, .work-guide, .codex-guide).editorial .guide-section {
   padding-bottom: 32px;
   margin-bottom: 32px;
 }
-.chatgpt-guide.editorial main .guide-section h3 {
+:is(.chatgpt-guide, .work-guide, .codex-guide).editorial main .guide-section h3 {
   font-family: 'Space Grotesk', Arial, sans-serif;
   font-size: 19px;
   font-weight: 600;
   line-height: 1.5;
   margin: 26px 0 10px;
 }
-.chatgpt-guide .guide-section [id] {
+:is(.chatgpt-guide, .work-guide, .codex-guide) .guide-section [id] {
   scroll-margin-top: 28px;
 }
-.chatgpt-guide .guide-source-link {
+:is(.chatgpt-guide, .work-guide, .codex-guide) .guide-source-link {
   margin-top: 18px;
 }
-.chatgpt-guide .guide-note {
+:is(.chatgpt-guide, .work-guide, .codex-guide) .guide-note {
   padding-left: 18px;
   border-left: 2px solid #8e9589;
   color: #374038;
 }
-.chatgpt-guide .guide-sidebar nav a {
+:is(.chatgpt-guide, .work-guide, .codex-guide) .guide-sidebar nav a {
   gap: 12px;
 }
-.chatgpt-guide .guide-sidebar nav a span {
+:is(.chatgpt-guide, .work-guide, .codex-guide) .guide-sidebar nav a span {
   flex-shrink: 0;
 }
-.chatgpt-guide #plans {
+:is(.chatgpt-guide, .work-guide, .codex-guide) #plans {
   margin-top: 24px;
 }
 @media (max-width: 1000px) and (min-width: 701px) {
-  .chatgpt-guide.editorial.type-pairing .reading-layout {
+  :is(.chatgpt-guide, .work-guide, .codex-guide).editorial.type-pairing .reading-layout {
     grid-template-columns: 190px minmax(0, 1fr);
   }
 }
 @media (max-width: 700px) {
-  .chatgpt-guide.editorial.type-pairing .reading-layout {
+  :is(.chatgpt-guide, .work-guide, .codex-guide).editorial.type-pairing .reading-layout {
     display: block;
   }
-  .chatgpt-guide .guide-sidebar {
+  :is(.chatgpt-guide, .work-guide, .codex-guide) .guide-sidebar {
     border-bottom: 1px solid var(--line);
   }
-  .chatgpt-guide .guide-sidebar nav {
+  :is(.chatgpt-guide, .work-guide, .codex-guide) .guide-sidebar nav {
     padding-bottom: 16px;
   }
-  .chatgpt-guide.editorial .guide-section {
+  :is(.chatgpt-guide, .work-guide, .codex-guide).editorial .guide-section {
     padding-bottom: 26px;
     margin-bottom: 26px;
   }
-  .chatgpt-guide.editorial main .page-lead {
+  :is(.chatgpt-guide, .work-guide, .codex-guide).editorial main .page-lead {
     font-size: 18px;
     line-height: 1.65;
   }
