@@ -53,27 +53,21 @@
 })();
 (() => {
 'use strict';
-const scene=document.querySelector('.mor-diary');
-if(!scene)return;
-const video=scene.querySelector('video');
-const button=scene.querySelector('.mor-diary-toggle');
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-let visible=false, paused=false, timer=null, finished=false;
-button.hidden=false;
-function allowed(){return visible&&!paused&&!reduced.matches&&!document.hidden;}
-function sync(){
- clearTimeout(timer);timer=null;
- if(!allowed()){video.pause();return;}
- if(finished){timer=setTimeout(()=>{finished=false;video.currentTime=0;sync();},10000);return;}
- if(!video.src)video.src=video.dataset.src;
- const playing=video.play();if(playing)playing.catch(()=>{});
-}
-button.addEventListener('click',()=>{
- paused=!paused;button.setAttribute('aria-pressed',String(paused));
- button.textContent=paused?'Přehrávat logo':'Pozastavit logo';sync();
+const dialog=document.querySelector('.mor-player');
+if(!dialog || typeof dialog.showModal !== 'function')return;
+const video=dialog.querySelector('video');
+document.querySelectorAll('[data-mor-play]').forEach(link=>{
+ link.setAttribute('aria-haspopup','dialog');
+ link.addEventListener('click',event=>{
+  event.preventDefault();
+  dialog.showModal();
+  if(!video.hasAttribute('src'))video.src=video.dataset.src;
+  video.currentTime=0;
+  video.play()?.catch(()=>{ /* Native controls allow a manual retry. */ });
+ });
 });
-video.addEventListener('ended',()=>{finished=true;sync();});
-if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:0}).observe(video);
-reduced.addEventListener('change',sync);
-document.addEventListener('visibilitychange',sync);
+dialog.querySelector('[data-mor-close]').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('close',()=>video.pause());
+dialog.addEventListener('cancel',()=>video.pause());
+document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();});
 })();
