@@ -75,7 +75,7 @@ class Page(HTMLParser):
             "connect-src": ["https://api.open-meteo.com", "https://geocoding-api.open-meteo.com"] if self.path == "info-panel/index.html" else ["'none'"],
         }
         # The homepage festival intro and personal archive use same-origin videos.
-        if self.path in {"index.html", "herni-vzpominky/index.html"}:
+        if self.path in {"index.html", "herni-vzpominky/index.html", "masters-of-rock/index.html"}:
             expected["media-src"] = ["'self'"]
         if self.policy != expected:
             self.fail("CSP is missing or differs from the reviewed resource allowlist")
