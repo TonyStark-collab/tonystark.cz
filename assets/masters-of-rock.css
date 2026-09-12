@@ -85,3 +85,26 @@
  .mor-diary-story { margin:0 4px; }
  .mor-diary-story p { font-size:17px; line-height:1.7; }
 }
+
+/* Audit refinements: compact paired photographs and a festival badge. */
+.home .mor-diary { max-width:880px; margin-bottom:40px; }
+.mor-diary-gallery { grid-template-columns:1fr 1.1fr; gap:20px 28px; align-items:center; }
+.mor-diary-gallery > * { min-width:0; }
+.mor-diary-day { grid-column:1; grid-row:1; width:100%; align-self:start; }
+.mor-diary-night { grid-column:2; grid-row:1; margin-top:64px !important; }
+.home .mor-diary-note { grid-column:1; grid-row:2; padding-left:12%; font-size:24px; line-height:1.5; }
+.mor-diary-caption { grid-column:2; grid-row:2; margin:0; gap:20px; }
+.mor-diary-emblem { width:104px; height:104px; flex:0 0 104px; overflow:hidden; border:4px solid #f6efdc; border-radius:50%; background:#080a0c; box-shadow:0 2px 5px #30281830; position:relative; transform:rotate(-7deg); }
+.mor-diary-emblem video { position:absolute; width:176px; height:176px; max-width:none; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:0; }
+.home .mor-diary-story { margin:24px 8px 0; border:0; padding:0; }
+.home .mor-diary-story summary { border:0; color:var(--ink); }
+@media(max-width:600px) {
+ .home .mor-diary { margin-bottom:20px; }
+ .mor-diary-gallery { grid-template-columns:1fr 1.25fr; gap:18px 12px; }
+ .mor-diary-day { grid-column:1 / -1; width:86%; }
+ .mor-diary-night { grid-column:2; grid-row:2; margin-top:0 !important; }
+ .home .mor-diary-note { grid-column:1; grid-row:2; padding-left:0; font-size:clamp(15px,4vw,22px); }
+ .mor-diary-caption { grid-column:1 / -1; grid-row:3; justify-content:center; margin-top:8px; }
+ .mor-diary-emblem { width:88px; height:88px; flex-basis:88px; }
+ .mor-diary-emblem video { width:150px; height:150px; }
+}
