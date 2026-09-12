@@ -108,3 +108,16 @@
  .mor-diary-emblem { width:88px; height:88px; flex-basis:88px; }
  .mor-diary-emblem video { width:150px; height:150px; }
 }
+
+/* The diary keeps a static sticker; the full video opens only on request. */
+.mor-diary-emblem { display:block; }
+.mor-diary-gallery .mor-diary-emblem img { position:absolute; width:176px; height:176px; max-width:none; left:50%; top:50%; transform:translate(-50%,-50%); object-fit:contain; }
+a.mor-diary-toggle { display:inline-block; min-height:44px; padding:10px 0; text-decoration:none; }
+.mor-player { width:min(560px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); padding:16px; border:1px solid #998a70; background:#eee3d0; color:#151917; overflow:auto; }
+.mor-player::backdrop { background:#151917bd; }
+.mor-player-header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px; }
+.mor-player-header h2 { font:400 22px/1.3 'Special Elite',monospace; margin:0; }
+.mor-player-header button { min-height:44px; padding:8px 12px; border:1px solid #998a70; background:transparent; color:inherit; font:inherit; cursor:pointer; }
+.mor-player video { display:block; width:100%; max-height:calc(100dvh - 120px); aspect-ratio:1; object-fit:contain; background:#000; }
+.mor-player :focus-visible { outline:2px solid #8d302e; outline-offset:3px; }
+@media(max-width:600px) { .mor-diary-gallery .mor-diary-emblem img { width:150px; height:150px; } }
