@@ -51,3 +51,68 @@
 .home .hero-shortcuts a:focus-visible { outline:2px solid #914536; outline-offset:4px; }
 .technology-essay .ai-explainer-copy h3 { font-family:'Space Grotesk',Arial,sans-serif; font-size:20px; line-height:1.5; margin:24px 0 14px; }
 .technology-essay .ai-explainer-copy h3:first-child { margin-top:0; }
+
+/* A consistent reading layer: expressive headings, calm running text. */
+body.home {
+ --reading-width:700px;
+ --reading-font:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+ --reading-ink:#252923;
+ background-image:linear-gradient(#f8f2e666,#f8f2e666),url('/assets/paper-texture.webp');
+ background-size:auto,700px 700px;
+ background-repeat:repeat,repeat;
+ background-blend-mode:normal,multiply;
+}
+.home .hero-copy .intro {
+ font-family:var(--reading-font); font-size:clamp(20px,1.7vw,23px);
+ font-weight:400; line-height:1.65; max-width:29em; color:var(--reading-ink);
+}
+.home .hero-shortcuts { margin-top:24px; gap:12px 28px; }
+.home .hero-shortcuts a {
+ font-family:var(--reading-font); font-size:19px; font-weight:650;
+ min-height:48px; color:#793728; text-decoration-thickness:2px; text-underline-offset:7px;
+}
+.home .technology-essay,.home .practice-outro-inner { max-width:var(--reading-width); }
+.home .mor-diary-story {
+ width:min(var(--reading-width),100%); margin:32px auto 0;
+}
+.home .technology-essay p,
+.home .practice-outro p,
+.home .mor-diary-story p {
+ font-family:var(--reading-font); font-size:19px; font-weight:400; line-height:1.75;
+ letter-spacing:normal; color:var(--reading-ink); text-align:left;
+ margin:0 0 1.15em; overflow-wrap:break-word;
+}
+.home .mor-diary-story p:last-child,.home .ai-explainer-copy p:last-child { margin-bottom:0; }
+.home .mor-diary-story > div,.home .ai-explainer-copy { max-width:none; padding-top:12px; padding-bottom:8px; }
+.home .technology-essay h2,.home .practice-outro h2 {
+ text-align:left; font-size:clamp(28px,3vw,38px); line-height:1.35; margin:0 0 24px;
+}
+.home .technology-essay h2 span { padding-left:0; }
+.home .ai-explainer { margin-top:24px; }
+.home .ai-explainer summary,.home .mor-diary-story summary {
+ font-family:var(--reading-font); font-weight:600; font-size:20px; line-height:1.5;
+ padding:16px 0; gap:20px; color:#793728; border-top:1px solid #79684a40;
+}
+.home .ai-explainer summary > span:first-child { text-decoration:none; }
+.home .ai-explainer summary:hover > span:first-child { text-decoration:underline; text-underline-offset:4px; }
+.home .ai-explainer-copy h3 { font-family:var(--reading-font); font-size:21px; font-weight:650; }
+.home .technology-reading { padding-top:32px; padding-bottom:16px; }
+.home .technology-essay + .technology-essay { margin-top:56px; }
+.home .technology-reading::before,.home .technology-reading::after { opacity:.23; }
+.home .ai-brand-still { margin:28px 0 24px; gap:48px; }
+.home .ai-brand-still figcaption { font-family:var(--reading-font); color:#454a40; }
+.home .practice-outro { padding-top:40px; padding-bottom:56px; }
+.home .practice-outro a { font-family:var(--reading-font); font-size:19px; font-weight:650; color:#793728; min-height:48px; }
+.home .mor-diary-heading > p { font-family:var(--reading-font); font-size:20px; line-height:1.6; color:var(--reading-ink); }
+.home .mor-diary-caption p { font-family:var(--reading-font); font-size:18px; line-height:1.5; }
+.home .mor-diary-toggle { font-family:var(--reading-font); font-size:15px; color:#793728; }
+@media(max-width:600px) {
+ .home .hero-copy .intro { font-size:20px; line-height:1.6; }
+ .home .hero-shortcuts a { font-size:18px; }
+ .home .mor-diary-story { width:calc(100% - 12px); margin-top:24px; }
+ .home .technology-essay p,.home .practice-outro p,.home .mor-diary-story p { font-size:18px; line-height:1.75; }
+ .home .ai-explainer summary,.home .mor-diary-story summary { font-size:18px; }
+ .home .technology-essay + .technology-essay { margin-top:44px; }
+ .home .mor-diary-heading > p { font-size:18px; }
+ .home .ai-brand-still { gap:32px; }
+}
