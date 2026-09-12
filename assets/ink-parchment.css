@@ -102,7 +102,7 @@ body.home.ink-paper .ai-explainer-copy h3 { font:600 21px/1.4 'Space Grotesk',Ar
 body.home.ink-paper .ai-brand-still figcaption { font:400 14px/1.5 'Space Grotesk',Arial,sans-serif; }
 body.home.ink-paper .practice-outro .practice-kicker { font:600 14px/1.5 'Space Grotesk',Arial,sans-serif; color:#586047; margin-bottom:12px; }
 body.home.ink-paper .practice-outro-inner { border-top:1px solid var(--line); padding-top:30px; }
-body.home.ink-paper .mor-player-title { font-family:var(--pen); font-size:32px; }
+body.home.ink-paper #mor-player-title { font-family:var(--pen); font-size:32px; }
 /* Give small weather labels a stable dark surface over the changing photograph. */
 body.editorial.type-pairing.ink-paper.dashboard-page :is(#weather-status,.weather-source,.clock-note,.scene-caption) {
   font:400 14px/1.5 'Space Grotesk',Arial,sans-serif; color:#fffdf5;
@@ -128,3 +128,5 @@ body.ink-paper :is(.memories-back,.festival-back a,.about-nav a,.practice-nav a)
  body.editorial.type-pairing.ink-paper .project-preview { grid-column:2; max-width:320px; }
  body.editorial.type-pairing.ink-paper.dashboard-page .scene-caption { margin-left:0; }
 }
+
+body.home.ink-paper .mor-player { background:var(--paper); }
