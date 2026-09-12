@@ -52,3 +52,36 @@
   .home .mor-story .story-copy-concert { left:4%; right:4%; }
   .home .mor-story .story-copy-concert h2 { font-size:clamp(23px,6vw,28px); }
 }
+
+/* Concert diary: original photographs and a separate animated keepsake. */
+.home .mor-diary { width:min(880px,calc(100% - 48px)); margin:40px auto 80px; color:var(--ink); }
+.mor-diary-heading { text-align:center; margin-bottom:32px; }
+.home .mor-diary h2 { font:400 clamp(28px,3.4vw,42px)/1.25 'Special Elite','Courier New',monospace; margin:0 0 14px; }
+.mor-diary-heading > p { font:400 clamp(17px,1.7vw,20px)/1.55 'Space Grotesk',sans-serif; margin:0 auto; max-width:36em; }
+.mor-diary-gallery { display:grid; grid-template-columns:1fr 1.35fr; gap:22px 28px; align-items:center; padding:8px; }
+.mor-diary-gallery figure { margin:0; padding:8px; background:#f6efdc; box-shadow:0 3px 10px #30281826; }
+.mor-diary-gallery img { display:block; width:100%; height:auto; }
+.mor-diary-day { grid-column:1 / -1; width:80%; justify-self:start; transform:rotate(-1deg); }
+.mor-diary-night { grid-column:2; grid-row:2; transform:rotate(2deg); }
+.home .mor-diary-note { grid-column:1; grid-row:2; font:italic 400 clamp(20px,2.5vw,30px)/1.65 'Special Elite','Courier New',monospace; color:#8d302e; padding-left:15%; margin:0; transform:rotate(-5deg); }
+.mor-diary-caption { display:flex; align-items:center; gap:24px; margin:28px 8px 24px; }
+.mor-diary-caption video { display:block; width:132px; height:132px; object-fit:contain; background:#080a0c; border-radius:3px; }
+.mor-diary-caption p { font:400 clamp(17px,2vw,21px)/1.4 'Special Elite','Courier New',monospace; margin:0 0 8px; }
+.mor-diary-toggle { font:inherit; font-size:14px; color:#7a302b; border:0; border-bottom:1px solid currentColor; padding:8px 0; background:transparent; cursor:pointer; }
+.mor-diary-story { margin:0 8px; }
+.mor-diary-story summary { font:400 clamp(19px,2.2vw,25px)/1.5 'Special Elite','Courier New',monospace; color:#8d302e; border-bottom:1px solid currentColor; padding:12px 0; cursor:pointer; }
+.mor-diary-story > div { padding-top:8px; max-width:740px; }
+.mor-diary-story p { font:400 18px/1.8 'Space Grotesk',sans-serif; margin:20px 0; }
+.mor-diary :is(summary,button):focus-visible { outline:2px solid #8d302e; outline-offset:5px; }
+@media(max-width:600px) {
+ .home .mor-diary { width:calc(100% - 36px); margin:32px auto 48px; }
+ .mor-diary-heading { margin-bottom:24px; }
+ .mor-diary-gallery { gap:18px 12px; padding:4px; grid-template-columns:.85fr 1.3fr; }
+ .mor-diary-day { width:96%; }
+ .mor-diary-gallery figure { padding:5px; }
+ .home .mor-diary-note { padding-left:0; font-size:clamp(16px,4.3vw,22px); line-height:1.65; }
+ .mor-diary-caption { gap:18px; margin:22px 4px 16px; }
+ .mor-diary-caption video { width:98px; height:98px; flex-shrink:0; }
+ .mor-diary-story { margin:0 4px; }
+ .mor-diary-story p { font-size:17px; line-height:1.7; }
+}
