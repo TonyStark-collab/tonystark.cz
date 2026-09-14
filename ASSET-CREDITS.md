@@ -15,3 +15,5 @@
 - Mark I perceptron photograph: Charles W. Wightman Jr. training recognition of the letter C, 1960. Computer History Museum, credit National Museum of the US Navy. https://computerhistory.org/stories/chatbots-decoded/
 - Joseph Weizenbaum at a terminal: time-sharing demonstration, 1965. Computer History Museum. This illustrates period equipment; it is not a confirmed photograph of ELIZA running. https://computerhistory.org/stories/chatbots-decoded/
 - Lee Sedol at the 2016 AlphaGo match: Google DeepMind. https://deepmind.google/research/alphago/
+
+- `assets/ai-stars-margin.mp4` and `assets/ai-stars-poster.webp`: a short looping excerpt of the independently programmed galaxy, used only as subdued marginal decoration. The full AI history video is presented as an inline paper photograph.

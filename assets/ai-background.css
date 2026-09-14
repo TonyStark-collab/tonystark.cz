@@ -1,38 +1,49 @@
-/* Quiet moving imagery beneath the homepage's paper and readable content. */
+/* Full-contrast moving photograph, with quiet star traces only in the margins. */
 body.home.ink-paper.has-ai-background { isolation:isolate; }
+body.home.ink-paper.has-ai-background::before,
+.home.has-ai-background .technology-reading::before,
+.home.has-ai-background .technology-reading::after { content:none; }
 .ai-background {
-  position:fixed; inset:0; z-index:-1; overflow:hidden;
-  pointer-events:none; background:var(--paper);
+  position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+  background:linear-gradient(#faf6ede0,#faf6ede0),url('/assets/paper-texture.webp') center/700px;
+  background-color:var(--paper);
+  mask-image:linear-gradient(90deg,#000,transparent 29%,transparent 74%,#000);
 }
 .ai-background video {
-  display:block; width:100%; height:100%; object-fit:cover;
-  opacity:.23; filter:grayscale(.7) sepia(.24);
-}
-.ai-background::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(90deg,#faf6ed22,#faf6edb8 30%,#faf6eda8 65%,#faf6ed22),
-    url('/assets/paper-texture.webp') center/700px;
-  background-blend-mode:screen;
-  opacity:.48;
+  position:absolute; left:-65%; top:-20%; width:160%; height:140%;
+  display:block; max-width:none; object-fit:cover;
+  opacity:.19; filter:grayscale(1) invert(1) sepia(.35); mix-blend-mode:multiply;
 }
 .home.has-ai-background .site-header { background:transparent; }
-.ai-background-toggle {
-  position:fixed; bottom:14px; left:14px; z-index:20;
-  display:inline-flex; align-items:center; gap:8px;
-  min-height:44px; padding:8px 12px;
-  border:1px solid #81755b55; border-radius:5px;
-  background:#faf6edf2; color:#555b4e;
-  font:400 12px/1.3 'Space Grotesk',Arial,sans-serif;
-  box-shadow:0 2px 8px #30251412; cursor:pointer;
+.ai-film { width:100%; max-width:700px; margin:48px auto 56px; }
+.ai-film-paper { padding:7px 6px; background:#fffaf0; }
+.ai-film-paper,.ai-film video {
+  clip-path:polygon(0 .6%,4% .2%,9% .8%,16% 0,24% .5%,31% .1%,39% .7%,46% 0,55% .5%,63% .2%,71% .8%,80% .1%,89% .6%,96% 0,100% .8%,99.6% 14%,100% 27%,99.7% 42%,100% 57%,99.5% 72%,100% 87%,99.7% 99.4%,95% 100%,87% 99.3%,78% 99.9%,70% 99.4%,61% 100%,52% 99.5%,44% 99.9%,36% 99.3%,27% 100%,19% 99.5%,10% 99.9%,3% 99.3%,0 99.8%,.4% 85%,0 70%,.3% 55%,0 39%,.4% 24%);
 }
-.ai-background-toggle[hidden] { display:none; }
-.ai-background-toggle svg { width:14px; height:14px; fill:currentColor; }
-.ai-background-toggle .play-icon { display:none; }
-.ai-background-toggle[data-paused='true'] .play-icon { display:block; }
-.ai-background-toggle[data-paused='true'] .pause-icon { display:none; }
+.ai-film video { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:#080b10; }
+.ai-film figcaption { display:flex; align-items:center; justify-content:space-between; gap:10px 20px; flex-wrap:wrap; margin-top:9px; color:#5a574b; }
+.ai-film figcaption > span { font:400 22px/1.35 'Caveat',cursive; }
+.ai-motion-toggle {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:44px; padding:8px 12px; border:1px solid #81755b55; border-radius:5px;
+  background:#faf6edf2; color:#555b4e;
+  font:400 12px/1.3 'Space Grotesk',Arial,sans-serif; cursor:pointer;
+}
+.ai-motion-toggle[hidden] { display:none; }
+.ai-motion-toggle svg { width:14px; height:14px; fill:currentColor; }
+.ai-motion-toggle .play-icon { display:none; }
+.ai-motion-toggle[data-paused='true'] .play-icon { display:block; }
+.ai-motion-toggle[data-paused='true'] .pause-icon { display:none; }
+.ai-background-toggle { position:fixed; bottom:14px; left:14px; z-index:20; box-shadow:0 2px 8px #30251412; }
+.ai-film .ai-motion-toggle { background:transparent; border-color:transparent; padding-inline:4px; }
+.ai-motion-toggle:focus-visible { outline:2px solid #843c2e; outline-offset:4px; }
 .home.has-ai-background .site-footer { padding-bottom:76px; }
 @media(max-width:760px) {
-  .ai-background video { opacity:.17; }
-  .ai-background::after { opacity:.58; }
+  .ai-background { mask-image:linear-gradient(90deg,#000,transparent 9%,transparent 91%,#000); }
+  .ai-background video { opacity:.12; }
   .ai-background-toggle { bottom:max(10px,env(safe-area-inset-bottom)); left:10px; }
+  .ai-film { margin:32px auto 40px; }
+  .ai-film-paper { padding:4px; }
+  .ai-film figcaption { gap:0 10px; }
+  .ai-film figcaption > span { font-size:21px; }
 }
