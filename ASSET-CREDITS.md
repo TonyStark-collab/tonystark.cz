@@ -19,3 +19,5 @@
 - `assets/ai-stars-margin.mp4` and `assets/ai-stars-poster.webp`: a short looping excerpt of the independently programmed galaxy, retained from the earlier marginal-decoration experiment. The homepage now uses the scroll-controlled edit below behind a sequence of parchment scenes.
 
 - The scroll-controlled homepage seeks through `assets/ai-background.mp4` from 0 to 18.4 seconds, stopping on the original galaxy before the loop transition back to the first photograph.
+
+- `assets/hero-collage-clean.webp`: revised original paper collage generated with OpenAI image generation; removes the plant and unrelated mountain decoration. The authentic IBM keyboard is overlaid separately. The homepage uses this static paper composition; previous AI video experiments remain archived assets.
