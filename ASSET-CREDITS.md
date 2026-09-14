@@ -16,4 +16,4 @@
 - Joseph Weizenbaum at a terminal: time-sharing demonstration, 1965. Computer History Museum. This illustrates period equipment; it is not a confirmed photograph of ELIZA running. https://computerhistory.org/stories/chatbots-decoded/
 - Lee Sedol at the 2016 AlphaGo match: Google DeepMind. https://deepmind.google/research/alphago/
 
-- `assets/ai-stars-margin.mp4` and `assets/ai-stars-poster.webp`: a short looping excerpt of the independently programmed galaxy, used only as subdued marginal decoration. The full AI history video is presented as an inline paper photograph.
+- `assets/ai-stars-margin.mp4` and `assets/ai-stars-poster.webp`: a short looping excerpt of the independently programmed galaxy, retained from the earlier marginal-decoration experiment. The current homepage uses the full AI history video behind separate parchment sheets.

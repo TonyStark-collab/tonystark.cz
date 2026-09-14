@@ -1,0 +1,85 @@
+/* Homepage experiment: individual parchment sheets suspended over the AI film. */
+body.home.ink-paper.floating-paper {
+  background:#121819; --paper:#f7f2e7; --ink:#242720;
+}
+.floating-paper .floating-sheet {
+  position:relative; isolation:isolate; background:none; border:0;
+  filter:drop-shadow(0 14px 23px #0005);
+}
+.floating-paper .floating-sheet::before {
+  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(#faf5e9ed,#faf5e9ed),url('/assets/paper-texture.webp') center/700px;
+  background-color:#f7f2e7; opacity:.96;
+  clip-path:polygon(.2% .5%,9% .2%,18% .6%,28% 0,40% .3%,51% .1%,64% .5%,76% .2%,88% .6%,99.5% .1%,100% 16%,99.6% 34%,100% 55%,99.7% 77%,100% 99.4%,88% 99.8%,75% 99.4%,62% 100%,50% 99.6%,37% 99.9%,25% 99.4%,12% 100%,.3% 99.6%,0 80%,.4% 58%,0 36%,.4% 17%);
+  mask-image:linear-gradient(90deg,transparent,#000 5px,#000 calc(100% - 5px),transparent),linear-gradient(transparent,#000 4px,#000 calc(100% - 4px),transparent);
+  mask-composite:intersect;
+}
+body.home.ink-paper.floating-paper .site-header { background:transparent; color:#fffaf0; position:relative; z-index:30; }
+.floating-paper .site-header-inner { max-width:1180px; min-height:104px; border-bottom:1px solid #fffaf050; }
+body.home.ink-paper.floating-paper .site-header .wordmark { color:#fffaf0; text-shadow:0 2px 12px #0007; }
+body.home.ink-paper.floating-paper .nav-toggle { color:#fffaf0; text-shadow:0 2px 12px #0007; }
+body.home.ink-paper.floating-paper .menu-bars i { background:#fffaf0; }
+body.home.ink-paper.floating-paper .site-nav { color:var(--ink); text-shadow:none; box-shadow:0 8px 24px #0004; }
+body.home.ink-paper.floating-paper .nav-toggle[aria-expanded='true'] { color:#fffaf0; }
+body.home.ink-paper.floating-paper .site-header a:focus-visible,
+body.home.ink-paper.floating-paper .nav-toggle:focus-visible { outline-color:#fffaf0; }
+body.home.ink-paper.floating-paper .site-nav a:focus-visible { outline-color:#843c2e; }
+body.home.ink-paper.floating-paper .home-hero {
+  display:flex; align-items:center; width:calc(100% - 80px); max-width:1180px;
+  min-height:calc(90svh - 104px); height:auto; margin:0 auto;
+  padding:64px 0 120px; overflow:visible;
+}
+body.home.ink-paper.floating-paper .hero-copy { width:570px; max-width:58%; padding:48px 48px 44px; margin:0; }
+body.home.ink-paper.floating-paper .hero-copy h1 { font-size:clamp(48px,5vw,68px); line-height:1.1; white-space:normal; letter-spacing:0; margin:0 0 25px; }
+body.home.ink-paper.floating-paper .hero-copy .intro { font:400 28px/1.4 'Caveat',cursive; margin:0; }
+body.home.ink-paper.floating-paper .hero-shortcuts { margin-top:26px; gap:12px 28px; }
+body.home.ink-paper.floating-paper .hero-shortcuts a { font:500 25px/1.4 'Caveat',cursive; }
+body.home.ink-paper.floating-paper .festival-gateway {
+  width:calc(100% - 80px); max-width:760px; padding:30px 40px;
+  margin:0 max(40px,calc((100% - 1180px)/2)) 150px auto;
+  grid-template-columns:110px minmax(0,1fr) auto; gap:26px;
+}
+body.home.ink-paper.floating-paper .festival-gateway h2 { font-size:34px; }
+.floating-paper .festival-gateway-note { font-size:22px; }
+body.home.ink-paper.floating-paper .technology-reading { width:calc(100% - 80px); max-width:1180px; margin:0 auto; padding:0; }
+body.home.ink-paper.floating-paper .technology-essay { width:76%; max-width:780px; padding:46px 52px; margin:0 auto 150px 0; }
+body.home.ink-paper.floating-paper .technology-ai { margin:0 0 150px auto; }
+body.home.ink-paper.floating-paper .technology-essay h2 { font:500 43px/1.15 'Caveat',cursive; margin:0 0 24px; }
+body.home.ink-paper.floating-paper .technology-essay h2 span { padding:0; background:none; }
+body.home.ink-paper.floating-paper .technology-essay p,
+body.home.ink-paper.floating-paper .practice-outro p { font:400 18px/1.8 'Space Grotesk',Arial,sans-serif; }
+body.home.ink-paper.floating-paper .technology-essay .ai-explainer-copy h3 { font:600 20px/1.5 'Space Grotesk',Arial,sans-serif; }
+body.home.ink-paper.floating-paper .practice-outro { width:calc(100% - 80px); max-width:1180px; margin:0 auto 100px; padding:0; }
+body.home.ink-paper.floating-paper .practice-outro-inner { width:76%; max-width:780px; padding:46px 52px; margin:0 auto 0 0; border:0; }
+body.home.ink-paper.floating-paper .practice-outro h2 { font:500 43px/1.15 'Caveat',cursive; }
+body.home.ink-paper.floating-paper .practice-outro .practice-kicker { font-size:13px; }
+body.home.ink-paper.floating-paper .site-footer { background:#10191deb; color:#f7f2e7; padding:28px max(40px,calc((100% - 1180px)/2)) 80px; }
+body.home.ink-paper.floating-paper .site-footer a { color:#f7f2e7; }
+body.home.ink-paper.floating-paper .footer-note { color:#e2dfd3; }
+@media(max-width:900px) {
+  body.home.ink-paper.floating-paper .hero-copy { max-width:75%; }
+  body.home.ink-paper.floating-paper .technology-essay,
+  body.home.ink-paper.floating-paper .practice-outro-inner { width:90%; }
+  .floating-paper .festival-gateway-note { display:none; }
+  body.home.ink-paper.floating-paper .festival-gateway { grid-template-columns:100px minmax(0,1fr); }
+}
+@media(max-width:600px) {
+  .floating-paper .site-header-inner { min-height:84px; }
+  body.home.ink-paper.floating-paper .home-hero { width:calc(100% - 32px); min-height:calc(86svh - 84px); padding:42px 0 100px; }
+  body.home.ink-paper.floating-paper .hero-copy { width:100%; max-width:none; padding:32px 28px; }
+  body.home.ink-paper.floating-paper .hero-copy h1 { font-size:clamp(41px,11vw,58px); }
+  body.home.ink-paper.floating-paper .hero-copy .intro { font-size:26px; }
+  body.home.ink-paper.floating-paper .festival-gateway { width:calc(100% - 32px); margin:0 auto 110px; padding:24px; gap:18px; grid-template-columns:80px minmax(0,1fr); }
+  body.home.ink-paper.floating-paper .festival-gateway h2 { font-size:30px; }
+  body.home.ink-paper.floating-paper .festival-gateway-link { font-size:23px; }
+  body.home.ink-paper.floating-paper .technology-reading,
+  body.home.ink-paper.floating-paper .practice-outro { width:calc(100% - 32px); }
+  body.home.ink-paper.floating-paper .technology-essay,
+  body.home.ink-paper.floating-paper .practice-outro-inner { width:100%; padding:32px 26px; }
+  body.home.ink-paper.floating-paper .technology-essay { margin-bottom:110px; }
+  body.home.ink-paper.floating-paper .technology-essay h2,
+  body.home.ink-paper.floating-paper .practice-outro h2 { font-size:36px; }
+  body.home.ink-paper.floating-paper .technology-essay p,
+  body.home.ink-paper.floating-paper .practice-outro p { font-size:17px; line-height:1.75; }
+  body.home.ink-paper.floating-paper .site-footer { padding:26px 24px 80px; }
+}
