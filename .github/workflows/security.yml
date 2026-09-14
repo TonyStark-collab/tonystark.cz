@@ -28,5 +28,7 @@ jobs:
           done
       - name: Check weather location selection and request races
         run: node --test .github/scripts/weather_locations.test.cjs
+      - name: Check scroll-controlled story
+        run: node --test .github/scripts/ai_scroll.test.cjs
       - name: Check known dependency vulnerabilities
         run: npm audit --audit-level=low --ignore-scripts --fetch-retries=0 --fetch-timeout=30000
