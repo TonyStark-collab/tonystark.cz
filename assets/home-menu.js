@@ -1,14 +1,13 @@
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.site-nav');
-const closeButton = nav.querySelector('.menu-close');
 function setMenu(open, returnFocus = false) {
   toggle.setAttribute('aria-expanded', String(open));
+  toggle.setAttribute('aria-label', open ? 'Zavřít menu' : 'Menu');
   nav.inert = !open;
   nav.classList.toggle('is-open', open);
   if (returnFocus) toggle.focus();
 }
 toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
-closeButton.addEventListener('click', () => setMenu(false, true));
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setMenu(false, true);
 });
