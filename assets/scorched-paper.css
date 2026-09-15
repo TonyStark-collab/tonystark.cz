@@ -1,0 +1,90 @@
+/* Tony's original paper composition, warmed like a gently singed sheet.
+   Colour lives behind the content; no overlay darkens text or photographs. */
+body.ink-paper:is(.home,.editorial.type-pairing) {
+  --paper:#d6bb8b;
+  --ink:#261b13;
+  --reading-ink:#261b13;
+  --muted:#51402c;
+  --brick:#702d20;
+  --accent:#702d20;
+  --red:#8c3020;
+  --line:#92724b;
+  --paper-panel:#e4cda4;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(90deg,#542c1473 0, #8d532829 2%, transparent 7%,transparent 93%,#8d53282e 98%,#542c1473 100%),
+    linear-gradient(180deg,#66361457 0,transparent 100px),
+    radial-gradient(ellipse at 4% 14%,#92502626,transparent 35%),
+    radial-gradient(ellipse at 96% 72%,#92502624,transparent 35%),
+    linear-gradient(90deg,#cfaf7d,#e2c99e 27%,#e4cda6 52%,#dcc194 76%,#ccab78),
+    url('/assets/paper-texture.webp');
+  background-size:100% 100%,100% 100%,100% 1200px,100% 1400px,100% 100%,700px 700px;
+  background-position:center top;
+  background-repeat:no-repeat,no-repeat,repeat-y,repeat-y,no-repeat,repeat;
+  background-blend-mode:multiply,multiply,multiply,multiply,multiply,normal;
+}
+/* Blend the existing PCB into the darker stock, without a pale rectangle. */
+body.home.ink-paper::before {
+  mix-blend-mode:multiply;
+  opacity:.27;
+  filter:sepia(.65);
+}
+.ink-paper :is(.technology-reading,.technical-archive)::before,
+.ink-paper :is(.technology-reading,.technical-archive)::after {
+  mix-blend-mode:multiply;
+  filter:sepia(.65);
+}
+body.ink-paper:is(.home,.editorial.type-pairing) .site-nav {
+  background:linear-gradient(#e4cda4d9,#dfc397d9),url('/assets/paper-texture.webp') center/700px;
+  background-color:var(--paper-panel);
+  border-color:#79552f88;
+  box-shadow:0 5px 18px #3f230d35;
+}
+body.ink-paper:is(.home,.editorial.type-pairing) .home-welcome span,
+body.home.ink-paper .hero-copy h1 span { color:var(--red); }
+body.ink-paper :is(.hero-shortcuts a,.festival-gateway-link,.festival-back a,
+  .practice-outro a,.ai-explainer summary,.ai-disclosure-sign,.mor-diary-note,
+  .mor-diary-toggle,.archive-enlarge,.archive-number,.text-link,.eyebrow) { color:var(--accent); }
+body.ink-paper :is(.festival-gateway-note,.practice-kicker,.breadcrumb,.page-meta,
+  .archive-photo figcaption,.ai-brand-still figcaption,.edition,.small-note) { color:var(--muted); }
+body.home.ink-paper .practice-outro .practice-kicker { color:var(--muted); }
+body.ink-paper :is(.site-header-inner,.festival-gateway,.practice-outro-inner) { border-color:#84603966; }
+body.ink-paper :is(a,button,summary,select,input):focus-visible {
+  outline:3px solid #582417;
+  outline-offset:5px;
+}
+body.ink-paper ::selection { background:#713323; color:#fff3d9; }
+body.editorial.type-pairing.ink-paper :is(.prompt-block,.practice-tip pre) {
+  background:var(--paper-panel);
+  color:var(--ink);
+}
+body.editorial.type-pairing.ink-paper .copy-button { color:var(--ink); border-color:#735332; }
+body.editorial.type-pairing.ink-paper .copy-button:hover { background:#d5b784; }
+body.editorial.type-pairing.ink-paper .guide-sidebar nav a[aria-current='location'] { background:#c5a37366; }
+body.editorial.type-pairing.ink-paper :is(.guide-sources,.practice-small-tool,.next-step,.editorial-split) { background:#c3a16c33; }
+body.editorial.type-pairing.ink-paper .practice-feature { background:#d7c293; border-color:#92724b77; }
+body.editorial.type-pairing.ink-paper .experiment-art { background:#ccba8b; }
+body.editorial.type-pairing.ink-paper :is(.practice-feature .eyebrow,.experiment-lesson > span,.work-status) { color:#384027; }
+body.editorial.type-pairing.ink-paper .experiment-links a { color:var(--accent); }
+body.ink-paper :is(.mor-diary-gallery figure,.archive-photo>a,.archive-dialog,.archive-close) { background:var(--paper-panel); color:var(--ink); }
+body.editorial.type-pairing.ink-paper .project-preview img { border-color:var(--paper-panel); }
+body.home.ink-paper .mor-player { background:var(--paper-panel); color:var(--ink); }
+/* Photo and video captions retain their existing dark/light treatment. */
+body.ink-paper .site-footer { background:#30251b; color:#f1dfbd; border-color:#6f4c2d; }
+body.ink-paper .site-footer .footer-note { color:#ddc9a7; }
+body.ink-paper .site-footer a:hover { color:#fff7e6; }
+body.ink-paper .site-footer a:focus-visible { outline-color:#f1d194; }
+@media(max-width:600px) {
+  /* Narrow singeing keeps text clear near the sides of a phone. */
+  body.ink-paper:is(.home,.editorial.type-pairing) {
+    background-image:
+      linear-gradient(90deg,#542c1452,transparent 18px,transparent calc(100% - 18px),#542c1452),
+      linear-gradient(180deg,#66361440,transparent 70px),
+      linear-gradient(90deg,#d7bb8b,#e4cda6 48%,#d7bb8b),
+      url('/assets/paper-texture.webp');
+    background-size:100% 100%,100% 100%,100% 100%,700px 700px;
+    background-repeat:no-repeat,no-repeat,no-repeat,repeat;
+    background-blend-mode:multiply,multiply,multiply,normal;
+  }
+}
