@@ -1,0 +1,22 @@
+/* A quiet, book-like opening. Scoped to the homepage only. */
+body.home.notebook-story main { width:100%; max-width:none; margin:0; padding:0; }
+body.home.notebook-story .personal-story { width:min(960px,calc(100% - 64px)); margin:0 auto; padding:52px 0 76px; }
+body.home.notebook-story .story-opening { max-width:720px; margin:0 auto 34px; }
+body.home.notebook-story .story-opening h1 { font:500 clamp(48px,5.8vw,76px)/1.08 'Caveat',cursive; letter-spacing:-.02em; text-align:center; margin:0 0 28px; text-wrap:balance; }
+body.home.notebook-story .story-opening h1 span { color:var(--red); }
+body.home.notebook-story .story-lead { font:400 22px/1.75 Georgia,'Times New Roman',serif; color:var(--ink); margin:0; }
+body.home.notebook-story .story-photo { margin:0 0 42px; }
+body.home.notebook-story .story-photo img { display:block; width:100%; height:auto; }
+body.home.notebook-story .story-photo figcaption { max-width:720px; margin:12px auto 0; color:var(--muted); font:400 13px/1.55 'Space Grotesk',Arial,sans-serif; }
+body.home.notebook-story .story-prose { max-width:720px; margin:0 auto; }
+body.home.notebook-story .story-prose p { font:400 20px/1.8 Georgia,'Times New Roman',serif; color:var(--ink); margin:0 0 1.25em; text-align:left; overflow-wrap:break-word; }
+body.home.notebook-story .story-prose p:last-child { margin-bottom:0; }
+@media(max-width:600px) {
+ body.home.notebook-story .personal-story { width:calc(100% - 40px); padding:28px 0 44px; }
+ body.home.notebook-story .story-opening { margin-bottom:24px; }
+ body.home.notebook-story .story-opening h1 { font-size:50px; margin-bottom:22px; }
+ body.home.notebook-story .story-lead { font-size:20px; line-height:1.65; }
+ body.home.notebook-story .story-photo { margin-bottom:28px; }
+ body.home.notebook-story .story-photo figcaption { font-size:12px; margin-top:9px; }
+ body.home.notebook-story .story-prose p { font-size:18px; line-height:1.75; margin-bottom:1.2em; }
+}
