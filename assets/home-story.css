@@ -1,22 +1,61 @@
-/* A quiet, book-like opening. Scoped to the homepage only. */
-body.home.notebook-story main { width:100%; max-width:none; margin:0; padding:0; }
-body.home.notebook-story .personal-story { width:min(960px,calc(100% - 64px)); margin:0 auto; padding:52px 0 76px; }
-body.home.notebook-story .story-opening { max-width:720px; margin:0 auto 34px; }
-body.home.notebook-story .story-opening h1 { font:500 clamp(48px,5.8vw,76px)/1.08 'Caveat',cursive; letter-spacing:-.02em; text-align:center; margin:0 0 28px; text-wrap:balance; }
-body.home.notebook-story .story-opening h1 span { color:var(--red); }
-body.home.notebook-story .story-lead { font:400 22px/1.75 Georgia,'Times New Roman',serif; color:var(--ink); margin:0; }
-body.home.notebook-story .story-photo { margin:0 0 42px; }
-body.home.notebook-story .story-photo img { display:block; width:100%; height:auto; }
-body.home.notebook-story .story-photo figcaption { max-width:720px; margin:12px auto 0; color:var(--muted); font:400 13px/1.55 'Space Grotesk',Arial,sans-serif; }
-body.home.notebook-story .story-prose { max-width:720px; margin:0 auto; }
-body.home.notebook-story .story-prose p { font:400 20px/1.8 Georgia,'Times New Roman',serif; color:var(--ink); margin:0 0 1.25em; text-align:left; overflow-wrap:break-word; }
-body.home.notebook-story .story-prose p:last-child { margin-bottom:0; }
+/* Homepage: locally hosted Sour Gummy, light canvas, centered reading column. */
+@font-face {
+  font-family:'Sour Gummy';
+  src:url('/assets/fonts/sour-gummy-variable.woff2') format('woff2');
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+}
+body.home.notebook-story {
+  --paper:#f3f2f0;
+  --ink:#414141;
+  --muted:#646464;
+  --red:#414141;
+  --line:#d5d3cf;
+  background:var(--paper);
+  color:var(--ink);
+  color-scheme:light;
+  font-family:'Sour Gummy',Arial,sans-serif;
+  font-weight:450;
+  font-synthesis:none;
+}
+.notebook-story .site-header { background:var(--paper); padding:0 24px; }
+.notebook-story .site-header-inner { max-width:960px; min-height:88px; border-bottom:1px solid var(--line); position:relative; flex-wrap:nowrap; }
+.notebook-story .wordmark { font:500 36px/1.2 'Sour Gummy',sans-serif; letter-spacing:0; }
+.notebook-story .nav-toggle { display:flex; align-items:center; gap:12px; padding:10px 0 10px 12px; min-height:44px; border:0; font-size:20px; }
+.notebook-story .menu-bars { display:flex; flex-direction:column; gap:5px; width:25px; }
+.notebook-story .menu-bars i { width:25px; height:2px; background:var(--ink); }
+.notebook-story .site-nav { display:none; position:absolute; right:0; top:calc(100% - 1px); width:min(280px,100%); padding:12px 22px; border:1px solid var(--line); background:#fafafa; z-index:30; box-shadow:0 8px 24px #0000000d; }
+.notebook-story .site-nav.is-open { display:flex; flex-direction:column; align-items:stretch; gap:0; }
+.notebook-story .site-nav a { font:450 20px/1.4 'Sour Gummy',sans-serif; padding:12px 0; }
+.notebook-story main { width:100%; max-width:none; margin:0; padding:0; }
+.notebook-story .personal-story { width:min(760px,calc(100% - 48px)); margin:0 auto; padding:40px 0 64px; }
+.notebook-story .story-opening { max-width:680px; margin:0 auto 28px; text-align:center; }
+.notebook-story .story-opening h1 { font:500 clamp(32px,4.5vw,46px)/1.25 'Sour Gummy',sans-serif; letter-spacing:0; margin:0 0 24px; text-wrap:balance; }
+.notebook-story .story-lead { font:450 22px/1.65 'Sour Gummy',sans-serif; color:var(--ink); margin:0; text-wrap:pretty; }
+.notebook-story .story-photo { max-width:680px; margin:0 auto 36px; }
+.notebook-story .story-photo img { display:block; width:100%; height:auto; }
+.notebook-story .story-photo figcaption { margin:12px auto 0; color:var(--muted); font:400 14px/1.5 'Sour Gummy',sans-serif; text-align:center; }
+.notebook-story .story-prose { max-width:680px; margin:0 auto; }
+.notebook-story .story-prose h2 { font:500 28px/1.3 'Sour Gummy',sans-serif; text-align:center; letter-spacing:0; margin:44px 0 22px; text-wrap:balance; }
+.notebook-story .story-prose h2:first-child { margin-top:0; }
+.notebook-story .story-prose p { font:450 21px/1.7 'Sour Gummy',sans-serif; color:var(--ink); margin:0 0 1.15em; text-align:left; overflow-wrap:break-word; }
+.notebook-story .story-prose p:last-child { margin-bottom:0; }
+.notebook-story .site-footer { width:calc(100% - 48px); max-width:960px; border-color:var(--line); color:var(--muted); font-size:15px; padding:24px 0; text-align:center; }
+.notebook-story .footer-top { justify-content:center; flex-wrap:wrap; gap:12px 20px; }
+.notebook-story .footer-top>span { padding:0; border:0; }
+.notebook-story .footer-top nav { margin:0; width:100%; justify-content:center; gap:8px 24px; }
+.notebook-story .site-footer a { display:inline-block; padding:8px 0; text-decoration:none; }
+.notebook-story .site-footer a:hover { text-decoration:underline; }
+.notebook-story .footer-utilities { display:flex; justify-content:center; flex-wrap:wrap; gap:8px 24px; font-size:14px; margin-top:8px; }
 @media(max-width:600px) {
- body.home.notebook-story .personal-story { width:calc(100% - 40px); padding:28px 0 44px; }
- body.home.notebook-story .story-opening { margin-bottom:24px; }
- body.home.notebook-story .story-opening h1 { font-size:50px; margin-bottom:22px; }
- body.home.notebook-story .story-lead { font-size:20px; line-height:1.65; }
- body.home.notebook-story .story-photo { margin-bottom:28px; }
- body.home.notebook-story .story-photo figcaption { font-size:12px; margin-top:9px; }
- body.home.notebook-story .story-prose p { font-size:18px; line-height:1.75; margin-bottom:1.2em; }
+  .notebook-story .site-header-inner { min-height:74px; }
+  .notebook-story .wordmark { font-size:31px; }
+  .notebook-story .nav-toggle { font-size:18px; }
+  .notebook-story .personal-story { padding:28px 0 44px; }
+  .notebook-story .story-opening h1 { font-size:32px; margin-bottom:20px; }
+  .notebook-story .story-lead { font-size:20px; line-height:1.6; }
+  .notebook-story .story-prose p { font-size:20px; line-height:1.65; }
+  .notebook-story .story-prose h2 { font-size:26px; margin-top:34px; }
+  .notebook-story .story-photo figcaption { font-size:13px; }
 }
