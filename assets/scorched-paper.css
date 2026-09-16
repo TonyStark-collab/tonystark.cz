@@ -88,3 +88,32 @@ body.ink-paper .site-footer a:focus-visible { outline-color:#f1d194; }
     background-blend-mode:multiply,multiply,multiply,normal;
   }
 }
+
+/* Quiet standalone navigation: clear wording, generous targets, no ornaments.
+   Inline prose links keep their existing underline. */
+body.ink-paper a.quiet-link {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  max-width:100%;
+  padding-block:8px;
+  color:var(--accent);
+  border-bottom:0;
+  text-decoration:none;
+  text-underline-offset:.2em;
+  text-decoration-thickness:1px;
+}
+body.ink-paper a.quiet-link:hover {
+  text-decoration:underline;
+}
+body.ink-paper a.quiet-link:focus-visible {
+  outline:2px solid currentColor;
+  outline-offset:5px;
+  border-radius:2px;
+  text-decoration:underline;
+}
+body.ink-paper .site-nav a::after { content:none; }
+
+body.ink-paper :is(.practice-nav a,.experiment-links > a:not(.text-link),.game-teaser-link) { text-decoration:none; border-bottom:0; }
+body.ink-paper :is(.practice-nav a,.experiment-links > a:not(.text-link)):hover,
+body.ink-paper .game-teaser a:hover .game-teaser-link { text-decoration:underline; text-underline-offset:.2em; }
