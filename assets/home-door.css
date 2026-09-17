@@ -1,16 +1,18 @@
-/* A small, functional doorway beside the homepage story. */
-.notebook-story .personal-story { position:relative; }
+/* A quiet, ink-outline doorway at the end of the story. */
+.notebook-story .story-door-outro {
+  display:flex;
+  justify-content:flex-end;
+  max-width:680px;
+  margin:24px auto 0;
+}
 .notebook-story .story-door {
-  position:absolute;
-  left:calc(100% + 16px);
-  top:164px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:8px;
-  width:84px;
-  padding:10px 8px;
-  color:#64605a;
+  gap:10px;
+  width:96px;
+  padding:12px 8px 6px;
+  color:#555;
   font:400 15px/1.3 'Sour Gummy',sans-serif;
   text-decoration:none;
   -webkit-tap-highlight-color:transparent;
@@ -18,21 +20,32 @@
 .story-door .door-frame {
   position:relative;
   display:block;
-  width:43px;
-  height:67px;
-  border:3px solid #686159;
-  border-bottom-width:2px;
-  border-radius:2px 2px 0 0;
-  background:#38342f;
+  width:45px;
+  height:68px;
+  border:1.7px solid currentColor;
+  border-bottom-width:1px;
+  border-radius:3px 2px 1px 1px / 2px 4px 1px 1px;
+  background:#5b5956;
   perspective:200px;
-  box-shadow:2px 2px 0 #d6d1c9;
+  transform:rotate(-1.3deg);
+}
+.story-door .door-frame::after {
+  content:'';
+  position:absolute;
+  left:-15px;
+  bottom:-3px;
+  width:72px;
+  border-bottom:1.5px solid currentColor;
+  border-radius:50%;
+  transform:rotate(1deg);
 }
 .story-door .door-leaf {
   position:absolute;
-  inset:0;
+  inset:2px 2px 0;
   display:block;
-  border:1px solid #857b6b;
-  background:#d4c7b2;
+  border:1.2px solid currentColor;
+  border-radius:2px 3px 0 0;
+  background:var(--paper,#f3f2f0);
   transform-origin:left center;
   transform:rotateY(0);
   transition:transform .65s cubic-bezier(.2,.7,.2,1);
@@ -41,26 +54,23 @@
 .story-door .door-leaf::before {
   content:'';
   position:absolute;
-  inset:7px 6px 30px;
-  border:1px solid #a79a87;
-  box-shadow:0 25px 0 -1px #d4c7b2,0 25px 0 0 #a79a87;
+  inset:7px 6px 28px;
+  border:1px solid #8a8781;
+  border-radius:2px 1px 2px 1px;
+  transform:rotate(.8deg);
 }
 .story-door .door-leaf::after {
   content:'';
   position:absolute;
-  right:4px;
+  right:3px;
   top:31px;
-  width:5px;
-  height:3px;
-  border-radius:2px;
-  background:#665b48;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:currentColor;
 }
 .story-door:hover,.story-door:focus-visible { color:#414141; }
-.story-door:hover .door-frame,.story-door:focus-visible .door-frame { border-color:#49443e; }
 .story-door.is-opening .door-leaf { transform:rotateY(-108deg); }
-@media(max-width:1050px) {
-  .notebook-story .story-door { position:relative; left:auto; top:auto; margin:-10px 0 24px auto; }
-}
 @media(prefers-reduced-motion:reduce) {
   .story-door .door-leaf { transition:none; }
 }
