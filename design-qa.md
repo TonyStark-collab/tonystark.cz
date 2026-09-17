@@ -1,3 +1,15 @@
+# Spatial background passage
+
+final result: passed
+
+Scope: user approved the first spatial passage across hardware and AI, with equal emphasis on mobile and desktop. Added decorative vector drawings of a generic processor and circuit board (not photographs of a specific product). Archive and FX rig use layered perspective, scale, translation, lighting and copper traces. AI progressively flattens the board, straightens curved traces, fades hardware and introduces background words. Existing archive photographs and all factual content remain. Wedding remains a quiet text-only break.
+
+Browser checks: desktop 1363 × 936, mobile iframe 390/360/320 px. Inspected archive at CPU and reconstructed-PC phases, AI at tilted-board, straightening and final words phases, and FX rig on desktop and 360 px mobile. Fixed overly tall archive reading panels, moved decorative words above the scroll cue, retained readable small-screen text. No desktop or 320 px horizontal overflow; no application console errors. Toggling motion off hides the new layers and restores natural reading. Scripting only schedules frames after scroll/resize/visibility events; there is no continuous background loop.
+
+New JavaScript syntax, security policy check for 12 HTML pages, whitespace check and 15 pre-existing regression tests pass. Those legacy tests do not test the new spatial drawing; new behavior was checked in browser. Decorative layers are aria-hidden and do not capture pointer events. No new dependencies or CSP relaxation. OS reduced-motion and short landscape viewports retain static fallback by code inspection. Physical-device performance and Safari were not tested.
+
+---
+
 # Reading contrast revision
 
 final result: passed

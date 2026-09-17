@@ -42,6 +42,10 @@
   const concertScroll = stage('.concert-scroll');
   const tracks = [...document.querySelectorAll('.chapter-track span')];
   const specs = [...document.querySelectorAll('.specs>div')];
+  const depthArchive = stage('.depth-archive');
+  const depthRig = stage('.depth-rig');
+  const depthAI = stage('.depth-ai');
+  const copperLines = [...depthAI.querySelectorAll('.copper-line')];
   const tall = matchMedia('(min-height: 560px)');
   function prop(el, name, value) { el.style.setProperty(name, String(value)); }
   function progress(el) {
@@ -53,6 +57,7 @@
   function renderChapters(view) {
     if (!tall.matches) return;
     const p = progress(archiveScroll);
+    renderDepth(depthArchive, p, false);
     const index = Math.min(2, Math.floor(p * 3));
     archiveSteps.forEach((step, i) => {
       const local = p * 3 - i;
@@ -69,9 +74,11 @@
     });
     const rig = stage('.rig');
     const rp = clamp((view * .8 - rig.getBoundingClientRect().top) / (view * .65));
+    renderDepth(depthRig, rp, false);
     prop(rig, '--rig-x', `${(1 - ease(rp)) * -70}px`);
     specs.forEach((el, i) => { const a = ease((rp - i * .13) / .4); prop(el, '--spec-alpha', a); prop(el, '--spec-x', `${(1-a)*100}px`); });
     const a = progress(aiStage);
+    renderDepth(depthAI, a, true);
     prop(aiStage, '--chat-alpha', ease((a - .12) / .2));
     prop(aiStage, '--chat-y', `${(1 - ease((a - .12) / .2)) * 80}px`);
     prop(aiStage, '--reply-clip', `${(1 - ease((a - .38) / .35)) * 100}%`);
@@ -93,6 +100,39 @@
     prop(concertScroll, '--night-alpha', blend);
     prop(concertScroll, '--day-scale', 1+m*.1);
     prop(concertScroll, '--night-scale', 1.1-m*.1);
+  }
+
+  function renderDepth(el, p, language) {
+    const narrow = !desktop.matches;
+    const turn = language ? -18 + 18 * ease(p) : -18 + p * 28;
+    prop(el, '--board-tilt', `${language ? 52 * (1-ease(p)) : 52 - p*24}deg`);
+    prop(el, '--board-turn', `${turn}deg`);
+    prop(el, '--board-scale', language ? 1.5 - p*.3 : 1 + p*.7);
+    prop(el, '--board-x', `${p * (narrow ? -95 : -220)}px`);
+    prop(el, '--board-y', `${(p-.5) * (narrow ? -240 : -320)}px`);
+    prop(el, '--board-alpha', language ? .75*(1-ease((p-.15)/.65)) : .7);
+    prop(el, '--chip-x', `${p*(narrow ? 80 : 170)}px`);
+    prop(el, '--chip-y', `${-p*(narrow ? 260 : 360)}px`);
+    prop(el, '--chip-scale', .7 + ease(p)*2.8);
+    prop(el, '--chip-turn', `${-20+p*35}deg`);
+    prop(el, '--chip-tilt', `${35*(1-p)}deg`);
+    prop(el, '--chip-alpha', (language ? .45 : .8)*(1-ease((p-.25)/.4)));
+    prop(el, '--copper-y', `${-p*45}px`);
+    prop(el, '--copper-alpha', language ? .6*(1-ease((p-.6)/.3)) : .35);
+    prop(el, '--copper-dash', (1-p)*800);
+    prop(el, '--words-alpha', language ? .7*ease((p-.5)/.35) : 0);
+    prop(el, '--words-y', `${(1-p)*80}px`);
+    prop(el, '--words-x', `${(1-p)*-40}px`);
+    prop(el, '--light-x', `${20+p*65}%`);
+    if (language) {
+      const t = ease(p/.75);
+      copperLines.forEach((line,i) => {
+        const y=120+i*38;
+        const middle = y - 70*(1-t);
+        const end = y+(180-i*8)*(1-t);
+        line.setAttribute('d',`M -100 ${y} C 220 ${y}, 260 ${middle}, 400 ${middle} S 660 ${end}, 1100 ${end}`);
+      });
+    }
   }
 
   function schedule() { if (!frame && !document.hidden) frame = requestAnimationFrame(render); }
