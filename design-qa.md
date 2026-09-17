@@ -1,3 +1,17 @@
+# Scroll narrative revision — 17 September 2026
+
+final result: passed
+
+User rejected the previous weak mobile scrollytelling and unrelated CPU/concert ending collage. This revision removes that collage and replaces the mobile static chapters with scroll-driven pinned stages, retaining the approved original imagery and warm paper / graphite visual identity.
+
+Browser review: desktop 1363 × 936 and mobile iframe widths 390, 360, 320 px. Observed archive CPU → PC reconstruction on mobile and desktop; reverse scrolling restored CPU. Confirmed only the appropriate desktop image has opacity 1. Creation was observed at blank paper, heading and fully assembled homepage stages. AI prompt and answer reveal was observed at 320 px; changed clipping to vertical reveal for readable complete lines. Festival day → night observed on mobile, then enlarged photographic crop verified. Ending contains no photographic images. Motion toggle removes inert/aria-hidden from all archive steps and restores full natural content.
+
+Fixed during review: animated rig specifications caused horizontal overflow (now clipped locally); old desktop active-image rule interfered with new timeline (removed); overlapping concert captions (now mutually exclusive); mobile concert image was too small (now fills scene width with centered crop). Final desktop and 390 px layouts show no horizontal overflow. No site console errors. New script syntax, security checker for 12 pages and 15 existing unrelated regression tests pass. No dependencies or CSP changes. Disclosures and links remain outside pinned stages except the currently active archive link.
+
+Limits: mobile tested in browser iframe, not physical Android; OS reduced-motion preference is handled in code but not emulated. Viewports below 560 px height retain natural flow for readable landscape/zoom use. The previous QA entries below describe earlier iterations, not this current animation behavior.
+
+---
+
 # Personal scrollytelling QA — 17 September 2026
 
 final result: passed
