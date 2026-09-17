@@ -1,3 +1,13 @@
+# Reading contrast revision
+
+final result: passed
+
+User requested lighter backgrounds and clearer text rather than heavier font weight. AI scene now uses a flat cream surface, dark ink, distinct white question and pale green answer. Paper and creation surfaces are lighter; secondary text is darker and small mobile body text has a 14 px minimum in animated scenes. Festival scene retains its dark photographic setting. Scroll behavior and wording unchanged.
+
+Browser verified desktop and 320 px mobile AI scene with complete answer visible; 360/390 px opening layouts inspected. Security checker passes for 12 pages and whitespace check passes. Physical Android not tested.
+
+---
+
 # Scroll narrative revision — 17 September 2026
 
 final result: passed

@@ -57,3 +57,17 @@ p+p{margin-top:16px}.eyebrow{text-transform:uppercase;letter-spacing:.17em;font-
 .rig{overflow:clip}
 @media(min-height:560px){.motion-on .archive-visual{overflow:clip}}
 @media(max-width:600px) and (min-height:560px){.motion-on .concert-photos{height:72%;margin-inline:-6vw;width:calc(100% + 12vw)}.motion-on .concert-photos img{object-fit:cover;object-position:center}.motion-on .concert-captions{height:55px}}
+
+/* Lighter reading surfaces, stronger ink; keep photographs in their dark scene. */
+:root{--paper:#f4edde;--ink:#1c211d;--muted:#464a40;--line:#76706466}
+.ai{background:#f7f1e5;color:var(--ink)}
+.ai .eyebrow,.ai .scene-cue{color:#4c5146}
+.ai h2 span,.ai .typing-cursor{color:#923c27}
+.ai .message span{background:#fffdf8;color:var(--ink);border-color:#878477}
+.ai .message.reply span{background:#e5eadf;color:#19231a;border:1px solid #687860}
+.ai .reading{border-color:#878477}
+.ai a:hover{color:#923c27}
+.creation,.creation-details{background:#faf6ed}
+.creation-process,.photo-note,.marginal{color:var(--muted)}
+.chapter-track span{opacity:.75}.chapter-track .current{opacity:1}
+@media(max-width:380px) and (min-height:560px){.motion-on .archive-step p{font-size:14px}.motion-on .archive-step .photo-note{font-size:12px}.motion-on .message{font-size:14px}.motion-on .creation-copy>p{font-size:14px}}
