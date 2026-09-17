@@ -1,3 +1,34 @@
+# Personal scrollytelling QA — 17 September 2026
+
+final result: passed
+
+## Source and visual comparison
+
+Approved storyboard images: exec-92758b50-9977-43bd-96b3-b0a18d6743af.png (scenes 1–4) and exec-c558ba6b-f6c1-4f21-be66-5654fa4e95a6.png (scenes 5–8). Both were opened alongside browser implementation captures. Existing repository photographs and collage are used; no hardware photo has been invented for the FX rig.
+
+Desktop browser viewport: 1363 × 936. Mobile browser iframe viewports: 390 × 844, 360 × 780, 320 × 720. Final review route: /?review=3. Review captures include qa-desktop-rig-fixed.jpg, qa-desktop-wedding.jpg, qa-desktop-ai.jpg, qa-desktop-creation-start.jpg, qa-desktop-creation-end.jpg, qa-desktop-music.jpg, qa-desktop-ending.jpg, qa-mobile-opening.jpg, qa-mobile-scenes.jpg and qa-mobile-music.jpg. These are internal review artifacts, not deployed assets.
+
+## Fidelity and corrections
+
+- Typography: local Special Elite, Inter and Caveat. Oversized desktop heading corrected to two readable lines; mobile personal note restored to handwritten styling. Czech text remains selectable.
+- Layout: eight linked scenes, sticky archive on desktop, natural stacked archive on mobile. No measured horizontal overflow at desktop or the narrow mobile widths.
+- Color and materials: warm paper, rust accents, faint PCB, graphite AI scene, original festival photography. PCB contrast reduced after browser review to keep rig specifications readable.
+- Motion: archive images change with scroll; miniature homepage expands over the creation scene on desktop. Mobile uses restrained transforms and normal document flow. Copy fades only in the desktop visual transition.
+- Content: exact requested FX-6300, DDR3, GTX 960, Corsair case and PSU; text-only 2023 wedding before AI; prepared prompt example clearly labeled. Original longer homepage text retained in expandable details and existing subpages preserved.
+- Imagery: actual existing assets; AI reconstruction labeled. Explicit dimensions added to lazy archive images. No broken loaded images in browser checks.
+
+## Interaction and technical checks
+
+Desktop and mobile chapter navigation checked. Archive scroll transition observed. AI explanation expands. Festival video control is reachable, does not autoplay and stays paused after its disclosure is closed. Motion toggle disables animations and restores natural archive flow. OS reduced-motion handling reviewed in CSS and JavaScript; not manually emulated. Browser logs contain no application errors (unrelated extension messages excluded).
+
+Security checker passed for all 12 HTML pages with existing CSP retained. New JavaScript syntax check passed. Existing regression suite passed 15/15 tests. npm audit reported zero vulnerabilities. Same-page anchor targets verified. No actionable P0/P1/P2 visual findings remain.
+
+## Limits
+
+Mobile tested in browser iframe sizes, not on physical phones. Full video playback and OS-level reduced-motion emulation were not manually exercised. Copy is provisional as requested. No new animation library or runtime dependency was added.
+
+---
+
 # Daily overview visual QA — 7 September 2026
 
 final result: passed
