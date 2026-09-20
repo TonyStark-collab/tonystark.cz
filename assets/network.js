@@ -23,10 +23,28 @@
   addEventListener('scroll', schedule, { passive: true });
   addEventListener('resize', schedule, { passive: true });
   update();
-  const video = document.querySelector('.network-media video');
+  const video = document.querySelector('.network-film');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let visible = false;
+  function syncVideo() {
+    if (!video) return;
+    if (visible && !document.hidden && !reduced.matches && document.body.classList.contains('motion-on')) {
+      video.muted = true;
+      const promise = video.play();
+      if (promise) promise.catch(() => { /* Keep the poster if autoplay is blocked. */ });
+    } else video.pause();
+  }
   if (video && 'IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
-      if (!entries[0].isIntersecting) video.pause();
-    }).observe(video);
+      visible = entries[0].isIntersecting;
+      syncVideo();
+    }, { threshold: .15 }).observe(video);
+    new IntersectionObserver(entries => {
+      story.classList.toggle('in-view', entries[0].isIntersecting);
+    }).observe(story);
+    new MutationObserver(syncVideo).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    document.addEventListener('visibilitychange', syncVideo);
+    reduced.addEventListener('change', syncVideo);
+    syncVideo();
   }
 })();
