@@ -40,6 +40,7 @@
   const archiveScroll = stage('.archive-scroll');
   const aiStage = stage('.ai-stage');
   const concertScroll = stage('.concert-scroll');
+  const wedding = stage('.wedding');
   const tracks = [...document.querySelectorAll('.chapter-track span')];
   const specs = [...document.querySelectorAll('.specs>div')];
   const depthArchive = stage('.depth-archive');
@@ -77,6 +78,14 @@
     renderDepth(depthRig, rp, false);
     prop(rig, '--rig-x', `${(1 - ease(rp)) * -70}px`);
     specs.forEach((el, i) => { const a = ease((rp - i * .13) / .4); prop(el, '--spec-alpha', a); prop(el, '--spec-x', `${(1-a)*100}px`); });
+    // A quiet, reversible pause between the technical and AI chapters.
+    if (wedding) {
+      const wp = progress(wedding);
+      prop(wedding, '--vow-alpha', .2 + .8 * ease((wp - .08) / .38));
+      prop(wedding, '--vow-y', `${(1 - ease((wp - .08) / .38)) * 24}px`);
+      prop(wedding, '--note-alpha', .15 + .85 * ease((wp - .4) / .3));
+      prop(wedding, '--ring-gap', `${(1 - ease(wp / .55)) * 45}px`);
+    }
     const a = progress(aiStage);
     renderDepth(depthAI, a, true);
     prop(aiStage, '--chat-alpha', ease((a - .12) / .2));
