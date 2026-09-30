@@ -25,6 +25,10 @@
     const view = document.documentElement.clientHeight;
     const height = document.documentElement.scrollHeight - view;
     document.documentElement.style.setProperty('--progress', height > 0 ? clamp(scrollY / height).toFixed(4) : '0');
+    if (wedding) {
+      const wr = wedding.getBoundingClientRect();
+      document.querySelector(".masthead").classList.toggle("wedding-header", wr.top <= document.querySelector(".masthead").offsetHeight + 24 && wr.bottom > document.querySelector(".masthead").offsetHeight);
+    }
     if (!active) return;
     // Small bounded transforms never change document height or hijack scrolling.
     for (const element of parallax) {
