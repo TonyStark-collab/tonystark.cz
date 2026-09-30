@@ -102,22 +102,18 @@ p+p{margin-top:16px}.eyebrow{text-transform:uppercase;letter-spacing:.17em;font-
 @media(min-height:560px){.depth-words{inset:4% 5% 12%}}
 @media(max-width:380px) and (min-height:560px){.motion-on .archive-step p,.motion-on .message{font-size:14px}.motion-on .archive-step .photo-note{font-size:11px}}
 
-/* Rock wedding: a borderless portrait and a bespoke concert chapter mark. */
-.wedding{display:block;min-height:0;padding-block:55px;background:#102837;color:#f3f2ec;border:0}
+/* Wedding chapter shares the warm editorial palette of adjacent chapters. */
+.wedding{display:block;min-height:0;padding-block:55px;background:#f7f1e5;color:var(--ink);border-block:1px solid var(--line)}
 .wedding-pin{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:center;gap:4vw}
 .wedding-copy{min-width:0}
 .wedding-rock{width:100%;height:auto;margin:0 0 26px;aspect-ratio:2.5;object-fit:contain}
-.wedding .eyebrow{color:#f3f2ec;font-family:Special Elite,serif;font-weight:400;font-size:12px;margin-bottom:24px}
-.wedding h2{color:#f3f2ec;font-size:clamp(90px,10vw,160px);line-height:1;margin-block:0 24px}
+.wedding .eyebrow{color:var(--muted);font-family:Inter,Arial,sans-serif;font-weight:600;font-size:11px;margin-bottom:24px}
+.wedding h2{color:var(--ink);font-size:clamp(90px,10vw,160px);line-height:1;margin-block:0 24px}
 .wedding-line{max-width:28ch;font-size:clamp(23px,2.5vw,36px);line-height:1.5}
-.wedding-line strong{font-weight:400;color:#8dbdf0;white-space:nowrap}
-.wedding .wedding-note{max-width:32ch;transform:none;color:#e0e5e7;margin-top:30px}
+.wedding-line strong{font-weight:400;color:var(--rust);white-space:nowrap}
+.wedding .wedding-note{max-width:32ch;transform:none;color:var(--muted);margin-top:30px}
 .wedding-photo{width:100%;padding:0;background:none;border:0;box-shadow:none;transform-origin:center}
 .wedding-photo img{width:100%;height:auto;display:block}
-.masthead.wedding-header{background:#102837;color:#f3f2ec;border-color:#ffffff18}
-.wedding-header .welcome span{color:#8dbdf0}
-.wedding-header .menu nav{background:#102837;border-color:#ffffff30}
-.wedding-header .menu nav p,.wedding-header a:hover{color:#8dbdf0}
 @media(min-width:761px) and (min-height:650px){
  .motion-on .wedding{height:170svh;padding-block:0}
  .motion-on .wedding-pin{position:sticky;top:var(--header);min-height:calc(100svh - var(--header));padding-block:28px}
