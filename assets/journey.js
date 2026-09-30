@@ -84,7 +84,9 @@
       prop(wedding, '--vow-alpha', .2 + .8 * ease((wp - .08) / .38));
       prop(wedding, '--vow-y', `${(1 - ease((wp - .08) / .38)) * 24}px`);
       prop(wedding, '--note-alpha', .15 + .85 * ease((wp - .4) / .3));
-      prop(wedding, '--ring-gap', `${(1 - ease(wp / .55)) * 45}px`);
+      prop(wedding, '--photo-alpha', .65 + .35 * ease(wp / .5));
+      prop(wedding, '--photo-y', `${(1 - ease(wp / .5)) * 24}px`);
+      prop(wedding, '--photo-turn', `${-1.5 * (1 - ease(wp / .5))}deg`);
     }
     const a = progress(aiStage);
     renderDepth(depthAI, a, true);
