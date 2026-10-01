@@ -1,0 +1,74 @@
+main {
+  max-width:900px;
+  margin:auto;
+  padding:60px 6vw}
+main section {
+  padding:50px 0;
+  border-top:1px solid var(--line)}
+h1 {
+  margin-bottom:28px}
+h2 {
+  font-size:clamp(30px,5vw,48px);
+  margin-bottom:32px}
+h3 {
+  font-size:26px;
+  margin:38px 0 16px}
+main p {
+  margin-bottom:22px}
+main nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 24px;
+  margin:32px 0 50px}
+main nav a {
+  padding:8px 0}
+figure {
+  margin:28px 0}
+figure img {
+  max-height:600px;
+  width:auto}
+figcaption {
+  font-size:13px;
+  margin-top:12px}
+.network-context img {
+  max-height:400px;
+  width:auto}
+.network-diagram {
+  width:100%;
+  height:auto;
+  background:#e4e7d9;
+  fill:#f8f4ea;
+  stroke:#58684f}
+.network-diagram text {
+  fill:#242823;
+  stroke:none;
+  font:15px Inter,sans-serif;
+  text-anchor:middle}
+.network-diagram .net-wire {
+  fill:none;
+  stroke-width:2}
+.network-diagram .net-radio {
+  stroke-dasharray:5 5}
+.network-diagram .net-led {
+  fill:#476944}
+.network-map {
+  margin:32px 0}
+.players-entry {
+  margin:48px 0}
+.players-more {
+  margin:24px 0}
+summary {
+  cursor:pointer;
+  min-height:44px}
+main details img {
+  max-height:500px}
+.memories .masthead {
+  gap:20px}
+.memories .masthead>a:last-child {
+  font-size:13px}
+@media(max-width:400px) {
+  .masthead {
+  padding-inline:6vw}
+.welcome {
+  font-size:34px}
+}
