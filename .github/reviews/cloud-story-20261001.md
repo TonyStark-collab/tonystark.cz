@@ -20,7 +20,10 @@ Text není součástí scrollovací animace a neztrácí opacity. Přepínač po
 - Vzpomínky: všech pět přehrávačů, celý dlouhý text a žádný horizontální overflow ve čtyřech velikostech.
 - 60 interních odkazů a jejich kotvy: existují.
 - Všech 15 dosavadních Node testů prošlo. Bezpečnostní kontrola prošla pro 14 HTML stránek; syntaxe všech JS souborů v assets prošla. `npm audit --audit-level=low`: 0 zranitelností.
-- `npx vite build` doběhl. Existující Vite konfigurace je však pouze pro jednu vstupní stránku a hlásí nebundlovaný klasický script. Výstup `dist` není ověřený kompletní distribuční balík; testován byl statický web přímo z repozitáře, který zachovává cesty podstránek a assets.
+- Produkční cesta je potvrzená z úspěšného běhu [pages build and deployment 36652748863](https://github.com/TonyStark-collab/tonystark.cz/actions/runs/36652748863), commit `8da65c1` na `main`: Checkout → `actions/jekyll-build-pages@v1`, source `.`, destination `./_site` → upload `github-pages` z `./_site` → Deploy to GitHub Pages. Log uvádí Jekyll 3.10.0, žádný konfigurační soubor a skutečné zahrnutí HTML podstránek i adresáře assets do archivu.
+- Vite slouží pouze jako vývojový server (`package.json` má jen script `dev`). `npx vite build` sice doběhl s upozorněním na klasický script, ale **není produkční distribuční mechanismus**. Změna Vite konfigurace není potřeba. Nové soubory jsou obyčejné statické HTML/CSS/JS bez front matter a zachovávají stejný mechanismus jako existující stránky.
+- Kompletní graf 618 lokálních odkazů a assetů přes všech 14 HTML stránek, CSS a SVG: žádný chybějící či nesledovaný soubor nebo neexistující HTML kotva. Zahrnuje `/vzpominky/`, nové styly, SVG vložený rastrový obrázek a fonty.
+- Tento review protokol je v `.github/reviews/`, aby se z něj při budoucím Jekyll nasazení nestala veřejná stránka. Produkční workflow nebylo spuštěno ani změněno.
 
 Pro reprodukci prohlížečových regresí spusť statický server z kořene repozitáře (`python3 -m http.server 4173`) a v prostředí s Playwrightem:
 
@@ -37,3 +40,16 @@ Ručně prohlédnuty skutečné screenshoty úvodu, procesorů, her, GeForce, s�
 Schválenou Library referenci `libfile_5fbea45589688191b2602167f66064bc` nešlo materializovat ani po jednom podporovaném opakování. Implementace vychází z popsaného principu a skutečně prohlédnutých originálních fotografií repozitáře, nikoli z tvrzení o shodě s nedostupným obrázkem. Upload tří screenshotů přes aktuální Library helper skončil síťovou chybou již při získávání nástrojů, rovněž po povoleném opakování. Nevzniklo žádné potvrzené Library ID výsledku.
 
 Screenshoty a protokol jsou uloženy v cloudovém executorovi v `/workspace/review/`; jde o cestu tohoto prostředí, nikoli Tony-PC. Není k dispozici veřejný náhled, protože publikování nebylo schváleno. Návrh vyžaduje uživatelovu vizuální review před případným pushováním nebo nasazením.
+
+## Konkrétní vizuální QA
+
+- GeForce: SVG obrys odstraňuje rušivé původní okolí, karta má kontaktní stín a odraz ve stejné ploše jako text. Mobil 390 px ukazuje kartu i hlavní text najednou. Na 320 × 720 už karta pokračuje pod přehybem; nic se neořezává pevným kontejnerem, ale vizuální pointa přichází později.
+- Svatba: původní ruce a prsteny přecházejí do modrošedé atmosféry, bez samostatného rámečku. Obří rok dává kapitole jasnou pauzu. Na landscape 844 × 390 zabere datum většinu prvního pohledu a věta ANO následuje při scrollu; je to čitelné, ale ne tak vyvážené jako portrait.
+- Festival: fotografie skutečně tvoří celé prostředí a po opravě se při vstupu nezobrazují dvě překrytá pódia. Obloha dává prostor textu. Noční varianta vyžaduje další posun; při vypnutém pohybu se používá statická noční fotografie.
+- Procesory a X96: zůstává originální barevnost, zrno a nedokonalost vlastních fotek. Jemná maska pomáhá spojení s okolím; není to přesný fyzický výřez jako u GeForce. Na mobilu X96 ještě převažuje text nad fotografií. To jsou konkrétní body pro uživatelovu vizuální review, ne tvrzení o dokonalém finálním designu.
+
+## Přesná příčina zablokovaného předání
+
+Použit aktuální `library_upload.py` s celým batch requestem pro tři screenshoty. Selhal před `prepare_uploads`, při JSON-RPC `tools/list` na výchozím endpointu `https://chatgpt.com/backend-api/wham/apps`: `library upload failed: hosted apps tools/list request failed: network`. Neautentizovaný diagnostický HEAD na stejný origin doložil příčinu: `URLError: <urlopen error Tunnel connection failed: 403 Forbidden>`. Blokaci vrací proxy při CONNECT, tedy před odpovědí Library. Standardní i povolený eskalovaný pokus měly stejný výsledek. Další retry bez změny sítě by opakoval známou doménovou restrikci.
+
+Minimální požadavek pro dokončení: ve vybraném cloudovém executorovi povolit HTTPS egress na `chatgpt.com:443` pro autorizovaný Library helper; po přípravě musí být dostupné také konkrétní podepsané upload cíle vrácené Library. Žádné tokeny nemá uživatel posílat. Alternativou je podporovaný přenos souborů z tohoto executorového prostředí do Work workspace s dostupným Library workflow. Samotné předání lokálních cest jinému prostředí soubory nezpřístupní. Nevzniklo žádné potvrzené ID screenshotu ani ZIPu.
